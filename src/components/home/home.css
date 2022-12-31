@@ -1,0 +1,19 @@
+.each-slide-effect {
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+   
+    height: 570px;
+    width: 50%;
+ 
+
+  
+  }
+  @media only screen and (max-width: 600px) {
+    .each-slide-effect {
+      height: auto; 
+      width: auto; 
+      max-width: 300px; 
+      max-height: 300px;
+    }
+  }
