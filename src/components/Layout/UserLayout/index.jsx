@@ -4,16 +4,19 @@ import { Box } from '@mui/material';
 import Footer from '../../Footer';
 import Header from '../../Header';
 import { Outlet } from 'react-router-dom';
-UserLayout.propTypes = {
-    
-};
+import './full.scss'
+
+// UserLayout.propTypes = {
+
+// };
 
 function UserLayout() {
     return (
-        <Box>
-            <Header/>
-           <Outlet/>
-            <Footer/>
+
+        <Box className='full' >
+            <Header />
+            <Outlet />
+            <Footer />
         </Box>
     );
 }

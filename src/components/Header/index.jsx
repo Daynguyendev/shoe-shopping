@@ -18,6 +18,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import './header.scss'
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { createTheme } from '@mui/material/styles';
+import { purple } from '@mui/material/colors';
+
+
+// import { useNavigate } from 'react-router-dom';
 
 
 
@@ -25,6 +30,18 @@ const pages = ['Sneaker', 'Adidas', 'Nike'];
 const settings = ['Thông tin', 'Quản Lý Đơn Hàng', 'Quản Lý Sản Phẩm', 'Đăng Xuất'];
 
 function Header() {
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#212121',
+      },
+      secondary: {
+        main: '#212121',
+      },
+    },
+  });
+
   const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
       right: -3,
@@ -33,7 +50,9 @@ function Header() {
       padding: '0 4px',
     },
   }));
-  
+
+  // const navigate = useNavigate();
+
 
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -49,7 +68,7 @@ function Header() {
       width: 'auto',
     },
   }));
-  
+
   const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
@@ -59,7 +78,7 @@ function Header() {
     alignItems: 'center',
     justifyContent: 'center',
   }));
-  
+
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
@@ -97,10 +116,10 @@ function Header() {
   };
 
   return (
-    <AppBar position="static" >
-      <Container maxWidth="xl" className='hd'>
-        <Toolbar disableGutters>
-          {<AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> }
+    <AppBar position="static" sx={{ backgroundColor: 'black' }} >
+      <Container sx={{ maxWidth: 'xl', zIndex: 20, backgroundColor: 'black' }} >
+        <Toolbar disableGutters >
+          {<AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />}
           <Typography
             variant="h6"
             noWrap
@@ -138,7 +157,7 @@ function Header() {
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              { <MenuIcon /> }
+              <MenuIcon />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -194,25 +213,25 @@ function Header() {
                 {page}
               </Button>
             ))}
-                    
+
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
 
             <Tooltip >
-                <IconButton aria-label="cart" color="primary">
-            <StyledBadge badgeContent={0} color="primary">
-              <ShoppingCartIcon />
-            </StyledBadge>
-          </IconButton>
-             </Tooltip>
+              <IconButton aria-label="cart" color="primary">
+                <StyledBadge badgeContent={0} color="primary">
+                  <ShoppingCartIcon />
+                </StyledBadge>
+              </IconButton>
+            </Tooltip>
             <Tooltip title="Open settings">
-   
+
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/3.jpg" />
               </IconButton>
 
-              
+
             </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
@@ -240,7 +259,7 @@ function Header() {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </AppBar >
   );
 }
 export default Header;
