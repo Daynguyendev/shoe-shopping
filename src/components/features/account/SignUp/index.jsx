@@ -53,7 +53,10 @@ export default function SignUp() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="xs" sx={{
+                backgroundColor: 'white',
+
+            }}>
                 <CssBaseline />
                 <Box
                     sx={{
@@ -92,9 +95,6 @@ export default function SignUp() {
                                     type="date"
                                     name="date-birth"
                                     defaultValue="2000-05-24"
-                                // InputLabelProps={{
-                                //     shrink: true,
-                                // }}
                                 />
                             </Grid>
 

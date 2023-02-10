@@ -53,7 +53,11 @@ export default function SignIn() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="lg">
+            <Container component="main" maxWidth="lg" sx={{
+
+                backgroundColor: 'white',
+
+            }}>
                 <CssBaseline />
                 <Box
                     sx={{
@@ -61,6 +65,7 @@ export default function SignIn() {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        backgroundColor: 'white',
 
                     }}
                 >

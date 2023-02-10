@@ -1,31 +1,76 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import './footer.scss';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-
-
-
+import { Grid } from '@material-ui/core';
+import { Container } from '@mui/material';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 function Footer(props) {
-    return (
-        <React.Fragment>
-             <Box
-      sx={{
-        width: "100%",
-        height: '80px',
-        '&:hover': {
-         
-          opacity: [0.9, 0.8, 0.7],
-        },
-      }}
-      className="root"
-    > 
-   
-        
-        </Box>
-      
-      </React.Fragment>
-    );
+  return (
+    <Container maxWidth="xl"
+    >
+      <Grid item xs={12} className='root'>
+        <Grid item xs={3}>
+          <h3>HUYNH NHU SHOP</h3>
+          <hr />
+          <p>
+            3/2 Ninh Kiều
+            <br />
+            Cần Thơ
+
+            <br />
+            Hotline: 08 8888 8888
+            <br />
+
+            <FacebookIcon className='lien-he' />
+            <InstagramIcon className='lien-he' />
+            <MailOutlineIcon className='lien-he' />
+
+
+          </p>
+
+        </Grid>
+        <Grid item xs={1}></Grid>
+        <Grid item xs={3}>
+          <h3>THÔNG TIN</h3>
+          <hr />
+          <p>
+            Chính sách đổi trả
+            <br />
+            Chính sách vận chuyển
+            <br />
+            Chính sách bảo hành
+            <br />
+            Hình thức thanh toán
+            <br />
+            Hướng dẫn mua hàng
+            <br />
+            Thông tin bảo mật
+          </p>
+
+        </Grid>
+      </Grid>
+
+      <Grid>
+        <p className='end-fotter'>2023 Huynh Nhu Shop bảo lưu mọi quyền</p>
+      </Grid>
+      <Grid item xs={12} className='img-full-fotter'>
+        <Grid item xs={10}></Grid>
+        <Grid item xs={2} className='img-end-fotter' >
+          <img src="https://www.svgrepo.com/show/362034/visa-1.svg" />
+          <img src="https://www.svgrepo.com/show/249409/master-card-card.svg" />
+          <img src="https://www.svgrepo.com/show/266135/bank-transfer.svg" />
+          <img src="https://www.svgrepo.com/show/371107/cash.svg" />
+
+
+        </Grid>
+
+      </Grid>
+
+    </Container>
+
+  );
 }
 
 export default Footer;

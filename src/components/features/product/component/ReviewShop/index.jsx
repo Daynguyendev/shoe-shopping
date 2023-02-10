@@ -15,7 +15,7 @@ function ReviewShop(props) {
     return (
 
         <Container maxWidth="xl" sx={{
-            paddingBottom: '50px'
+            paddingBottom: '30px'
         }} >
 
             <Slide>

@@ -135,7 +135,7 @@ function Header() {
               textDecoration: 'none',
             }}
           >
-            SHOPVIP
+            HN SHOP
           </Typography>
 
           <Search>

@@ -1,17 +1,17 @@
 //iphone5
 @media only screen and (max-width: 320px) {
-    .img {
-        width: 112px;
-        height: 112px;
-
+    .imgtype {
+        width: 200px;
+        height: 100%;
+        margin-right: 20px;
+        padding-top: 20px;
     }
 }
 
 //mobile
 @media only screen and (min-width: 321px) and (max-width: 376px) {
-    .img {
-        width: 140px;
-        height: 140px;
+    .list-img {
+        display: block;
 
     }
 }
@@ -32,27 +32,12 @@
         height: 290px;
 
     }
-
-    .detail-item {
-        font-size: 25px;
-        color: white;
-    }
 }
 
 //desktop
 @media only screen and (min-width: 1025px) {
-    .img {
-        width: 340px;
-        height: 340px;
+    .list-img {
+        display: flex;
 
     }
-
-    .detail-item {
-        font-size: 20px;
-        color: white;
-        font-family: 'Jura', sans-serif;
-        text-align: center;
-        align-items: center;
-    }
-
 }

@@ -1,0 +1,44 @@
+.Imgavt {
+    padding-bottom: 30px;
+
+    .img {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+@media only screen and (max-width: 412px) {
+    .Imgavt {
+        padding-bottom: 30px;
+
+        .img {
+            width: 100px;
+            height: 100px;
+        }
+    }
+
+}
+
+@media only screen and (max-width: 500px) {
+    .Imgavt {
+        padding-bottom: 30px;
+
+        .img {
+            width: 100px;
+            height: 100px;
+        }
+    }
+
+}
+
+@media only screen and (max-width: 600px) {
+    .Imgavt {
+        padding-bottom: 30px;
+
+        .img {
+            width: 100px;
+            height: 100px;
+        }
+    }
+
+}

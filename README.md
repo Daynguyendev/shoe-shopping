@@ -1,4 +1,22 @@
 # Getting Started with Create React App
+
+
+//mobile
+@media only screen and (max-width: 739px) {
+
+}
+
+//tablet
+@media only screen and (min-width: 740px) and (max-width: 1023px) {
+
+}
+
+//desktop
+@media only screen and (min-width: 1024px) {
+
+}
+
+
 /////////rsfp/////
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import Product from '../Product';
 import { Grid } from '@material-ui/core';
-import './ListProduct.scss'
+import './ItemSale.scss'
 import { Container } from '@mui/material';
 import { Typography } from '@mui/material';
 
-function ListProduct(props) {
+function ItemSale(props) {
 
     return (
         <Container maxWidth="xl"  >
@@ -14,7 +14,7 @@ function ListProduct(props) {
                     <hr />
                 </Grid>
                 <Grid item xs={4}>
-                    <h1>Sản phẩm mới</h1>
+                    <h1>Sale</h1>
                 </Grid>
                 <Grid item xs={4}>
                     <hr />
@@ -35,22 +35,11 @@ function ListProduct(props) {
                 <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
                     <Product />
                 </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
+
 
             </Grid>
         </Container >
     );
 }
 
-export default ListProduct;
+export default ItemSale;
