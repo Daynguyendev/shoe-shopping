@@ -11,8 +11,8 @@ function Footer(props) {
     <Container maxWidth="xl"
     >
       <Grid item xs={12} className='root'>
-        <Grid item xs={3}>
-          <h3>HUYNH NHU SHOP</h3>
+        <Grid item xs={12} xl={3} lg={3}>
+          <h3>HN STORE</h3>
           <hr />
           <p>
             3/2 Ninh Kiều
@@ -31,8 +31,8 @@ function Footer(props) {
           </p>
 
         </Grid>
-        <Grid item xs={1}></Grid>
-        <Grid item xs={3}>
+        <Grid item xs={1} xl={1} lg={3}></Grid>
+        <Grid item xs={12} xl={3} lg={3}>
           <h3>THÔNG TIN</h3>
           <hr />
           <p>
@@ -53,7 +53,7 @@ function Footer(props) {
       </Grid>
 
       <Grid>
-        <p className='end-fotter'>2023 Huynh Nhu Shop bảo lưu mọi quyền</p>
+        <p className='end-fotter' style={{ color: 'white', fontFamily: 'Jura' }}>2023 HN STORE bảo lưu mọi quyền</p>
       </Grid>
       <Grid item xs={12} className='img-full-fotter'>
         <Grid item xs={10}></Grid>

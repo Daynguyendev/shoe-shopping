@@ -1,43 +1,25 @@
 //iphone5
-@media only screen and (max-width: 320px) {
-    .imgtype {
-        width: 200px;
-        height: 100%;
-        margin-right: 20px;
-        padding-top: 20px;
-    }
-}
+@media only screen and (max-width: 320px) {}
 
 //mobile
-@media only screen and (min-width: 321px) and (max-width: 376px) {
-    .list-img {
-        display: block;
-
-    }
-}
+@media only screen and (min-width: 321px) and (max-width: 376px) {}
 
 //pho thong
-@media only screen and (min-width: 376px) and (max-width: 739px) {
-    .img {
-        width: 160px;
-        height: 160px;
-
-    }
-}
+@media only screen and (min-width: 376px) and (max-width: 739px) {}
 
 //tablet
 @media only screen and (min-width: 740px) and (max-width: 1024px) {
-    .img {
-        width: 290px;
-        height: 290px;
+    .list-type {
+        display: flex;
 
     }
 }
 
 //desktop
-@media only screen and (min-width: 1025px) {
-    .list-img {
+@media only screen and (min-width: 1024px) {
+    .list-type {
         display: flex;
 
     }
+
 }

@@ -6,7 +6,9 @@ import UserLayout from './components/Layout/UserLayout';
 import SignIn from './components/features/account/SignIn';
 import SignUp from './components/features/account/SignUp';
 import InforAccount from './components/features/account/InforAccount';
-
+import Cart from './components/features/cart'
+import DetailPage from './components/pages/DetailPage'
+import UploadImage from './components/features/admin/components/UploadImage';
 function App() {
   return (
     <Box>
@@ -16,9 +18,9 @@ function App() {
           <Route path="/login" element={<SignIn />}></Route>
           <Route path="/register" element={<SignUp />}></Route>
           <Route path="/account" element={<InforAccount />}></Route>
-
-
-
+          <Route path="/cart" element={<Cart />}></Route>
+          <Route path="/detail" element={<DetailPage />}></Route>
+          <Route path="/upload" element={<UploadImage />}></Route>
         </Route>
       </Routes>
 

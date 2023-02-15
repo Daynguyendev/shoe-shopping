@@ -6,9 +6,9 @@ function Itemtype(props) {
     return (
         <Box >
             <img
-                className="imgtype"
+                className="img-type"
                 src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/adidas1.jpg"
-                alt="itemtype"
+                alt="item-type"
             />
         </Box>
     );

@@ -7,27 +7,29 @@ import DetailNewHot from './../DetailNewHot';
 function NewHot(props) {
 
     return (
-        <Container maxWidth="xl"  >
-            <Grid item xs={12} className='title-sp'>
-                <Grid item xs={4}>
+        <Container disableGutters maxWidth="xl"  >
+            <Grid item xs={12} className='new-hot'>
+                <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
                     <hr />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
                     <h1>Tin tức</h1>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
                     <hr />
                 </Grid>
             </Grid>
 
 
-            <Grid container spacing={2} >
-                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+            <Grid className='tin-tuc'>
+                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                     <DetailNewHot />
                 </Grid>
-                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                     <DetailNewHot />
                 </Grid>
+
+
             </Grid>
         </Container >
     );

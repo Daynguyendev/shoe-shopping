@@ -11,10 +11,10 @@
 //mobile
 @media only screen and (min-width: 321px) and (max-width: 376px) {
     .imgtype {
-        width: 295px;
+        width: 328px;
         height: 100%;
         margin-right: 20px;
-        padding-top: 20px;
+        margin-bottom: 20px;
     }
 }
 
@@ -31,7 +31,7 @@
 //tablet
 @media only screen and (min-width: 740px) and (max-width: 1024px) {
     .imgtype {
-        width: 310px;
+        width: 405px;
         height: 100%;
         margin-right: 20px;
         padding-top: 20px;
@@ -41,9 +41,9 @@
 //desktop
 @media only screen and (min-width: 1025px) {
     .imgtype {
-        width: 700px;
-        height: 335px;
-        margin-right: 20px;
+        width: 725px;
+        height: 330px;
+        margin-right: 40px;
         padding-top: 20px;
     }
 }

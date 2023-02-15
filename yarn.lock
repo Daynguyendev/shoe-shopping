@@ -1381,39 +1381,6 @@
   resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-4.5.8.tgz#56347764786079838faf43f0eeda22dd7328437f"
   integrity sha512-CnD7zLItIzt86q4Sj3kZUiLcBk1dSk81qcqgMGaZe7SQ1P8hFNxhMl5AZthK1zrDM5m74VVhaOpuMGIL4gagaA==
 
-"@fortawesome/fontawesome-common-types@6.3.0":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.3.0.tgz#51f734e64511dbc3674cd347044d02f4dd26e86b"
-  integrity sha512-4BC1NMoacEBzSXRwKjZ/X/gmnbp/HU5Qqat7E8xqorUtBFZS+bwfGH5/wqOC2K6GV0rgEobp3OjGRMa5fK9pFg==
-
-"@fortawesome/fontawesome-svg-core@^6.3.0":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-6.3.0.tgz#b6a17d48d231ac1fad93e43fca7271676bf316cf"
-  integrity sha512-uz9YifyKlixV6AcKlOX8WNdtF7l6nakGyLYxYaCa823bEBqyj/U2ssqtctO38itNEwXb8/lMzjdoJ+aaJuOdrw==
-  dependencies:
-    "@fortawesome/fontawesome-common-types" "6.3.0"
-
-"@fortawesome/free-regular-svg-icons@^6.3.0":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/free-regular-svg-icons/-/free-regular-svg-icons-6.3.0.tgz#286f87f777e6c96af59151e86647c81083029ee2"
-  integrity sha512-cZnwiVHZ51SVzWHOaNCIA+u9wevZjCuAGSvSYpNlm6A4H4Vhwh8481Bf/5rwheIC3fFKlgXxLKaw8Xeroz8Ntg==
-  dependencies:
-    "@fortawesome/fontawesome-common-types" "6.3.0"
-
-"@fortawesome/free-solid-svg-icons@^6.3.0":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-6.3.0.tgz#d3bd33ae18bb15fdfc3ca136e2fea05f32768a65"
-  integrity sha512-x5tMwzF2lTH8pyv8yeZRodItP2IVlzzmBuD1M7BjawWgg9XAvktqJJ91Qjgoaf8qJpHQ8FEU9VxRfOkLhh86QA==
-  dependencies:
-    "@fortawesome/fontawesome-common-types" "6.3.0"
-
-"@fortawesome/react-fontawesome@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@fortawesome/react-fontawesome/-/react-fontawesome-0.2.0.tgz#d90dd8a9211830b4e3c08e94b63a0ba7291ddcf4"
-  integrity sha512-uHg75Rb/XORTtVt7OS9WoK8uM276Ufi7gCzshVWkUJbHhh3svsUUeqXerrM96Wm7fRiDzfKRwSoahhMIkGAYHw==
-  dependencies:
-    prop-types "^15.8.1"
-
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.8.tgz#03595ac2075a4dc0f191cc2131de14fbd7d410b9"
@@ -3532,6 +3499,11 @@ cjs-module-lexer@^1.0.0:
   resolved "https://registry.yarnpkg.com/cjs-module-lexer/-/cjs-module-lexer-1.2.2.tgz#9f84ba3244a512f3a54e5277e8eef4c489864e40"
   integrity sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==
 
+classnames@^2.2.5:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.2.tgz#351d813bf0137fcc6a76a16b88208d2560a0d924"
+  integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
+
 clean-css@^5.2.2:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-5.3.1.tgz#d0610b0b90d125196a2894d35366f734e5d7aa32"
@@ -3548,7 +3520,7 @@ cliui@^7.0.2:
     strip-ansi "^6.0.0"
     wrap-ansi "^7.0.0"
 
-clsx@^1.0.4, clsx@^1.2.1:
+clsx@^1.0.4, clsx@^1.1.0, clsx@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
   integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
@@ -5285,7 +5257,7 @@ he@^1.2.0:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
-hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.3.1, hoist-non-react-statics@^3.3.2:
+hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.1, hoist-non-react-statics@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
   integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
@@ -6989,6 +6961,14 @@ normalize-url@^6.0.1:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-6.1.0.tgz#40d0885b535deffe3f3147bec877d05fe4c5668a"
   integrity sha512-DlL+XwOy3NxAQ8xuC0okPgK46iuVNAK01YN7RueYBqqFeGsBjV9XmCAzAdgt+667bCl5kPh9EqKKDwnaPG1I7A==
 
+notistack@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/notistack/-/notistack-2.0.8.tgz#78cdf34c64e311bf1d1d71c2123396bcdea5e95b"
+  integrity sha512-/IY14wkFp5qjPgKNvAdfL5Jp6q90+MjgKTPh4c81r/lW70KeuX6b9pE/4f8L4FG31cNudbN9siiFS5ql1aSLRw==
+  dependencies:
+    clsx "^1.1.0"
+    hoist-non-react-statics "^3.3.0"
+
 npm-run-path@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/npm-run-path/-/npm-run-path-4.0.1.tgz#b7ecd1e5ed53da8e37a55e1c2269e0b97ed748ea"
@@ -7965,7 +7945,7 @@ prompts@^2.0.1, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15.5.8, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -8053,6 +8033,11 @@ raw-body@2.5.1:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
+react-animated-slider@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-animated-slider/-/react-animated-slider-2.0.0.tgz#121729ba4c76c0aa4f5166ca78d0eda0ec77dd54"
+  integrity sha512-JOvLvqAfdNrYjPJWnCZbtS7d/DxSowDTFeIbaS5xUDEVJe3whgxUD6rDZ6+VI0Rhp9N03ogdpuNKlFJIoPhIyg==
+
 react-app-polyfill@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-app-polyfill/-/react-app-polyfill-3.0.0.tgz#95221e0a9bd259e5ca6b177c7bb1cb6768f68fd7"
@@ -8103,6 +8088,13 @@ react-dom@^18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
+react-easy-swipe@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/react-easy-swipe/-/react-easy-swipe-0.0.21.tgz#ce9384d576f7a8529dc2ca377c1bf03920bac8eb"
+  integrity sha512-OeR2jAxdoqUMHIn/nS9fgreI5hSpgGoL5ezdal4+oO7YSSgJR8ga+PkYGJrSrJ9MKlPcQjMQXnketrD7WNmNsg==
+  dependencies:
+    prop-types "^15.5.8"
+
 react-error-overlay@^6.0.11:
   version "6.0.11"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.11.tgz#92835de5841c5cf08ba00ddd2d677b6d17ff9adb"
@@ -8132,6 +8124,15 @@ react-refresh@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
   integrity sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==
+
+react-responsive-carousel@^3.2.23:
+  version "3.2.23"
+  resolved "https://registry.yarnpkg.com/react-responsive-carousel/-/react-responsive-carousel-3.2.23.tgz#4c0016ff54603e604bb5c1f9e7ef2d1eda133f1d"
+  integrity sha512-pqJLsBaKHWJhw/ItODgbVoziR2z4lpcJg+YwmRlSk4rKH32VE633mAtZZ9kDXjy4wFO+pgUZmDKPsPe1fPmHCg==
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.5.8"
+    react-easy-swipe "^0.0.21"
 
 react-router-dom@^6.6.1:
   version "6.6.1"
@@ -8203,10 +8204,10 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
-react-slideshow-image@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/react-slideshow-image/-/react-slideshow-image-4.1.1.tgz#972ccd13b42255f835b5e87a397d798464728e69"
-  integrity sha512-sY4QwAQ1xL9EqMsGS1MUh7uMoDrSDFyBxIyqmP/Hn6qemkPiq+g5vzGg991Z1EVXBIhJ/0V6f+sfTCB71h4I6A==
+react-slideshow-image@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/react-slideshow-image/-/react-slideshow-image-4.2.0.tgz#a0cb1409360e4c51b21cfa1d03d45e3fed209351"
+  integrity sha512-bdYyarv6EDg0H1SLzCA9lgbnavsQ/wkynVOOXaILTbcNZb8OQvUtSn5BulNemHTJRgJdsapQUVVKJNFuQMgd5A==
   dependencies:
     "@tweenjs/tween.js" "^18.6.4"
     resize-observer-polyfill "^1.5.1"

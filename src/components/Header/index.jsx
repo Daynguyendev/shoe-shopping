@@ -10,7 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';/////
+import AdbIcon from '@mui/icons-material/Adb';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -19,11 +19,8 @@ import './header.scss'
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { createTheme } from '@mui/material/styles';
-import { purple } from '@mui/material/colors';
-
-
-// import { useNavigate } from 'react-router-dom';
-
+import { createSvgIcon } from '@mui/material/utils';
+import { useNavigate } from 'react-router-dom';
 
 
 const pages = ['Sneaker', 'Adidas', 'Nike'];
@@ -51,7 +48,7 @@ function Header() {
     },
   }));
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
 
   const Search = styled('div')(({ theme }) => ({
@@ -62,7 +59,7 @@ function Header() {
       backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
-    width: '100%',
+    width: '33%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
       width: 'auto',
@@ -114,39 +111,24 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const handlecClickcart = () => {
+    navigate(`/cart`)
+
+  }
+  const handlecClicklogo = () => {
+    navigate(`/`)
+
+  }
 
   return (
     <AppBar position="static" sx={{ backgroundColor: 'black' }} >
-      <Container sx={{ maxWidth: 'xl', zIndex: 20, backgroundColor: 'black' }} >
+      <Container disableGutters sx={{ maxWidth: 'xl', zIndex: 20, backgroundColor: 'black' }} >
         <Toolbar disableGutters >
-          {<AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />}
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            HN SHOP
-          </Typography>
+          <Box className='box-img' sx={{ display: { xl: 'block', lg: 'block', md: 'none', sm: 'none', xs: 'none', cursor: 'pointer' } }} onClick={handlecClicklogo}>
+            <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/logoStore.png" alt="logoStore" style={{ width: '90%' }} />
 
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+          </Box>
+
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -159,6 +141,10 @@ function Header() {
             >
               <MenuIcon />
             </IconButton>
+
+
+
+            {/* ///// */}
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -174,7 +160,7 @@ function Header() {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: 'block', md: 'none', xl: 'none' },
               }}
             >
               {pages.map((page) => (
@@ -183,52 +169,57 @@ function Header() {
                 </MenuItem>
               ))}
             </Menu>
+            {/* ///////// */}
           </Box>
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
           <Typography
-            variant="h5"
+            variant="h7"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              marginLeft: '-10px',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            SNEAKER
+            HN STORE
           </Typography>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+              sx={{ fontFamily: 'Jura' }}
+            />
+          </Search>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ color: 'white', display: 'block', fontSize: '15px', fontWeight: 'normal', fontFamily: 'Jura' }}
               >
-                {page}
+                <h3> {page}</h3>
               </Button>
             ))}
 
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
 
-            <Tooltip >
-              <IconButton aria-label="cart" color="primary">
-                <StyledBadge badgeContent={0} color="primary">
-                  <ShoppingCartIcon />
-                </StyledBadge>
-              </IconButton>
-            </Tooltip>
+          <Box sx={{ flexGrow: 0, color: 'white', textAlign: 'center', alignItems: 'center', display: 'flex', cursor: 'pointer', fontFamily: 'Jura' }} onClick={handlecClickcart}>
+            <h4>GIỎ HÀNG</h4>
+            <ShoppingCartIcon />
+
             <Tooltip title="Open settings">
 
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/3.jpg" />
+                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/3.jpg" /> */}
               </IconButton>
 
 

@@ -1,37 +1,223 @@
-.root {
-    padding-left: 25px;
-    padding-top: 85px;
-    color: white;
-    display: flex;
-    font-family: 'Jura', sans-serif;
+//iphone5
+@media only screen and (max-width: 320px) {
+    .root {
+
+        padding-top: 85px;
+        color: white;
+        display: flex;
+        font-family: 'Jura', sans-serif;
+
+        .lien-he {
+            border-style: solid;
+            border-width: 10px;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        .end-fotter {
+            color: white;
+            padding-top: 40px;
+            font-family: 'Jura', sans-serif;
+
+        }
+
+    }
+
+    .img-full-fotter {
+        display: flex;
+    }
+
+    .img-end-fotter {
+        width: 50px;
+        height: 70px;
+        display: none;
+        padding-bottom: 20px;
+    }
+
+
+
+
+
+
 }
 
-.end-fotter {
-    color: white;
-    padding-top: 40px;
-    font-family: 'Jura', sans-serif;
+//mobile
+@media only screen and (min-width: 321px) and (max-width: 376px) {
+    .root {
 
-    // padding-bottom: 80px;
+        padding-top: 85px;
+        color: white;
+        display: flex;
+        font-family: 'Jura', sans-serif;
+
+        .lien-he {
+            border-style: solid;
+            border-width: 10px;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        .end-fotter {
+            color: white;
+            padding-top: 40px;
+            font-family: 'Jura', sans-serif;
+
+        }
+
+    }
+
+    .img-full-fotter {
+        display: flex;
+    }
+
+    .img-end-fotter {
+        width: 50px;
+        height: 70px;
+        display: none;
+        padding-bottom: 20px;
+    }
+
+
+
+
+
+
+
+
 
 }
 
-.img-full-fotter {
-    display: flex;
+//pho thong
+@media only screen and (min-width: 376px) and (max-width: 739px) {
+    .root {
+
+        padding-top: 85px;
+        color: white;
+        display: flex;
+        font-family: 'Jura', sans-serif;
+
+        .lien-he {
+            border-style: solid;
+            border-width: 10px;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        .end-fotter {
+            color: white;
+            padding-bottom: 40px;
+
+            padding-top: 40px;
+            font-family: 'Jura', sans-serif;
+
+        }
+
+    }
+
+    .img-full-fotter {
+        display: flex;
+    }
+
+    .img-end-fotter {
+        width: 50px;
+        height: 70px;
+        display: none;
+        padding-bottom: 20px;
+    }
+
+
+
+
+
 }
 
-.img-end-fotter {
-    width: 50px;
-    height: 70px;
-    display: flex;
-    padding-bottom: 20px;
+//tablet
+@media only screen and (min-width: 740px) and (max-width: 1024px) {
+    .root {
+
+        padding-top: 85px;
+        color: white;
+        display: flex;
+        font-family: 'Jura', sans-serif;
+
+        .lien-he {
+            border-style: solid;
+            border-width: 10px;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        .end-fotter {
+            color: white;
+            padding-top: 40px;
+            font-family: 'Jura', sans-serif;
+
+        }
+
+    }
+
+    .img-full-fotter {
+        display: flex;
+    }
+
+    .img-end-fotter {
+        width: 50px;
+        height: 70px;
+        display: flex;
+        padding-bottom: 20px;
+    }
+
+
+
 
 
 
 }
 
-.lien-he {
-    border-style: solid;
-    border-width: 10px;
-    margin-right: 10px;
-    margin-top: 10px;
+//desktop
+@media only screen and (min-width: 1025px) {
+    .root {
+
+        padding-top: 85px;
+        color: white;
+        display: flex;
+        font-family: 'Jura', sans-serif;
+
+        .lien-he {
+            border-style: solid;
+            border-width: 10px;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        .end-fotter {
+            color: white;
+            padding-top: 40px;
+            font-family: 'Jura', sans-serif;
+
+        }
+
+    }
+
+    .img-full-fotter {
+        display: flex;
+
+    }
+
+    .img-end-fotter {
+        width: 50px;
+        height: 70px;
+        display: flex;
+
+        padding-bottom: 20px;
+    }
+
+
+
+
+
+
+
+
+
 }

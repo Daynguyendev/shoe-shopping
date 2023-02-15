@@ -1,0 +1,263 @@
+//iphone5
+@media only screen and (max-width: 320px) {
+    .size {
+        padding-top: 20px;
+    }
+
+}
+
+//mobile
+@media only screen and (min-width: 321px) and (max-width: 376px) {
+    .detail-page {
+        display: flex;
+        color: black;
+        background-color: white;
+        font-family: 'MuliDisplayVN', sans-serif;
+    }
+
+    .buy-now {
+        display: flex;
+        text-align: center;
+        align-items: center;
+
+    }
+
+    .color-shoe-white {
+        background: LavenderBlush;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+    }
+
+    .color-shoe-black {
+        background: black;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+
+    }
+
+    .color-shoe-gray {
+        background: DarkSlateGray;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+
+    }
+
+    .color-shoe-lemon {
+        background: LemonChiffon;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+
+    }
+
+    .slogan {
+        display: flex;
+        text-align: center;
+        align-items: center;
+        font-family: 'Jura';
+        padding: 15px;
+
+    }
+
+    .size {
+        padding-top: 20px;
+    }
+
+
+}
+
+//pho thong
+@media only screen and (min-width: 376px) and (max-width: 739px) {
+    .detail-page {
+        display: flex;
+        color: black;
+        background-color: white;
+        font-family: 'MuliDisplayVN', sans-serif;
+    }
+
+    .buy-now {
+        display: flex;
+    }
+
+    .color-shoe-white {
+        background: LavenderBlush;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+    }
+
+    .color-shoe-black {
+        background: black;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+
+    }
+
+    .color-shoe-gray {
+        background: DarkSlateGray;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+
+    }
+
+    .color-shoe-lemon {
+        background: LemonChiffon;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+
+    }
+
+    .slogan {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        font-family: 'Jura';
+        padding: 10px;
+    }
+
+    .size {
+        padding-top: 20px;
+    }
+
+
+}
+
+//tablet
+@media only screen and (min-width: 740px) and (max-width: 1024px) {
+    .detail-page {
+        display: flex;
+        color: black;
+        background-color: white;
+        font-family: 'MuliDisplayVN', sans-serif;
+    }
+
+    .buy-now {
+        display: flex;
+    }
+
+    .color-shoe-white {
+        background: LavenderBlush;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+    }
+
+    .color-shoe-black {
+        background: black;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+
+    }
+
+    .color-shoe-gray {
+        background: DarkSlateGray;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+
+    }
+
+    .color-shoe-lemon {
+        background: LemonChiffon;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+
+    }
+
+    .slogan {
+        display: flex;
+        text-align: center;
+        align-items: center;
+        font-family: 'Jura';
+        padding: 50px;
+    }
+
+    .size {
+        padding-top: 20px;
+    }
+
+
+}
+
+//desktop
+@media only screen and (min-width: 1024px) {
+    .detail-page {
+        display: flex;
+        color: black;
+        background-color: white;
+        font-family: 'MuliDisplayVN', sans-serif;
+    }
+
+    .buy-now {
+        display: flex;
+    }
+
+    .color-shoe-white {
+        background: LavenderBlush;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+    }
+
+    .color-shoe-black {
+        background: black;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+
+    }
+
+    .color-shoe-gray {
+        background: DarkSlateGray;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+
+    }
+
+    .color-shoe-lemon {
+        background: LemonChiffon;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        margin-right: 20px;
+
+    }
+
+    .slogan {
+        display: flex;
+        text-align: center;
+        align-items: center;
+        font-family: 'Jura';
+        padding: 50px;
+    }
+
+    .size {
+        padding-top: 20px;
+    }
+
+}

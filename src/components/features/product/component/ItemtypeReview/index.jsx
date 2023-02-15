@@ -10,8 +10,8 @@ ItemtypeReview.propTypes = {
 
 function ItemtypeReview(props) {
     return (
-        <Container maxWidth="xl"  >
-            <Grid className='list-img' >
+        <Container disableGutters maxWidth="xl"  >
+            <Grid className='list-type' >
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                     <Itemtype />
                 </Grid>
@@ -19,7 +19,7 @@ function ItemtypeReview(props) {
                     <Itemtype />
                 </Grid>
             </Grid>
-            <Grid className='list-img' >
+            <Grid className='list-type' >
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                     <Itemtype />
                 </Grid>

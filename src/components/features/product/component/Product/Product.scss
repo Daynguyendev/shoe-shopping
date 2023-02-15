@@ -1,58 +1,139 @@
 //iphone5
 @media only screen and (max-width: 320px) {
-    .img {
-        width: 112px;
-        height: 112px;
+    .fullbox {
+        background-color: #3d3d3d;
+
+        :hover {
+            transform: translate(0%, -5%);
+            transition: 0.5s;
+        }
+
+
+
+        .img {
+            width: 112px;
+            height: 112px;
+        }
+
+        .detail-item {
+            font-size: 20px;
+            color: white;
+            font-family: 'Jura', sans-serif;
+            text-align: center;
+            align-items: center;
+        }
 
     }
 }
 
 //mobile
 @media only screen and (min-width: 321px) and (max-width: 376px) {
-    .img {
-        width: 140px;
-        height: 140px;
+    .fullbox {
+        background-color: #3d3d3d;
+
+        :hover {
+            transform: translate(0%, -5%);
+            transition: 0.5s;
+        }
+
+
+
+        .img {
+            width: 140px;
+            height: 140px;
+        }
+
+        .detail-item {
+            font-size: 20px;
+            color: white;
+            font-family: 'Jura', sans-serif;
+            text-align: center;
+            align-items: center;
+        }
 
     }
 }
 
 //pho thong
 @media only screen and (min-width: 376px) and (max-width: 739px) {
-    .img {
-        width: 160px;
-        height: 160px;
+    .fullbox {
+        background-color: #3d3d3d;
+
+        :hover {
+            transform: translate(0%, -5%);
+            transition: 0.5s;
+        }
+
+
+
+        .img {
+            width: 160px;
+            height: 160px;
+        }
+
+        .detail-item {
+            font-size: 20px;
+            color: white;
+            font-family: 'Jura', sans-serif;
+            text-align: center;
+            align-items: center;
+        }
 
     }
 }
 
 //tablet
 @media only screen and (min-width: 740px) and (max-width: 1024px) {
-    .img {
-        width: 290px;
-        height: 290px;
+    .fullbox {
+        background-color: #3d3d3d;
 
-    }
+        :hover * {
+            transform: translate(0%, -5%);
+            transition: 0.5s;
+        }
 
-    .detail-item {
-        font-size: 25px;
-        color: white;
+
+
+        .img {
+            width: 290px;
+            height: 290px;
+        }
+
+        .detail-item {
+            font-size: 20px;
+            color: white;
+            font-family: 'Jura', sans-serif;
+            text-align: center;
+            align-items: center;
+        }
+
     }
 }
 
 //desktop
 @media only screen and (min-width: 1025px) {
-    .img {
-        width: 340px;
-        height: 340px;
+    .fullbox {
+        background-color: #3d3d3d;
+
+        :hover * {
+            transform: translate(0%, -5%);
+            transition: 0.5s;
+        }
+
+
+
+        .img {
+            width: 340px;
+            height: 340px;
+        }
+
+        .detail-item {
+            font-size: 20px;
+            color: white;
+            font-family: 'Jura', sans-serif;
+            text-align: center;
+            align-items: center;
+        }
 
     }
-
-    .detail-item {
-        font-size: 20px;
-        color: white;
-        font-family: 'Jura', sans-serif;
-        text-align: center;
-        align-items: center;
-    }
-
 }

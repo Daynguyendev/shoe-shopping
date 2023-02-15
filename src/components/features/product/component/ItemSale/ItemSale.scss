@@ -2,7 +2,18 @@
 @media only screen and (max-width: 739px) {
     .Listproduct {
         display: flex;
+        text-align: center;
+        align-items: center;
 
+    }
+
+    .item-sale {
+        display: flex;
+        color: white;
+        text-align: center;
+        align-items: center;
+        padding: 50px 0 50px 0;
+        font-family: 'Jura', sans-serif;
     }
 
 }
@@ -11,7 +22,18 @@
 @media only screen and (min-width: 740px) and (max-width: 1023px) {
     .Listproduct {
         display: flex;
+        text-align: center;
+        align-items: center;
 
+    }
+
+    .item-sale {
+        display: flex;
+        color: white;
+        text-align: center;
+        align-items: center;
+        padding: 50px 0 50px 0;
+        font-family: 'Jura', sans-serif;
     }
 }
 
@@ -19,10 +41,12 @@
 @media only screen and (min-width: 1024px) {
     .Listproduct {
         display: flex;
+        text-align: center;
+        align-items: center;
 
     }
 
-    .title-sp {
+    .item-sale {
         display: flex;
         color: white;
         text-align: center;

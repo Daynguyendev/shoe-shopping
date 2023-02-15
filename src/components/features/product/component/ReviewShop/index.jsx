@@ -14,7 +14,7 @@ ReviewShop.propTypes = {
 function ReviewShop(props) {
     return (
 
-        <Container maxWidth="xl" sx={{
+        <Container disableGutters maxWidth="xl" sx={{
             paddingBottom: '30px'
         }} >
 
