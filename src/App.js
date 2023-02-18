@@ -19,7 +19,7 @@ function App() {
           <Route path="/register" element={<SignUp />}></Route>
           <Route path="/account" element={<InforAccount />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
-          <Route path="/detail" element={<DetailPage />}></Route>
+          <Route path="/product/:id" element={<DetailPage />}></Route>
           <Route path="/upload" element={<UploadImage />}></Route>
         </Route>
       </Routes>

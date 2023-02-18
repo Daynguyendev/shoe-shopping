@@ -87,9 +87,7 @@ export default function InforAccount() {
                                 onChange={handleChange}
                                 autoFocus
                             />
-                            {/* <Typography variant="h6">
-                                Tên Địa Chỉ
-                            </Typography> */}
+
                             <TextField
                                 required
                                 fullWidth
@@ -98,9 +96,7 @@ export default function InforAccount() {
                                 name="diachi"
 
                             />
-                            {/* <Typography variant="h6">
-                                Số Điện Thoại
-                            </Typography> */}
+
                             <TextField
                                 required
                                 fullWidth
@@ -119,13 +115,7 @@ export default function InforAccount() {
 
 
                     </Grid>
-                    {/* <Grid item xs={4}>
 
-                    </Grid>
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={8}>
-                    </Grid> */}
                 </Grid>
             </Box>
         </Container>

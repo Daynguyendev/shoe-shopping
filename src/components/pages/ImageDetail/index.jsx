@@ -8,35 +8,56 @@ import Grid from '@mui/material/Grid';
 import './ImageDetail.scss'
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import imageAPI from '../../API/imageAPI';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+
 
 export default function ImageDetail() {
-    const [value, setValue] = React.useState(0);
+    let { id } = useParams();
+    console.log(id);
+    const navigate = useNavigate();
+    // const handleClickProduct = () => {
+    //     navigate(`/detail`)
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+    // }
+
+    // const handleClickDetail = (item) => {
+    //     // console.log(item.target.alt);
+    //     navigate(`/product/${item.target.alt}`)
+
+    // }
+    const [imagedetail, setImagedetail] = useState([]);
+    useEffect(() => {
+        try {
+            const fetchImagedetail = async () => {
+                if (imagedetail !== null) {
+                    const listImg = await imageAPI.get(id);
+                    setImagedetail(listImg.data.data);
+                    console.log('img', listImg.data.data)
+                }
+            };
+            fetchImagedetail();
+        } catch (error) {
+            console.log('Failed to fetch Imagedetail: ', error);
+        }
+    }, []);
+
 
     return (
+        <Carousel className='img-list' >
+            {
+                imagedetail.map((item, index) => (
+                    <div key={index}>
 
-        <Carousel className='img-list'>
-            <div >
-                <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/ULTRABOOST-21-SHOES-20-768x768.jpg" />
-            </div>
-            <div>
-                <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/ULTRABOOST-21-SHOES-20-768x768.jpg" />
-            </div>
-            <div>
-                <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/ULTRABOOST-21-SHOES-20-768x768.jpg" />
-            </div>
-            <div>
-                <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/ULTRABOOST-21-SHOES-20-768x768.jpg" />
-            </div>
-            <div>
-                <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/ULTRABOOST-21-SHOES-20-768x768.jpg" />
-            </div>
-            <div>
-                <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/ULTRABOOST-21-SHOES-20-768x768.jpg" />
-            </div>
+                        <img src={item.link_hinh_anh_ct} alt={index} />
+
+                    </div>
+                ))
+            }
         </Carousel>
     );
 }

@@ -13,7 +13,7 @@ Pay.propTypes = {
 
 function Pay(props) {
     return (
-        <Container disableGutters maxWidth='xl' sx={{
+        <Container disableGutters maxWidth='xl' sx={{ 
             color: 'black'
         }}>
             <Typography variant='h6' sx={{ fontFamily: 'Jura' }}>

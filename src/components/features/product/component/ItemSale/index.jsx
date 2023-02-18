@@ -23,18 +23,8 @@ function ItemSale(props) {
 
 
             <Grid container spacing={2} className='Listproduct' >
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
+                <Product />
+
 
 
             </Grid>

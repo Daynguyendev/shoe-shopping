@@ -111,7 +111,7 @@
 }
 
 //desktop
-@media only screen and (min-width: 1025px) {
+@media only screen and (min-width: 1025px) and (max-width: 1396px) {
     .fullbox {
         background-color: #3d3d3d;
 
@@ -122,9 +122,42 @@
 
 
 
+
         .img {
             width: 340px;
             height: 340px;
+
+
+        }
+
+        .detail-item {
+            font-size: 20px;
+            color: white;
+            font-family: 'Jura', sans-serif;
+            text-align: center;
+            align-items: center;
+        }
+
+    }
+}
+
+@media only screen and (min-width: 1396px) {
+    .fullbox {
+        background-color: #3d3d3d;
+
+        :hover * {
+            transform: translate(0%, -5%);
+            transition: 0.5s;
+        }
+
+
+
+
+        .img {
+            width: 300px;
+            height: 300px;
+
+
         }
 
         .detail-item {

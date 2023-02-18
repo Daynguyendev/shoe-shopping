@@ -4,18 +4,24 @@ import Grid from '@mui/material/Grid';
 import './DetailPage.scss';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
 import ImageDetail from '../ImageDetail'
 
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     // const data = new FormData(event.currentTarget);
+    //     axios.post('http://localhost:5000/cart', {
+    //         id_sp: '2',
+    //         ten_mau_sac: 'đen-vàng',
+    //         ten_kich_thuoc: 42,
+    //         so_luong: 2,
+    //     })
+    //         .then(function (response) {
+    //             response.status(200);
+    //         })
+    //         .catch(error => console.log(error));
 
+    // };
 
-function DetailPage(props) {
-
-    const navigate = useNavigate();
-    const handlecClickProduct = () => {
-        navigate(`/`)
-
-    }
 
 
     return (

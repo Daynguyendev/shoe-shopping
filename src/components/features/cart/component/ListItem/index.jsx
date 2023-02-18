@@ -6,13 +6,39 @@ import Box from '@mui/material/Box';
 import './ListItem.scss';
 import Typography from '@mui/material/Typography';
 import Product from './../Product'
+import { useState, useEffect } from 'react';
+import cartAPI from '../../../../API/cartAPI';
+
 ListItem.propTypes = {
 
 };
 
+
+
+
 function ListItem(props) {
+
+    const [cart, setCart] = useState([]);
+    useEffect(() => {
+        try {
+            const fetchCart = async () => {
+                if (cart !== null) {
+                    const result = await cartAPI.getAll();
+                    setCart(result.data.data);
+                    console.log(result.data.data)
+                }
+            };
+            fetchCart();
+        } catch (error) {
+            console.log('Failed to fetch Cart: ', error);
+        }
+    }, []);
+
+
     return (
         <Container disableGutters maxWidth='xl'>
+
+
             <Grid className='root-cart-header'>
                 <Grid item xs={6} lg={6} xl={6}>
                     <Typography sx={{ fontFamily: 'Jura' }}>Sản phẩm</Typography>
@@ -36,104 +62,37 @@ function ListItem(props) {
 
             </Grid>
             <hr />
-            <Grid item xs={12} className='root-cart' >
-                <Grid item xs={6} lg={6} xl={6} >
-                    <Product />
-
-                </Grid>
-                <Grid item xs={3} lg={2} xl={2}>
-                    <Typography sx={{ fontFamily: 'Jura' }}>270.000</Typography>
-
-                </Grid>
-                <Grid item xs={3} lg={2} xl={2} >
-
-                    <Typography sx={{ fontFamily: 'Jura' }}>2</Typography>
 
 
-                </Grid>
-
-                <Grid item xs={2} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
-                    <Typography sx={{ fontFamily: 'Jura' }}>540.000</Typography>
-
-                </Grid>
 
 
-            </Grid>
 
-            <hr />
-            <Grid item xs={12} className='root-cart' >
-                <Grid item xs={6} lg={6} xl={6} >
-                    <Product />
+            {cart.map((item, index) => (
+                <Grid item xs={12} className='root-cart' key={index} >
+                    <Grid item xs={6} lg={6} xl={6} >
+                        <Product />
 
-                </Grid>
-                <Grid item xs={3} lg={2} xl={2}>
-                    <Typography sx={{ fontFamily: 'Jura' }}>270.000</Typography>
+                    </Grid>
+                    <Grid item xs={3} lg={2} xl={2}>
+                        <Typography sx={{ fontFamily: 'Jura' }}>270.000</Typography>
 
-                </Grid>
-                <Grid item xs={3} lg={2} xl={2} >
+                    </Grid>
+                    <Grid item xs={3} lg={2} xl={2} >
 
-                    <Typography sx={{ fontFamily: 'Jura' }}>2</Typography>
+                        <Typography sx={{ fontFamily: 'Jura' }}>2</Typography>
+
+
+                    </Grid>
+
+                    <Grid item xs={2} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
+                        <Typography sx={{ fontFamily: 'Jura' }}>540.000</Typography>
+
+                    </Grid>
+
 
 
                 </Grid>
-
-                <Grid item xs={2} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
-                    <Typography sx={{ fontFamily: 'Jura' }}>540.000</Typography>
-
-                </Grid>
-
-
-            </Grid>
-
-            <hr />
-            <Grid item xs={12} className='root-cart' >
-                <Grid item xs={6} lg={6} xl={6} >
-                    <Product />
-
-                </Grid>
-                <Grid item xs={3} lg={2} xl={2}>
-                    <Typography sx={{ fontFamily: 'Jura' }}>270.000</Typography>
-
-                </Grid>
-                <Grid item xs={3} lg={2} xl={2} >
-
-                    <Typography sx={{ fontFamily: 'Jura' }}>2</Typography>
-
-
-                </Grid>
-
-                <Grid item xs={2} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
-                    <Typography sx={{ fontFamily: 'Jura' }}>540.000</Typography>
-
-                </Grid>
-
-
-            </Grid>
-
-            <hr />
-            <Grid item xs={12} className='root-cart' >
-                <Grid item xs={6} lg={6} xl={6} >
-                    <Product />
-
-                </Grid>
-                <Grid item xs={3} lg={2} xl={2}>
-                    <Typography sx={{ fontFamily: 'Jura' }}>270.000</Typography>
-
-                </Grid>
-                <Grid item xs={3} lg={2} xl={2} >
-
-                    <Typography sx={{ fontFamily: 'Jura' }}>2</Typography>
-
-
-                </Grid>
-
-                <Grid item xs={2} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
-                    <Typography sx={{ fontFamily: 'Jura' }}>540.000</Typography>
-
-                </Grid>
-
-
-            </Grid>
+            ))}
 
 
 

@@ -5,7 +5,45 @@ import './ListProduct.scss'
 import { Container } from '@mui/material';
 import { Typography } from '@mui/material';
 import Pagination from '../Pagination';
-function ListProduct(props) {
+import { PropTypes } from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import productAPI from './../../../../API/productAPI';
+
+
+
+ListProduct.propTypes = {
+
+
+
+};
+function ListProduct() {
+    const navigate = useNavigate();
+    const handleClickProduct = () => {
+        navigate(`/detail`)
+
+    }
+
+    const handleClickDetail = (item) => {
+        console.log(item.target.alt);
+        navigate(`/product/${item.target.alt.replace(/\s+/g, '-')}`)
+
+    }
+    const [product, setProduct] = useState([]);
+    useEffect(() => {
+        try {
+            const fetchProduct = async () => {
+                if (product !== null) {
+                    const result = await productAPI.getAll();
+                    setProduct(result.data.data);
+                    console.log(result.data.data)
+                }
+            };
+            fetchProduct();
+        } catch (error) {
+            console.log('Failed to fetch Product: ', error);
+        }
+    }, []);
 
     return (
         <Container disableGutters maxWidth="xl"  >
@@ -22,34 +60,9 @@ function ListProduct(props) {
             </Grid>
 
 
-            <Grid container spacing={2} className='Listproduct'>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
-                <Grid item xs={6} sm={6} md={4} lg={3} xl={3}>
-                    <Product />
-                </Grid>
-
+            <Grid container spacing={2} className='Listproduct' >
+                <Product />
             </Grid>
-            <Pagination />
         </Container >
     );
 }

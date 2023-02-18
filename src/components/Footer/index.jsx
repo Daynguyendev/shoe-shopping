@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import './footer.scss';
 import { Grid } from '@material-ui/core';
 import { Container } from '@mui/material';
@@ -58,10 +57,10 @@ function Footer(props) {
       <Grid item xs={12} className='img-full-fotter'>
         <Grid item xs={10}></Grid>
         <Grid item xs={2} className='img-end-fotter' >
-          <img src="https://www.svgrepo.com/show/362034/visa-1.svg" />
-          <img src="https://www.svgrepo.com/show/249409/master-card-card.svg" />
-          <img src="https://www.svgrepo.com/show/266135/bank-transfer.svg" />
-          <img src="https://www.svgrepo.com/show/371107/cash.svg" />
+          <img src="https://www.svgrepo.com/show/362034/visa-1.svg" alt='icon' />
+          <img src="https://www.svgrepo.com/show/249409/master-card-card.svg" alt='icon' />
+          <img src="https://www.svgrepo.com/show/266135/bank-transfer.svg" alt='icon' />
+          <img src="https://www.svgrepo.com/show/371107/cash.svg" alt='icon' />
 
 
         </Grid>
