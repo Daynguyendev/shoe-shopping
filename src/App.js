@@ -15,6 +15,7 @@ import AddTrademark from './components/features/admin/components/AddTrademark';
 import AddColor from './components/features/admin/components/AddColor';
 import AddDiscount from './components/features/admin/components/AddDiscount';
 import NotFound from './components/features/product/component/NotFound';
+import AddProvider from './components/features/admin/components/AddProvider';
 function App() {
 
   return (
@@ -33,6 +34,8 @@ function App() {
           <Route path="/importtrademark" element={<AddTrademark />}></Route>
           <Route path="/importcolor" element={<AddColor />}></Route>
           <Route path="/importdiscount" element={<AddDiscount />}></Route>
+          <Route path="/importprovider" element={<AddProvider />}></Route>
+
           <Route path="*" element={<NotFound />} />
 
 
