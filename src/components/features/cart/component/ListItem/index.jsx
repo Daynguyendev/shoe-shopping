@@ -1,29 +1,61 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import './ListItem.scss';
 import Typography from '@mui/material/Typography';
 import Product from './../Product'
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+// import { unwrapResult } from '@reduxjs/toolkit';
+// import { useDispatch } from 'react-redux';
+// import { useSnackbar } from 'notistack';
+// import { addItem } from '../../cartSlice';
+// import { useNavigate } from 'react-router-dom';
 import cartAPI from '../../../../API/cartAPI';
-
-ListItem.propTypes = {
-
-};
 
 
 
 
 function ListItem(props) {
+    // const dispatch = useDispatch();
+    // const navigate = useNavigate();
+    // const { enqueueSnackbar } = useSnackbar();
+
+    // const [open, setOpen] = useState(false);
+    // const loggedInUser = useSelector((state) => state.user.current);
+    // const isLoggedIn = !!loggedInUser.customer_id;
+    let { id } = useParams();
+
+    // const handleAddSubmit = async (data) => {
+    //     try {
+    //         if (open) setOpen(true);
+    //         else {
+    //             const AddItemAction = addItem({
+    //                 id_sp: data.id_sp,
+    //                 so_luong: data.so_luong,
+    //             });
+    //             const resultAddItemAction = await dispatch(AddItemAction);
+    //             // do some thing here on login successfully
+    //             // const cart = unwrapResult(resultAddItemAction);
+    //             // enqueueSnackbar('🛒 Sản phẩm được thêm vào giỏ hàng', {
+    //             //     variant: 'default',
+    //             //     autoHideDuration: 1000,
+    //             // });
+    //             console.log(cart);
+    //         }
+    //     } catch (error) {
+    //         // enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 });
+    //         console.log(error.message);
+    //     }
+    // };
+
 
     const [cart, setCart] = useState([]);
     useEffect(() => {
         try {
             const fetchCart = async () => {
                 if (cart !== null) {
-                    const result = await cartAPI.getAll();
+                    const result = await cartAPI.getAll(id);
                     setCart(result.data.data);
                     console.log(result.data.data)
                 }

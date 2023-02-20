@@ -1,0 +1,67 @@
+.root {
+    display: flex;
+    align-items: center;
+}
+
+.wrapImg {
+    max-width: 50px;
+    max-height: 50px;
+    color: black;
+}
+
+.wrapUpload {
+    display: flex;
+    border-radius: 5px;
+    align-items: center;
+    max-width: 500px;
+    color: black;
+}
+
+.btn {
+    background-color: black;
+        padding: 4px 10px;
+        background-color: #E9ECEF;
+        cursor: pointer;
+        height: 100%;
+        color: black;
+}
+
+.wrapLink {
+    backgroundColor: 'black',
+
+        color: 'black',
+        display: 'flex',
+        minHeight: '40px',
+        borderRadius: '5px',
+        backgroundColor: 'white',
+        border: '1px solid #ced4da',
+        alignItems: 'center',
+        width: '500px',
+        wordBreak: 'break-word',
+        maxWidth: '100%',
+        maxHeight: '100%',
+        position: 'relative',
+}
+
+.copyIcon {
+    backgroundColor: 'black',
+
+        color: '#ced4da',
+}
+
+.copyBtn {
+    backgroundColor: 'black',
+
+    color: '#ced4da',
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    '&:hover': {
+        backgroundColor: '#ced4da26',
+            borderRadius: 0,
+    }
+
+    ,
+}
+
+,

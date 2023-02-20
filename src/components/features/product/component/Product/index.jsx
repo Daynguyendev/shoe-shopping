@@ -47,8 +47,8 @@ function Product(props) {
         <Grid item xs={6} sm={6} md={4} lg={3} xl={3} key={product.id_sp} >
           <Box className="fullbox"  >
 
-            <Box onClick={handleClickDetail}  >
-              <img
+            <Box  >
+              <img onClick={handleClickDetail}
                 className="img"
                 src={product.hinh_anh_chinh}
                 alt={product.id_hinh_anh}

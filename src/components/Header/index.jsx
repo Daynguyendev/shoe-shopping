@@ -21,6 +21,9 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { createTheme } from '@mui/material/styles';
 import { createSvgIcon } from '@mui/material/utils';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
+
 
 
 const pages = ['Sneaker', 'Adidas', 'Nike'];
@@ -111,8 +114,10 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  let { id } = useParams();
+
   const handlecClickcart = () => {
-    navigate(`/cart`)
+    navigate(`/cart/${id}`)
 
   }
   const handlecClicklogo = () => {

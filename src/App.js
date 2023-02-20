@@ -7,20 +7,38 @@ import SignIn from './components/features/account/SignIn';
 import SignUp from './components/features/account/SignUp';
 import InforAccount from './components/features/account/InforAccount';
 import Cart from './components/features/cart'
-import DetailPage from './components/pages/DetailPage'
-import UploadImage from './components/features/admin/components/UploadImage';
+import DetailPage from './components/pages/DetailPage';
+import Page from './components/features/admin/Page';
+import AddSize from './components/features/admin/components/AddSize';
+import AddCategory from './components/features/admin/components/AddCategory';
+import AddTrademark from './components/features/admin/components/AddTrademark';
+import AddColor from './components/features/admin/components/AddColor';
+import AddDiscount from './components/features/admin/components/AddDiscount';
+import NotFound from './components/features/product/component/NotFound';
 function App() {
+
   return (
-    <Box>
+    <Box >
       <Routes>
         <Route path="/" element={<UserLayout />}>
           <Route path="" element={<Home />}></Route>
           <Route path="/login" element={<SignIn />}></Route>
           <Route path="/register" element={<SignUp />}></Route>
           <Route path="/account" element={<InforAccount />}></Route>
-          <Route path="/cart" element={<Cart />}></Route>
+          <Route path="/cart/:id" element={<Cart />}></Route>
           <Route path="/product/:id" element={<DetailPage />}></Route>
-          <Route path="/upload" element={<UploadImage />}></Route>
+          <Route path="/importproduct" element={<Page />}></Route>
+          <Route path="/importsize" element={<AddSize />}></Route>
+          <Route path="/importcategory" element={<AddCategory />}></Route>
+          <Route path="/importtrademark" element={<AddTrademark />}></Route>
+          <Route path="/importcolor" element={<AddColor />}></Route>
+          <Route path="/importdiscount" element={<AddDiscount />}></Route>
+          <Route path="*" element={<NotFound />} />
+
+
+
+
+
         </Route>
       </Routes>
 

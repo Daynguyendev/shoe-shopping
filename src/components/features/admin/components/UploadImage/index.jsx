@@ -70,16 +70,15 @@ const useStyles = makeStyles({
         },
     },
 });
+
 function UploadImage(props) {
     const classes = useStyles();
-    // const { enqueueSnackbar } = useSnackbar();
     const [open, setOpen] = useState(false);
-    const [imageSrc, setImageSrc] = useState('https://....');
+    const [imageSrc, setImageSrc] = useState('https://...');
     const [imageReviewSrc, setImageReviewSrc] = useState('');
     const [fileName, setFileName] = useState('No file chosen');
     const onFileChange = (event) => {
         const getFile = event.target.files[0];
-
         if (getFile) {
             setFileName(getFile.name);
             const url = URL.createObjectURL(getFile);
@@ -89,34 +88,25 @@ function UploadImage(props) {
         }
         handleUpload(getFile);
     };
-
     const handleUpload = async (file) => {
         const formdata = new FormData();
         formdata.append('image', file);
         try {
-            const uploadImage = async () => {
+            const uploadImg = async () => {
                 const result = await adminAPI.upload(formdata);
                 setImageSrc(result.data.link);
+
             };
-            uploadImage();
-            // enqueueSnackbar('Upload image successfull', {
-            //     variant: 'info',
-            //     autoHideDuration: 800,
-            //     anchorOrigin: {
-            //         vertical: 'top',
-            //         horizontal: 'center',
-            //     },
-            // });
+            uploadImg();
+
         } catch (error) {
             console.log('Failed to upload image: ', error);
-            // enqueueSnackbar('Failed to upload image', { variant: 'error', autoHideDuration: 800 });
         }
     };
-    const handleClickCopy = () => {
-        setOpen(true);
-        console.log(imageSrc);
-        navigator.clipboard.writeText(imageSrc);
-    };
+
+
+
+
     return (
         <Box sx={{ backgroundColor: 'white' }} minHeight='550px'>
             <Typography variant="h6">Nhấn upload để tải lên hình ảnh của sản phẩm</Typography>
@@ -149,25 +139,11 @@ function UploadImage(props) {
                         <Typography variant="caption" sx={{ padding: '2px 8px' }}>
                             {imageSrc}
                         </Typography>
-                        <IconButton
-                            aria-label="copy"
-                            size="small"
-                            className={classes.copyBtn}
-                            onClick={handleClickCopy}
-                        >
-                            <ContentCopyIcon fontSize="inherit" className={classes.copyIcon} />
-                        </IconButton>
-                        <Snackbar
-                            open={open}
-                            onClose={() => setOpen(false)}
-                            autoHideDuration={800}
-                            message="Copied to clipboard"
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'center',
-                            }}
-                        />
+
+
+
                     </div>
+
                 </Box>
             </Box>
         </Box>

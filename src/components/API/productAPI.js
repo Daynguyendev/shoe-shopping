@@ -7,7 +7,7 @@ const productAPI = {
 
     },
     get(id) {
-        const url = `/product/${id}`;
+        const url = `/product/detail/${id}`;
         return axiosClient.get(url);
     },
     update(id, data) {
