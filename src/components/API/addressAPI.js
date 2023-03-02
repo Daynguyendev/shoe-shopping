@@ -1,9 +1,9 @@
 import axiosClient from "./axiosCilent";
 
 const addresskAPI = {
-    get() {
-        const url = `/account`;
-        return axiosClient.get(url);
+    getAddress(id) {
+        const url = `/account/address`;
+        return axiosClient.post(url, id);
     },
     add(data) {
         const url = `/account`;

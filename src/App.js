@@ -19,7 +19,8 @@ import AddProvider from './components/features/admin/components/AddProvider';
 import AddDetailImage from './components/features/admin/components/AddDetailImage';
 import AddInvoiceInput from './components/features/admin/components/AddInvoiceInput';
 import AddInvoice from './components/features/admin/components/AddInvoice';
-import Test from './components/features/cart/component/Test';
+import Checkout from './components/features/cart/component/Checkout'
+import Status from './components/features/cart/component/Status';
 function App() {
 
   return (
@@ -46,12 +47,8 @@ function App() {
           <Route path="/importimage" element={<AddDetailImage />}></Route>
           <Route path="/invoice" element={<AddInvoice />}></Route>
           <Route path="/invoice/:name" element={<AddInvoiceInput />}></Route>
-          <Route path="/test" element={<Test />}></Route>
-
-
-
-
-
+          <Route path="/checkout/:id" element={<Checkout />}></Route>
+          <Route path="/status" element={<Status />}></Route>
 
           <Route path="*" element={<NotFound />} />
 

@@ -19,7 +19,8 @@ import userAPI from '../../../API/userAPI';
 import { setUser } from '../userSlice';
 import { useDispatch } from 'react-redux';
 import { login } from '../userSlice';
-
+import cartAPI from '../../../API/cartAPI';
+import { useSelector } from 'react-redux';
 
 function Copyright(props) {
     return (
@@ -37,36 +38,22 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+
     const navigate = useNavigate();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-
+    const [idKh, setIdKh] = useState(null);
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
+
+
+
+
+
+
     const handleNextPage = () => {
         navigate(`/register`)
     }
-    /////
-    // const handleLogin = async (email, password) => {
-    //     try {
-    //         const res = await userAPI.login({
-    //             email_khach_hang: email,
-    //             mat_khau_khach_hang: password
-    //         });
-    //         if (res.data.success) {
-    //             const { user, token, } = res.data;
-    //             localStorage.setItem('token', token);
-    //             // localStorage.setItem('refreshToken', refreshToken);
-    //             dispatch(setUser(user)); // Lưu thông tin người dùng vào store
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
-
-
-    /////
     const handleSubmit = (event) => {
         userAPI.login({
             email_khach_hang: email,
@@ -74,6 +61,7 @@ export default function SignIn() {
         })
 
             .then(function (response) {
+                console.log(response.data)
                 dispatch(login({ email_khach_hang: email, token: response.data.token }));
                 let data = { email_khach_hang: email, token: response.data.token, isLogin: true }
                 localStorage.setItem('user', JSON.stringify(data));

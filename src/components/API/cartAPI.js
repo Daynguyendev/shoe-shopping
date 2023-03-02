@@ -11,6 +11,11 @@ const cartAPI = {
         return axiosClient.post(url);
 
     },
+    getAllJoin(id) {
+        const url = `/cart/join/${id}`;
+        return axiosClient.get(url);
+
+    },
     updateQuantity(data) {
         const url = `/cart/quantity`;
         return axiosClient.patch(url, data);

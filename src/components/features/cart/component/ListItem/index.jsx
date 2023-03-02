@@ -13,17 +13,16 @@ import { useNavigate } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
-function ListItem() {
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+function ListItem({ cart, setCart }) {
     let { id } = useParams();
     let User = JSON.parse(localStorage.getItem('cart')) || [];
-    const [cart, setCart] = useState([]);
     const [items, setItems] = useState([]);
     const isLogin = useSelector((state) => state.user.isLogin);
     const [idUser, setIdUser] = useState();
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
     const navigate = useNavigate();
-
+    const data = cart || [];
     useEffect(() => {
 
         try {
@@ -72,19 +71,19 @@ function ListItem() {
 
 
     }
-    const handleUpCount = async (index, id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc, so_luong) => {
-        let so_luong_tang = so_luong + 1;
-        const results = await cartAPI.updateQuantityButton({ id_khach_hang, id_sp, ten_mau_sac, ten_kich_thuoc, so_luong })
+    const handleUpCount = (index, id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc, so_luong) => {
+        so_luong = so_luong + 1;
+        const results = cartAPI.updateQuantityButton({ id_khach_hang, id_sp, ten_mau_sac, ten_kich_thuoc, so_luong })
         const updateCart = [...cart];
-        updateCart[index].so_luong = so_luong_tang;
+        updateCart[index].so_luong = so_luong;
         setCart(updateCart);
     }
     const handleDownCount = async (index, id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc, so_luong) => {
-        let so_luong_giam = so_luong - 1;
-        if (so_luong_giam >= 0) {
+        so_luong = so_luong - 1;
+        if (so_luong >= 1) {
             const results = await cartAPI.updateQuantityButton({ id_khach_hang, id_sp, ten_mau_sac, ten_kich_thuoc, so_luong })
             const updateCart = [...cart];
-            updateCart[index].so_luong = so_luong_giam;
+            updateCart[index].so_luong = so_luong;
             setCart(updateCart);
         }
 
@@ -185,7 +184,7 @@ function ListItem() {
 
                         <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex', paddingRight: '50px' } }}>
                             <IconButton onClick={() => handleRemove(item.id_sp, item.id_khach_hang, item.ten_mau_sac, item.ten_kich_thuoc, item.so_luong)}>
-                                <RemoveShoppingCartIcon />
+                                <DeleteOutlineIcon />
                             </IconButton>
 
                         </Grid>
@@ -232,11 +231,10 @@ function ListItem() {
                 </Grid>
                 <hr />
 
+                {data.map((item, index) => (
 
-                {cart.map((item, index) => (
-
-                    <Grid item xs={12} className='root-cart' key={index} >
-                        <Grid item xs={5} lg={5} xl={5} >
+                    <Grid className='root-cart' key={index} >
+                        <Grid item xs={7} lg={5} xl={5} >
                             <Box className="full-box-product">
                                 <Grid>
                                     <img
@@ -263,7 +261,7 @@ function ListItem() {
                             <Typography sx={{ fontFamily: 'Jura' }}>{item.gia_sp}</Typography>
 
                         </Grid>
-                        <Grid item xs={2} lg={1} xl={1} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontFamily: 'Jura', paddingRight: '30px' }}>
+                        <Grid item xs={1} lg={1} xl={1} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontFamily: 'Jura', paddingRight: '30px' }}>
                             <IconButton onClick={() => handleDownCount(index, item.id_sp, item.id_khach_hang, item.ten_mau_sac, item.ten_kich_thuoc, item.so_luong)}>
                                 <RemoveIcon />
                             </IconButton>
@@ -282,7 +280,7 @@ function ListItem() {
 
                         <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex', paddingRight: '30px' } }}>
                             <IconButton onClick={() => handleRemoveItemDB(item.id_sp, item.id_khach_hang, item.ten_mau_sac, item.ten_kich_thuoc, item.so_luong)}>
-                                <RemoveShoppingCartIcon />
+                                <DeleteOutlineIcon />
                             </IconButton>
                         </Grid>
 
@@ -290,7 +288,6 @@ function ListItem() {
 
                     </Grid>
                 ))}
-
 
 
 
