@@ -103,20 +103,13 @@ function Header() {
 
 
   useEffect(() => {
-
     try {
       const fetchIdUser = async () => {
         // console.log('test_header', email_khach_hang);
         if (isLogin) {
           const res = await userAPI.getID({ email_khach_hang: email_khach_hang });
           setIdUser(res.data.data[0]?.id_khach_hang)
-
         }
-
-        // console.log('test_head', idUser);
-
-
-
       };
       fetchIdUser();
     } catch (error) {
