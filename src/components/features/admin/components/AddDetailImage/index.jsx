@@ -4,41 +4,49 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
-import trademarkAPI from './../../../../API/trademarkAPI';
+import imageAPI from '../../../../API/imageAPI';
+import UploadImage from '../UploadImage';
 import { useSnackbar } from 'notistack';
 
 const columns = [
-    { field: 'id_thuong_hieu', headerName: 'id_thuong_hieu', width: 70 },
-    { field: 'ten_thuong_hieu', headerName: 'ten_thuong_hieu', width: 130 },
+    { field: 'id_anh', headerName: 'id_anh', width: 70 },
+    { field: 'id_hinh_anh_ct', headerName: 'id_hinh_anh_ct', width: 130 },
+    { field: 'link_hinh_anh_ct', headerName: 'link_hinh_anh_ct', width: 130 },
+
 ];
 
-function AddTrademark() {
-    const [trademarkDetail, setTrademarkDetail] = useState([]);
-    const [trademark, setTrademark] = useState('');
+function AddDetailImage() {
+    const [imageDetail, setImageDetailDetail] = useState([]);
+    const [idImage, setIdImage] = useState('');
+    const [linkImage, setLinkImage] = useState('');
     const { enqueueSnackbar } = useSnackbar();
+
 
     useEffect(() => {
         try {
-            const fetchtrademarkDetail = async () => {
-                if (trademarkDetail !== null) {
-                    const result = await trademarkAPI.get();
-                    setTrademarkDetail(result.data.data);
-                    console.log('trademark', result.data)
+            const fetchImageDetail = async () => {
+                if (imageDetail !== null) {
+                    const result = await imageAPI.getAll();
+                    setImageDetailDetail(result.data.data);
+                    console.log('imageDetail', result.data)
                 }
             };
-            fetchtrademarkDetail();
+            fetchImageDetail();
         } catch (error) {
-            console.log('Failed to fetch trademark: ', error);
+            console.log('Failed to fetch imageDetail: ', error);
         }
     }, []);
 
     const handleSubmit = (event) => {
 
-        trademarkAPI.add({ ten_thuong_hieu: trademark })
+        imageAPI.add({
+            id_hinh_anh_ct: idImage,
+            link_hinh_anh_ct: linkImage
+        })
 
 
             .then(function (response) {
-                enqueueSnackbar('Thêm thương hiệu thành công', {
+                enqueueSnackbar('Thêm hình ảnh chi tiết thành công', {
                     variant: 'success',
                     autoHideDuration: 800,
                     anchorOrigin: {
@@ -46,7 +54,7 @@ function AddTrademark() {
                         horizontal: 'right',
                     },
                 });
-                setTrademark('');
+                setLinkImage('');
             })
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
@@ -55,7 +63,7 @@ function AddTrademark() {
 
 
     const handleRowSelection = (e) => {
-        setTrademark(e);
+        // setNameDiscount(e);
         console.log(e)
 
     };
@@ -67,22 +75,25 @@ function AddTrademark() {
                 backgroundColor: 'white',
                 minHeight: '550px',
                 minWidth: '100%',
-                textAlign: 'center',
-                alignItems: 'center',
+
                 paddingTop: '50px',
                 display: 'list-item'
             }}
         >
-            <TextField onChange={(e) => setTrademark(e.target.value)} value={trademark} label="Thương hiệu" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+            <UploadImage />
+            <br />
+            <TextField onChange={(e) => setIdImage(e.target.value)} label="id của ảnh chính" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+            <TextField onChange={(e) => setLinkImage(e.target.value)} value={linkImage} label="link hình ảnh" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+
 
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
-                Thêm thương hiệu
+                Thêm hình ảnh
             </Button>
 
             <div style={{ height: 400, width: '100%', paddingTop: '50px' }}>
                 <DataGrid
-                    getRowId={(row) => row.id_thuong_hieu}
-                    rows={trademarkDetail}
+                    getRowId={(row) => row.id_anh}
+                    rows={imageDetail}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
@@ -95,4 +106,4 @@ function AddTrademark() {
     );
 }
 
-export default AddTrademark;
+export default AddDetailImage;

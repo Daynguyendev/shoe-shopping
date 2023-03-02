@@ -9,6 +9,10 @@ const sizeAPI = {
         const url = `/product/size`;
         return axiosClient.post(url, data);
     },
+    getName(id) {
+        const url = `/product/size/id`;
+        return axiosClient.get(url, id);
+    },
 };
 
 export default sizeAPI;

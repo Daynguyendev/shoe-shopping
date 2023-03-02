@@ -1,19 +1,19 @@
 import axiosClient from "./axiosCilent";
 
 
-const imageAPI = {
-    get(id) {
-        const url = `/product/image/${id}`;
+const invoiceAPI = {
+    getByName(name) {
+        const url = `/invoice/${name}`;
         return axiosClient.get(url);
     },
     getAll() {
-        const url = `/product/image`;
+        const url = `/invoice`;
         return axiosClient.get(url);
     },
     add(data) {
-        const url = `/product/image`;
+        const url = `/invoice`;
         return axiosClient.post(url, data);
     },
 };
 
-export default imageAPI;
+export default invoiceAPI;

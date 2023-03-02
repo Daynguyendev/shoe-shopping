@@ -4,6 +4,15 @@
         padding-top: 20px;
     }
 
+    .selectedcolor {
+        border: 3px solid red;
+
+    }
+
+    .selectedsize {
+        border: 3px solid red;
+
+    }
 }
 
 //mobile
@@ -66,10 +75,26 @@
 
     }
 
-    .size {
-        padding-top: 20px;
+    .colorbutton {
+
+        margin-right: 5px;
+        margin-top: 60px;
     }
 
+    .size {
+        padding-top: 35px;
+
+    }
+
+    .selectedcolor {
+        border: 3px solid red;
+
+    }
+
+    .selectedsize {
+        border: 3px solid red;
+
+    }
 
 }
 
@@ -130,9 +155,34 @@
         padding: 10px;
     }
 
-    .size {
-        padding-top: 20px;
+    .colorbutton {
+
+        margin-right: 5px;
+        margin-top: 30px;
     }
+
+    .colorbutton {
+
+        margin-right: 5px;
+        margin-top: 30px;
+    }
+
+    .size {
+        padding-top: 35px;
+
+    }
+
+    .selectedcolor {
+        border: 3px solid red;
+
+    }
+
+    .selectedsize {
+        border: 3px solid red;
+
+    }
+
+
 
 
 }
@@ -193,9 +243,27 @@
         padding: 50px;
     }
 
-    .size {
-        padding-top: 20px;
+    .colorbutton {
+
+        margin-right: 5px;
+        margin-top: 30px;
     }
+
+    .size {
+        padding-top: 35px;
+
+    }
+
+    .selectedcolor {
+        border: 3px solid red;
+
+    }
+
+    .selectedsize {
+        border: 3px solid red;
+
+    }
+
 
 
 }
@@ -213,40 +281,6 @@
         display: flex;
     }
 
-    .color-shoe-white {
-        background: LavenderBlush;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-    }
-
-    .color-shoe-black {
-        background: black;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-
-    }
-
-    .color-shoe-gray {
-        background: DarkSlateGray;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-
-    }
-
-    .color-shoe-lemon {
-        background: LemonChiffon;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-
-    }
 
     .slogan {
         display: flex;
@@ -256,8 +290,32 @@
         padding: 50px;
     }
 
+    .colorbutton {
+
+        margin-right: 5px;
+        margin-top: 30px;
+        cursor: pointer;
+        background-color: bisque;
+        border: none;
+    }
+
+
+
     .size {
-        padding-top: 20px;
+        padding-top: 35px;
+
+    }
+
+
+
+    .selectedcolor {
+        border: 3px solid red;
+
+    }
+
+    .selectedsize {
+        border: 3px solid red;
+
     }
 
 }

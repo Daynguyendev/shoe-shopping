@@ -7,7 +7,7 @@ const axiosAdmin = axios.create({
 axiosAdmin.interceptors.request.use(
     async config => {
         config.headers = {
-            'Authorization': `Client-ID 9159defb332202c`,
+            'Authorization': `Client-ID 9411a99e0d814df`,
         }
         return config;
     },

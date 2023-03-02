@@ -3,25 +3,30 @@ import axiosClient from "./axiosCilent";
 const cartAPI = {
     async getAll(id) {
         const url = `/cart/${id}`;
-        return axiosClient.get(url);
+        return axiosClient.post(url);
 
     },
-    // get(id) {
-    //     const url = `/products/${id}`;
-    //     return axiosClient.get(url);
-    // },
-    // update(id, data) {
-    //     const url = `/products/${id}`;
-    //     return axiosClient.patch(url, data);
-    // },
+    getDetail(id) {
+        const url = `/cart/${id}`;
+        return axiosClient.post(url);
+
+    },
+    updateQuantity(data) {
+        const url = `/cart/quantity`;
+        return axiosClient.patch(url, data);
+    },
+    updateQuantityButton(data) {
+        const url = `/cart/quantitybutton`;
+        return axiosClient.patch(url, data);
+    },
     add(data) {
         const url = `/cart`;
         return axiosClient.post(url, data);
     },
-    // delete(id) {
-    //     const url = `/products/${id}`;
-    //     return axiosClient.delete(url);
-    // },
+    remove({ id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc }) {
+        const url = `/cart/${id_sp}/${id_khach_hang}/${ten_mau_sac}/${ten_kich_thuoc}`;
+        return axiosClient.delete(url, id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc);
+    },
 };
 
 export default cartAPI;

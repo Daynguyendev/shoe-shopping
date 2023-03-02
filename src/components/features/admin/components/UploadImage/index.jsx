@@ -1,14 +1,14 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Box, IconButton, Snackbar, Typography } from '@mui/material';
 import adminAPI from '../../../../API/adminAPI'
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-// import { useSnackbar } from 'notistack';
-UploadImage.propTypes = {
+import { useRef } from 'react';
+import copy from 'copy-to-clipboard';
 
-};
+
+
+
 const useStyles = makeStyles({
     root: {
         display: 'flex',
@@ -42,6 +42,7 @@ const useStyles = makeStyles({
         color: 'black',
         display: 'flex',
         minHeight: '40px',
+        minWidth: '50%',
         borderRadius: '5px',
         backgroundColor: 'white',
         border: '1px solid #ced4da',
@@ -72,11 +73,18 @@ const useStyles = makeStyles({
 });
 
 function UploadImage(props) {
+    const textInputRef = useRef(null);
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [imageSrc, setImageSrc] = useState('https://...');
     const [imageReviewSrc, setImageReviewSrc] = useState('');
     const [fileName, setFileName] = useState('No file chosen');
+
+    const handleCopyToClipboard = () => {
+        const inputText = imageSrc;
+        copy(inputText);
+    };
+
     const onFileChange = (event) => {
         const getFile = event.target.files[0];
         if (getFile) {
@@ -108,7 +116,7 @@ function UploadImage(props) {
 
 
     return (
-        <Box sx={{ backgroundColor: 'white' }} minHeight='550px'>
+        <Box sx={{ backgroundColor: 'white' }}>
             <Typography variant="h6">Nhấn upload để tải lên hình ảnh của sản phẩm</Typography>
             <Box className={classes.root} sx={{ display: 'flex' }}>
                 <Box className={classes.wrapUpload}>
@@ -139,7 +147,7 @@ function UploadImage(props) {
                         <Typography variant="caption" sx={{ padding: '2px 8px' }}>
                             {imageSrc}
                         </Typography>
-
+                        <button style={{ cursor: 'pointer' }} onClick={handleCopyToClipboard} > coppy</button>
 
 
                     </div>

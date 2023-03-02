@@ -16,6 +16,10 @@ import AddColor from './components/features/admin/components/AddColor';
 import AddDiscount from './components/features/admin/components/AddDiscount';
 import NotFound from './components/features/product/component/NotFound';
 import AddProvider from './components/features/admin/components/AddProvider';
+import AddDetailImage from './components/features/admin/components/AddDetailImage';
+import AddInvoiceInput from './components/features/admin/components/AddInvoiceInput';
+import AddInvoice from './components/features/admin/components/AddInvoice';
+import Test from './components/features/cart/component/Test';
 function App() {
 
   return (
@@ -26,8 +30,12 @@ function App() {
           <Route path="/login" element={<SignIn />}></Route>
           <Route path="/register" element={<SignUp />}></Route>
           <Route path="/account" element={<InforAccount />}></Route>
-          <Route path="/cart/:id" element={<Cart />}></Route>
+          <Route path="/cart/:id/:id_khach_hang/:ten_mau_sac/:ten_kich_thuoc" element={<Cart />}></Route>
           <Route path="/product/:id" element={<DetailPage />}></Route>
+          {/* <Route path="/product/:id/color/:idcolor" element={<DetailPage />}></Route>
+          <Route path="/product/:id/color/:idcolor/size/:idsize" element={<DetailPage />}></Route>
+          <Route path="/product/:id/size/:idsize" element={<DetailPage />}></Route>
+          <Route path="/product/:id/size/:idsize/color/:idcolor" element={<DetailPage />}></Route> */}
           <Route path="/importproduct" element={<Page />}></Route>
           <Route path="/importsize" element={<AddSize />}></Route>
           <Route path="/importcategory" element={<AddCategory />}></Route>
@@ -35,6 +43,15 @@ function App() {
           <Route path="/importcolor" element={<AddColor />}></Route>
           <Route path="/importdiscount" element={<AddDiscount />}></Route>
           <Route path="/importprovider" element={<AddProvider />}></Route>
+          <Route path="/importimage" element={<AddDetailImage />}></Route>
+          <Route path="/invoice" element={<AddInvoice />}></Route>
+          <Route path="/invoice/:name" element={<AddInvoiceInput />}></Route>
+          <Route path="/test" element={<Test />}></Route>
+
+
+
+
+
 
           <Route path="*" element={<NotFound />} />
 

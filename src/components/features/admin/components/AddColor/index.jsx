@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import colorAPI from '../../../../API/colorAPI';
-import axios from 'axios';
+import { useSnackbar } from 'notistack';
 
 const columns = [
     { field: 'id_mau_sac', headerName: 'id_mau_sac', width: 70 },
@@ -15,6 +15,7 @@ const columns = [
 function AddColor() {
     const [colorDetail, setColorDetail] = useState([]);
     const [color, setColor] = useState('');
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         try {
@@ -22,7 +23,6 @@ function AddColor() {
                 if (colorDetail !== null) {
                     const result = await colorAPI.get();
                     setColorDetail(result.data.data);
-                    console.log('colorDetail', result.data)
                 }
             };
             fetchColorDetail();
@@ -37,9 +37,18 @@ function AddColor() {
 
 
             .then(function (response) {
-                return response.status
+                enqueueSnackbar('Thêm màu sắc thành công', {
+                    variant: 'success',
+                    autoHideDuration: 800,
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
+                setColor('');
             })
-            .catch(error => console.log(error));
+            .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
+            );
 
     };
 
@@ -63,7 +72,7 @@ function AddColor() {
                 display: 'list-item'
             }}
         >
-            <TextField onChange={(e) => setColor(e.target.value)} label="Màu sắc" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+            <TextField onChange={(e) => setColor(e.target.value)} value={color} label="Màu sắc" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
 
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
                 Thêm màu sắc

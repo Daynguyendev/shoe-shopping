@@ -1,36 +1,33 @@
-import React from "react";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import "./Product.scss";
-import { Typography } from "@mui/material";
+import React from 'react';
+import Button from '@mui/material/Button';
 
+function Product({ count, setCount, item }) {
+    const handleIncrease = () => {
+        setCount(prevCount => prevCount + 1);
+    };
 
-
-function Product(props) {
+    const handleDecrease = () => {
+        if (count > 1) {
+            setCount(prevCount => prevCount - 1);
+        }
+    };
 
     return (
-
-        <Box className="full-box-product">
-            <Grid>
-                <img
-                    className="img"
-                    src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/ULTRABOOST-21-SHOES-20-768x768.jpg"
-                    alt="anh 1"
-                />
-                <Typography sx={{ fontFamily: 'Jura' }}>Màu đen, size 41</Typography>
-
-            </Grid>
-
-            <Grid>
-
-                <Typography sx={{ fontFamily: 'Jura' }}>Giày Thể Thao Nam MWC</Typography>
-
-
-            </Grid>
-
-
-        </Box >
-
+        <div>
+            <Button onClick={handleDecrease} style={{ minWidth: '0' }}>
+                -
+            </Button>
+            <input
+                className='counter__input'
+                type='number'
+                style={{ width: '30px' }}
+                value={count}
+                onChange={e => setCount(parseInt(e.target.value))}
+            />
+            <Button onClick={handleIncrease} style={{ minWidth: '0' }}>
+                +
+            </Button>
+        </div>
     );
 }
 

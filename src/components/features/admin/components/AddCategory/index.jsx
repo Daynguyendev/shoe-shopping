@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import categoryAPI from './../../../../API/categoryAPI';
+import { useSnackbar } from 'notistack';
 
 
 const columns = [
@@ -13,8 +14,10 @@ const columns = [
 ];
 
 function AddCategory() {
+    const { enqueueSnackbar } = useSnackbar();
     const [category, setCategory] = useState([]);
     const [sizeadd, setSizeadd] = useState('');
+
 
     useEffect(() => {
         try {
@@ -22,7 +25,7 @@ function AddCategory() {
                 if (category !== null) {
                     const result = await categoryAPI.get();
                     setCategory(result.data.data);
-                    console.log('categoryDetail', result.data)
+
                 }
             };
             fetchCategorry();
@@ -37,9 +40,19 @@ function AddCategory() {
 
 
             .then(function (response) {
-                return response.status
+
+                enqueueSnackbar('Thêm loại thành công', {
+                    variant: 'success',
+                    autoHideDuration: 800,
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
+                setSizeadd(' ');
             })
-            .catch(error => console.log(error));
+            .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
+            );
 
     };
 
@@ -63,7 +76,7 @@ function AddCategory() {
                 display: 'list-item'
             }}
         >
-            <TextField onChange={(e) => setSizeadd(e.target.value)} label="Loại" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+            <TextField onChange={(e) => setSizeadd(e.target.value)} value={sizeadd} label="Loại" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
 
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
                 Thêm loại

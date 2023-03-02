@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import discountAPI from '../../../../API/discountAPI';
+import { useSnackbar } from 'notistack';
+
 const columns = [
     { field: 'id_giam_gia', headerName: 'id_giam_gia', width: 70 },
     { field: 'ten_giam_gia', headerName: 'ten_giam_gia', width: 130 },
@@ -16,6 +18,7 @@ function AddDiscount() {
     const [discountDetail, setDiscountDetail] = useState([]);
     const [namediscount, setNameDiscount] = useState('');
     const [pricediscount, setPriceDiscount] = useState('');
+    const { enqueueSnackbar } = useSnackbar();
 
 
     useEffect(() => {
@@ -42,9 +45,19 @@ function AddDiscount() {
 
 
             .then(function (response) {
-                return response.status
+                enqueueSnackbar('Thêm mã giảm giá thành công', {
+                    variant: 'success',
+                    autoHideDuration: 800,
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
+                setNameDiscount('');
+                setPriceDiscount('');
             })
-            .catch(error => console.log(error));
+            .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
+            );
 
     };
 
@@ -68,8 +81,8 @@ function AddDiscount() {
                 display: 'list-item'
             }}
         >
-            <TextField onChange={(e) => setNameDiscount(e.target.value)} label="Tên khuyến mãi" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
-            <TextField onChange={(e) => setPriceDiscount(e.target.value)} label="Giá giảm" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+            <TextField onChange={(e) => setNameDiscount(e.target.value)} value={namediscount} label="Tên khuyến mãi" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+            <TextField onChange={(e) => setPriceDiscount(e.target.value)} value={pricediscount} label="Giá giảm" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
 
 
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>

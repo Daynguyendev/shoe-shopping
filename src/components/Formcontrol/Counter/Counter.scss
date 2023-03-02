@@ -1,0 +1,59 @@
+// file tăng giảm số lượng.scss
+
+$button-color: #007bff;
+$button-hover-color: #0056b3;
+$button-active-color: #004da3;
+$button-border-radius: 5px;
+$button-height: 30px;
+$button-width: 30px;
+$button-font-size: 18px;
+$button-font-color: #fff;
+
+$quantity-color: #333;
+$quantity-font-size: 16px;
+$quantity-font-weight: bold;
+$quantity-padding: 5px;
+
+$minus-position: -5px;
+$plus-position: 25px;
+
+.quantity-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $button-width;
+    height: $button-height;
+    font-size: $button-font-size;
+    font-weight: bold;
+    color: $button-font-color;
+    background-color: $button-color;
+    border: none;
+    border-radius: $button-border-radius;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: $button-hover-color;
+    }
+
+    &:active {
+        background-color: $button-active-color;
+    }
+}
+
+.quantity-button[data-action="decrease"] {
+    position: relative;
+    left: $minus-position;
+}
+
+.quantity-button[data-action="increase"] {
+    position: relative;
+    left: $plus-position;
+}
+
+.quantity-number {
+    color: $quantity-color;
+    font-size: $quantity-font-size;
+    font-weight: $quantity-font-weight;
+    padding: $quantity-padding;
+}

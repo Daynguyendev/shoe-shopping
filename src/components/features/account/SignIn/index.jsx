@@ -12,8 +12,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
+import { useState, useEffect } from 'react';
+import userAPI from '../../../API/userAPI';
+import { setUser } from '../userSlice';
+import { useDispatch } from 'react-redux';
+import { login } from '../userSlice';
+
 
 function Copyright(props) {
     return (
@@ -32,25 +38,59 @@ const theme = createTheme();
 
 export default function SignIn() {
     const navigate = useNavigate();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+
+    const { enqueueSnackbar } = useSnackbar();
+    const dispatch = useDispatch();
     const handleNextPage = () => {
         navigate(`/register`)
     }
+    /////
+    // const handleLogin = async (email, password) => {
+    //     try {
+    //         const res = await userAPI.login({
+    //             email_khach_hang: email,
+    //             mat_khau_khach_hang: password
+    //         });
+    //         if (res.data.success) {
+    //             const { user, token, } = res.data;
+    //             localStorage.setItem('token', token);
+    //             // localStorage.setItem('refreshToken', refreshToken);
+    //             dispatch(setUser(user)); // Lưu thông tin người dùng vào store
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
+
+
+    /////
     const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        axios.post('http://localhost:5000/login', {
-            email_khach_hang: data.get('email'),
-            mat_khau_khach_hang: data.get('password')
-
+        userAPI.login({
+            email_khach_hang: email,
+            mat_khau_khach_hang: password
         })
+
             .then(function (response) {
+                dispatch(login({ email_khach_hang: email, token: response.data.token }));
+                let data = { email_khach_hang: email, token: response.data.token, isLogin: true }
+                localStorage.setItem('user', JSON.stringify(data));
                 navigate(`/`)
+                enqueueSnackbar('Đăng nhập thành công', {
+                    variant: 'success',
+                    autoHideDuration: 800,
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
             })
-            .catch(error => console.log(error));
+            .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
+            );
 
     };
-
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="lg" sx={{
@@ -59,6 +99,8 @@ export default function SignIn() {
 
             }}>
                 <CssBaseline />
+                {/* {console.log('têst', JSON.parse(localStorage.getItem('user'))?.)} */}
+
                 <Box
                     sx={{
                         marginTop: 8,
@@ -75,39 +117,26 @@ export default function SignIn() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
-                            required
                             fullWidth
-                            id="email"
                             label="Email Address"
-                            name="email"
-                            autoComplete="email"
                             autoFocus
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                         <TextField
                             margin="normal"
-                            required
                             fullWidth
-                            name="password"
                             label="Password"
                             type="password"
-                            id="password"
-                            autoComplete="current-password"
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"
                         />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Sign In
-                        </Button>
+
                         <Grid container>
                             <Grid item xs>
                                 <Link href="#" variant="body2">
@@ -121,10 +150,21 @@ export default function SignIn() {
                                 </Link>
                             </Grid>
                         </Grid>
+
                     </Box>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                        onClick={handleSubmit}
+
+                    >
+                        Sign In
+                    </Button>
                 </Box>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
-        </ThemeProvider>
+        </ThemeProvider >
     );
 }

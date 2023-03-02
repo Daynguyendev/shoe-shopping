@@ -6,10 +6,6 @@ import Header from '../../Header';
 import { Outlet } from 'react-router-dom';
 import './full.scss'
 
-// UserLayout.propTypes = {
-
-// };
-
 function UserLayout() {
     return (
 

@@ -6,11 +6,9 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -22,7 +20,10 @@ import { createTheme } from '@mui/material/styles';
 import { createSvgIcon } from '@mui/material/utils';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
+import userAPI from '../API/userAPI';
+import { useState, useEffect } from 'react';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 
 
@@ -96,6 +97,32 @@ function Header() {
     },
   }));
 
+  const [idUser, setIdUser] = useState();
+  let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
+  const isLogin = useSelector((state) => state?.user.isLogin);
+
+
+  useEffect(() => {
+
+    try {
+      const fetchIdUser = async () => {
+        // console.log('test_header', email_khach_hang);
+        if (isLogin) {
+          const res = await userAPI.getID({ email_khach_hang: email_khach_hang });
+          setIdUser(res.data.data[0]?.id_khach_hang)
+
+        }
+
+        // console.log('test_head', idUser);
+
+
+
+      };
+      fetchIdUser();
+    } catch (error) {
+      console.log('Failed to fetch idUser: ', error);
+    }
+  }, []);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -114,15 +141,20 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  let { id } = useParams();
+
 
   const handlecClickcart = () => {
-    navigate(`/cart/${id}`)
+    navigate(`/cart/${idUser}/id_sp/ten_mau_sac/ten_kich_thuoc`)
+    window.location.reload();
+
 
   }
   const handlecClicklogo = () => {
     navigate(`/`)
 
+  }
+  const handleAccount = () => {
+    navigate(`/account`)
   }
 
   return (
@@ -216,9 +248,9 @@ function Header() {
 
           </Box>
 
+          <ManageAccountsIcon onClick={handleAccount} sx={{ padding: '10px', cursor: 'pointer' }} ></ManageAccountsIcon>
 
           <Box sx={{ flexGrow: 0, color: 'white', textAlign: 'center', alignItems: 'center', display: 'flex', cursor: 'pointer', fontFamily: 'Jura' }} onClick={handlecClickcart}>
-            <h4>GIỎ HÀNG</h4>
             <ShoppingCartIcon />
 
             <Tooltip title="Open settings">

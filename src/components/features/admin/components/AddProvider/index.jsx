@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import providerAPI from '../../../../API/providerAPI';
+import { useSnackbar } from 'notistack';
+
 const columns = [
     { field: 'id_nha_cc', headerName: 'id_nha_cc', width: 70 },
     { field: 'ten_nha_cc', headerName: 'ten_nha_cc', width: 130 },
@@ -16,6 +18,7 @@ function AddProvider() {
     const [providerDetail, setProviderDetail] = useState([]);
     const [nameprovider, setNameProvider] = useState('');
     const [addressProvider, setAddressProvider] = useState('');
+    const { enqueueSnackbar } = useSnackbar();
 
 
     useEffect(() => {
@@ -42,9 +45,19 @@ function AddProvider() {
 
 
             .then(function (response) {
-                return response.status
+                enqueueSnackbar('Thêm nhà cung cấp thành công', {
+                    variant: 'success',
+                    autoHideDuration: 800,
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
+                setNameProvider('');
+                setAddressProvider('');
             })
-            .catch(error => console.log(error));
+            .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
+            );
 
     };
 
@@ -68,8 +81,8 @@ function AddProvider() {
                 display: 'list-item'
             }}
         >
-            <TextField onChange={(e) => setNameProvider(e.target.value)} label="Tên nhà cung cấp" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
-            <TextField onChange={(e) => setAddressProvider(e.target.value)} label="Địa chỉ nhà cung cấp" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+            <TextField onChange={(e) => setNameProvider(e.target.value)} value={nameprovider} label="Tên nhà cung cấp" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+            <TextField onChange={(e) => setAddressProvider(e.target.value)} value={addressProvider} label="Địa chỉ nhà cung cấp" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
 
 
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>

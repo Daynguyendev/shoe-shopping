@@ -15,7 +15,7 @@ const productAPI = {
         return axiosClient.patch(url, data);
     },
     add(data) {
-        const url = `/products`;
+        const url = `/product`;
         return axiosClient.post(url, data);
     },
     delete(id) {

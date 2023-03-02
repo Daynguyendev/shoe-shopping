@@ -12,6 +12,9 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
+import { useState, useEffect } from 'react';
+import userAPI from '../../../API/userAPI';
 
 
 
@@ -32,19 +35,33 @@ const theme = createTheme();
 
 export default function SignUp() {
     const navigate = useNavigate();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [birthday, setBirthday] = useState();
+    const [role, setRole] = useState(1);
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        axios.post('http://localhost:5000/register', {
-            email_khach_hang: data.get('email'),
-            ngay_sinh_khach_hang: data.get('date-birth'),
-            mat_khau_khach_hang: data.get('password'),
+        userAPI.register({
+            email_khach_hang: email,
+            mat_khau_khach_hang: password,
+            ngay_sinh_khach_hang: birthday,
+            chuc_vu: role
         })
+
             .then(function (response) {
-                navigate(`/login`)
+                navigate(`/`)
+                enqueueSnackbar('Đăng ký tài khoản thành công', {
+                    variant: 'success',
+                    autoHideDuration: 800,
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
             })
-            .catch(error => console.log(error));
+            .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
+            );
 
     };
     const handleNextPage = () => {
@@ -58,6 +75,7 @@ export default function SignUp() {
 
             }}>
                 <CssBaseline />
+                {console.log(role)}
                 <Box
                     sx={{
                         marginTop: 8,
@@ -72,56 +90,41 @@ export default function SignUp() {
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    <Box sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
 
                             <Grid item xs={12}>
 
                                 <TextField
-                                    required
                                     fullWidth
-                                    id="email"
                                     label="Địa chỉ Email"
-                                    name="email"
-                                    autoComplete="family-email"
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
-                                    required
                                     fullWidth
-                                    id="date-birth"
                                     label="Ngày sinh"
                                     type="date"
-                                    name="date-birth"
                                     defaultValue="2000-05-24"
+                                    onChange={(e) => setBirthday(e.target.value)}
                                 />
                             </Grid>
 
 
                             <Grid item xs={12}>
                                 <TextField
-                                    required
                                     fullWidth
-                                    name="password"
                                     label="Mật khẩu"
                                     type="password"
-                                    id="password"
-                                    autoComplete="new-password"
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
 
                             </Grid>
                         </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Sign Up
-                        </Button>
+
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="" variant="body2" onClick={handleNextPage}>
@@ -133,6 +136,15 @@ export default function SignUp() {
                         </Grid>
                     </Box>
                 </Box>
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                    onClick={handleSubmit}
+                >
+                    Sign Up
+                </Button>
                 <Copyright sx={{ mt: 5 }} />
             </Container>
         </ThemeProvider>

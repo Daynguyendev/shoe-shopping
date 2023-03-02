@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import sizeAPI from '../../../../API/sizeAPI';
-import axios from 'axios';
+import { useSnackbar } from 'notistack';
 
 const columns = [
     { field: 'id_kich_thuoc', headerName: 'ID', width: 70 },
@@ -15,6 +15,7 @@ const columns = [
 function AddSize() {
     const [sizeDetail, setSizeDetail] = useState([]);
     const [size, setSize] = useState('');
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         try {
@@ -37,9 +38,18 @@ function AddSize() {
 
 
             .then(function (response) {
-                return response.status
+                enqueueSnackbar('Thêm kích thước thành công', {
+                    variant: 'success',
+                    autoHideDuration: 800,
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                    },
+                });
+                setSize('');
             })
-            .catch(error => console.log(error));
+            .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
+            );
 
     };
 
@@ -63,7 +73,7 @@ function AddSize() {
                 display: 'list-item'
             }}
         >
-            <TextField onChange={(e) => setSize(e.target.value)} label="Kích thước" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+            <TextField onChange={(e) => setSize(e.target.value)} value={size} label="Kích thước" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
 
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
                 Thêm kích thước

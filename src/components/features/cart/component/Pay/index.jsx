@@ -12,37 +12,35 @@ Pay.propTypes = {
 };
 
 function Pay(props) {
+    let cartLocal = JSON.parse(localStorage.getItem('cart')) || [];
+    let total = 0;
+    let ship = 30000;
+    cartLocal.map((item, index) => (
+        total += item.gia_sp * item.so_luong
+    ))
+
     return (
-        <Container disableGutters maxWidth='xl' sx={{ 
-            color: 'black'
-        }}>
+        <Container disableGutters maxWidth='xl' sx={{
+            color: 'black', padding: '12px'
+        }} >
             <Typography variant='h6' sx={{ fontFamily: 'Jura' }}>
                 Cộng giỏ hàng
             </Typography>
             <hr />
             <Typography sx={{ fontFamily: 'Jura' }}>
-                Tạm tính
+                Tạm tính : {total}
             </Typography>
             <hr />
             <Typography sx={{ fontFamily: 'Jura' }}>
-                Giao hàng
+                Giao hàng : {ship}
             </Typography>
             <hr />
             <Typography sx={{ fontFamily: 'Jura' }}>
-                Tổng
+                Tổng : {total + ship}
             </Typography>
             <hr />
             <Button variant="contained" disableElevation fullWidth sx={{ backgroundColor: 'Coral', fontFamily: 'Jura' }}>
                 Tiến hành thanh toán
-            </Button>
-            <hr />
-            <Typography sx={{ fontFamily: 'Jura' }}>
-                Phiếu ưu đãi
-            </Typography>
-            <TextField id="outlined-basic" variant="outlined" fullWidth />
-            <hr />
-            <Button variant="contained" disableElevation fullWidth sx={{ backgroundColor: 'Coral', fontFamily: 'Jura', marginBottom: '20px' }}>
-                Áp dụng
             </Button>
 
         </Container >
