@@ -19,11 +19,9 @@ function Cart(props) {
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
     const isLogin = useSelector((state) => state?.user.isLogin);
 
-
     useEffect(() => {
         try {
             const fetchIdUser = async () => {
-                // console.log('test_header', email_khach_hang);
                 if (isLogin) {
                     const res = await userAPI.getID({ email_khach_hang: email_khach_hang });
                     setIdUser(res.data.data[0]?.id_khach_hang)
@@ -39,26 +37,23 @@ function Cart(props) {
         if (idUser) {
             handleAddCartDb()
         }
-    }, [])
+    }, [idUser])
 
     const handleAddCartDb = async () => {
-        {
-            dataUser.map((item, index) => (
-                cartAPI.add({
 
-                    id_khach_hang: idUser,
-                    id_sp: item.id_sp,
-                    ten_mau_sac: item.ten_mau_sac,
-                    ten_kich_thuoc: item.ten_kich_thuoc,
-                    so_luong: item.so_luong
-                })
+        for (const item of dataUser) {
+            cartAPI.updateQuantity({
+                id_khach_hang: idUser,
+                id_sp: item.id_sp,
+                ten_mau_sac: item.ten_mau_sac,
+                ten_kich_thuoc: item.ten_kich_thuoc,
+                so_luong: item.so_luong,
+            })
 
-            ))
         }
         localStorage.removeItem('cart');
-
-
-
+        const result = await cartAPI.getDetail(id);
+        setCart(result.data.data);
     }
 
 

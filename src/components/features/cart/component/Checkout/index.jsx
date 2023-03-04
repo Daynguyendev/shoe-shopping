@@ -10,7 +10,6 @@ import Button from '@mui/material/Button';
 import { useSnackbar } from 'notistack';
 import { useSelector } from 'react-redux';
 import userAPI from '../../../../API/userAPI';
-import Pay from '../Pay';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -21,17 +20,14 @@ import { useParams } from 'react-router-dom';
 import cartAPI from '../../../../API/cartAPI';
 import invoiceoutputAPI from '../../../../API/invoiceoutputAPI';
 import detailinvoiceoutputAPI from '../../../../API/detailinvoiceoutputAPI'
+import ButtonForm from '../../../../Formcontrol/ButtonForm';
 
 export default function UploadProduct() {
     let { id } = useParams();
     const { enqueueSnackbar } = useSnackbar();
-    const [discount, setDiscount] = useState('');
     const [idUser, setIdUser] = useState('');
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
     const [open, setOpen] = useState(false);
-    const isLogin = useSelector((state) => state.user.isLogin);
-    const email = useSelector((state) => state.user);
-
     const navigate = useNavigate();
     const [addressadd, setAddressAdd] = useState();
     const [phone, setPhone] = useState();
@@ -42,7 +38,8 @@ export default function UploadProduct() {
     const [total, setTotal] = useState(0)
     const datacart = cartJoin || [];
     const [idHd, setIdHd] = useState(null);
-    console.log('ra gi nao', idHd)
+
+
     useEffect(() => {
 
         const NewArray = [...datacart];
@@ -56,7 +53,7 @@ export default function UploadProduct() {
     }
 
         , [datacart]);
-    console.log(totalShip)
+
 
     useEffect(() => {
 
@@ -76,7 +73,6 @@ export default function UploadProduct() {
                 if (cartJoin !== null) {
                     const result = await cartAPI.getDetail(id);
                     setCartJoin(result.data.data);
-                    console.log('cartJoin', result.data.data)
                 }
             };
             fetchCart();
@@ -100,7 +96,23 @@ export default function UploadProduct() {
             sdt_khach_hang: phone
         })
 
+
+
+
             .then(function (response) {
+
+                const dataAdd = [...address]
+                const data = ({
+                    id_dia_chi: response.data.data,
+                    id_khach_hang: idUser,
+                    ten_khach_hang: name,
+                    ten_dia_chi: addressadd,
+                    sdt_khach_hang: phone
+                })
+
+                dataAdd.push(data)
+                setAddress(dataAdd)
+
 
 
                 enqueueSnackbar('Thêm địa chỉ thành công', {
@@ -116,7 +128,6 @@ export default function UploadProduct() {
             );
 
     };
-    console.log('data đây', datacart)
     const handleadddetail = () => {
         {
             datacart.map((item, index) => {
@@ -135,6 +146,7 @@ export default function UploadProduct() {
     useEffect(() => {
         if (idHd) {
             handleadddetail();
+            navigate(`/status/${id}/${idHd}`)
         }
     }, [idHd]);
 
@@ -145,13 +157,15 @@ export default function UploadProduct() {
                 id_khach_hang: idUser,
                 id_dia_chi: addressSubmit,
                 id_phuong_thuc_tt: checkoutSubmit,
-                id_trang_thai: 1,
+                id_trang_thai: 0,
                 tong_tien: total + totalShip,
             })
 
                 .then(function (response) {
                     setIdHd(response.data.data)
-                    navigate(`/status`)
+                    cartAPI.removeAll({ id_khach_hang: id })
+
+
                     enqueueSnackbar('Đặt hàng thành công', {
                         variant: 'success',
                         autoHideDuration: 800,
@@ -181,8 +195,6 @@ export default function UploadProduct() {
 
         try {
             const fetchIdUser = async () => {
-                console.log('test', email_khach_hang);
-
                 const res = await userAPI.getID({ email_khach_hang: email_khach_hang });
                 setIdUser(res.data.data[0].id_khach_hang)
             };
@@ -194,6 +206,7 @@ export default function UploadProduct() {
 
     const [addressSubmit, setAddressSubmit] = useState('')
     const [checkoutSubmit, setCheckoutSubmit] = useState('')
+
 
     const handleAddress = event => {
         setAddressSubmit(event.target.value);
@@ -211,7 +224,6 @@ export default function UploadProduct() {
             const fetchCart = async () => {
                 if (checkout !== null) {
                     const result = await checkoutAPI.get();
-                    console.log(result);
                     setCheckout(result.data.data);
                 }
             };
@@ -221,12 +233,13 @@ export default function UploadProduct() {
         }
     }, []);
 
-    const [address, setAddress] = useState('');
+    const [address, setAddress] = useState([]);
+    const dataAddress = address || [];
+    const dataCheckout = checkout || [];
     useEffect(() => {
         try {
             const fetchCart = async () => {
                 if (address !== null) {
-                    console.log('idS', idUser);
                     const result = await addresskAPI.getAddress({ id_khach_hang: id });
                     setAddress(result.data.data);
                 }
@@ -237,9 +250,6 @@ export default function UploadProduct() {
         }
     }, []);
 
-    const dataAddress = address || [];
-    const dataCheckout = checkout || [];
-    console.log('chẽk', addressSubmit)
 
     return (
         <Box
@@ -279,9 +289,6 @@ export default function UploadProduct() {
                         Nhập địa chỉ
                     </Button>
                     <h3 style={{ fontFamily: 'Jura', margin: '10px' }}>Chọn phương thức thanh toán*</h3>
-
-
-
                     <TextField
                         select
                         label="Phương thức thanh toán"

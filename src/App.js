@@ -21,6 +21,8 @@ import AddInvoiceInput from './components/features/admin/components/AddInvoiceIn
 import AddInvoice from './components/features/admin/components/AddInvoice';
 import Checkout from './components/features/cart/component/Checkout'
 import Status from './components/features/cart/component/Status';
+import StatusNew from './components/features/cart/component/StatusNew';
+import OrderConfirmation from './components/features/admin/components/OrderConfirmation';
 function App() {
 
   return (
@@ -48,7 +50,11 @@ function App() {
           <Route path="/invoice" element={<AddInvoice />}></Route>
           <Route path="/invoice/:name" element={<AddInvoiceInput />}></Route>
           <Route path="/checkout/:id" element={<Checkout />}></Route>
-          <Route path="/status" element={<Status />}></Route>
+          <Route path="/status/:id_khach_hang" element={<Status />}></Route>
+          <Route path="/status/:id_khach_hang/:id_hd_dat" element={<StatusNew />}></Route>
+          <Route path="/Duyet" element={<OrderConfirmation />}></Route>
+
+
 
           <Route path="*" element={<NotFound />} />
 

@@ -23,6 +23,10 @@ function ListItem({ cart, setCart }) {
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
     const navigate = useNavigate();
     const data = cart || [];
+    const dataUser = User || [];
+    const [itemLocal, setItemLocal] = useState(dataUser);
+
+
     useEffect(() => {
 
         try {
@@ -30,7 +34,6 @@ function ListItem({ cart, setCart }) {
 
                 const res = await userAPI.getID({ email_khach_hang: email_khach_hang });
                 setIdUser(res.data.data[0]?.id_khach_hang)
-                console.log(idUser)
 
 
             };
@@ -44,19 +47,37 @@ function ListItem({ cart, setCart }) {
         setItems(storedItems);
     }, []);
 
-    const handleRemove = (id_sp, ten_mau_sac, ten_kich_thuoc) => {
+    const handleRemove = (id_sp, ten_mau_sac, ten_kich_thuoc, so_luong) => {
 
         let cartList = JSON.parse(localStorage.getItem('cart'));
         cartList = cartList.filter(item => (
             item.id_sp !== id_sp ||
             item.ten_mau_sac !== ten_mau_sac ||
-            item.ten_kich_thuoc !== ten_kich_thuoc
+            item.ten_kich_thuoc !== ten_kich_thuoc || item.so_luong !== so_luong
         ));
-        setItems(cartList);
-
+        setItemLocal(cartList);
 
         localStorage.setItem('cart', JSON.stringify(cartList));
     };
+    const handleUpCountLocal = (index) => {
+        items[index].so_luong += 1;
+
+        const updateCart = [...items];
+        localStorage.setItem('cart', JSON.stringify(updateCart));
+        setItemLocal(updateCart)
+    }
+    const handleDownCountLocal = async (index) => {
+        if (items[index].so_luong > 1) {
+            items[index].so_luong -= 1;
+            const updateCart = [...items];
+            localStorage.setItem('cart', JSON.stringify(updateCart));
+            setItemLocal(updateCart)
+
+        }
+
+    }
+
+
 
 
     const handleRemoveItemDB = async (id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc) => {
@@ -95,7 +116,6 @@ function ListItem({ cart, setCart }) {
                 if (cart !== null) {
                     const result = await cartAPI.getDetail(id);
                     setCart(result.data.data);
-                    console.log('khuakhua', result.data.data)
                 }
             };
             fetchCart();
@@ -140,7 +160,7 @@ function ListItem({ cart, setCart }) {
                 <hr />
 
 
-                {User.map((item, index) => (
+                {itemLocal.map((item, index) => (
 
                     <Grid item xs={12} className='root-cart' key={index} >
                         <Grid item xs={5} lg={5} xl={5} >
@@ -170,8 +190,16 @@ function ListItem({ cart, setCart }) {
                             <Typography sx={{ fontFamily: 'Jura' }}>{item.gia_sp}</Typography>
 
                         </Grid>
-                        <Grid item xs={2} lg={1} xl={1} sx={{ display: 'flex', justifyContent: 'center', fontFamily: 'Jura' }}>
+
+                        <Grid item xs={2} lg={1} xl={1} sx={{ display: 'flex', justifyContent: 'center', fontFamily: 'Jura', alignItems: 'center' }}>
+                            <IconButton onClick={() => handleDownCountLocal(index)}>
+                                <RemoveIcon />
+                            </IconButton>
                             {item.so_luong}
+                            <IconButton onClick={() => handleUpCountLocal(index)}>
+                                <AddIcon />
+                            </IconButton>
+
 
 
 
@@ -183,7 +211,7 @@ function ListItem({ cart, setCart }) {
                         </Grid>
 
                         <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex', paddingRight: '50px' } }}>
-                            <IconButton onClick={() => handleRemove(item.id_sp, item.id_khach_hang, item.ten_mau_sac, item.ten_kich_thuoc, item.so_luong)}>
+                            <IconButton onClick={() => handleRemove(item.id_sp, item.ten_mau_sac, item.ten_kich_thuoc, item.so_luong)}>
                                 <DeleteOutlineIcon />
                             </IconButton>
 
@@ -216,6 +244,7 @@ function ListItem({ cart, setCart }) {
                         <Typography sx={{ fontFamily: 'Jura' }}>Số lượng</Typography>
 
                     </Grid>
+
 
                     <Grid item xs={0} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
                         <Typography sx={{ fontFamily: 'Jura' }}>Thành tiền</Typography>

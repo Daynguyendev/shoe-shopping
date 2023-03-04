@@ -115,7 +115,7 @@ function Header() {
     } catch (error) {
       console.log('Failed to fetch idUser: ', error);
     }
-  }, []);
+  }, [isLogin]);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);

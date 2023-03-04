@@ -14,6 +14,11 @@ const detailinvoiceoutputAPI = {
         const url = `/detailinvoiceoutput`;
         return axiosClient.post(url, data);
     },
+    getDetail(data) {
+        const url = `/invoiceoutput/detail`;
+        return axiosClient.post(url, data);
+    },
+
 };
 
 export default detailinvoiceoutputAPI;

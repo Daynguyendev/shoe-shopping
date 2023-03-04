@@ -45,6 +45,54 @@ export default function SignIn() {
     const [idKh, setIdKh] = useState(null);
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
+    const [idUser, setIdUser] = useState(null);
+    let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
+    const isLogin = useSelector((state) => state?.user.isLogin);
+    const [items, setItems] = useState(null);
+
+    // useEffect(() => {
+    //     const storedItems = JSON.parse(localStorage.getItem('cart')) || [];
+    //     setItems(storedItems);
+    // }, []);
+
+
+    // useEffect(() => {
+    //     if (idUser && items) {
+    //         {
+    //             items.map(async (item, index) => {
+    //                 console.log('sao khong hop le', {
+    //                     id_sp: item.id_sp,
+    //                     id_khach_hang: idUser,
+    //                     ten_mau_sac: item.ten_mau_sac,
+    //                     ten_kich_thuoc: item.ten_kich_thuoc,
+    //                     so_luong: item.so_luong
+    //                 })
+    //             })
+    //         }
+    //     }
+
+    // }, []);
+
+
+    useEffect(() => {
+        try {
+            const fetchIdUser = async () => {
+                // console.log('test_header', email_khach_hang);
+                if (isLogin) {
+                    const res = await userAPI.getID({ email_khach_hang: email_khach_hang });
+                    setIdUser(res.data.data[0]?.id_khach_hang)
+                }
+            };
+            fetchIdUser();
+        } catch (error) {
+            console.log('Failed to fetch idUser: ', error);
+        }
+    }, []);
+
+    {
+
+
+    }
 
 
 
@@ -65,6 +113,9 @@ export default function SignIn() {
                 dispatch(login({ email_khach_hang: email, token: response.data.token }));
                 let data = { email_khach_hang: email, token: response.data.token, isLogin: true }
                 localStorage.setItem('user', JSON.stringify(data));
+                // AddData()
+                // localStorage.removeItem('cart');
+
                 navigate(`/`)
                 enqueueSnackbar('Đăng nhập thành công', {
                     variant: 'success',

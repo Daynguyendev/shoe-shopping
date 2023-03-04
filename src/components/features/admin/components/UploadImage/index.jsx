@@ -11,7 +11,6 @@ import copy from 'copy-to-clipboard';
 
 const useStyles = makeStyles({
     root: {
-        display: 'flex',
         alignItems: 'center',
     },
     wrapImg: {
@@ -117,13 +116,12 @@ function UploadImage(props) {
 
     return (
         <Box sx={{ backgroundColor: 'white' }}>
-            <Typography variant="h6">Nhấn upload để tải lên hình ảnh của sản phẩm</Typography>
-            <Box className={classes.root} sx={{ display: 'flex' }}>
+            <Typography variant="h6">Nhấn để tải lên hình ảnh của sản phẩm</Typography>
+            <Box className={classes.root} sx={{}}>
                 <Box className={classes.wrapUpload}>
                     <label
                         htmlFor="upload-photo"
                         onChange={onFileChange}
-                        style={{ dispaly: 'flex' }}
                     >
                         <input
                             style={{ display: 'none' }}
@@ -132,7 +130,7 @@ function UploadImage(props) {
                             type="file"
                         />
                         <Box variant="subtitle1" className={classes.btn}>
-                            Choose File
+                            Nhấn vào đây
                         </Box>
                     </label>
                     <Box>

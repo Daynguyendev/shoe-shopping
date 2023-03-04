@@ -16,7 +16,7 @@
         }
 
         .detail-item {
-            font-size: 20px;
+            font-size: 10px;
             color: white;
             font-family: 'Jura', sans-serif;
             text-align: center;
@@ -41,10 +41,16 @@
         .img {
             width: 140px;
             height: 140px;
+            // animation: mymove1 cubic-bezier(0.23, 1, 0.32, 1);
+            // position: relative;
+            // animation-fill-mode: forwards;
+            // animation-duration: 1s;
+            // transition: 0.3s;
+
         }
 
         .detail-item {
-            font-size: 20px;
+            font-size: 15px;
             color: white;
             font-family: 'Jura', sans-serif;
             text-align: center;
@@ -52,6 +58,11 @@
         }
 
     }
+
+    .fade-in {
+        height: 220px;
+    }
+
 }
 
 //pho thong
@@ -69,10 +80,16 @@
         .img {
             width: 160px;
             height: 160px;
+            animation: mymove1 cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            animation-fill-mode: forwards;
+            animation-duration: 1s;
+            transition: 0.3s;
+
         }
 
         .detail-item {
-            font-size: 20px;
+            font-size: 15px;
             color: white;
             font-family: 'Jura', sans-serif;
             text-align: center;
@@ -80,6 +97,11 @@
         }
 
     }
+
+    .fade-in {
+        height: 280px;
+    }
+
 }
 
 //tablet
@@ -97,10 +119,16 @@
         .img {
             width: 290px;
             height: 290px;
+            animation: mymove1 cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            animation-fill-mode: forwards;
+            animation-duration: 1s;
+            transition: 0.3s;
+
         }
 
         .detail-item {
-            font-size: 20px;
+            font-size: 17px;
             color: white;
             font-family: 'Jura', sans-serif;
             text-align: center;
@@ -126,12 +154,17 @@
         .img {
             width: 340px;
             height: 340px;
+            animation: mymove cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            animation-fill-mode: forwards;
+            animation-duration: 1s;
+            transition: 0.3s;
 
 
         }
 
         .detail-item {
-            font-size: 20px;
+            font-size: 17px;
             color: white;
             font-family: 'Jura', sans-serif;
             text-align: center;
@@ -144,10 +177,15 @@
 @media only screen and (min-width: 1396px) {
     .fullbox {
         background-color: #3d3d3d;
+        // animation: mymove cubic-bezier(0.23, 1, 0.32, 1);
+
+
+
+
+
 
         :hover * {
             transform: translate(0%, -5%);
-            transition: 0.5s;
         }
 
 
@@ -156,17 +194,49 @@
         .img {
             width: 300px;
             height: 300px;
+            animation: mymove cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            animation-fill-mode: forwards;
+            animation-duration: 1s;
+            transition: 0.3s;
+
 
 
         }
 
         .detail-item {
-            font-size: 20px;
+            font-size: 17px;
             color: white;
             font-family: 'Jura', sans-serif;
             text-align: center;
             align-items: center;
+
         }
 
+
+    }
+
+
+
+
+}
+
+@keyframes mymove {
+    from {
+        top: 200px;
+    }
+
+    to {
+        top: 20px;
+    }
+}
+
+@keyframes mymove1 {
+    from {
+        top: 200px;
+    }
+
+    to {
+        top: 5px;
     }
 }

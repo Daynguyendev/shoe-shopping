@@ -7,9 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import productAPI from './../../../../API/productAPI';
 import { Grid } from '@material-ui/core';
+import LazyLoad from 'react-lazyload';
 
 
 function Product(props) {
+  const [load, setLoad] = useState()
   const navigate = useNavigate();
   const handleClickProduct = () => {
     navigate(`/detail`)
@@ -44,10 +46,11 @@ function Product(props) {
 
 
       {product.map((product) => (
-        <Grid item xs={6} sm={6} md={4} lg={3} xl={3} key={product.id_sp} >
-          <Box className="fullbox"  >
+        <Grid item xs={6} sm={6} md={4} lg={3} xl={3} key={product.id_sp}  >
+          <Box className="fullbox" >
 
-            <Box  >
+
+            <LazyLoad throttle={300} height={393} className="fade-in">
               <img onClick={handleClickDetail}
                 className="img"
                 src={product.hinh_anh_chinh}
@@ -55,8 +58,10 @@ function Product(props) {
               />
               <p className="detail-item">{product.ten_sp}</p>
               <p className="detail-item">{product.gia_sp}{'đ'}</p>
+            </LazyLoad>
 
-            </Box>
+
+
           </Box>
         </Grid>
       ))}

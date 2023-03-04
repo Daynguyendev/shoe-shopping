@@ -23,7 +23,8 @@ import ListItemText from '@mui/material/ListItemText';
 import StarIcon from '@mui/icons-material/Star';
 import { useSelector } from 'react-redux';
 import SignIn from '../SignIn';
-
+import cartAPI from '../../../API/cartAPI';
+import userAPI from '../../../API/userAPI';
 export default function InforAccount() {
     const isLogin = useSelector((state) => state.user.isLogin);
     const email = useSelector((state) => state.user);
@@ -34,6 +35,22 @@ export default function InforAccount() {
     const [name, setName] = useState();
 
     const { enqueueSnackbar } = useSnackbar();
+    const [idUser, setIdUser] = useState(null);
+    let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
+
+    useEffect(() => {
+        try {
+            const fetchIdUser = async () => {
+                if (isLogin) {
+                    const res = await userAPI.getID({ email_khach_hang: email_khach_hang });
+                    setIdUser(res.data.data[0]?.id_khach_hang)
+                }
+            };
+            fetchIdUser();
+        } catch (error) {
+            console.log('Failed to fetch idUser: ', error);
+        }
+    }, []);
 
     const handleSubmit = (event) => {
         addresskAPI.add({
@@ -60,6 +77,12 @@ export default function InforAccount() {
         localStorage.removeItem('user');
         navigate('/');
         window.location.reload();
+
+    }
+
+    const handlemyBill = () => {
+        if (idUser)
+            navigate(`/status/${idUser}`);
 
     }
 
@@ -92,8 +115,8 @@ export default function InforAccount() {
                                     </ListItemButton>
                                 </ListItem>
                                 <ListItem disablePadding>
-                                    <ListItemButton>
-                                        <ListItemText primary="Đổi mật khẩu" />
+                                    <ListItemButton onClick={handlemyBill}>
+                                        <ListItemText primary="Đơn hàng của tôi" />
                                     </ListItemButton>
                                 </ListItem>
                                 <ListItem disablePadding>

@@ -21,6 +21,8 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { useSelector } from 'react-redux';
 import userAPI from '../../API/userAPI';
 import cartAPI from './../../API/cartAPI';
+import ButtonForm from '../../Formcontrol/ButtonForm';
+import PageRateProduct from '../../features/product/component/PageRateProduct';
 function DetailPage() {
     let { id, idcolor, idsize } = useParams();
     const navigate = useNavigate()
@@ -37,6 +39,10 @@ function DetailPage() {
     const isLogin = useSelector((state) => state?.user.isLogin);
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
 
+    const handleadd = () => {
+        console.log('kaka')
+        // handleAddSubmit
+    }
 
     useEffect(() => {
 
@@ -294,10 +300,6 @@ function DetailPage() {
 
                                         >{item}</button>
                                     ))}
-                                    {/* {console.log('danh sach', Colorsdisplay)} */}
-
-
-
 
                                 </Grid>
                             </Grid>
@@ -322,11 +324,9 @@ function DetailPage() {
                             </Grid>
                             <Grid item xs={12} className='buy-now'>
                                 <Grid item xs={4} lg={2}>
-                                    <Button disableElevation sx={{ backgroundColor: 'none', color: 'black', border: '1px solid red', fontFamily: 'Jura', alignItems: 'center' }}>
-                                        Mua ngay
-                                    </Button>
+                                    <ButtonForm name={'Mua Ngay'} />
                                 </Grid>
-                                <Grid item xs={4} lg={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Grid item xs={3} lg={2} sx={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
                                     <IconButton onClick={() => handleDecrease(item)}>
                                         <RemoveIcon />
                                     </IconButton>
@@ -335,12 +335,8 @@ function DetailPage() {
                                         <AddIcon />
                                     </IconButton>
                                 </Grid>
-
-
                                 <Grid item xs={4} lg={4}>
-                                    <Button onClick={handleAddSubmit} disableElevation sx={{ backgroundColor: 'none', border: '1px solid red', fontFamily: 'Jura', color: 'black' }}>
-                                        Thêm vào giỏ hàng
-                                    </Button>
+                                    <ButtonForm name={'Thêm vào giỏ hàng'} onClick={handleAddSubmit} />
 
                                 </Grid>
                             </Grid>
@@ -376,6 +372,8 @@ function DetailPage() {
                     ))
                 }
             </Grid>
+            <PageRateProduct />
+
         </Container >
     );
 }

@@ -31,7 +31,7 @@ export default function ImageDetail() {
         <Carousel className='img-list' autoPlay={true} infiniteLoop={true}>
             {
                 imageDetail.map((item, index) => (
-                    <div key={index}>
+                    <div key={index} >
 
                         <img src={item.link_hinh_anh_ct} alt={index} />
 
