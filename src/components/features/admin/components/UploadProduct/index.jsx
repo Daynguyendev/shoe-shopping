@@ -58,7 +58,6 @@ export default function UploadProduct() {
             thong_tin_sp: inforProduct,
             id_hinh_anh: imgDetail,
             id_thuong_hieu: trademark,
-            id_giam_gia: discount,
             id_loai_sp: category,
 
 
@@ -226,6 +225,7 @@ export default function UploadProduct() {
             noValidate
             autoComplete="off"
         >
+            <h1>THÊM SẢN PHẨM</h1>
             <TextField id="outlined-basic" label="Tên sản phẩm" variant="outlined" onChange={(e) => setNameProduct(e.target.value)} />
             <TextField id="filled-basic" label="Giá sản phẩm" variant="outlined" onChange={(e) => setPriceProduct(e.target.value)} />
             <TextField id="standard-basic" label="Thông tin sản phẩm" variant="outlined" onChange={(e) => setInforProduct(e.target.value)} />
@@ -292,7 +292,7 @@ export default function UploadProduct() {
                         </MenuItem>
                     ))}
                 </TextField> */}
-                <TextField
+                {/* <TextField
                     select
                     label="Mã giảm giá"
                     value={discount}
@@ -305,7 +305,7 @@ export default function UploadProduct() {
 
                         </MenuItem>
                     ))}
-                </TextField>
+                </TextField> */}
                 <TextField
                     select
                     label="Nhà cung cấp"

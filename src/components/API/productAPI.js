@@ -10,6 +10,10 @@ const productAPI = {
         const url = `/product/detail/${id}`;
         return axiosClient.get(url);
     },
+    getItemById(id) {
+        const url = `/product/getid/id`;
+        return axiosClient.post(url, id);
+    },
     update(id, data) {
         const url = `/products/${id}`;
         return axiosClient.patch(url, data);
@@ -22,6 +26,11 @@ const productAPI = {
         const url = `/products/${id}`;
         return axiosClient.delete(url);
     },
+    getName(name) {
+        const url = `/product/${name}`;
+        return axiosClient.get(url);
+    },
+
 };
 
 export default productAPI;

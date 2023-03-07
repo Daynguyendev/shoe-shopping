@@ -5,7 +5,7 @@ import './ItemSale.scss'
 import { Container } from '@mui/material';
 import { Typography } from '@mui/material';
 
-function ItemSale(props) {
+function ItemSale({ product }) {
 
     return (
         <Container disableGutters maxWidth="xl"  >
@@ -23,10 +23,7 @@ function ItemSale(props) {
 
 
             <Grid container spacing={2} className='Listproduct' >
-                <Product />
-
-
-
+                <Product xs={6} sm={6} md={4} lg={3} xl={3} so_luong={8} product={product} />
             </Grid>
         </Container >
     );

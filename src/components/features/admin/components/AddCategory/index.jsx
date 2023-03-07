@@ -76,6 +76,8 @@ function AddCategory() {
                 display: 'list-item'
             }}
         >
+            <h1>THÊM LOẠI SẢN PHẨM</h1>
+
             <TextField onChange={(e) => setSizeadd(e.target.value)} value={sizeadd} label="Loại" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
 
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>

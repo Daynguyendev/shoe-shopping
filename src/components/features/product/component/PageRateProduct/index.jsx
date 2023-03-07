@@ -9,7 +9,6 @@ import rateAPI from '../../../../API/rateAPI';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
 import { useSnackbar } from 'notistack';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -22,6 +21,7 @@ import UploadImage from '../../../admin/components/UploadImage';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import IconButton from '@mui/material/IconButton';
 import ButtonForm from '../../../../Formcontrol/ButtonForm';
+import Stack from '@mui/material/Stack';
 
 export default function PageRateProduct() {
     const { enqueueSnackbar } = useSnackbar();
@@ -35,6 +35,8 @@ export default function PageRateProduct() {
     const [imgRate, setImgRate] = useState();
     const [start, setStart] = useState(2)
     const [value, setValue] = React.useState(2);
+
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -113,12 +115,15 @@ export default function PageRateProduct() {
                 minHeight: '400px',
                 backgroundColor: 'white',
                 paddingTop: '20px',
-                padding: '20px'
+                padding: '20px',
+                textAlign: 'center',
+                alignItems: 'center'
             }}
         >
             <Grid>
-                <h1>Tên sản phẩm: Puma supper red </h1>
-                <h2>Tổng quan đánh giá</h2>
+                <hr size={10} style={{ backgroundColor: 'black', width: '50%' }} />
+
+                <h1>Tổng quan đánh giá</h1>
 
                 <Rating
                     name="text-feedback"
@@ -131,21 +136,14 @@ export default function PageRateProduct() {
 
 
 
-            <Grid>
+            <Grid >
                 <RateProduct rate={rate} />
             </Grid>
+            <Stack spacing={2} sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', paddingTop: '30px' }} >
+                <Button variant="outlined" onClick={handleClickOpen}>Viết đánh giá</Button>
+                <Button variant="outlined">Xem đánh giá</Button>
 
-            <Grid sx={{ display: 'flex' }}>
-                <Grid sx={{ margin: '10px' }}>
-                    <Button variant="outlined" onClick={handleClickOpen}>Viết đánh giá</Button>
-
-                </Grid>
-                <Grid sx={{ margin: '10px' }}>
-                    <Button variant="outlined">Xem đánh giá</Button>
-
-
-                </Grid>
-            </Grid>
+            </Stack>
 
 
             <Dialog open={open} onClose={handleClose}>
@@ -201,6 +199,6 @@ export default function PageRateProduct() {
 
             </Dialog>
 
-        </Box>
+        </Box >
     );
 }

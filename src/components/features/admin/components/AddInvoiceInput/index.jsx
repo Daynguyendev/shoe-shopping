@@ -41,16 +41,21 @@ function AddInvoiceInput() {
     const [total, setTotal] = useState('');
     const [sizeDetail, setSizeDetail] = useState([]);
     const [product, setProduct] = useState([]);
-
-
-
-    const [productItem, setProductItem] = useState('');
+    const [productItem, setProductItem] = useState(0);
     const [colorItem, setColorItem] = useState('');
     const [sizeItem, setSizeItem] = useState('');
+    const [namebillDetail, setNameBillDetail] = useState();
+    const [idCustomer, setIdCustomer] = useState('1');
+    const [invoice, setInvoice] = useState();
+    const [namebill, setNamebill] = useState('');
+    const [totalHD, setTotalHD] = useState('0');
+    const [colorDetail, setColorDetail] = useState([]);
+    const [invoiceFull, setInvoiceFull] = useState([]);
+
 
     const handleProduct = event => {
         setProductItem(event.target.value);
-        console.log(event.target.value);
+        console.log('id', event.target.value);
     };
     const handleColor = event => {
         setColorItem(event.target.value);
@@ -63,16 +68,22 @@ function AddInvoiceInput() {
 
     };
 
-
-
-
-    const [idCustomer, setIdCustomer] = useState('1');
-    const [invoice, setInvoice] = useState();
-    const [namebill, setNamebill] = useState('');
-    const [totalHD, setTotalHD] = useState('0');
-
-
-
+    const [productAdd, setProductAdd] = useState('');
+    useEffect(() => {
+        if (productItem != 0)
+            try {
+                const fetchProduct = async () => {
+                    if (productAdd !== null) {
+                        const result = await productAPI.getItemById({ id_sp: productItem });
+                        setProductAdd(result.data.data);
+                        console.log('productAdd', result.data.data)
+                    }
+                };
+                fetchProduct();
+            } catch (error) {
+                console.log('Failed to fetch productAdd: ', error);
+            }
+    }, [productItem]);
 
 
     useEffect(() => {
@@ -109,7 +120,6 @@ function AddInvoiceInput() {
 
 
     ///
-    const [colorDetail, setColorDetail] = useState([]);
 
 
     useEffect(() => {
@@ -147,7 +157,6 @@ function AddInvoiceInput() {
 
 
 
-    const [invoiceFull, setInvoiceFull] = useState([]);
 
 
     useEffect(() => {
@@ -164,8 +173,6 @@ function AddInvoiceInput() {
         }
     }, []);
 
-    const [namebillDetail, setNameBillDetail] = useState();
-
     const handleSubmit = (event) => {
 
         detailInvoiceAPI.add({
@@ -178,9 +185,16 @@ function AddInvoiceInput() {
         })
         DetailProductAPI.add({
             id_sp: productItem,
+            ten_sp: productAdd[0].ten_sp,
+            gia_sp: productAdd[0].gia_sp,
+            hinh_anh_chinh: productAdd[0].hinh_anh_chinh,
+            thong_tin_sp: productAdd[0].thong_tin_sp,
+            id_hinh_anh: productAdd[0].id_hinh_anh,
+            id_thuong_hieu: productAdd[0].id_thuong_hieu,
+            id_loai_sp: productAdd[0].id_loai_sp,
             ten_mau_sac: colorItem,
             ten_kich_thuoc: sizeItem,
-            so_luong: quantity,
+            so_luong_kho: quantity,
 
         })
 

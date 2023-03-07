@@ -73,6 +73,8 @@ function AddSize() {
                 display: 'list-item'
             }}
         >
+            <h1>THÊM KÍCH THƯỚC</h1>
+
             <TextField onChange={(e) => setSize(e.target.value)} value={size} label="Kích thước" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
 
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>

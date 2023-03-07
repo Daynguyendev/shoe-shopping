@@ -81,6 +81,8 @@ function AddDiscount() {
                 display: 'list-item'
             }}
         >
+            <h1>THÊM GIẢM GIÁ</h1>
+
             <TextField onChange={(e) => setNameDiscount(e.target.value)} value={namediscount} label="Tên khuyến mãi" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
             <TextField onChange={(e) => setPriceDiscount(e.target.value)} value={pricediscount} label="Giá giảm" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
 

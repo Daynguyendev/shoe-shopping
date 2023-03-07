@@ -25,6 +25,19 @@ import { useSelector } from 'react-redux';
 import SignIn from '../SignIn';
 import cartAPI from '../../../API/cartAPI';
 import userAPI from '../../../API/userAPI';
+import { DataGrid } from '@mui/x-data-grid';
+import { height } from '@mui/system';
+import { forwardRef } from 'react';
+
+const columns = [
+    { field: 'id_dia_chi', headerName: 'ID', width: 70 },
+    { field: 'ten_dia_chi', headerName: 'ten_dia_chi', width: 130 },
+    { field: 'ten_khach_hang', headerName: 'ten_khach_hang', width: 130 },
+    { field: 'sdt_khach_hang', headerName: 'sdt_khach_hang', width: 130 },
+
+];
+
+
 export default function InforAccount() {
     const isLogin = useSelector((state) => state.user.isLogin);
     const email = useSelector((state) => state.user);
@@ -37,7 +50,10 @@ export default function InforAccount() {
     const { enqueueSnackbar } = useSnackbar();
     const [idUser, setIdUser] = useState(null);
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
-
+    const [listAddress, setListAddress] = useState();
+    const [editAddress, setEditAddress] = useState();
+    const ListShow = listAddress || [];
+    console.log('co data ko', listAddress)
     useEffect(() => {
         try {
             const fetchIdUser = async () => {
@@ -54,6 +70,7 @@ export default function InforAccount() {
 
     const handleSubmit = (event) => {
         addresskAPI.add({
+            id_khach_hang: idUser,
             ten_dia_chi: address,
             ten_khach_hang: name,
             sdt_khach_hang: phone
@@ -86,6 +103,56 @@ export default function InforAccount() {
 
     }
 
+    const removeAddress = () => {
+        {
+            remove.map((item, index) => {
+                const result = addresskAPI.remove({ id_dia_chi: item });
+                console.log('ket qua xoa', item);
+
+            })
+        }
+
+    }
+    useEffect(() => {
+        if (idUser)
+            try {
+                const fetchCategorry = async () => {
+                    console.log('có data', idUser);
+                    if (listAddress !== null) {
+
+                    }
+                };
+                fetchCategorry();
+            } catch (error) {
+                console.log('Failed to fetch listAddress: ', error);
+            }
+    }, [idUser]);
+    const [remove, setRemove] = useState();
+    useEffect(() => {
+        if (idUser)
+            try {
+                const fetchCategorry = async () => {
+                    console.log('có data', idUser);
+                    if (listAddress !== null) {
+                        const result = await addresskAPI.getAddress({ id_khach_hang: idUser });
+                        setListAddress(result.data.data);
+
+                    }
+                };
+                fetchCategorry();
+            } catch (error) {
+                console.log('Failed to fetch listAddress: ', error);
+            }
+    }, [idUser]);
+
+    const handleRowSelection = (e) => {
+        setRemove(e);
+        navigate(`/account/${e}`);
+
+        console.log('rm', e)
+
+    };
+
     return (
         <>   {isLogin ? (
             <Container component="main" maxWidth="xl" >
@@ -111,7 +178,7 @@ export default function InforAccount() {
                             >
                                 <ListItem disablePadding>
                                     <ListItemButton >
-                                        <ListItemText primary="Cập nhật địa chỉ" />
+                                        <ListItemText primary="Thêm địa chỉ" />
                                     </ListItemButton>
                                 </ListItem>
                                 <ListItem disablePadding>
@@ -160,7 +227,7 @@ export default function InforAccount() {
                                 />
                                 <Stack sx={{ paddingTop: '17px' }}>
                                     <Button variant="contained" endIcon={<SendIcon />} onClick={handleSubmit}>
-                                        Cập nhật
+                                        Thêm địa chỉ
                                     </Button>
                                 </Stack>
                             </Box>
@@ -169,8 +236,26 @@ export default function InforAccount() {
 
                         </Grid>
 
+
                     </Grid>
+
+                    <div style={{ width: '100%', height: '500px', paddingTop: '50px' }}>
+                        <button onClick={removeAddress}>Xóa</button>
+                        <DataGrid
+                            getRowId={(row) => row.id_dia_chi}
+                            rows={ListShow}
+                            columns={columns}
+                            pageSize={5}
+                            rowsPerPageOptions={[5]}
+                            checkboxSelection
+                            onRowSelected={handleRowSelection}
+                            onSelectionModelChange={handleRowSelection}
+                        />
+                    </div>
                 </Box>
+
+
+
             </Container>
 
         ) : (

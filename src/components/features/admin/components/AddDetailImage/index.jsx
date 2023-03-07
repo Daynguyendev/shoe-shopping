@@ -10,7 +10,7 @@ import { useSnackbar } from 'notistack';
 
 const columns = [
     { field: 'id_anh', headerName: 'id_anh', width: 70 },
-    { field: 'id_hinh_anh_ct', headerName: 'id_hinh_anh_ct', width: 130 },
+    { field: 'id_hinh_anh', headerName: 'id_hinh_anh', width: 130 },
     { field: 'link_hinh_anh_ct', headerName: 'link_hinh_anh_ct', width: 130 },
 
 ];
@@ -37,10 +37,12 @@ function AddDetailImage() {
         }
     }, []);
 
+    console.log('hinh anh', imageDetail)
+
     const handleSubmit = (event) => {
 
         imageAPI.add({
-            id_hinh_anh_ct: idImage,
+            id_hinh_anh: idImage,
             link_hinh_anh_ct: linkImage
         })
 
@@ -80,6 +82,8 @@ function AddDetailImage() {
                 display: 'list-item'
             }}
         >
+            <h1>THÊM HÌNH ẢNH CHI TIẾT</h1>
+
             <UploadImage />
             <br />
             <TextField onChange={(e) => setIdImage(e.target.value)} label="id của ảnh chính" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />

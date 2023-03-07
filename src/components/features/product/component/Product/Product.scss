@@ -1,7 +1,9 @@
 //iphone5
 @media only screen and (max-width: 320px) {
     .fullbox {
-        background-color: #3d3d3d;
+        // background-color: #3d3d3d;
+        align-items: center;
+        text-align: center;
 
         :hover {
             transform: translate(0%, -5%);
@@ -29,7 +31,9 @@
 //mobile
 @media only screen and (min-width: 321px) and (max-width: 376px) {
     .fullbox {
-        background-color: #3d3d3d;
+        // background-color: #3d3d3d;
+        align-items: center;
+        text-align: center;
 
         :hover {
             transform: translate(0%, -5%);
@@ -68,7 +72,9 @@
 //pho thong
 @media only screen and (min-width: 376px) and (max-width: 739px) {
     .fullbox {
-        background-color: #3d3d3d;
+        // background-color: #3d3d3d;
+        align-items: center;
+        text-align: center;
 
         :hover {
             transform: translate(0%, -5%);
@@ -107,7 +113,9 @@
 //tablet
 @media only screen and (min-width: 740px) and (max-width: 1024px) {
     .fullbox {
-        background-color: #3d3d3d;
+        // background-color: #3d3d3d;
+        align-items: center;
+        text-align: center;
 
         :hover * {
             transform: translate(0%, -5%);
@@ -141,7 +149,10 @@
 //desktop
 @media only screen and (min-width: 1025px) and (max-width: 1396px) {
     .fullbox {
-        background-color: #3d3d3d;
+        // background-color: #3d3d3d;     
+        align-items: center;
+        text-align: center;
+
 
         :hover * {
             transform: translate(0%, -5%);
@@ -178,6 +189,8 @@
     .fullbox {
         background-color: #3d3d3d;
         // animation: mymove cubic-bezier(0.23, 1, 0.32, 1);
+        align-items: center;
+        text-align: center;
 
 
 

@@ -81,6 +81,8 @@ function AddProvider() {
                 display: 'list-item'
             }}
         >
+            <h1>THÊM NHÀ CUNG CẤP</h1>
+
             <TextField onChange={(e) => setNameProvider(e.target.value)} value={nameprovider} label="Tên nhà cung cấp" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
             <TextField onChange={(e) => setAddressProvider(e.target.value)} value={addressProvider} label="Địa chỉ nhà cung cấp" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
 

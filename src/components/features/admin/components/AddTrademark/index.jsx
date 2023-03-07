@@ -73,6 +73,8 @@ function AddTrademark() {
                 display: 'list-item'
             }}
         >
+            <h1>THÊM THƯƠNG HIỆU</h1>
+
             <TextField onChange={(e) => setTrademark(e.target.value)} value={trademark} label="Thương hiệu" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
 
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>

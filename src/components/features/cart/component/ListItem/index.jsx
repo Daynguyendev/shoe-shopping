@@ -14,6 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DetailProductAPI from '../../../../API/detailproductAPI';
 function ListItem({ cart, setCart }) {
     let { id } = useParams();
     let User = JSON.parse(localStorage.getItem('cart')) || [];
@@ -26,6 +27,37 @@ function ListItem({ cart, setCart }) {
     const dataUser = User || [];
     const [itemLocal, setItemLocal] = useState(dataUser);
 
+
+    const [productTotal, setProductTotal] = useState()
+    useEffect(() => {
+        try {
+            const fetchCart = async () => {
+                if (productTotal !== null) {
+                    const result = await DetailProductAPI.getAll()
+                    setProductTotal(result.data.data);
+                }
+            };
+            fetchCart();
+        } catch (error) {
+            console.log('Failed to fetch cartJoin: ', error);
+        }
+    }, []);
+
+    console.log('tong', cart)
+
+    const handleProductDetail = () => {
+
+        cart.map((item, index) => {
+            const fillterTotalCart = productTotal.filter(item1 => item1.ten_kich_thuoc === item.ten_kich_thuoc)
+            console.log('fillter'.fillterTotalCart)
+            // DetailProductAPI.update({
+            //     so_luong: item.so_luong,
+
+
+            // })
+
+        })
+    }
 
     useEffect(() => {
 

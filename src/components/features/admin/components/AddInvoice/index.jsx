@@ -90,6 +90,8 @@ function AddInvoice() {
             noValidate
             autoComplete="off"
         >
+            <h1>NHẬP HÀNG (TÊN HÓA ĐƠN) </h1>
+
 
             <div>
 

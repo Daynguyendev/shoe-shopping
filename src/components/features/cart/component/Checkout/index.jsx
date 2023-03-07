@@ -21,6 +21,8 @@ import cartAPI from '../../../../API/cartAPI';
 import invoiceoutputAPI from '../../../../API/invoiceoutputAPI';
 import detailinvoiceoutputAPI from '../../../../API/detailinvoiceoutputAPI'
 import ButtonForm from '../../../../Formcontrol/ButtonForm';
+import DetailProductAPI from '../../../../API/detailproductAPI';
+import productAPI from '../../../../API/productAPI';
 
 export default function UploadProduct() {
     let { id } = useParams();
@@ -38,6 +40,34 @@ export default function UploadProduct() {
     const [total, setTotal] = useState(0)
     const datacart = cartJoin || [];
     const [idHd, setIdHd] = useState(null);
+    const [count, setCount] = useState(1);
+    let so_luong_kho = 0;
+
+
+
+
+
+
+
+    // useEffect(() => {
+
+    //     console.log('ra naoo', colorAdd, sizeAdd)
+    //     const fillterTotal = detailProduct.filter(item => item.ten_kich_thuoc === sizeAdd && item.ten_mau_sac === colorAdd)
+    //     console.log('so _luong', fillterTotal[0].so_luong)
+
+
+    //     for (let i = 0; i < fillterTotal.length; i++) {
+    //         so_luong_kho = so_luong_kho + fillterTotal[i].so_luong;
+    //     }
+    //     setTotal(so_luong_kho)
+
+
+
+    // }, [colorAdd, sizeAdd])
+
+
+    console.log('test cart cái coi', datacart)
+
 
 
     useEffect(() => {
@@ -66,6 +96,7 @@ export default function UploadProduct() {
     }
         , [datacart]);
 
+    console.log('testdatacart', datacart);
 
     useEffect(() => {
         try {
@@ -138,6 +169,7 @@ export default function UploadProduct() {
                     ten_mau_sac: item.ten_mau_sac,
                     ten_kich_thuoc: item.ten_kich_thuoc,
                 })
+
             })
         }
 
@@ -152,41 +184,46 @@ export default function UploadProduct() {
 
 
     const handlesubmitFullInvoice = (event) => {
-        if (idUser != 0 && idUser !== undefined && addressSubmit != 0 && addressSubmit !== undefined && checkoutSubmit != 0 && checkoutSubmit !== undefined && total + totalShip > 0) {
-            invoiceoutputAPI.add({
-                id_khach_hang: idUser,
-                id_dia_chi: addressSubmit,
-                id_phuong_thuc_tt: checkoutSubmit,
-                id_trang_thai: 0,
-                tong_tien: total + totalShip,
-            })
+        const promises = datacart.map(item => {
+            return DetailProductAPI.UpdateQuantity({
+                so_luong: item.so_luong,
+                id_sp: item.id_sp,
+                ten_mau_sac: item.ten_mau_sac,
+                ten_kich_thuoc: item.ten_kich_thuoc,
+            });
+        });
 
-                .then(function (response) {
-                    setIdHd(response.data.data)
-                    cartAPI.removeAll({ id_khach_hang: id })
-
-
-                    enqueueSnackbar('Đặt hàng thành công', {
-                        variant: 'success',
-                        autoHideDuration: 800,
-                        anchorOrigin: {
-                            vertical: 'top',
-                            horizontal: 'right',
-                        },
-                    }); setOpen(false);
-
+        Promise.all(promises)
+            .then(responses => {
+                // Nếu tất cả các Promise đều thành công, tiếp tục thực hiện phần tiếp theo
+                invoiceoutputAPI.add({
+                    id_khach_hang: idUser,
+                    id_dia_chi: addressSubmit,
+                    id_phuong_thuc_tt: checkoutSubmit,
+                    id_trang_thai: 0,
+                    tong_tien: total + totalShip,
                 })
-                .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
-                );
-        }
-        else
-            enqueueSnackbar('Vui lòng chọn địa chỉ và phương thức thanh toán', {
-                variant: 'error', autoHideDuration: 1000, anchorOrigin: {
-                    vertical: 'top',
-                    horizontal: 'right',
-                },
-            })
+                    .then(function (response) {
+                        setIdHd(response.data.data)
+                        cartAPI.removeAll({ id_khach_hang: id })
 
+                        enqueueSnackbar('Đặt hàng thành công', {
+                            variant: 'success',
+                            autoHideDuration: 800,
+                            anchorOrigin: {
+                                vertical: 'top',
+                                horizontal: 'right',
+                            },
+                        });
+                        setOpen(false);
+                    })
+                    .catch(error => {
+                        enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
+                    });
+            })
+            .catch(error => {
+                enqueueSnackbar('Đặt hàng thất bại, không đủ số lượng', { variant: 'error', autoHideDuration: 1000 })
+            });
 
     };
 
@@ -362,7 +399,7 @@ export default function UploadProduct() {
                         Tổng tiền thanh toán : {totalShip + total}
                     </Grid>
 
-                    <Button onClick={handlesubmitFullInvoice} disableElevation sx={{ marginBottom: '10px', fontFamily: 'Jura', fontWeight: 'bold', width: '115px', height: '44px', fontSize: '17px', marginTop: '9px', marginLeft: '8px', color: 'black' }} variant="outlined">
+                    <Button onClick={handlesubmitFullInvoice} disableElevation sx={{ marginBottom: '10px', fontFamily: 'Jura', fontWeight: 'bold', width: '115px', height: '44px', fontSize: '15px', marginTop: '9px', marginLeft: '8px', color: 'black' }} variant="outlined">
                         Đặt hàng
                     </Button>
 

@@ -72,6 +72,8 @@ function AddColor() {
                 display: 'list-item'
             }}
         >
+            <h1>THÊM MÀU SẮC</h1>
+
             <TextField onChange={(e) => setColor(e.target.value)} value={color} label="Màu sắc" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
 
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>

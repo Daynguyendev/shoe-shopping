@@ -3,11 +3,12 @@ import axios from 'axios';
 const axiosAdmin = axios.create({
     baseURL: 'https://api.imgur.com/',
 });
-
+////////Client-ID 9159defb332202c/////////
+/////////////Client-ID 9159defb332202c///////////////////
 axiosAdmin.interceptors.request.use(
     async config => {
         config.headers = {
-            'Authorization': `Client-ID 9411a99e0d814df`,
+            'Authorization': `Client-ID 9159defb332202c`,
         }
         return config;
     },

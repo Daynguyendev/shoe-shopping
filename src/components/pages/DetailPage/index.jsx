@@ -3,9 +3,8 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import './DetailPage.scss';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import ImageDetail from '../ImageDetail'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import productAPI from '../../API/productAPI';
 import { useDispatch } from 'react-redux'
@@ -14,7 +13,6 @@ import { useSnackbar } from 'notistack';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { useNavigate } from 'react-router-dom';
 import DetailProductAPI from '../../API/detailproductAPI';
-import colorAPI from '../../API/colorAPI'
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -34,16 +32,10 @@ function DetailPage() {
     const [sizeAdd, setSizeAdd] = useState();
     const [colorAdd, setColorAdd] = useState();
     const [count, setCount] = useState(1);
-
+    const [total, setTotal] = useState(0);
     const [idUser, setIdUser] = useState();
     const isLogin = useSelector((state) => state?.user.isLogin);
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
-
-    const handleadd = () => {
-        console.log('kaka')
-        // handleAddSubmit
-    }
-
     useEffect(() => {
 
         try {
@@ -74,7 +66,8 @@ function DetailPage() {
     };
 
     const handleIncrease = (item) => {
-        setCount(count + 1);
+        if (count < total)
+            setCount(count + 1);
     };
     ////
     const dispatch = useDispatch()
@@ -82,11 +75,36 @@ function DetailPage() {
     const handleButtonClick = (name) => {
 
         setColorAdd(name);
+        const fillterColor = detailProduct.filter(item => item.ten_mau_sac == name)
+        console.log('test fillter', fillterColor)
+        const fillterQuantity = fillterColor.filter(item => item.so_luong_kho >= 1)
+        console.log('test quantity', fillterQuantity)
+
+        const Sizedisplay = fillterQuantity.reduce((listSize, size) => {
+            console.log('test listsizze', listSize)
+            if (!listSize.includes(size.ten_kich_thuoc)) {
+                listSize.push(size.ten_kich_thuoc);
+            }
+            return listSize;
+        }, []);
+        setSizeDisplay(Sizedisplay)
+        console.log('vai lon lun', Sizedisplay)
         setSelectedButtonId(name);
 
     };
     const handleButtonClickSize = (id) => {
         setSizeAdd(id);
+        const fillterSize = detailProduct.filter(item => item.ten_kich_thuoc == id)
+        const fillterQuantity = fillterSize.filter(item => item.so_luong_kho >= 1)
+
+        const colornew = fillterQuantity.reduce((accumulator, color) => {
+            if (!accumulator.includes(color.ten_mau_sac)) {
+                accumulator.push(color.ten_mau_sac);
+            }
+            return accumulator;
+        }, [])
+        setColorDisplay(colornew)
+        console.log('ra size new', colornew)
         setSelectedButtonSize(id);
 
     };
@@ -106,8 +124,54 @@ function DetailPage() {
         }
     }, []);
 
+    useEffect(() => {
+
+        const colornew = detailProduct.reduce((accumulator, color) => {
+            if (!accumulator.includes(color.ten_mau_sac)) {
+                accumulator.push(color.ten_mau_sac);
+            }
+            return accumulator;
+        }, [])
+        setColorDisplay(colornew);
+
+    }, [detailProduct])
+    const [sizeDisplay, setSizeDisplay] = useState(null);
+    const [colorDisplay, setColorDisplay] = useState(null);
+
 
     /// Call API Detail Product
+
+    useEffect(() => {
+
+        const sizenew = detailProduct.reduce((listSize, size) => {
+            if (!listSize.includes(size.ten_kich_thuoc)) {
+                listSize.push(size.ten_kich_thuoc);
+            }
+            return listSize;
+        }, [])
+        console.log('ra size new', sizenew)
+        setSizeDisplay(sizenew);
+    }, [detailProduct])
+    let so_luong_kho = 0;
+    const sizemap = sizeDisplay || [];
+    const colormap = colorDisplay || [];
+    useEffect(() => {
+        if (sizeAdd && colorAdd || colorAdd && sizeAdd) {
+            console.log('ra naoo', colorAdd, sizeAdd)
+            const fillterTotal = detailProduct.filter(item => item.ten_kich_thuoc === sizeAdd && item.ten_mau_sac === colorAdd)
+            console.log('so _luong', fillterTotal[0].so_luong_kho)
+
+
+            for (let i = 0; i < fillterTotal.length; i++) {
+                so_luong_kho = so_luong_kho + fillterTotal[i].so_luong_kho;
+            }
+            setTotal(so_luong_kho)
+
+
+        }
+    }, [colorAdd, sizeAdd])
+
+
 
     useEffect(() => {
         try {
@@ -123,6 +187,9 @@ function DetailPage() {
             console.log('Failed to fetch ProductDetail: ', error);
         }
     }, []);
+
+
+    console.log('chi tiet ne', detailProduct)
 
     ///// Submit add data database and localstore
     const handleAddSubmit = async (data) => {
@@ -162,61 +229,23 @@ function DetailPage() {
                         },
                     });
                 } else {
-                    let cartUser = JSON.parse(localStorage.getItem('cartUser')) || [];
-                    // Tìm sản phẩm trong giỏ hàng.
-                    const index = cartUser.findIndex(item => item.id_sp === pageDetail[0].id_sp && item.id_khach_hang === idUser && item.ten_mau_sac === colorAdd && item.ten_kich_thuoc === sizeAdd);
-
-                    // Nếu sản phẩm đã có trong giỏ hàng, cập nhật số lượng sản phẩm.
-                    if (index !== -1) {
-                        cartUser[index].so_luong += count;
-                        const res = cartAPI.updateQuantity({
-                            id_sp: pageDetail[0].id_sp,
-                            id_khach_hang: idUser,
-                            ten_mau_sac: colorAdd,
-                            ten_kich_thuoc: sizeAdd,
-                            so_luong: cartUser[index].so_luong
-                        })
-                        enqueueSnackbar('Cập nhật số lượng thành công', {
-                            variant: 'success',
-                            autoHideDuration: 800,
-                            anchorOrigin: {
-                                vertical: 'top',
-                                horizontal: 'right',
-                            },
-                        });
-                    } else { // Ngược lại, thêm sản phẩm mới vào giỏ hàng.
-                        const newItem = {
-                            id_sp: pageDetail[0].id_sp,
-                            id_khach_hang: idUser,
-                            ten_sp: pageDetail[0].ten_sp,
-                            gia_sp: pageDetail[0].gia_sp,
-                            ten_mau_sac: colorAdd,
-                            ten_kich_thuoc: sizeAdd,
-                            hinh_anh_chinh: pageDetail[0].hinh_anh_chinh,
-                            so_luong: count
-                        };
-                        cartUser.push(newItem);
-                        const AddItemAction = addItem({
-                            id_sp: pageDetail[0].id_sp,
-                            id_khach_hang: idUser,
-                            ten_sp: pageDetail[0].ten_sp,
-                            ten_mau_sac: colorAdd,
-                            ten_kich_thuoc: sizeAdd,
-                            so_luong: count
-                        });
-                        enqueueSnackbar('Thêm vào giỏ hàng thành công', {
-                            variant: 'success',
-                            autoHideDuration: 800,
-                            anchorOrigin: {
-                                vertical: 'top',
-                                horizontal: 'right',
-                            },
-                        });
-                        const resultAddItemAction = await dispatch(AddItemAction);
-                        console.log('ket qua', resultAddItemAction);
-
-                    }
-                    localStorage.setItem('cartUser', JSON.stringify(cartUser));
+                    const result = cartAPI.add({
+                        id_sp: pageDetail[0].id_sp,
+                        id_khach_hang: idUser,
+                        ten_sp: pageDetail[0].ten_sp,
+                        ten_mau_sac: colorAdd,
+                        ten_kich_thuoc: sizeAdd,
+                        so_luong: count
+                    })
+                    console.log(result);
+                    enqueueSnackbar('Thêm vào giỏ hàng DB thành công', {
+                        variant: 'success',
+                        autoHideDuration: 800,
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
                 }
             } catch (error) {
                 enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 });
@@ -227,52 +256,23 @@ function DetailPage() {
 
         }
     }
-
-
-    ///Call API Product
-    const [productColor, setProductColor] = useState([]);
-    useEffect(() => {
-        try {
-            const fetchPageDetail = async () => {
-                if (productColor !== null) {
-                    const ProductColorDetail = await productAPI.get(id, idcolor);
-                    setProductColor(ProductColorDetail.data.data);
-                    console.log('productColor', ProductColorDetail.data.data)
-                }
-            };
-            fetchPageDetail();
-        } catch (error) {
-            console.log('Failed to fetch productColor: ', error);
-        }
-    }, []);
-
-
-    const Colorsdisplay = detailProduct.reduce((accumulator, color) => {
-        if (!accumulator.includes(color.ten_mau_sac)) {
-            accumulator.push(color.ten_mau_sac);
-        }
-        return accumulator;
-    }, []);
-
-    const Sizedisplay = detailProduct.reduce((listSize, size) => {
-        if (!listSize.includes(size.ten_kich_thuoc)) {
-            listSize.push(size.ten_kich_thuoc);
-        }
-        return listSize;
-    }, []);
-
-
-
-
-
     const handleHome = () => {
-        navigate('/');
+        navigate(`/`);
     }
+    const handleTrademark = () => {
+        navigate(`/colections/${pageDetail[0]?.ten_thuong_hieu}`)
+
+    }
+    useLayoutEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <Container disableGutters maxWidth='xl' >
 
             <Breadcrumbs aria-label="breadcrumb" style={{ backgroundColor: 'white' }}>
                 <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Jura' }} onClick={handleHome}>Trang chủ </p>
+                <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Jura' }} onClick={handleTrademark} >{pageDetail[0]?.ten_thuong_hieu} </p>
                 <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Jura' }}  >{pageDetail[0]?.ten_sp} </p>
             </Breadcrumbs>
             <Grid item xs={12} className='detail-page' minHeight='885px' sx={{ display: { xs: 'block', sm: 'flex', lg: 'flex', xl: 'flex' } }} >
@@ -294,8 +294,9 @@ function DetailPage() {
                                     <Typography variant='h5' sx={{ fontFamily: 'Jura', marginTop: '30px', }} >Màu sắc</Typography>
                                 </Grid>
                                 <Grid item xs={9} sx={{ display: 'flex', marginLeft: '30px' }}>
-                                    {Colorsdisplay.map((item, index) => (
-                                        <button style={{ marginTop: '25px', marginRight: '15px', backgroundColor: 'white', }} key={index} className={selectedButtonId === item ? 'selectedcolor' : ''}
+                                    {colormap.map((item, index) => (
+                                        <button style={{ marginTop: '25px', marginRight: '15px', backgroundColor: 'white', }} key={index}
+                                            className={selectedButtonId === item ? 'selectedcolor' : ''}
                                             onClick={() => handleButtonClick(item)}
 
                                         >{item}</button>
@@ -308,14 +309,21 @@ function DetailPage() {
                                     <Typography variant='h5' sx={{ fontFamily: 'Jura', marginTop: '10px' }} >Kích thước</Typography>
                                 </Grid>
                                 <Grid item xs={9} sx={{ fontFamily: 'Jura', marginLeft: '30px' }}>
-                                    {Sizedisplay.map((item, index) => (
+                                    {sizemap.map((item, index) => (
 
-                                        <button style={{ marginRight: '15px', marginTop: '10px', maxWidth: '40px', height: '30px', backgroundColor: 'white' }} key={index} className={selectedButtonSize === item ? 'selectedsize' : ''}
+                                        <button style={{ marginRight: '15px', marginTop: '10px', maxWidth: '40px', height: '30px', backgroundColor: 'white' }}
+                                            key={index} className={selectedButtonSize === item ? 'selectedsize' : ''}
                                             onClick={() => handleButtonClickSize(item)} value={item}>{item}</button>
 
                                     ))}
 
                                 </Grid>
+
+
+                            </Grid>
+                            <Grid item xs={12} sx={{ marginTop: '30px' }}>
+                                <Typography variant='h7' sx={{ fontFamily: 'Jura' }} >Số lượng còn lại</Typography>
+                                <Typography variant='h6' sx={{ fontFamily: 'Jura', marginLeft: '60px', fontWeight: 'bold' }} >{total}</Typography>
 
                             </Grid>
 
@@ -326,7 +334,7 @@ function DetailPage() {
                                 <Grid item xs={4} lg={2}>
                                     <ButtonForm name={'Mua Ngay'} />
                                 </Grid>
-                                <Grid item xs={3} lg={2} sx={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
+                                <Grid item xs={3} lg={2} sx={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
                                     <IconButton onClick={() => handleDecrease(item)}>
                                         <RemoveIcon />
                                     </IconButton>

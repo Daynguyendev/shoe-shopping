@@ -2,6 +2,7 @@
 @media only screen and (max-width: 739px) {
     .Listproduct {
         display: flex;
+        justify-content: center;
 
     }
 
@@ -10,8 +11,10 @@
         color: white;
         text-align: center;
         align-items: center;
-        padding: 50px 0 50px 0;
+        padding: 30px 0 30px 0;
         font-family: 'Jura', sans-serif;
+        font-size: 10px;
+
     }
 
 }
@@ -20,6 +23,7 @@
 @media only screen and (min-width: 740px) and (max-width: 1023px) {
     .Listproduct {
         display: flex;
+        justify-content: center;
 
     }
 
@@ -28,8 +32,10 @@
         color: white;
         text-align: center;
         align-items: center;
-        padding: 50px 0 50px 0;
+        padding: 30px 0 30px 0;
         font-family: 'Jura', sans-serif;
+        font-size: 13px;
+
     }
 }
 
@@ -37,8 +43,7 @@
 @media only screen and (min-width: 1025px) {
     .Listproduct {
         display: flex;
-        text-align: center;
-
+        justify-content: center;
     }
 
     .title-sp {
@@ -46,8 +51,9 @@
         color: white;
         text-align: center;
         align-items: center;
-        padding: 50px 0 50px 0;
+        padding: 30px 0 30px 0;
         font-family: 'Jura', sans-serif;
+        font-size: 15px;
     }
 
 }

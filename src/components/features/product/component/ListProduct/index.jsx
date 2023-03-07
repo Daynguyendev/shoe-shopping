@@ -17,7 +17,7 @@ ListProduct.propTypes = {
 
 
 };
-function ListProduct() {
+function ListProduct({ product }) {
     const navigate = useNavigate();
     const handleClickProduct = () => {
         navigate(`/detail`)
@@ -29,22 +29,6 @@ function ListProduct() {
         navigate(`/product/${item.target.alt.replace(/\s+/g, '-')}`)
 
     }
-    const [product, setProduct] = useState([]);
-    useEffect(() => {
-        try {
-            const fetchProduct = async () => {
-                if (product !== null) {
-                    const result = await productAPI.getAll();
-                    setProduct(result.data.data);
-                    console.log(result.data.data)
-                }
-            };
-            fetchProduct();
-        } catch (error) {
-            console.log('Failed to fetch Product: ', error);
-        }
-    }, []);
-
     return (
         <Container disableGutters maxWidth="xl"  >
             <Grid item xs={12} className='title-sp'>
@@ -61,7 +45,7 @@ function ListProduct() {
 
 
             <Grid container spacing={2} className='Listproduct' >
-                <Product />
+                <Product xs={6} sm={6} md={4} lg={3} xl={3} so_luong={8} product={product} />
             </Grid>
         </Container >
     );
