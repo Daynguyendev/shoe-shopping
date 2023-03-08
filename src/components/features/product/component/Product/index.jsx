@@ -3,11 +3,9 @@ import Box from "@mui/material/Box";
 import "./Product.scss";
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import productAPI from './../../../../API/productAPI';
 import { Grid } from '@material-ui/core';
 import LazyLoad from 'react-lazyload';
 import Pagination from '@mui/material/Pagination';
-import { height } from "@mui/system";
 
 function Product({ xs, sm, md, lg, xl, so_luong, product, newcolor, colortext, page, handleReset }) {
   const navigate = useNavigate();
@@ -23,11 +21,10 @@ function Product({ xs, sm, md, lg, xl, so_luong, product, newcolor, colortext, p
 
 
   const handleClickDetail = (item) => {
-    // console.log(item.target.alt);.replace(/\s+/g, '-')
     navigate(`/colection/${item.target.alt}`)
   }
-  const handlePageChange = (event, pageNumber) => {
 
+  const handlePageChange = (event, pageNumber) => {
     setCurrentPage(pageNumber);
 
   };
@@ -51,16 +48,12 @@ function Product({ xs, sm, md, lg, xl, so_luong, product, newcolor, colortext, p
         </Box>
       </Grid>
     ));
-
   };
-
 
   return (
 
     <>
-
       {renderProductList()}
-
       <Pagination
         count={Math.ceil(product.length / 8)}
         page={currentPage}
@@ -68,9 +61,7 @@ function Product({ xs, sm, md, lg, xl, so_luong, product, newcolor, colortext, p
         color="primary"
         sx={{ width: '100%', display: 'flex', justifyContent: 'center', marginBottom: '20px' }}
       />
-
     </>
-
   );
 }
 

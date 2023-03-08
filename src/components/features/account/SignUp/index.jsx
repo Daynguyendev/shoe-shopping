@@ -10,13 +10,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { useState, useEffect } from 'react';
 import userAPI from '../../../API/userAPI';
-
-
 
 function Copyright(props) {
     return (
@@ -40,9 +37,11 @@ export default function SignUp() {
     const [birthday, setBirthday] = useState();
     const [role, setRole] = useState(1);
     const { enqueueSnackbar } = useSnackbar();
+    const [name, setName] = useState();
 
     const handleSubmit = (event) => {
         userAPI.register({
+            ten_khach_hang: name,
             email_khach_hang: email,
             mat_khau_khach_hang: password,
             ngay_sinh_khach_hang: birthday,
@@ -62,8 +61,8 @@ export default function SignUp() {
             })
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
-
     };
+
     const handleNextPage = () => {
         navigate(`/login`)
     }
@@ -92,9 +91,14 @@ export default function SignUp() {
                     </Typography>
                     <Box sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
-
                             <Grid item xs={12}>
-
+                                <TextField
+                                    fullWidth
+                                    label="Tên khách hàng"
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
                                 <TextField
                                     fullWidth
                                     label="Địa chỉ Email"
@@ -110,8 +114,6 @@ export default function SignUp() {
                                     onChange={(e) => setBirthday(e.target.value)}
                                 />
                             </Grid>
-
-
                             <Grid item xs={12}>
                                 <TextField
                                     fullWidth
@@ -124,13 +126,10 @@ export default function SignUp() {
 
                             </Grid>
                         </Grid>
-
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="" variant="body2" onClick={handleNextPage}>
                                     Already have an account? Sign in
-
-
                                 </Link>
                             </Grid>
                         </Grid>

@@ -21,8 +21,9 @@ import userAPI from '../../API/userAPI';
 import cartAPI from './../../API/cartAPI';
 import ButtonForm from '../../Formcontrol/ButtonForm';
 import PageRateProduct from '../../features/product/component/PageRateProduct';
+
 function DetailPage() {
-    let { id, idcolor, idsize } = useParams();
+    let { id } = useParams();
     const navigate = useNavigate()
     const [pageDetail, setPageDetail] = useState([]);
     const { enqueueSnackbar } = useSnackbar();
@@ -34,30 +35,25 @@ function DetailPage() {
     const [count, setCount] = useState(1);
     const [total, setTotal] = useState(0);
     const [idUser, setIdUser] = useState();
+    const [sizeDisplay, setSizeDisplay] = useState(null);
+    const [colorDisplay, setColorDisplay] = useState(null);
     const isLogin = useSelector((state) => state?.user.isLogin);
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
+    let so_luong_kho = 0;
+    const sizemap = sizeDisplay || [];
+    const colormap = colorDisplay || [];
     useEffect(() => {
 
         try {
             const fetchIdUser = async () => {
-                console.log('test', email_khach_hang);
-
                 const res = await userAPI.getID({ email_khach_hang: email_khach_hang });
                 setIdUser(res.data.data[0].id_khach_hang)
-
-
             };
             fetchIdUser();
         } catch (error) {
             console.log('Failed to fetch idUser: ', error);
         }
     }, []);
-
-
-
-
-
-
 
     const handleDecrease = (item) => {
         if (count > 1) {
@@ -69,26 +65,21 @@ function DetailPage() {
         if (count < total)
             setCount(count + 1);
     };
-    ////
+
     const dispatch = useDispatch()
 
     const handleButtonClick = (name) => {
 
         setColorAdd(name);
         const fillterColor = detailProduct.filter(item => item.ten_mau_sac == name)
-        console.log('test fillter', fillterColor)
         const fillterQuantity = fillterColor.filter(item => item.so_luong_kho >= 1)
-        console.log('test quantity', fillterQuantity)
-
         const Sizedisplay = fillterQuantity.reduce((listSize, size) => {
-            console.log('test listsizze', listSize)
             if (!listSize.includes(size.ten_kich_thuoc)) {
                 listSize.push(size.ten_kich_thuoc);
             }
             return listSize;
         }, []);
         setSizeDisplay(Sizedisplay)
-        console.log('vai lon lun', Sizedisplay)
         setSelectedButtonId(name);
 
     };
@@ -96,7 +87,6 @@ function DetailPage() {
         setSizeAdd(id);
         const fillterSize = detailProduct.filter(item => item.ten_kich_thuoc == id)
         const fillterQuantity = fillterSize.filter(item => item.so_luong_kho >= 1)
-
         const colornew = fillterQuantity.reduce((accumulator, color) => {
             if (!accumulator.includes(color.ten_mau_sac)) {
                 accumulator.push(color.ten_mau_sac);
@@ -104,18 +94,16 @@ function DetailPage() {
             return accumulator;
         }, [])
         setColorDisplay(colornew)
-        console.log('ra size new', colornew)
         setSelectedButtonSize(id);
 
     };
-    ///Call API Product
+
     useEffect(() => {
         try {
             const fetchPageDetail = async () => {
                 if (pageDetail !== null) {
                     const pageDetail = await productAPI.get(id);
                     setPageDetail(pageDetail.data.data);
-                    console.log('pageDetail', pageDetail.data.data)
                 }
             };
             fetchPageDetail();
@@ -125,7 +113,6 @@ function DetailPage() {
     }, []);
 
     useEffect(() => {
-
         const colornew = detailProduct.reduce((accumulator, color) => {
             if (!accumulator.includes(color.ten_mau_sac)) {
                 accumulator.push(color.ten_mau_sac);
@@ -135,43 +122,26 @@ function DetailPage() {
         setColorDisplay(colornew);
 
     }, [detailProduct])
-    const [sizeDisplay, setSizeDisplay] = useState(null);
-    const [colorDisplay, setColorDisplay] = useState(null);
-
-
-    /// Call API Detail Product
 
     useEffect(() => {
-
         const sizenew = detailProduct.reduce((listSize, size) => {
             if (!listSize.includes(size.ten_kich_thuoc)) {
                 listSize.push(size.ten_kich_thuoc);
             }
             return listSize;
         }, [])
-        console.log('ra size new', sizenew)
         setSizeDisplay(sizenew);
     }, [detailProduct])
-    let so_luong_kho = 0;
-    const sizemap = sizeDisplay || [];
-    const colormap = colorDisplay || [];
+
     useEffect(() => {
         if (sizeAdd && colorAdd || colorAdd && sizeAdd) {
-            console.log('ra naoo', colorAdd, sizeAdd)
             const fillterTotal = detailProduct.filter(item => item.ten_kich_thuoc === sizeAdd && item.ten_mau_sac === colorAdd)
-            console.log('so _luong', fillterTotal[0].so_luong_kho)
-
-
             for (let i = 0; i < fillterTotal.length; i++) {
                 so_luong_kho = so_luong_kho + fillterTotal[i].so_luong_kho;
             }
             setTotal(so_luong_kho)
-
-
         }
     }, [colorAdd, sizeAdd])
-
-
 
     useEffect(() => {
         try {
@@ -179,7 +149,6 @@ function DetailPage() {
                 if (detailProduct !== null) {
                     const ProductDetail = await DetailProductAPI.getById(id);
                     setDetailProduct(ProductDetail.data.data);
-                    console.log('chitiet', ProductDetail.data.data);
                 }
             };
             fetchProductDetail();
@@ -188,20 +157,15 @@ function DetailPage() {
         }
     }, []);
 
-
-    console.log('chi tiet ne', detailProduct)
-
     ///// Submit add data database and localstore
     const handleAddSubmit = async (data) => {
         if (colorAdd !== undefined && colorAdd !== null && sizeAdd !== undefined && sizeAdd !== null) {
             try {
                 if (!isLogin) {
-
                     // Lấy dữ liệu từ local storage và chuyển đổi thành mảng (nếu có).
                     let cart = JSON.parse(localStorage.getItem('cart')) || [];
                     // Tìm sản phẩm trong giỏ hàng.
                     const index = cart.findIndex(item => item.id_sp === pageDetail[0].id_sp && item.ten_mau_sac === colorAdd && item.ten_kich_thuoc === sizeAdd);
-
                     // Nếu sản phẩm đã có trong giỏ hàng, cập nhật số lượng sản phẩm.
                     if (index !== -1) {
                         cart[index].so_luong += count;
@@ -216,10 +180,8 @@ function DetailPage() {
                             so_luong: count
                         };
                         cart.push(newItem);
-
                     }
                     localStorage.setItem('cart', JSON.stringify(cart));
-
                     enqueueSnackbar('Thêm vào giỏ hàng thành công', {
                         variant: 'success',
                         autoHideDuration: 800,
@@ -237,7 +199,28 @@ function DetailPage() {
                         ten_kich_thuoc: sizeAdd,
                         so_luong: count
                     })
-                    console.log(result);
+
+                    let cartUser = JSON.parse(localStorage.getItem('cartUser')) || [];
+                    // Tìm sản phẩm trong giỏ hàng.
+                    const index = cartUser.findIndex(item => item.id_sp === pageDetail[0].id_sp && item.ten_mau_sac === colorAdd && item.ten_kich_thuoc === sizeAdd);
+                    // Nếu sản phẩm đã có trong giỏ hàng, cập nhật số lượng sản phẩm.
+                    if (index !== -1) {
+                        cartUser[index].so_luong += count;
+                    } else { // Ngược lại, thêm sản phẩm mới vào giỏ hàng.
+                        const newItem = {
+                            id_sp: pageDetail[0].id_sp,
+                            ten_sp: pageDetail[0].ten_sp,
+                            gia_sp: pageDetail[0].gia_sp,
+                            ten_mau_sac: colorAdd,
+                            ten_kich_thuoc: sizeAdd,
+                            hinh_anh_chinh: pageDetail[0].hinh_anh_chinh,
+                            so_luong: count
+                        };
+                        cartUser.push(newItem);
+
+                    }
+                    localStorage.setItem('cartUser', JSON.stringify(cartUser));
+
                     enqueueSnackbar('Thêm vào giỏ hàng DB thành công', {
                         variant: 'success',
                         autoHideDuration: 800,
@@ -253,7 +236,6 @@ function DetailPage() {
             }
         } else {
             enqueueSnackbar('Vui lòng chọn màu sắc, kích thước', { variant: 'error', autoHideDuration: 1000 });
-
         }
     }
     const handleHome = () => {
@@ -314,11 +296,8 @@ function DetailPage() {
                                         <button style={{ marginRight: '15px', marginTop: '10px', maxWidth: '40px', height: '30px', backgroundColor: 'white' }}
                                             key={index} className={selectedButtonSize === item ? 'selectedsize' : ''}
                                             onClick={() => handleButtonClickSize(item)} value={item}>{item}</button>
-
                                     ))}
-
                                 </Grid>
-
 
                             </Grid>
                             <Grid item xs={12} sx={{ marginTop: '30px' }}>

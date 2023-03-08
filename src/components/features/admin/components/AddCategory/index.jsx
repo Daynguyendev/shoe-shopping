@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 import categoryAPI from './../../../../API/categoryAPI';
 import { useSnackbar } from 'notistack';
 
-
 const columns = [
     { field: 'id_loai_sp', headerName: 'ID', width: 70 },
     { field: 'ten_loai_sp', headerName: 'ten_loai_sp', width: 130 },
@@ -35,12 +34,8 @@ function AddCategory() {
     }, []);
 
     const handleSubmit = (event) => {
-
         categoryAPI.add({ ten_loai_sp: sizeadd })
-
-
             .then(function (response) {
-
                 enqueueSnackbar('Thêm loại thành công', {
                     variant: 'success',
                     autoHideDuration: 800,
@@ -53,15 +48,12 @@ function AddCategory() {
             })
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
-
     };
-
 
     const handleRowSelection = (e) => {
         setSizeadd(e);
-        console.log(e)
-
     };
+
     return (
         <Box
             sx={{

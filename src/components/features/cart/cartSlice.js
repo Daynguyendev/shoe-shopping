@@ -1,34 +1,23 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import cartAPI from '../../API/cartAPI';
-import StorageKeys from '../../const/StorageKeys';
 
-
-
-
-export const addItem = createAsyncThunk('cart/addItem', async (payload) => {
-    const response = await cartAPI.add(payload);
-    return response.data;
+export const addItem = createAsyncThunk('cart/addItem', async (cart) => {
+    const response = await cartAPI.add(cart);
+    let cartUser = JSON.parse(localStorage.getItem('cartUser')) || [];
+    cartUser.push({ cart })
+    localStorage.setItem('cartUser', JSON.stringify(cart));
+    return cart;
 });
 
-
 const initialState = {
-    cartItems: JSON.parse(localStorage.getItem('cart')) || [],
-
+    cartItems: JSON.parse(localStorage.getItem('cartUser')) || [],
 }
 
 export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        // increment: (state, action) => {
-        //     state.value += 2
-        // },
-        // decrement: (state) => {
-        //     state.value -= 1
-        // },
-        // incrementByAmount: (state, action) => {
-        //     state.value += action.payload
-        // },
+
     },
     extraReducers: {
         [addItem.fulfilled]: (state, action) => {
@@ -40,7 +29,6 @@ export const cartSlice = createSlice({
 
 })
 
-// Action creators are generated for each case reducer function
 export const { increment, decrement, incrementByAmount } = cartSlice.actions
 
 export default cartSlice.reducer

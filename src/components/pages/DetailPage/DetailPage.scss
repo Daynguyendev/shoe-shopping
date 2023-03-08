@@ -22,81 +22,42 @@
         color: black;
         background-color: white;
         font-family: 'MuliDisplayVN', sans-serif;
+
+        .buy-now {
+            display: flex;
+            text-align: center;
+            align-items: center;
+            padding-top: 20px;
+
+        }
+
+        .slogan {
+            display: flex;
+            text-align: center;
+            align-items: center;
+            font-family: 'Jura';
+            padding: 15px;
+
+        }
+
+        .colorbutton {
+            margin-right: 5px;
+            margin-top: 60px;
+        }
+
+        .size {
+            padding-top: 35px;
+
+            .selectedsize {
+                border: 3px solid red;
+            }
+        }
+
+        .selectedcolor {
+            border: 3px solid red;
+
+        }
     }
-
-    .buy-now {
-        display: flex;
-        text-align: center;
-        align-items: center;
-        padding-top: 20px;
-
-    }
-
-    .color-shoe-white {
-        background: LavenderBlush;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-    }
-
-    .color-shoe-black {
-        background: black;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-
-    }
-
-    .color-shoe-gray {
-        background: DarkSlateGray;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-
-    }
-
-    .color-shoe-lemon {
-        background: LemonChiffon;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-
-    }
-
-    .slogan {
-        display: flex;
-        text-align: center;
-        align-items: center;
-        font-family: 'Jura';
-        padding: 15px;
-
-    }
-
-    .colorbutton {
-
-        margin-right: 5px;
-        margin-top: 60px;
-    }
-
-    .size {
-        padding-top: 35px;
-
-    }
-
-    .selectedcolor {
-        border: 3px solid red;
-
-    }
-
-    .selectedsize {
-        border: 3px solid red;
-
-    }
-
 }
 
 //pho thong
@@ -106,87 +67,43 @@
         color: black;
         background-color: white;
         font-family: 'MuliDisplayVN', sans-serif;
+
+        .buy-now {
+            display: flex;
+            padding-top: 20px;
+        }
+
+        .slogan {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            font-family: 'Jura';
+            padding: 10px;
+        }
+
+        .colorbutton {
+            margin-right: 5px;
+            margin-top: 30px;
+        }
+
+        .colorbutton {
+            margin-right: 5px;
+            margin-top: 30px;
+        }
+
+        .size {
+            padding-top: 35px;
+
+            .selectedsize {
+                border: 3px solid red;
+            }
+        }
+
+        .selectedcolor {
+            border: 3px solid red;
+        }
     }
-
-    .buy-now {
-        display: flex;
-        padding-top: 20px;
-    }
-
-    .color-shoe-white {
-        background: LavenderBlush;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-    }
-
-    .color-shoe-black {
-        background: black;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-
-    }
-
-    .color-shoe-gray {
-        background: DarkSlateGray;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-
-    }
-
-    .color-shoe-lemon {
-        background: LemonChiffon;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-
-    }
-
-    .slogan {
-        display: flex;
-        justify-content: center;
-        text-align: center;
-        align-items: center;
-        font-family: 'Jura';
-        padding: 10px;
-    }
-
-    .colorbutton {
-
-        margin-right: 5px;
-        margin-top: 30px;
-    }
-
-    .colorbutton {
-
-        margin-right: 5px;
-        margin-top: 30px;
-    }
-
-    .size {
-        padding-top: 35px;
-
-    }
-
-    .selectedcolor {
-        border: 3px solid red;
-
-    }
-
-    .selectedsize {
-        border: 3px solid red;
-
-    }
-
-
-
-
 }
 
 //tablet
@@ -196,79 +113,38 @@
         color: black;
         background-color: white;
         font-family: 'MuliDisplayVN', sans-serif;
+
+        .buy-now {
+            display: flex;
+            padding-top: 20px;
+        }
+
+        .slogan {
+            display: flex;
+            text-align: center;
+            align-items: center;
+            font-family: 'Jura';
+            padding: 50px;
+        }
+
+        .colorbutton {
+
+            margin-right: 5px;
+            margin-top: 30px;
+        }
+
+        .size {
+            padding-top: 35px;
+
+            .selectedsize {
+                border: 3px solid red;
+            }
+        }
+
+        .selectedcolor {
+            border: 3px solid red;
+        }
     }
-
-    .buy-now {
-        display: flex;
-        padding-top: 20px;
-    }
-
-    .color-shoe-white {
-        background: LavenderBlush;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-    }
-
-    .color-shoe-black {
-        background: black;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-
-    }
-
-    .color-shoe-gray {
-        background: DarkSlateGray;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-
-    }
-
-    .color-shoe-lemon {
-        background: LemonChiffon;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        margin-right: 20px;
-
-    }
-
-    .slogan {
-        display: flex;
-        text-align: center;
-        align-items: center;
-        font-family: 'Jura';
-        padding: 50px;
-    }
-
-    .colorbutton {
-
-        margin-right: 5px;
-        margin-top: 30px;
-    }
-
-    .size {
-        padding-top: 35px;
-
-    }
-
-    .selectedcolor {
-        border: 3px solid red;
-
-    }
-
-    .selectedsize {
-        border: 3px solid red;
-
-    }
-
-
-
 }
 
 //desktop
@@ -278,49 +154,39 @@
         color: black;
         background-color: white;
         font-family: 'MuliDisplayVN', sans-serif;
-        
+
+        .buy-now {
+            display: flex;
+            padding-top: 20px;
+        }
+
+        .slogan {
+            display: flex;
+            text-align: center;
+            align-items: center;
+            font-family: 'Jura';
+            padding: 50px;
+        }
+
+        .colorbutton {
+            margin-right: 5px;
+            margin-top: 30px;
+            cursor: pointer;
+            background-color: bisque;
+            border: none;
+        }
+
+        .size {
+            padding-top: 35px;
+
+            .selectedsize {
+                border: 3px solid red;
+            }
+        }
+
+        .selectedcolor {
+            border: 3px solid red;
+
+        }
     }
-
-    .buy-now {
-        display: flex;
-        padding-top: 20px;
-    }
-
-
-    .slogan {
-        display: flex;
-        text-align: center;
-        align-items: center;
-        font-family: 'Jura';
-        padding: 50px;
-    }
-
-    .colorbutton {
-
-        margin-right: 5px;
-        margin-top: 30px;
-        cursor: pointer;
-        background-color: bisque;
-        border: none;
-    }
-
-
-
-    .size {
-        padding-top: 35px;
-
-    }
-
-
-
-    .selectedcolor {
-        border: 3px solid red;
-
-    }
-
-    .selectedsize {
-        border: 3px solid red;
-
-    }
-
 }

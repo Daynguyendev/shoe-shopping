@@ -34,8 +34,11 @@ export default function PageRateProduct() {
     const [content, setContent] = useState();
     const [imgRate, setImgRate] = useState();
     const [start, setStart] = useState(2)
-    const [value, setValue] = React.useState(2);
+    let total = 0;
 
+    rateList.filter(function (element) {
+        total += element.so_sao_danh_gia;
+    });
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -52,10 +55,6 @@ export default function PageRateProduct() {
             hinh_anh_danh_gia: imgRate,
             so_sao_danh_gia: start,
         })
-
-
-
-
             .then(function (response) {
 
                 const dataAdd = [...rate]
@@ -70,9 +69,6 @@ export default function PageRateProduct() {
 
                 dataAdd.push(data)
                 setRate(dataAdd)
-
-
-
                 enqueueSnackbar('Đánh giá thành công', {
                     variant: 'success',
                     autoHideDuration: 800,
@@ -84,7 +80,6 @@ export default function PageRateProduct() {
             })
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
-
     };
 
     useEffect(() => {
@@ -93,21 +88,13 @@ export default function PageRateProduct() {
                 if (rate !== null) {
                     const Ratedetail = await rateAPI.getById(id);
                     setRate(Ratedetail.data.data);
-                    console.log('rate', Ratedetail.data.data)
                 }
             };
             fetchPageDetail();
         } catch (error) {
             console.log('Failed to fetch rate: ', error);
         }
-    }, []);
-    let total = 0;
-
-    rateList.filter(function (element) {
-        total += element.so_sao_danh_gia;
-    });
-
-
+    }, [id]);
 
     return (
         <Box

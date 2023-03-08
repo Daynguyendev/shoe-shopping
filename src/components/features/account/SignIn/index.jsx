@@ -16,10 +16,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { useState, useEffect } from 'react';
 import userAPI from '../../../API/userAPI';
-import { setUser } from '../userSlice';
 import { useDispatch } from 'react-redux';
 import { login } from '../userSlice';
-import cartAPI from '../../../API/cartAPI';
 import { useSelector } from 'react-redux';
 
 function Copyright(props) {
@@ -50,34 +48,9 @@ export default function SignIn() {
     const isLogin = useSelector((state) => state?.user.isLogin);
     const [items, setItems] = useState(null);
 
-    // useEffect(() => {
-    //     const storedItems = JSON.parse(localStorage.getItem('cart')) || [];
-    //     setItems(storedItems);
-    // }, []);
-
-
-    // useEffect(() => {
-    //     if (idUser && items) {
-    //         {
-    //             items.map(async (item, index) => {
-    //                 console.log('sao khong hop le', {
-    //                     id_sp: item.id_sp,
-    //                     id_khach_hang: idUser,
-    //                     ten_mau_sac: item.ten_mau_sac,
-    //                     ten_kich_thuoc: item.ten_kich_thuoc,
-    //                     so_luong: item.so_luong
-    //                 })
-    //             })
-    //         }
-    //     }
-
-    // }, []);
-
-
     useEffect(() => {
         try {
             const fetchIdUser = async () => {
-                // console.log('test_header', email_khach_hang);
                 if (isLogin) {
                     const res = await userAPI.getID({ email_khach_hang: email_khach_hang });
                     setIdUser(res.data.data[0]?.id_khach_hang)
@@ -89,33 +62,15 @@ export default function SignIn() {
         }
     }, []);
 
-    {
-
-
-    }
-
-
-
-
-
-
-    const handleNextPage = () => {
-        navigate(`/register`)
-    }
     const handleSubmit = (event) => {
         userAPI.login({
             email_khach_hang: email,
             mat_khau_khach_hang: password
         })
-
             .then(function (response) {
-                console.log(response.data)
                 dispatch(login({ email_khach_hang: email, token: response.data.token }));
                 let data = { email_khach_hang: email, token: response.data.token, isLogin: true }
                 localStorage.setItem('user', JSON.stringify(data));
-                // AddData()
-                // localStorage.removeItem('cart');
-
                 navigate(`/`)
                 enqueueSnackbar('Đăng nhập thành công', {
                     variant: 'success',
@@ -128,8 +83,12 @@ export default function SignIn() {
             })
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
-
     };
+
+    const handleNextPage = () => {
+        navigate(`/register`)
+    }
+
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="lg" sx={{
@@ -138,8 +97,6 @@ export default function SignIn() {
 
             }}>
                 <CssBaseline />
-                {/* {console.log('têst', JSON.parse(localStorage.getItem('user'))?.)} */}
-
                 <Box
                     sx={{
                         marginTop: 8,

@@ -6,9 +6,6 @@ import adminAPI from '../../../../API/adminAPI'
 import { useRef } from 'react';
 import copy from 'copy-to-clipboard';
 
-
-
-
 const useStyles = makeStyles({
     root: {
         alignItems: 'center',
@@ -37,7 +34,6 @@ const useStyles = makeStyles({
     },
     wrapLink: {
         backgroundColor: 'black',
-
         color: 'black',
         display: 'flex',
         minHeight: '40px',
@@ -54,12 +50,10 @@ const useStyles = makeStyles({
     },
     copyIcon: {
         backgroundColor: 'black',
-
         color: '#ced4da',
     },
     copyBtn: {
         backgroundColor: 'black',
-
         color: '#ced4da',
         position: 'absolute',
         right: 0,
@@ -95,6 +89,7 @@ function UploadImage(props) {
         }
         handleUpload(getFile);
     };
+
     const handleUpload = async (file) => {
         const formdata = new FormData();
         formdata.append('image', file);
@@ -102,7 +97,6 @@ function UploadImage(props) {
             const uploadImg = async () => {
                 const result = await adminAPI.upload(formdata);
                 setImageSrc(result.data.link);
-
             };
             uploadImg();
 
@@ -110,8 +104,6 @@ function UploadImage(props) {
             console.log('Failed to upload image: ', error);
         }
     };
-
-
 
 
     return (

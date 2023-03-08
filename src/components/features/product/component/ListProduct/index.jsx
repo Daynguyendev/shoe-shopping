@@ -3,25 +3,12 @@ import Product from '../Product';
 import { Grid } from '@material-ui/core';
 import './ListProduct.scss'
 import { Container } from '@mui/material';
-import { Typography } from '@mui/material';
-import Pagination from '../Pagination';
-import { PropTypes } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import productAPI from './../../../../API/productAPI';
 
-
-
-ListProduct.propTypes = {
-
-
-
-};
 function ListProduct({ product }) {
     const navigate = useNavigate();
     const handleClickProduct = () => {
         navigate(`/detail`)
-
     }
 
     const handleClickDetail = (item) => {
@@ -42,8 +29,6 @@ function ListProduct({ product }) {
                     <hr />
                 </Grid>
             </Grid>
-
-
             <Grid container spacing={2} className='Listproduct' >
                 <Product xs={6} sm={6} md={4} lg={3} xl={3} so_luong={8} product={product} />
             </Grid>

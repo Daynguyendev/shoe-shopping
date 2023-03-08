@@ -56,10 +56,6 @@ function Cart(props) {
         setCart(result.data.data);
     }
 
-
-
-
-
     useEffect(() => {
         try {
             const fetchCart = async () => {

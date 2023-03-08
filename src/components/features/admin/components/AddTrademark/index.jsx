@@ -33,10 +33,7 @@ function AddTrademark() {
     }, []);
 
     const handleSubmit = (event) => {
-
         trademarkAPI.add({ ten_thuong_hieu: trademark })
-
-
             .then(function (response) {
                 enqueueSnackbar('Thêm thương hiệu thành công', {
                     variant: 'success',
@@ -50,9 +47,7 @@ function AddTrademark() {
             })
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
-
     };
-
 
     const handleRowSelection = (e) => {
         setTrademark(e);

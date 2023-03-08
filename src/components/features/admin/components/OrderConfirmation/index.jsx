@@ -30,23 +30,21 @@ export default function OrderConfirmation() {
     const [statusAll, setStatusAll] = useState([]);
     const [invoiceDetail, setInvoiceDetail] = useState([]);
     const [invoice, setInvoice] = useState();
+    const [open, setOpen] = useState(false);
     const invoiceDetailDisplay = invoiceDetail || [];
     const statusList = status || [];
     const statusAllList = statusAll || [];
     const invoiceAll = invoice || []
+    const [detail, setDetail] = useState([]);
+    const detailclone = detail || [];
+    const [fillter, setFillter] = useState();
 
-    // const [invoiceAll, setInvoiceAll] = useState([]);
 
     function reverseInvoice() {
         const newInvoiceAll = [...invoiceAll];
         newInvoiceAll.reverse();
         setInvoice(newInvoiceAll);
     }
-
-
-    const [count, setCount] = useState(0);
-    const [open, setOpen] = useState(false);
-
 
 
     const handleClickOpen = () => {
@@ -87,31 +85,16 @@ export default function OrderConfirmation() {
         }
     }, []);
 
-    const [detail, setDetail] = useState([]);
-    const detailclone = detail || [];
-
-
-
     const HandleShowDetail = async (id_hd_dat) => {
         const result = await detailinvoiceoutputAPI.getDetail({ id_hd_dat: id_hd_dat })
         setDetail(result.data.data);
         setOpen(true);
-        console.log('invoiceDetail', result.data.data)
-
     };
 
-    const [fillter, setFillter] = useState();
     const HandleFillter = async (id_trang_thai) => {
         const result = await statusAPI.getBillByStatus({ id_trang_thai: id_trang_thai })
         setInvoice(result.data.data);
-
-        console.log('fillter', result.data.data)
-
     };
-
-
-
-
 
     useEffect(() => {
         try {
@@ -128,23 +111,18 @@ export default function OrderConfirmation() {
         }
     }, []);
 
-
     const handleXacNhan = async (index, id_khach_hang, id_hd_dat) => {
         const result = await statusAPI.UpdateStatus({ id_trang_thai: 1, id_khach_hang: id_khach_hang, id_hd_dat: id_hd_dat });
-
         const updateCart = [...invoiceAll];
-
         updateCart[index].id_trang_thai = 1;
         console.log('statusAll', updateCart[index].id_trang_thai);
         setInvoice(updateCart);
-
     }
     const handleHuy = async (index, id_khach_hang, id_hd_dat) => {
         const result = await statusAPI.UpdateStatus({ id_trang_thai: 4, id_khach_hang: id_khach_hang, id_hd_dat: id_hd_dat });
         const updateCart = [...invoiceAll];
         updateCart[index].id_trang_thai = 4;
         setInvoice(updateCart);
-
     }
 
     const handleVanChuyen = async (index, id_khach_hang, id_hd_dat) => {
@@ -152,7 +130,6 @@ export default function OrderConfirmation() {
         const updateCart = [...invoiceAll];
         updateCart[index].id_trang_thai = 2;
         setInvoice(updateCart);
-
     }
 
     const handleGiaoHang = async (index, id_khach_hang, id_hd_dat) => {
@@ -160,9 +137,7 @@ export default function OrderConfirmation() {
         const updateCart = [...invoiceAll];
         updateCart[index].id_trang_thai = 3;
         setInvoice(updateCart);
-
     }
-
 
     return (
         <Box sx={{ width: '100%', minHeight: '550px', backgroundColor: 'white', paddingTop: '20px' }}>
@@ -192,45 +167,30 @@ export default function OrderConfirmation() {
             {
                 invoiceAll.map((item, index) => (
                     <LazyLoad key={index} throttle={500} height={1000}>
-
-
-
                         <Grid key={index} sx={{ padding: '20px', textAlign: 'center' }}>
                             <Grid sx={{ fontFamily: 'Jura', fontSize: '20px' }}>
                                 ID hóa đơn : {item.id_hd_dat}
-
-
                             </Grid>
                             <Grid sx={{ fontFamily: 'Jura' }}>
                                 Tên : {item.ten_khach_hang}
-
-
                             </Grid>
                             <Grid sx={{ fontFamily: 'Jura' }}>
                                 ID khách hàng : {item.id_khach_hang}
-
-
                             </Grid>
                             <Grid sx={{ fontFamily: 'Jura' }}>
                                 Địa chỉ nhận hàng: {item.ten_dia_chi}
-
-
                             </Grid>
                             <Grid sx={{ fontFamily: 'Jura' }}>
                                 Ngày lập hóa đơn: {item.ngay_lap_hd_dat}
-
-
                             </Grid>
                             <Grid sx={{ paddingBottom: '30px', fontFamily: 'Jura' }}>
                                 Tổng tiền: {item.tong_tien}
-
                             </Grid >
                             <IconButton sx={{ fontFamily: 'Jura', fontSize: '20px' }} onClick={(e) => HandleShowDetail(item.id_hd_dat)}  >
                                 <RemoveRedEyeIcon /> Xem chi tiết hóa đơn
                             </IconButton>
                             <br />
                             <br />
-
                             < Stepper activeStep={item.id_trang_thai} alternativeLabel >
                                 {
                                     statusAllList.map((item, index) => (
@@ -245,7 +205,6 @@ export default function OrderConfirmation() {
                                 <IconButton sx={{ fontFamily: 'Jura', fontSize: '20px' }} onClick={() => handleXacNhan(index, item.id_khach_hang, item.id_hd_dat)}  >
                                     <DoneAllIcon /> Xác nhận
                                 </IconButton>
-
                                 <IconButton sx={{ fontFamily: 'Jura', fontSize: '20px' }} onClick={() => handleVanChuyen(index, item.id_khach_hang, item.id_hd_dat)}>
                                     <DriveEtaIcon /> Đang vận chuyển
                                 </IconButton>
@@ -255,22 +214,14 @@ export default function OrderConfirmation() {
                                 <IconButton sx={{ fontFamily: 'Jura', fontSize: '20px' }} onClick={() => handleHuy(index, item.id_khach_hang, item.id_hd_dat)}>
                                     <DeleteForeverIcon /> Hủy
                                 </IconButton>
-
-
                             </Grid >
-
-
                             <br />
                             <br />
                             <hr />
-
                         </Grid>
-
                     </LazyLoad>))
 
             }
-
-
             <Dialog fullScreen open={open} onClose={handleClose}>
                 <hr />
                 <Grid >
@@ -280,24 +231,19 @@ export default function OrderConfirmation() {
                         <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>Kích thước:</Grid>
                         <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>Số Lượng:</Grid>
                         <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>Hình ảnh</Grid>
-
                     </Grid>
                     <hr />
                     {detailclone.map((item, index) => (
                         <Grid key={index}>
-
                             <Grid sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', fontFamily: 'Jura' }}>
                                 <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_sp}</Grid>
                                 <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_mau_sac}</Grid>
                                 <Grid item xl={5} lg={5} xs={5} sm={5} md={5}> {item.ten_kich_thuoc}</Grid>
                                 <Grid item xl={5} lg={5} xs={5} sm={5} md={5}> {item.so_luong}</Grid>
                                 <Grid item xl={5} lg={5} xs={5} sm={5} md={5}><img style={{ width: '100px', height: '100px' }} src={item.hinh_anh_chinh} alt={index} /></Grid>
-
                             </Grid>
-
                             <hr />
                         </Grid>
-
                     ))}
 
                 </Grid>
@@ -305,7 +251,6 @@ export default function OrderConfirmation() {
                     Thoát
                 </Button>
             </Dialog>
-
         </Box >
     );
 }

@@ -20,7 +20,6 @@ function AddProvider() {
     const [addressProvider, setAddressProvider] = useState('');
     const { enqueueSnackbar } = useSnackbar();
 
-
     useEffect(() => {
         try {
             const fetchProviderDetail = async () => {
@@ -37,13 +36,10 @@ function AddProvider() {
     }, []);
 
     const handleSubmit = (event) => {
-
         providerAPI.add({
             ten_nha_cc: nameprovider,
             dia_chi_cc: addressProvider
         })
-
-
             .then(function (response) {
                 enqueueSnackbar('Thêm nhà cung cấp thành công', {
                     variant: 'success',
@@ -58,15 +54,13 @@ function AddProvider() {
             })
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
-
     };
 
-
     const handleRowSelection = (e) => {
-        // setNameDiscount(e);
         console.log(e)
 
     };
+
     return (
         <Box
             sx={{

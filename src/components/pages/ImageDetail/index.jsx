@@ -6,8 +6,6 @@ import imageAPI from '../../API/imageAPI';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-
-
 export default function ImageDetail() {
     let { id } = useParams();
     const [imageDetail, setImagedetail] = useState([]);
@@ -17,7 +15,6 @@ export default function ImageDetail() {
                 if (imageDetail !== null) {
                     const listImg = await imageAPI.get(id);
                     setImagedetail(listImg.data.data);
-                    // console.log('img', listImg.data.data)
                 }
             };
             fetchImagedetail();
@@ -32,9 +29,7 @@ export default function ImageDetail() {
             {
                 imageDetail.map((item, index) => (
                     <div key={index} >
-
                         <img src={item.link_hinh_anh_ct} alt={index} />
-
                     </div>
                 ))
             }

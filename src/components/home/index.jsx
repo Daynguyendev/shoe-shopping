@@ -23,7 +23,6 @@ function Home(props) {
             console.log('Failed to fetch Product: ', error);
         }
     }, []);
-    console.log('test product', product)
 
     return (
         <Container maxWidth="xl" >

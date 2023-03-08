@@ -14,13 +14,11 @@ const columns = [
     { field: 'link_hinh_anh_ct', headerName: 'link_hinh_anh_ct', width: 130 },
 
 ];
-
 function AddDetailImage() {
     const [imageDetail, setImageDetailDetail] = useState([]);
     const [idImage, setIdImage] = useState('');
     const [linkImage, setLinkImage] = useState('');
     const { enqueueSnackbar } = useSnackbar();
-
 
     useEffect(() => {
         try {
@@ -37,16 +35,12 @@ function AddDetailImage() {
         }
     }, []);
 
-    console.log('hinh anh', imageDetail)
-
     const handleSubmit = (event) => {
 
         imageAPI.add({
             id_hinh_anh: idImage,
             link_hinh_anh_ct: linkImage
         })
-
-
             .then(function (response) {
                 enqueueSnackbar('Thêm hình ảnh chi tiết thành công', {
                     variant: 'success',
@@ -62,7 +56,6 @@ function AddDetailImage() {
             );
 
     };
-
 
     const handleRowSelection = (e) => {
         // setNameDiscount(e);
@@ -83,17 +76,13 @@ function AddDetailImage() {
             }}
         >
             <h1>THÊM HÌNH ẢNH CHI TIẾT</h1>
-
             <UploadImage />
             <br />
             <TextField onChange={(e) => setIdImage(e.target.value)} label="id của ảnh chính" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
             <TextField onChange={(e) => setLinkImage(e.target.value)} value={linkImage} label="link hình ảnh" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
-
-
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
                 Thêm hình ảnh
             </Button>
-
             <div style={{ height: 400, width: '100%', paddingTop: '50px' }}>
                 <DataGrid
                     getRowId={(row) => row.id_anh}

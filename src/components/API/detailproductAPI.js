@@ -38,6 +38,11 @@ const DetailProductAPI = {
         const url = `/product/all/quantity`;
         return axiosClient.post(url, data);
     },
+    getQuantityCart(data) {
+        const url = `/product/quantitycart/all`;
+        return axiosClient.post(url, data);
+    },
+
 };
 
 export default DetailProductAPI;

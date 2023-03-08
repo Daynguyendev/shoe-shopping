@@ -20,8 +20,6 @@ function ItemSale({ product }) {
                     <hr />
                 </Grid>
             </Grid>
-
-
             <Grid container spacing={2} className='Listproduct' >
                 <Product xs={6} sm={6} md={4} lg={3} xl={3} so_luong={8} product={product} />
             </Grid>

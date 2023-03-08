@@ -20,7 +20,6 @@ function AddDiscount() {
     const [pricediscount, setPriceDiscount] = useState('');
     const { enqueueSnackbar } = useSnackbar();
 
-
     useEffect(() => {
         try {
             const fetchDiscountDetail = async () => {
@@ -37,13 +36,10 @@ function AddDiscount() {
     }, []);
 
     const handleSubmit = (event) => {
-
         discountAPI.add({
             ten_giam_gia: namediscount,
             gia_giam: pricediscount
         })
-
-
             .then(function (response) {
                 enqueueSnackbar('Thêm mã giảm giá thành công', {
                     variant: 'success',
@@ -58,9 +54,7 @@ function AddDiscount() {
             })
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
-
     };
-
 
     const handleRowSelection = (e) => {
         // setNameDiscount(e);
@@ -82,15 +76,11 @@ function AddDiscount() {
             }}
         >
             <h1>THÊM GIẢM GIÁ</h1>
-
             <TextField onChange={(e) => setNameDiscount(e.target.value)} value={namediscount} label="Tên khuyến mãi" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
             <TextField onChange={(e) => setPriceDiscount(e.target.value)} value={pricediscount} label="Giá giảm" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
-
-
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
                 Thêm khuyến mãi
             </Button>
-
             <div style={{ height: 400, width: '100%', paddingTop: '50px' }}>
                 <DataGrid
                     getRowId={(row) => row.id_giam_gia}

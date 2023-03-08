@@ -1,7 +1,6 @@
 //iphone5
 @media only screen and (max-width: 320px) {
     .fullbox {
-        // background-color: #3d3d3d;
         align-items: center;
         text-align: center;
 
@@ -9,8 +8,6 @@
             transform: translate(0%, -5%);
             transition: 0.5s;
         }
-
-
 
         .img {
             width: 112px;
@@ -24,14 +21,12 @@
             text-align: center;
             align-items: center;
         }
-
     }
 }
 
 //mobile
 @media only screen and (min-width: 321px) and (max-width: 376px) {
     .fullbox {
-        // background-color: #3d3d3d;
         align-items: center;
         text-align: center;
 
@@ -40,17 +35,9 @@
             transition: 0.5s;
         }
 
-
-
         .img {
             width: 140px;
             height: 140px;
-            // animation: mymove1 cubic-bezier(0.23, 1, 0.32, 1);
-            // position: relative;
-            // animation-fill-mode: forwards;
-            // animation-duration: 1s;
-            // transition: 0.3s;
-
         }
 
         .detail-item {
@@ -60,19 +47,16 @@
             text-align: center;
             align-items: center;
         }
-
     }
 
     .fade-in {
         height: 220px;
     }
-
 }
 
 //pho thong
 @media only screen and (min-width: 376px) and (max-width: 739px) {
     .fullbox {
-        // background-color: #3d3d3d;
         align-items: center;
         text-align: center;
 
@@ -80,8 +64,6 @@
             transform: translate(0%, -5%);
             transition: 0.5s;
         }
-
-
 
         .img {
             width: 160px;
@@ -101,19 +83,16 @@
             text-align: center;
             align-items: center;
         }
-
     }
 
     .fade-in {
         height: 280px;
     }
-
 }
 
 //tablet
 @media only screen and (min-width: 740px) and (max-width: 1024px) {
     .fullbox {
-        // background-color: #3d3d3d;
         align-items: center;
         text-align: center;
 
@@ -121,8 +100,6 @@
             transform: translate(0%, -5%);
             transition: 0.5s;
         }
-
-
 
         .img {
             width: 290px;
@@ -132,7 +109,6 @@
             animation-fill-mode: forwards;
             animation-duration: 1s;
             transition: 0.3s;
-
         }
 
         .detail-item {
@@ -142,7 +118,6 @@
             text-align: center;
             align-items: center;
         }
-
     }
 }
 
@@ -153,14 +128,10 @@
         align-items: center;
         text-align: center;
 
-
         :hover * {
             transform: translate(0%, -5%);
             transition: 0.5s;
         }
-
-
-
 
         .img {
             width: 340px;
@@ -170,8 +141,6 @@
             animation-fill-mode: forwards;
             animation-duration: 1s;
             transition: 0.3s;
-
-
         }
 
         .detail-item {
@@ -192,17 +161,9 @@
         align-items: center;
         text-align: center;
 
-
-
-
-
-
         :hover * {
             transform: translate(0%, -5%);
         }
-
-
-
 
         .img {
             width: 300px;
@@ -212,9 +173,6 @@
             animation-fill-mode: forwards;
             animation-duration: 1s;
             transition: 0.3s;
-
-
-
         }
 
         .detail-item {
@@ -223,15 +181,8 @@
             font-family: 'Jura', sans-serif;
             text-align: center;
             align-items: center;
-
         }
-
-
     }
-
-
-
-
 }
 
 @keyframes mymove {

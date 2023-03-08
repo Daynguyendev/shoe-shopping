@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Rating from '@mui/material/Rating';
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import StarIcon from '@mui/icons-material/Star';
 import { Typography } from '@mui/material';
@@ -9,8 +8,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+
 export default function RateProduct({ rate }) {
-    const { id } = useParams();
     const rateList = [...rate] || [];
     const [currentPage, setCurrentPage] = useState(1);
     const handlePageChange = (event, pageNumber) => {
@@ -45,9 +44,6 @@ export default function RateProduct({ rate }) {
                 minHeight: '400px',
                 backgroundColor: 'white',
                 paddingTop: '20px',
-
-
-
             }}
         >
             {renderRateList()}
@@ -57,10 +53,8 @@ export default function RateProduct({ rate }) {
                     page={currentPage}
                     onChange={handlePageChange}
                     shape="rounded"
-
                 />
             </Stack>
-
         </Grid>
     );
 }

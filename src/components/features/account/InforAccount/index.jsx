@@ -1,15 +1,11 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
 import SendIcon from '@mui/icons-material/Send';
-import Avatar from '@mui/material/Avatar';
 import './account.scss'
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
@@ -18,16 +14,11 @@ import addresskAPI from '../../../API/addressAPI';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import StarIcon from '@mui/icons-material/Star';
 import { useSelector } from 'react-redux';
 import SignIn from '../SignIn';
-import cartAPI from '../../../API/cartAPI';
 import userAPI from '../../../API/userAPI';
 import { DataGrid } from '@mui/x-data-grid';
-import { height } from '@mui/system';
-import { forwardRef } from 'react';
 
 const columns = [
     { field: 'id_dia_chi', headerName: 'ID', width: 70 },
@@ -36,24 +27,21 @@ const columns = [
     { field: 'sdt_khach_hang', headerName: 'sdt_khach_hang', width: 130 },
 
 ];
-
-
 export default function InforAccount() {
-    const isLogin = useSelector((state) => state.user.isLogin);
-    const email = useSelector((state) => state.user);
-
+    const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
     const [address, setAddress] = useState();
     const [phone, setPhone] = useState();
     const [name, setName] = useState();
-
-    const { enqueueSnackbar } = useSnackbar();
     const [idUser, setIdUser] = useState(null);
-    let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
     const [listAddress, setListAddress] = useState();
     const [editAddress, setEditAddress] = useState();
+    const [remove, setRemove] = useState();
     const ListShow = listAddress || [];
-    console.log('co data ko', listAddress)
+    let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
+    const isLogin = useSelector((state) => state.user.isLogin);
+    const email = useSelector((state) => state.user);
+
     useEffect(() => {
         try {
             const fetchIdUser = async () => {
@@ -107,8 +95,6 @@ export default function InforAccount() {
         {
             remove.map((item, index) => {
                 const result = addresskAPI.remove({ id_dia_chi: item });
-                console.log('ket qua xoa', item);
-
             })
         }
 
@@ -117,7 +103,6 @@ export default function InforAccount() {
         if (idUser)
             try {
                 const fetchCategorry = async () => {
-                    console.log('có data', idUser);
                     if (listAddress !== null) {
 
                     }
@@ -127,12 +112,11 @@ export default function InforAccount() {
                 console.log('Failed to fetch listAddress: ', error);
             }
     }, [idUser]);
-    const [remove, setRemove] = useState();
+
     useEffect(() => {
         if (idUser)
             try {
                 const fetchCategorry = async () => {
-                    console.log('có data', idUser);
                     if (listAddress !== null) {
                         const result = await addresskAPI.getAddress({ id_khach_hang: idUser });
                         setListAddress(result.data.data);
@@ -149,8 +133,6 @@ export default function InforAccount() {
         setRemove(e);
         navigate(`/account/${e}`);
 
-        console.log('rm', e)
-
     };
 
     return (
@@ -163,14 +145,9 @@ export default function InforAccount() {
                     alignItems: 'center',
                     backgroundColor: 'white',
                     minHeight: '650px'
-
                 }}>
                     <p>Xin chào , {email.user.email_khach_hang}!</p>
-
-
                     <Grid container spacing={2}>
-
-
                         <Grid item xs={4}>
                             <List
                                 sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
@@ -194,14 +171,10 @@ export default function InforAccount() {
 
                             </List>
 
-
                         </Grid>
                         <Grid item xs={8} sx={{ marginTop: '17px' }}>
                             <Box
-
-
                                 component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}
-
                             >
                                 <TextField
                                     fullWidth
@@ -209,7 +182,6 @@ export default function InforAccount() {
                                     onChange={(event) => (setName(event.target.value))}
                                     autoFocus
                                 />
-
                                 <TextField
                                     fullWidth
                                     label="Địa chỉ"
@@ -223,7 +195,6 @@ export default function InforAccount() {
                                     label="Số điện thoại"
                                     onChange={(event) => (setPhone(event.target.value))}
                                     sx={{ marginTop: '20px' }}
-
                                 />
                                 <Stack sx={{ paddingTop: '17px' }}>
                                     <Button variant="contained" endIcon={<SendIcon />} onClick={handleSubmit}>
@@ -231,12 +202,7 @@ export default function InforAccount() {
                                     </Button>
                                 </Stack>
                             </Box>
-
-
-
                         </Grid>
-
-
                     </Grid>
 
                     <div style={{ width: '100%', height: '500px', paddingTop: '50px' }}>
@@ -253,16 +219,10 @@ export default function InforAccount() {
                         />
                     </div>
                 </Box>
-
-
-
             </Container>
 
         ) : (
             <SignIn />
         )}</>
-
-
-
     );
 }

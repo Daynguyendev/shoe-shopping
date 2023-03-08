@@ -1,19 +1,19 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import './OverView.scss'
-import { Container } from '@mui/material';
 import Product from '../Product';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import productAPI from '../../../../API/productAPI';
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useEffect } from 'react';
 import trademarkAPI from '../../../../API/trademarkAPI';
 function OverView() {
     const [tradeMarkAll, setTradeMarkAll] = useState([]);
     const { name } = useParams();
     const navigate = useNavigate();
     const [page, setPage] = useState(null);
+    const [product, setProduct] = useState([]);
 
     const handleClickDetail = (item) => {
         navigate(`/colections/${item}`)
@@ -40,7 +40,6 @@ function OverView() {
             console.log('Failed to fetch Product: ', error);
         }
     }, []);
-    const [product, setProduct] = useState([]);
     useEffect(() => {
         try {
             const fetchProduct = async () => {

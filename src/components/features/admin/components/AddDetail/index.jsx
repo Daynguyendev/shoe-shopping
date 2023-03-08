@@ -5,7 +5,6 @@ import AddColor from '../AddColor';
 import AddDetailImage from '../AddDetailImage';
 import AddDiscount from '../AddDiscount';
 import AddInvoice from '../AddInvoice';
-import AddInvoiceInput from '../AddInvoiceInput';
 import AddProvider from '../AddProvider';
 import AddTrademark from '../AddTrademark';
 import AddSize from '../AddSize';
@@ -13,7 +12,6 @@ import UploadProduct from '../UploadProduct';
 
 
 function AddDetail() {
-
     return (
         <Box
             sx={{
@@ -37,8 +35,6 @@ function AddDetail() {
             <UploadProduct />
             <AddDetailImage />
             <AddInvoice />
-
-
         </Box >
     );
 }

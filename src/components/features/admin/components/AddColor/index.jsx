@@ -32,10 +32,7 @@ function AddColor() {
     }, []);
 
     const handleSubmit = (event) => {
-
         colorAPI.add({ ten_mau_sac: color })
-
-
             .then(function (response) {
                 enqueueSnackbar('Thêm màu sắc thành công', {
                     variant: 'success',
@@ -49,14 +46,10 @@ function AddColor() {
             })
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
-
     };
-
 
     const handleRowSelection = (e) => {
         setColor(e);
-        console.log(e)
-
     };
     return (
         <Box

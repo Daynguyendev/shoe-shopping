@@ -20,83 +20,92 @@ import { useParams } from 'react-router-dom';
 import cartAPI from '../../../../API/cartAPI';
 import invoiceoutputAPI from '../../../../API/invoiceoutputAPI';
 import detailinvoiceoutputAPI from '../../../../API/detailinvoiceoutputAPI'
-import ButtonForm from '../../../../Formcontrol/ButtonForm';
 import DetailProductAPI from '../../../../API/detailproductAPI';
-import productAPI from '../../../../API/productAPI';
 
 export default function UploadProduct() {
+    const navigate = useNavigate();
     let { id } = useParams();
     const { enqueueSnackbar } = useSnackbar();
     const [idUser, setIdUser] = useState('');
-    let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
     const [open, setOpen] = useState(false);
-    const navigate = useNavigate();
     const [addressadd, setAddressAdd] = useState();
     const [phone, setPhone] = useState();
     const [name, setName] = useState();
     const [cartJoin, setCartJoin] = useState();
-    const cartMap = cartJoin || [];
     const [totalShip, setTotalShip] = useState(0)
     const [total, setTotal] = useState(0)
-    const datacart = cartJoin || [];
     const [idHd, setIdHd] = useState(null);
     const [count, setCount] = useState(1);
-    let so_luong_kho = 0;
-
-
-
-
-
-
-
-    // useEffect(() => {
-
-    //     console.log('ra naoo', colorAdd, sizeAdd)
-    //     const fillterTotal = detailProduct.filter(item => item.ten_kich_thuoc === sizeAdd && item.ten_mau_sac === colorAdd)
-    //     console.log('so _luong', fillterTotal[0].so_luong)
-
-
-    //     for (let i = 0; i < fillterTotal.length; i++) {
-    //         so_luong_kho = so_luong_kho + fillterTotal[i].so_luong;
-    //     }
-    //     setTotal(so_luong_kho)
-
-
-
-    // }, [colorAdd, sizeAdd])
-
-
-    console.log('test cart cái coi', datacart)
-
-
+    const [productTotal, setProductTotal] = useState()
+    const [addressSubmit, setAddressSubmit] = useState('')
+    const [checkoutSubmit, setCheckoutSubmit] = useState('')
+    const [checkout, setCheckout] = useState('');
+    const [address, setAddress] = useState([]);
+    const dataAddress = address || [];
+    const dataCheckout = checkout || [];
+    const isLogin = useSelector((state) => state?.user.isLogin);
+    let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
+    let cartUser = JSON.parse(localStorage.getItem('cartUser')) || [];
+    const datacart = cartJoin || [];
+    const cartMap = cartJoin || [];
 
     useEffect(() => {
+        try {
+            const fetchIdUser = async () => {
+                console.log('test', email_khach_hang);
+                const res = await userAPI.getID({ email_khach_hang: email_khach_hang });
+                setIdUser(res.data.data[0].id_khach_hang)
+            };
+            fetchIdUser();
+        } catch (error) {
+            console.log('Failed to fetch idUser: ', error);
+        }
+    }, []);
 
+
+    const handleSubmitCheck = async () => {
+        if (isLogin) {
+            const resultt = await cartAPI.getDetail(idUser)
+            setProductTotal(resultt.data.data);
+            for (let i = 0; i < cartUser.length; i++) {
+                const item = cartUser[i];
+                const result = await DetailProductAPI.getQuantityCart({
+                    id_sp: item.id_sp,
+                    ten_mau_sac: item.ten_mau_sac,
+                    ten_kich_thuoc: item.ten_kich_thuoc,
+                });
+                if (
+                    result.data.data.so_luong_kho - resultt.data.data[i].so_luong >= 0
+
+                ) {
+                    continue;
+                }
+                else alert('Sản phẩm không còn đủ số lượng ' + result.data.data.ten_sp + ' ' + result.data.data.ten_mau_sac + ' ' + result.data.data.ten_kich_thuoc + ' Chỉ còn ' + result.data.data.so_luong_kho);
+                return;
+            }
+            navigate(`/checkout/${id}`);
+        } else {
+            navigate(`/login`);
+        }
+    };
+
+    useEffect(() => {
         const NewArray = [...datacart];
         const sum = NewArray.reduce((total, product) => {
             return total + product.so_luong;
         }, 0);
-
         let Number = Math.ceil(sum / 3);
         const ship = Number * 30000;
         setTotalShip(ship)
-    }
-
-        , [datacart]);
-
+    }, [datacart]);
 
     useEffect(() => {
-
         const NewArray = [...datacart];
         const sum = NewArray.reduce((total, product) => {
             return total + product.so_luong * product.gia_sp;
         }, 0);
-
         setTotal(sum);
-    }
-        , [datacart]);
-
-    console.log('testdatacart', datacart);
+    }, [datacart]);
 
     useEffect(() => {
         try {
@@ -126,12 +135,7 @@ export default function UploadProduct() {
             ten_khach_hang: name,
             sdt_khach_hang: phone
         })
-
-
-
-
             .then(function (response) {
-
                 const dataAdd = [...address]
                 const data = ({
                     id_dia_chi: response.data.data,
@@ -143,9 +147,6 @@ export default function UploadProduct() {
 
                 dataAdd.push(data)
                 setAddress(dataAdd)
-
-
-
                 enqueueSnackbar('Thêm địa chỉ thành công', {
                     variant: 'success',
                     autoHideDuration: 800,
@@ -169,10 +170,8 @@ export default function UploadProduct() {
                     ten_mau_sac: item.ten_mau_sac,
                     ten_kich_thuoc: item.ten_kich_thuoc,
                 })
-
             })
         }
-
     }
 
     useEffect(() => {
@@ -182,8 +181,8 @@ export default function UploadProduct() {
         }
     }, [idHd]);
 
-
-    const handlesubmitFullInvoice = (event) => {
+    const handlesubmitFullInvoice = async (event) => {
+        const check = await handleSubmitCheck();
         const promises = datacart.map(item => {
             return DetailProductAPI.UpdateQuantity({
                 so_luong: item.so_luong,
@@ -195,6 +194,7 @@ export default function UploadProduct() {
 
         Promise.all(promises)
             .then(responses => {
+                localStorage.removeItem('cartUser');
                 // Nếu tất cả các Promise đều thành công, tiếp tục thực hiện phần tiếp theo
                 invoiceoutputAPI.add({
                     id_khach_hang: idUser,
@@ -206,7 +206,6 @@ export default function UploadProduct() {
                     .then(function (response) {
                         setIdHd(response.data.data)
                         cartAPI.removeAll({ id_khach_hang: id })
-
                         enqueueSnackbar('Đặt hàng thành công', {
                             variant: 'success',
                             autoHideDuration: 800,
@@ -222,14 +221,11 @@ export default function UploadProduct() {
                     });
             })
             .catch(error => {
-                enqueueSnackbar('Đặt hàng thất bại, không đủ số lượng', { variant: 'error', autoHideDuration: 1000 })
+                console.log(error.message)
             });
-
     };
 
-
     useEffect(() => {
-
         try {
             const fetchIdUser = async () => {
                 const res = await userAPI.getID({ email_khach_hang: email_khach_hang });
@@ -241,10 +237,6 @@ export default function UploadProduct() {
         }
     }, []);
 
-    const [addressSubmit, setAddressSubmit] = useState('')
-    const [checkoutSubmit, setCheckoutSubmit] = useState('')
-
-
     const handleAddress = event => {
         setAddressSubmit(event.target.value);
         console.log(event.target.value);
@@ -255,7 +247,6 @@ export default function UploadProduct() {
         console.log(event.target.value);
     }
 
-    const [checkout, setCheckout] = useState('');
     useEffect(() => {
         try {
             const fetchCart = async () => {
@@ -270,9 +261,6 @@ export default function UploadProduct() {
         }
     }, []);
 
-    const [address, setAddress] = useState([]);
-    const dataAddress = address || [];
-    const dataCheckout = checkout || [];
     useEffect(() => {
         try {
             const fetchCart = async () => {

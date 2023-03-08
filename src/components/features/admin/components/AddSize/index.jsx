@@ -33,10 +33,7 @@ function AddSize() {
     }, []);
 
     const handleSubmit = (event) => {
-
         sizeAPI.add({ ten_kich_thuoc: size })
-
-
             .then(function (response) {
                 enqueueSnackbar('Thêm kích thước thành công', {
                     variant: 'success',
@@ -50,9 +47,7 @@ function AddSize() {
             })
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
-
     };
-
 
     const handleRowSelection = (e) => {
         setSize(e);
@@ -74,13 +69,10 @@ function AddSize() {
             }}
         >
             <h1>THÊM KÍCH THƯỚC</h1>
-
             <TextField onChange={(e) => setSize(e.target.value)} value={size} label="Kích thước" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
-
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
                 Thêm kích thước
             </Button>
-
             <div style={{ height: 400, width: '100%', paddingTop: '50px' }}>
                 <DataGrid
                     getRowId={(row) => row.id_kich_thuoc}

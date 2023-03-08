@@ -11,11 +11,11 @@ import discountAPI from '../../../../API/discountAPI';
 import providerAPI from '../../../../API/providerAPI';
 import trademarkAPI from '../../../../API/trademarkAPI';
 import Button from '@mui/material/Button';
-import Select from '@mui/material/Select';
 import productAPI from './../../../../API/productAPI';
 import { useSnackbar } from 'notistack';
 
 export default function UploadProduct() {
+    const { enqueueSnackbar } = useSnackbar();
     const [sizeDetail, setSizeDetail] = useState([]);
     const [imgDetail, setImgDetail] = useState('');
     const [trademark, setTrademark] = useState('');
@@ -26,8 +26,11 @@ export default function UploadProduct() {
     const [priceProduct, setPriceProduct] = useState('');
     const [inforProduct, setInforProduct] = useState('');
     const [mainImg, setMainImg] = useState('');
-    const { enqueueSnackbar } = useSnackbar();
-
+    const [categoryDetail, setCategoryDetail] = useState([]);
+    const [colorDetail, setColorDetail] = useState([]);
+    const [imageDetail, setImageDetailDetail] = useState([]);
+    const [discountDetail, setDiscountDetail] = useState([]);
+    const [providerDetail, setProviderDetail] = useState([]);
 
     const handleTrademark = event => {
         setTrademark(event.target.value);
@@ -36,19 +39,17 @@ export default function UploadProduct() {
     const handleDiscount = event => {
         setDiscount(event.target.value);
         console.log(event.target.value);
-
     };
+
     const handleProvider = event => {
         setprovider(event.target.value);
         console.log(event.target.value);
-
     };
+
     const handleCategory = event => {
         setCategory(event.target.value);
         console.log(event.target.value);
-
     };
-
 
     const handleSubmit = () => {
         productAPI.add({
@@ -59,11 +60,7 @@ export default function UploadProduct() {
             id_hinh_anh: imgDetail,
             id_thuong_hieu: trademark,
             id_loai_sp: category,
-
-
         })
-
-
             .then(function (response) {
                 enqueueSnackbar('Thêm sản phẩm thành công', {
                     variant: 'success',
@@ -75,12 +72,7 @@ export default function UploadProduct() {
                 });
             })
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 }));
-
-
     }
-
-
-
 
     useEffect(() => {
         try {
@@ -97,10 +89,6 @@ export default function UploadProduct() {
         }
     }, []);
 
-
-    const [categoryDetail, setCategoryDetail] = useState([]);
-
-
     useEffect(() => {
         try {
             const fetchCategorry = async () => {
@@ -116,12 +104,6 @@ export default function UploadProduct() {
         }
     }, []);
 
-
-
-    ///
-    const [colorDetail, setColorDetail] = useState([]);
-
-
     useEffect(() => {
         try {
             const fetchColorDetail = async () => {
@@ -136,10 +118,6 @@ export default function UploadProduct() {
             console.log('Failed to fetch colorDetail: ', error);
         }
     }, []);
-    ///
-    const [imageDetail, setImageDetailDetail] = useState([]);
-
-
 
     useEffect(() => {
         try {
@@ -155,10 +133,6 @@ export default function UploadProduct() {
             console.log('Failed to fetch imageDetail: ', error);
         }
     }, []);
-    ///
-
-    const [discountDetail, setDiscountDetail] = useState([]);
-
 
     useEffect(() => {
         try {
@@ -175,11 +149,6 @@ export default function UploadProduct() {
         }
     }, []);
 
-    ///
-    const [providerDetail, setProviderDetail] = useState([]);
-
-
-
     useEffect(() => {
         try {
             const fetchProviderDetail = async () => {
@@ -194,7 +163,6 @@ export default function UploadProduct() {
             console.log('Failed to fetch providerDetail: ', error);
         }
     }, []);
-    ///
 
     const [trademarkDetail, setTrademarkDetail] = useState([]);
     useEffect(() => {
@@ -211,9 +179,6 @@ export default function UploadProduct() {
             console.log('Failed to fetch trademark: ', error);
         }
     }, []);
-    ///
-
-
 
     return (
         <Box
@@ -230,82 +195,19 @@ export default function UploadProduct() {
             <TextField id="filled-basic" label="Giá sản phẩm" variant="outlined" onChange={(e) => setPriceProduct(e.target.value)} />
             <TextField id="standard-basic" label="Thông tin sản phẩm" variant="outlined" onChange={(e) => setInforProduct(e.target.value)} />
             <TextField id="standard-basic" label="id hình ảnh chi tiết" variant="outlined" onChange={(e) => setImgDetail(e.target.value)} />
-            {/* <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                value={age}
-                onChange={handleChange}
-                label="Age"
-            >
-                {trademarkDetail.map((option) => (
-                    <MenuItem key={option.id_thuong_hieu} value={option.id_thuong_hieu} >
-                        {option.ten_thuong_hieu}
-
-
-
-                    </MenuItem>
-                ))}
-                {console.log(age)}
-            </Select> */}
             <div>
-                {/* <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="kích thước"
-                    defaultValue="40"
-                    helperText="Vui lòng chọn kích thước"
-                >
-                    {sizeDetail.map((option) => (
-                        <MenuItem key={option.id_kich_thuoc} value={option.ten_kich_thuoc}>
-                            {option.ten_kich_thuoc}
-                        </MenuItem>
-                    ))}
-                </TextField> */}
                 <TextField
-
-
                     select
                     label="Thương hiệu"
                     value={trademark}
                     onChange={handleTrademark}
-
                 >
                     {trademarkDetail.map((option) => (
                         <MenuItem key={option.id_thuong_hieu} value={option.id_thuong_hieu} >
                             {option.ten_thuong_hieu}
-
-
                         </MenuItem>
                     ))}
                 </TextField>
-
-                {/* <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Màu sắc"
-                    defaultValue="xanh-den"
-                    helperText="Vui lòng chọn màu sắc"
-                >
-                    {colorDetail.map((option) => (
-                        <MenuItem key={option.id_mau_sac} value={option.ten_mau_sac}>
-                            {option.ten_mau_sac}
-                        </MenuItem>
-                    ))}
-                </TextField> */}
-                {/* <TextField
-                    select
-                    label="Mã giảm giá"
-                    value={discount}
-                    onChange={handleDiscount}
-
-                >
-                    {discountDetail.map((option) => (
-                        <MenuItem key={option.id_giam_gia} value={option.id_giam_gia}>
-                            {option.ten_giam_gia}
-
-                        </MenuItem>
-                    ))}
-                </TextField> */}
                 <TextField
                     select
                     label="Nhà cung cấp"
@@ -331,20 +233,12 @@ export default function UploadProduct() {
                     ))}
                 </TextField>
             </div>
-
             <div>
-
-                {/* <TextField id="outlined-basic" label="Số lượng" variant="outlined" /> */}
                 <TextField id="outlined-basic" label="URL ảnh chính" variant="outlined" onChange={(e) => setMainImg(e.target.value)} />
-
                 <Button onClick={handleSubmit} disableElevation sx={{ width: '215px', height: '55px', fontSize: '10px', marginTop: '9px', marginLeft: '8px' }} variant="contained">
                     Thêm sản phẩm
                 </Button>
             </div>
-
-
-
-
         </Box>
     );
 }

@@ -14,8 +14,6 @@ import invoiceAPI from '../../../../API/invoiceAPI';
 import DetailProductAPI from '../../../../API/detailproductAPI';
 import { useParams } from 'react-router-dom';
 
-
-
 const columns = [
     { field: 'id_chi_tiet_hd', headerName: 'id_chi_tiet_hd', width: 70 },
     { field: 'id_sp', headerName: 'id_sp', width: 70 },
@@ -31,26 +29,17 @@ function AddInvoiceInput() {
     let { name } = useParams();
     const { enqueueSnackbar } = useSnackbar();
     const [invoiceDetail, setInvoiceDetail] = useState([]);
-    const [idproduct, setIdProduct] = useState('');
-    const [idHd, setIdHd] = useState('');
-    const [idColor, setIdColor] = useState('');
-    const [idSize, setIdSize] = useState('');
     const [quantity, setQuantity] = useState('');
     const [priceInput, setPriceInput] = useState('');
-    const [nameHD, setNameHD] = useState('');
     const [total, setTotal] = useState('');
     const [sizeDetail, setSizeDetail] = useState([]);
     const [product, setProduct] = useState([]);
     const [productItem, setProductItem] = useState(0);
     const [colorItem, setColorItem] = useState('');
     const [sizeItem, setSizeItem] = useState('');
-    const [namebillDetail, setNameBillDetail] = useState();
-    const [idCustomer, setIdCustomer] = useState('1');
-    const [invoice, setInvoice] = useState();
-    const [namebill, setNamebill] = useState('');
-    const [totalHD, setTotalHD] = useState('0');
     const [colorDetail, setColorDetail] = useState([]);
     const [invoiceFull, setInvoiceFull] = useState([]);
+    const [productAdd, setProductAdd] = useState('');
 
 
     const handleProduct = event => {
@@ -68,7 +57,6 @@ function AddInvoiceInput() {
 
     };
 
-    const [productAdd, setProductAdd] = useState('');
     useEffect(() => {
         if (productItem != 0)
             try {
@@ -85,7 +73,6 @@ function AddInvoiceInput() {
             }
     }, [productItem]);
 
-
     useEffect(() => {
         try {
             const fetchProduct = async () => {
@@ -100,7 +87,6 @@ function AddInvoiceInput() {
             console.log('Failed to fetch product: ', error);
         }
     }, []);
-
 
     useEffect(() => {
         try {
@@ -117,11 +103,6 @@ function AddInvoiceInput() {
         }
     }, []);
 
-
-
-    ///
-
-
     useEffect(() => {
         try {
             const fetchColorDetail = async () => {
@@ -136,9 +117,7 @@ function AddInvoiceInput() {
             console.log('Failed to fetch colorDetail: ', error);
         }
     }, []);
-    ///
 
-    /////////////////////////////////////////////////
     useEffect(() => {
         try {
             const fetchInvoiceDetail = async () => {
@@ -155,10 +134,6 @@ function AddInvoiceInput() {
         }
     }, []);
 
-
-
-
-
     useEffect(() => {
         try {
             const fetchInvoiceFull = async () => {
@@ -174,7 +149,6 @@ function AddInvoiceInput() {
     }, []);
 
     const handleSubmit = (event) => {
-
         detailInvoiceAPI.add({
             id_sp: productItem,
             id_hd_nhap_hang: invoiceDetail,
@@ -195,12 +169,8 @@ function AddInvoiceInput() {
             ten_mau_sac: colorItem,
             ten_kich_thuoc: sizeItem,
             so_luong_kho: quantity,
-
         })
-
-
             .then(function (response) {
-
                 enqueueSnackbar('Thêm chi tiết hóa đơn thành công', {
                     variant: 'success',
                     autoHideDuration: 800,
@@ -213,14 +183,12 @@ function AddInvoiceInput() {
             })
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
-
     };
-
 
     const handleRowSelection = (e) => {
         console.log(e)
-
     };
+
     return (
 
         <Box

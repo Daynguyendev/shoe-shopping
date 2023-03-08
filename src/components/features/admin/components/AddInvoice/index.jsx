@@ -2,31 +2,17 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import invoiceAPI from '../../../../API/invoiceAPI';
 import detailInvoiceAPI from '../../../../API/detailinvoiceAPI';
 
 import { useNavigate } from 'react-router-dom';
-// const columns = [
-//     { field: 'id_chi_tiet_hd', headerName: 'id_chi_tiet_hd', width: 70 },
-//     { field: 'id_sp', headerName: 'id_sp', width: 70 },
-//     { field: 'id_hd_nhap_hang', headerName: 'id_hd_nhap_hang', width: 70 },
-//     { field: 'id_mau_sac', headerName: 'id_mau_sac', width: 70 },
-//     { field: 'id_kich_thuoc', headerName: 'id_kich_thuoc', width: 70 },
-//     { field: 'so_luong', headerName: 'so_luong', width: 70 },
-//     { field: 'gia_nhap', headerName: 'gia_nhap', width: 200 },
-
-// ];
 
 function AddInvoice() {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
-    const [invoiceDetail, setInvoiceDetail] = useState([]);
-    const [idproduct, setIdProduct] = useState('');
     const [idCustomer, setIdCustomer] = useState('1');
-    const [invoice, setInvoice] = useState();
     const [namebill, setNamebill] = useState('');
     const [totalHD, setTotalHD] = useState('0');
 
@@ -37,8 +23,6 @@ function AddInvoice() {
     }
 
     const [namebillDetail, setNameBillDetail] = useState();
-
-
 
     const handleCallAPI = () => {
 
@@ -74,13 +58,8 @@ function AddInvoice() {
                 });
             })
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 }));
-
-
     }
-
-
     return (
-
         <Box
             component="form"
             sx={{
@@ -91,10 +70,7 @@ function AddInvoice() {
             autoComplete="off"
         >
             <h1>NHẬP HÀNG (TÊN HÓA ĐƠN) </h1>
-
-
             <div>
-
                 <div>
                     <TextField onChange={(e) => setNamebill(e.target.value)} label="Tên Hóa Đơn" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
                     <Button onClick={handleClickDetail} disableElevation sx={{ width: '215px', height: '55px', fontSize: '10px', marginTop: '9px', marginLeft: '8px' }} variant="contained">
@@ -102,7 +78,6 @@ function AddInvoice() {
                     </Button>
                 </div>
             </div>
-
         </Box>
     );
 }

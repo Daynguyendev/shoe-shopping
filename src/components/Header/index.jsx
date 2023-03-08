@@ -22,6 +22,7 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import trademarkAPI from '../API/trademarkAPI';
 import productAPI from './../API/productAPI';
 import ProductSearch from '../features/product/component/ProductSearch';
+
 function Header() {
   const navigate = useNavigate();
   const [idUser, setIdUser] = useState();
@@ -32,6 +33,9 @@ function Header() {
   const [searchResult, setSearchResult] = useState(null);
   const [searchValue, setSearchValue] = useState('');
   const [open, setOpen] = useState(false);
+  const listTrademark = [...tradeMarkAll] || [];
+  const isLogin = useSelector((state) => state?.user.isLogin);
+  let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
 
   useEffect(() => {
     try {
@@ -56,15 +60,8 @@ function Header() {
     const filteredProducts = products.filter((product) =>
       product.ten_sp.includes(keyword)
     );
-    console.log('Filtered Products: ', filteredProducts);
     setSearchResult(filteredProducts);
   };
-
-
-
-  const listTrademark = [...tradeMarkAll] || [];
-  let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
-  const isLogin = useSelector((state) => state?.user.isLogin);
 
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -95,7 +92,6 @@ function Header() {
     color: 'inherit',
     '& .MuiInputBase-input': {
       padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
       transition: theme.transitions.create('width'),
       width: '100%',
@@ -155,7 +151,7 @@ function Header() {
 
   const handlecClickcart = () => {
     navigate(`/cart/${idUser}/id_sp/ten_mau_sac/ten_kich_thuoc`)
-    window.location.reload();
+    // window.location.reload();
   }
 
   const handlecClicklogo = () => {
@@ -177,9 +173,7 @@ function Header() {
         <Toolbar disableGutters >
           <Box className='box-img' sx={{ display: { xl: 'block', lg: 'block', md: 'none', sm: 'none', xs: 'none', cursor: 'pointer' } }} onClick={handlecClicklogo}>
             <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/logoStore.png" alt="logoStore" style={{ width: '90%' }} />
-
           </Box>
-
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -193,9 +187,6 @@ function Header() {
               <MenuIcon />
             </IconButton>
 
-
-
-            {/* ///// */}
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -220,7 +211,7 @@ function Header() {
                 </MenuItem>
               ))}
             </Menu>
-            {/* ///////// */}
+
           </Box>
           <Search>
             <SearchIconWrapper>
@@ -238,8 +229,6 @@ function Header() {
               sx={{ fontFamily: 'Jura' }}
             />
             {open && searchResult ? <ProductSearch searchResult={searchResult} setOpen={setOpen} /> : ''
-
-
             }
           </Search>
           <Typography
@@ -262,7 +251,6 @@ function Header() {
             HN STORE
 
           </Typography>
-
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 

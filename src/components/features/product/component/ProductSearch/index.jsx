@@ -7,9 +7,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import { useNavigate } from 'react-router-dom';
-ProductSearch.propTypes = {
-
-};
 
 function ProductSearch({ searchResult, setOpen }) {
     const navigate = useNavigate();
@@ -28,9 +25,7 @@ function ProductSearch({ searchResult, setOpen }) {
                     maxHeight: 300,
                     '& ul': { padding: 0 },
                 }}
-
             >
-
                 {
                     searchResult.map((item, index) => (
                         <Grid key={index} item xs={12} style={{ display: 'flex', alignItems: 'center' }}>
@@ -38,16 +33,12 @@ function ProductSearch({ searchResult, setOpen }) {
                             <Grid item xs={4}>{item.gia_sp}</Grid>
                             <Grid item xs={4}>
                                 <img onClick={handleClickDetail} style={{ width: '60px', height: '60px' }} src={item.hinh_anh_chinh} alt={item.id_hinh_anh} />
-
                             </Grid>
-
                         </Grid>
                     ))
                 }
             </List>
         </Grid>
-
-
     );
 }
 

@@ -17,18 +17,13 @@ function Footer(props) {
             3/2 Ninh Kiều
             <br />
             Cần Thơ
-
             <br />
             Hotline: 08 8888 8888
             <br />
-
             <FacebookIcon className='lien-he' />
             <InstagramIcon className='lien-he' />
             <MailOutlineIcon className='lien-he' />
-
-
           </p>
-
         </Grid>
         <Grid item xs={1} xl={1} lg={3}></Grid>
         <Grid item xs={12} xl={3} lg={3}>
@@ -47,10 +42,8 @@ function Footer(props) {
             <br />
             Thông tin bảo mật
           </p>
-
         </Grid>
       </Grid>
-
       <Grid>
         <p className='end-fotter' style={{ color: 'white', fontFamily: 'Jura' }}>2023 HN STORE bảo lưu mọi quyền</p>
       </Grid>
@@ -61,12 +54,8 @@ function Footer(props) {
           <img src="https://www.svgrepo.com/show/249409/master-card-card.svg" alt='icon' />
           <img src="https://www.svgrepo.com/show/266135/bank-transfer.svg" alt='icon' />
           <img src="https://www.svgrepo.com/show/371107/cash.svg" alt='icon' />
-
-
         </Grid>
-
       </Grid>
-
     </Container>
 
   );

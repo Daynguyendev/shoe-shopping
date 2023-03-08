@@ -4,9 +4,6 @@ import './ItemtypeReview.scss';
 import Itemtype from '../Itemtype';
 import { Grid } from '@material-ui/core';
 import { Container } from '@mui/material';
-ItemtypeReview.propTypes = {
-
-};
 
 function ItemtypeReview({ src, alt }) {
     return (
@@ -20,8 +17,6 @@ function ItemtypeReview({ src, alt }) {
                 </Grid>
             </Grid>
         </Container>
-
-
     );
 }
 
