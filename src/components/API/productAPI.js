@@ -30,6 +30,11 @@ const productAPI = {
         const url = `/product/${name}`;
         return axiosClient.get(url);
     },
+    getCategory(name) {
+        const url = `/product/category/${name}`;
+        return axiosClient.get(url);
+    },
+
 
 };
 

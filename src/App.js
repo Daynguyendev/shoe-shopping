@@ -25,6 +25,8 @@ import StatusNew from './components/features/cart/component/StatusNew';
 import OrderConfirmation from './components/features/admin/components/OrderConfirmation';
 import OverView from './components/features/product/component/OverView';
 import AddDetail from './components/features/admin/components/AddDetail';
+import AddPromotion from './components/features/admin/components/AddPromotion';
+import Adidas from './components/features/newhot/adidas';
 function App() {
 
   return (
@@ -40,6 +42,8 @@ function App() {
           <Route path="/colection/:id" element={<DetailPage />}></Route>
           <Route path="/importproduct" element={<Page />}></Route>
           <Route path="/detail" element={<AddDetail />}></Route>
+          <Route path="/promotion" element={<AddPromotion />}></Route>
+          <Route path="/adidas" element={<Adidas />}></Route>
           <Route path="/invoice/:name" element={<AddInvoiceInput />}></Route>
           <Route path="/checkout/:id" element={<Checkout />}></Route>
           <Route path="/status/:id_khach_hang" element={<Status />}></Route>

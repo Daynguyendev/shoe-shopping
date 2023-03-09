@@ -42,6 +42,7 @@ function DetailPage() {
     let so_luong_kho = 0;
     const sizemap = sizeDisplay || [];
     const colormap = colorDisplay || [];
+
     useEffect(() => {
 
         try {

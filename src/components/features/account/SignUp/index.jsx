@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { useState, useEffect } from 'react';
 import userAPI from '../../../API/userAPI';
+import addresskAPI from '../../../API/addressAPI';
 
 function Copyright(props) {
     return (
@@ -38,8 +39,12 @@ export default function SignUp() {
     const [role, setRole] = useState(1);
     const { enqueueSnackbar } = useSnackbar();
     const [name, setName] = useState();
+    const [address, setAddress] = useState();
+    const [phone, setPhone] = useState();
 
-    const handleSubmit = (event) => {
+
+
+    const handleSubmit = async (event) => {
         userAPI.register({
             ten_khach_hang: name,
             email_khach_hang: email,
@@ -48,7 +53,14 @@ export default function SignUp() {
             chuc_vu: role
         })
 
+
             .then(function (response) {
+                addresskAPI.add({
+                    id_khach_hang: response.data.users.id_khach_hang,
+                    ten_dia_chi: address,
+                    ten_khach_hang: name,
+                    sdt_khach_hang: phone,
+                })
                 navigate(`/`)
                 enqueueSnackbar('Đăng ký tài khoản thành công', {
                     variant: 'success',
@@ -103,6 +115,20 @@ export default function SignUp() {
                                     fullWidth
                                     label="Địa chỉ Email"
                                     onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="Địa chỉ khách hàng"
+                                    onChange={(e) => setAddress(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="Số Điện Thoại"
+                                    onChange={(e) => setPhone(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>

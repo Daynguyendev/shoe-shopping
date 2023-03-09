@@ -2,15 +2,14 @@ import React from "react";
 import { Box } from '@mui/material';
 import './DetailNewHot.scss';
 
-function DetailNewHot(props) {
+function DetailNewHot({ Background, title, onClick }) {
     return (
         <Box >
-            <img
-                className="imgtype"
-                src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/adidas1.jpg"
-                alt="itemtype"
-            />
-        </Box>
+            <Box className="imgtype" style={{ backgroundImage: `url(${Background})` }}>
+                <Box className="detail" onClick={onClick}>{title.toUpperCase()}</Box>
+
+            </Box>
+        </Box >
     );
 }
 

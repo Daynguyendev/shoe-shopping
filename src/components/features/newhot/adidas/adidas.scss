@@ -1,0 +1,48 @@
+//iphone5
+@media only screen and (max-width: 320px) {
+    .img {
+        width: 200px;
+        height: auto;
+    }
+
+}
+
+//mobile
+@media only screen and (min-width: 321px) and (max-width: 376px) {
+    .img {
+        width: 300px;
+        height: auto;
+
+    }
+
+}
+
+//pho thong
+@media only screen and (min-width: 376px) and (max-width: 739px) {
+    .img {
+        width: 300px;
+        height: auto;
+
+
+    }
+
+}
+
+//tablet
+@media only screen and (min-width: 740px) and (max-width: 1024px) {
+    .img {
+        width: 400px;
+        height: auto;
+
+    }
+
+}
+
+//desktop
+@media only screen and (min-width: 1025px) {
+    .img {
+        width: 500px;
+        height: auto;
+    }
+
+}
