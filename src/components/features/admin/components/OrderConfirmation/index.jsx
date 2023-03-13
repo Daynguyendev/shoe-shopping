@@ -144,22 +144,22 @@ export default function OrderConfirmation() {
 
             <div style={{ textAlign: 'center' }}>
                 <h1 style={{ marginLeft: '10px', color: '#800000' }}>Lọc theo</h1>
-                <IconButton sx={{ fontFamily: 'Jura', fontSize: '20px' }} onClick={() => reverseInvoice()} >
+                <IconButton sx={{ fontFamily: 'Oswald', fontSize: '20px' }} onClick={() => reverseInvoice()} >
                     <ArrowUpwardIcon /> Sắp xếp đơn hàng
                 </IconButton>
-                <IconButton sx={{ fontFamily: 'Jura', fontSize: '20px' }} onClick={() => HandleFillter(0)} >
+                <IconButton sx={{ fontFamily: 'Oswald', fontSize: '20px' }} onClick={() => HandleFillter(0)} >
                     <CheckBoxOutlineBlankIcon /> Đơn hàng chưa xác nhận
                 </IconButton>
-                <IconButton sx={{ fontFamily: 'Jura', fontSize: '20px' }} onClick={() => HandleFillter(1)} >
+                <IconButton sx={{ fontFamily: 'Oswald', fontSize: '20px' }} onClick={() => HandleFillter(1)} >
                     <CheckBoxIcon /> Đơn hàng đã xác nhận
                 </IconButton>
-                <IconButton sx={{ fontFamily: 'Jura', fontSize: '20px' }} onClick={() => HandleFillter(2)}>
+                <IconButton sx={{ fontFamily: 'Oswald', fontSize: '20px' }} onClick={() => HandleFillter(2)}>
                     <DirectionsCarIcon /> Đơn hàng đang vận chuyển
                 </IconButton>
-                <IconButton sx={{ fontFamily: 'Jura', fontSize: '20px' }} onClick={() => HandleFillter(3)}>
+                <IconButton sx={{ fontFamily: 'Oswald', fontSize: '20px' }} onClick={() => HandleFillter(3)}>
                     <CheckCircleOutlineIcon /> Đơn hàng đang giao hàng
                 </IconButton>
-                <IconButton sx={{ fontFamily: 'Jura', fontSize: '20px' }} onClick={() => HandleFillter(4)}>
+                <IconButton sx={{ fontFamily: 'Oswald', fontSize: '20px' }} onClick={() => HandleFillter(4)}>
                     <DeleteForeverIcon /> Đơn hàng đã hủy
                 </IconButton>
 
@@ -167,26 +167,26 @@ export default function OrderConfirmation() {
             {
                 invoiceAll.map((item, index) => (
                     <LazyLoad key={index} throttle={500} height={1000}>
-                        <Grid key={index} sx={{ padding: '20px', textAlign: 'center' }}>
-                            <Grid sx={{ fontFamily: 'Jura', fontSize: '20px' }}>
+                        <Grid key={index} sx={{ padding: '20px', textAlign: 'center', fontSize: '20px' }}>
+                            <Grid sx={{ fontSize: '20px' }}>
                                 ID hóa đơn : {item.id_hd_dat}
                             </Grid>
-                            <Grid sx={{ fontFamily: 'Jura' }}>
+                            <Grid sx={{}}>
                                 Tên : {item.ten_khach_hang}
                             </Grid>
-                            <Grid sx={{ fontFamily: 'Jura' }}>
+                            <Grid sx={{}}>
                                 ID khách hàng : {item.id_khach_hang}
                             </Grid>
-                            <Grid sx={{ fontFamily: 'Jura' }}>
+                            <Grid sx={{}}>
                                 Địa chỉ nhận hàng: {item.ten_dia_chi}
                             </Grid>
-                            <Grid sx={{ fontFamily: 'Jura' }}>
+                            <Grid sx={{}}>
                                 Ngày lập hóa đơn: {item.ngay_lap_hd_dat}
                             </Grid>
-                            <Grid sx={{ paddingBottom: '30px', fontFamily: 'Jura' }}>
+                            <Grid sx={{ paddingBottom: '30px' }}>
                                 Tổng tiền: {item.tong_tien}
                             </Grid >
-                            <IconButton sx={{ fontFamily: 'Jura', fontSize: '20px' }} onClick={(e) => HandleShowDetail(item.id_hd_dat)}  >
+                            <IconButton sx={{ fontSize: '20px' }} onClick={(e) => HandleShowDetail(item.id_hd_dat)}  >
                                 <RemoveRedEyeIcon /> Xem chi tiết hóa đơn
                             </IconButton>
                             <br />
@@ -202,16 +202,16 @@ export default function OrderConfirmation() {
                             </Stepper>
                             <Grid sx={{ textAlign: 'center', alignItems: 'center' }}>
 
-                                <IconButton sx={{ fontFamily: 'Jura', fontSize: '20px' }} onClick={() => handleXacNhan(index, item.id_khach_hang, item.id_hd_dat)}  >
+                                <IconButton sx={{ fontSize: '20px' }} onClick={() => handleXacNhan(index, item.id_khach_hang, item.id_hd_dat)}  >
                                     <DoneAllIcon /> Xác nhận
                                 </IconButton>
-                                <IconButton sx={{ fontFamily: 'Jura', fontSize: '20px' }} onClick={() => handleVanChuyen(index, item.id_khach_hang, item.id_hd_dat)}>
+                                <IconButton sx={{ fontSize: '20px' }} onClick={() => handleVanChuyen(index, item.id_khach_hang, item.id_hd_dat)}>
                                     <DriveEtaIcon /> Đang vận chuyển
                                 </IconButton>
-                                <IconButton sx={{ fontFamily: 'Jura', fontSize: '20px' }} onClick={() => handleGiaoHang(index, item.id_khach_hang, item.id_hd_dat)}>
-                                    <PhoneForwardedIcon /> Đang giao hàng
+                                <IconButton sx={{ fontSize: '20px' }} onClick={() => handleGiaoHang(index, item.id_khach_hang, item.id_hd_dat)}>
+                                    <PhoneForwardedIcon /> Hoàn thành
                                 </IconButton>
-                                <IconButton sx={{ fontFamily: 'Jura', fontSize: '20px' }} onClick={() => handleHuy(index, item.id_khach_hang, item.id_hd_dat)}>
+                                <IconButton sx={{ fontSize: '20px' }} onClick={() => handleHuy(index, item.id_khach_hang, item.id_hd_dat)}>
                                     <DeleteForeverIcon /> Hủy
                                 </IconButton>
                             </Grid >
@@ -225,7 +225,7 @@ export default function OrderConfirmation() {
             <Dialog fullScreen open={open} onClose={handleClose}>
                 <hr />
                 <Grid >
-                    <Grid sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', fontFamily: 'Jura' }}>
+                    <Grid sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', fontFamily: 'Oswald', fontSize: '20px' }}>
                         <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>Tên sp:</Grid>
                         <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>Màu sắc:</Grid>
                         <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>Kích thước:</Grid>
@@ -235,7 +235,7 @@ export default function OrderConfirmation() {
                     <hr />
                     {detailclone.map((item, index) => (
                         <Grid key={index}>
-                            <Grid sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', fontFamily: 'Jura' }}>
+                            <Grid sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', fontFamily: 'Oswald', fontSize: '20px' }}>
                                 <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_sp}</Grid>
                                 <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_mau_sac}</Grid>
                                 <Grid item xl={5} lg={5} xs={5} sm={5} md={5}> {item.ten_kich_thuoc}</Grid>

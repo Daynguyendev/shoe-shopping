@@ -70,6 +70,7 @@ function Cart(props) {
             console.log('Failed to fetch Cart: ', error);
         }
     }, [setIsLoading]);
+    console.log('Cart', cart);
 
     return (
         <Container container="true" disableGutters maxWidth='xl'>

@@ -19,6 +19,7 @@ const detailinvoiceoutputAPI = {
         return axiosClient.post(url, data);
     },
 
+
 };
 
 export default detailinvoiceoutputAPI;

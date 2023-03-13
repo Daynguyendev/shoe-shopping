@@ -1,6 +1,6 @@
 //mobile
 @media only screen and (max-width: 739px) {
-    .Listproduct {
+    .ListItemsale {
         display: flex;
         text-align: center;
         align-items: center;
@@ -22,7 +22,7 @@
 
 //tablet
 @media only screen and (min-width: 740px) and (max-width: 1023px) {
-    .Listproduct {
+    .ListItemsale {
         display: flex;
         text-align: center;
         align-items: center;
@@ -43,7 +43,7 @@
 
 //desktop
 @media only screen and (min-width: 1024px) {
-    .Listproduct {
+    .ListItemsale {
         display: flex;
         text-align: center;
         align-items: center;

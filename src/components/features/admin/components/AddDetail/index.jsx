@@ -10,7 +10,6 @@ import AddTrademark from '../AddTrademark';
 import AddSize from '../AddSize';
 import UploadProduct from '../UploadProduct';
 
-
 function AddDetail() {
     return (
         <Box
@@ -32,7 +31,7 @@ function AddDetail() {
             <AddProvider />
             <AddTrademark />
             <AddDiscount />
-            <UploadProduct />
+            {/* <UploadProduct /> */}
             <AddDetailImage />
             <AddInvoice />
         </Box >

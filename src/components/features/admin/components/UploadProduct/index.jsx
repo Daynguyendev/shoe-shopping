@@ -182,63 +182,61 @@ export default function UploadProduct() {
 
     return (
         <Box
-            component="form"
-            sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' },
-                backgroundColor: 'white', textAlign: 'center'
-            }}
-            noValidate
-            autoComplete="off"
         >
             <h1>THÊM SẢN PHẨM</h1>
-            <TextField id="outlined-basic" label="Tên sản phẩm" variant="outlined" onChange={(e) => setNameProduct(e.target.value)} />
-            <TextField id="filled-basic" label="Giá sản phẩm" variant="outlined" onChange={(e) => setPriceProduct(e.target.value)} />
-            <TextField id="standard-basic" label="Thông tin sản phẩm" variant="outlined" onChange={(e) => setInforProduct(e.target.value)} />
-            <TextField id="standard-basic" label="id hình ảnh chi tiết" variant="outlined" onChange={(e) => setImgDetail(e.target.value)} />
-            <div>
-                <TextField
-                    select
-                    label="Thương hiệu"
-                    value={trademark}
-                    onChange={handleTrademark}
-                >
-                    {trademarkDetail.map((option) => (
-                        <MenuItem key={option.id_thuong_hieu} value={option.id_thuong_hieu} >
-                            {option.ten_thuong_hieu}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    select
-                    label="Nhà cung cấp"
-                    value={provider}
-                    onChange={handleProvider}
-                >
-                    {providerDetail.map((option) => (
-                        <MenuItem key={option.id_nha_cc} value={option.id_nha_cc}>
-                            {option.ten_nha_cc}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    select
-                    label="Loại"
-                    value={category}
-                    onChange={handleCategory}
-                >
-                    {categoryDetail.map((option) => (
-                        <MenuItem key={option.id_loai_sp} value={option.id_loai_sp}>
-                            {option.ten_loai_sp}
-                        </MenuItem>
-                    ))}
-                </TextField>
-            </div>
-            <div>
-                <TextField id="outlined-basic" label="URL ảnh chính" variant="outlined" onChange={(e) => setMainImg(e.target.value)} />
-                <Button onClick={handleSubmit} disableElevation sx={{ width: '215px', height: '55px', fontSize: '10px', marginTop: '9px', marginLeft: '8px' }} variant="contained">
-                    Thêm sản phẩm
-                </Button>
-            </div>
+
+
+            <TextField
+                select
+                label="Thương hiệu"
+                value={trademark}
+                onChange={handleTrademark}
+                fullWidth
+                helperText="Chọn thương hiệu"
+            >
+                {trademarkDetail.map((option) => (
+                    <MenuItem key={option.id_thuong_hieu} value={option.id_thuong_hieu} >
+                        {option.ten_thuong_hieu}
+                    </MenuItem>
+                ))}
+            </TextField>
+            <TextField
+                select
+                label="Nhà cung cấp"
+                value={provider}
+                onChange={handleProvider}
+                fullWidth
+                helperText="Chọn nhà cung cấp"
+            >
+                {providerDetail.map((option) => (
+                    <MenuItem key={option.id_nha_cc} value={option.id_nha_cc}>
+                        {option.ten_nha_cc}
+                    </MenuItem>
+                ))}
+            </TextField>
+            <TextField
+                fullWidth
+                select
+                label="Loại"
+                value={category}
+                onChange={handleCategory}
+                helperText="Chọn loại"
+            >
+                {categoryDetail.map((option) => (
+                    <MenuItem key={option.id_loai_sp} value={option.id_loai_sp}>
+                        {option.ten_loai_sp}
+                    </MenuItem>
+                ))}
+            </TextField>
+            <TextField helperText="Nhập tên sản phẩm" fullWidth id="outlined-basic" label="Tên sản phẩm" variant="outlined" onChange={(e) => setNameProduct(e.target.value)} />
+            <TextField helperText="Nhập giá sản phẩm" fullWidth id="filled-basic" label="Giá sản phẩm" variant="outlined" onChange={(e) => setPriceProduct(e.target.value)} />
+            <TextField helperText="Nhập thông tin sản phẩm" fullWidth id="standard-basic" label="Thông tin sản phẩm" variant="outlined" onChange={(e) => setInforProduct(e.target.value)} />
+            {/* <TextField fullWidth id="standard-basic" label="id hình ảnh chi tiết" variant="outlined" onChange={(e) => setImgDetail(e.target.value)} /> */}
+            <TextField helperText="Nhập liên kết ảnh chính" fullWidth id="outlined-basic" label="URL ảnh chính" variant="outlined" onChange={(e) => setMainImg(e.target.value)} />
+            {/* <Button onClick={handleSubmit} disableElevation sx={{ width: '215px', height: '55px', fontSize: '10px', marginTop: '9px', marginLeft: '8px' }} variant="contained">
+                Thêm sản phẩm
+            </Button> */}
+
         </Box>
     );
 }

@@ -2,17 +2,21 @@ import axiosClient from "./axiosCilent";
 
 const sizeAPI = {
     get() {
-        const url = `/product/size`;
+        const url = `/size`;
         return axiosClient.get(url);
     },
     add(data) {
-        const url = `/product/size`;
+        const url = `/size`;
         return axiosClient.post(url, data);
     },
     getName(id) {
-        const url = `/product/size/id`;
-        return axiosClient.get(url, id);
+        const url = `/size/${id}`;
+        return axiosClient.get(url);
     },
+    delete(id_kich_thuoc) {
+        const url = `/size/${id_kich_thuoc}`;
+        return axiosClient.delete(url);
+    }
 };
 
 export default sizeAPI;

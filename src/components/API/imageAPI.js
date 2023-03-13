@@ -3,8 +3,8 @@ import axiosClient from "./axiosCilent";
 
 const imageAPI = {
     get(id) {
-        const url = `/product/image/${id}`;
-        return axiosClient.get(url);
+        const url = `/image/detail/${id}`;
+        return axiosClient.post(url);
     },
     getAll() {
         const url = `/product/image`;

@@ -2,31 +2,31 @@ import axiosClient from "./axiosCilent";
 
 const promotionAPI = {
     get() {
-        const url = `/product/promotion/all`;
+        const url = `/promotion/all`;
         return axiosClient.get(url);
     },
     addPromotion(data) {
-        const url = `/product/promotion/add`;
+        const url = `/promotion/add`;
         return axiosClient.post(url, data);
     },
     removePromotion(data) {
-        const url = `/product/promotion/delete`;
+        const url = `/promotion/delete`;
         return axiosClient.delete(url, data);
     },
     updatePromotion(data) {
-        const url = `/product/promotion/update`;
+        const url = `/promotion/update`;
         return axiosClient.patch(url, data);
     },
     addTrademark(data) {
-        const url = `/product/promotion/trademark`;
+        const url = `/promotion/trademark`;
         return axiosClient.post(url, data);
     },
     addCategory(data) {
-        const url = `/product/promotion/category`;
+        const url = `/promotion/category`;
         return axiosClient.post(url, data);
     },
     addIdProduct(data) {
-        const url = `/product/promotion/id`;
+        const url = `/promotion/id`;
         return axiosClient.post(url, data);
     },
 };

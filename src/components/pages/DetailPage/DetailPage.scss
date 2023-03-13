@@ -149,6 +149,12 @@
 
 //desktop
 @media only screen and (min-width: 1024px) {
+    .breadcrum {
+        font-size: 20px;
+
+
+    }
+
     .detail-page {
         display: flex;
         color: black;
@@ -186,6 +192,15 @@
 
         .selectedcolor {
             border: 3px solid red;
+
+        }
+
+        .notselectedcolor {
+            border: 'none';
+        }
+
+        .notselectedsize {
+            border: 'none';
 
         }
     }

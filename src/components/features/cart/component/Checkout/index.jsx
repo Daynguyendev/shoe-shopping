@@ -48,6 +48,8 @@ export default function UploadProduct() {
     let cartUser = JSON.parse(localStorage.getItem('cartUser')) || [];
     const datacart = cartJoin || [];
     const cartMap = cartJoin || [];
+    const now = new Date();
+    const mysqlDateString = now.toISOString().slice(0, 19).replace('T', ' ');
 
     useEffect(() => {
         try {
@@ -101,11 +103,18 @@ export default function UploadProduct() {
 
     useEffect(() => {
         const NewArray = [...datacart];
-        const sum = NewArray.reduce((total, product) => {
-            return total + product.so_luong * product.gia_sp;
-        }, 0);
+        let sum = parseInt(0);
+        for (let i = 0; i < NewArray.length; i++) {
+            if (mysqlDateString >= NewArray[i]?.ngay_bat_dau && mysqlDateString <= NewArray[i]?.ngay_ket_thuc) {
+                sum = (sum + parseInt(NewArray[i].gia_sp - (NewArray[i].phan_tram_giam / 100 * NewArray[i].gia_sp)) * NewArray[i].so_luong)
+            }
+            else
+                sum = sum + parseInt(NewArray[i]?.gia_sp * NewArray[i].so_luong);
+        }
+        console.log('test sum', sum);
         setTotal(sum);
     }, [datacart]);
+
 
     useEffect(() => {
         try {
@@ -291,8 +300,8 @@ export default function UploadProduct() {
 
 
                 <Grid item xs={11} xl={5} lg={5} sm={5} md={5} >
-                    <h1 style={{ fontFamily: 'Jura', margin: '10px' }}>Thông tin thanh toán</h1>
-                    <h3 style={{ fontFamily: 'Jura', margin: '10px' }}>Chọn địa chỉ và số điện thoại*</h3>
+                    <h1 style={{ fontFamily: 'Oswald', margin: '10px' }}>Thông tin thanh toán</h1>
+                    <h3 style={{ fontFamily: 'Oswald', margin: '10px' }}>Chọn địa chỉ và số điện thoại*</h3>
                     <TextField
                         select
                         label="Địa chỉ"
@@ -308,12 +317,12 @@ export default function UploadProduct() {
                             </MenuItem>
                         ))}
                     </TextField>
-                    <h3 style={{ fontFamily: 'Jura', margin: '10px' }}>Nếu chưa có ? Hãy nhập</h3>
+                    <h3 style={{ fontFamily: 'Oswald', margin: '10px' }}>Nếu chưa có ? Hãy nhập</h3>
 
                     <Button sx={{ marginLeft: '8px', margin: '10px' }} variant="outlined" onClick={handleClickOpen}>
                         Nhập địa chỉ
                     </Button>
-                    <h3 style={{ fontFamily: 'Jura', margin: '10px' }}>Chọn phương thức thanh toán*</h3>
+                    <h3 style={{ fontFamily: 'Oswald', margin: '10px' }}>Chọn phương thức thanh toán*</h3>
                     <TextField
                         select
                         label="Phương thức thanh toán"
@@ -363,7 +372,11 @@ export default function UploadProduct() {
                                 {item.so_luong}
                             </Grid>
                             <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
-                                {item.gia_sp * item.so_luong}
+                                {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div>
+                                    {((item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp)) * item.so_luong)}
+                                </div>
+                                ) : (<div >{item.gia_sp * item.so_luong}</div>
+                                )}
                             </Grid>
 
                         </Grid>
@@ -387,7 +400,7 @@ export default function UploadProduct() {
                         Tổng tiền thanh toán : {totalShip + total}
                     </Grid>
 
-                    <Button onClick={handlesubmitFullInvoice} disableElevation sx={{ marginBottom: '10px', fontFamily: 'Jura', fontWeight: 'bold', width: '115px', height: '44px', fontSize: '15px', marginTop: '9px', marginLeft: '8px', color: 'black' }} variant="outlined">
+                    <Button onClick={handlesubmitFullInvoice} disableElevation sx={{ marginBottom: '10px', fontFamily: 'Oswald', fontWeight: 'bold', width: '115px', height: '44px', fontSize: '14px', marginTop: '9px', marginLeft: '8px', color: 'black' }} variant="outlined">
                         Đặt hàng
                     </Button>
 

@@ -47,13 +47,13 @@ export default function StatusNew() {
             {
                 statusList.map((item, index) => (
                     <Grid key={index} sx={{ padding: '20px' }}>
-                        <Grid sx={{ fontFamily: 'Jura' }}>
+                        <Grid sx={{ fontFamily: 'Oswald', fontSize: '20px' }} >
                             ID hóa đơn : {item.id_hd_dat}
                         </Grid>
-                        <Grid sx={{ fontFamily: 'Jura' }}>
+                        <Grid sx={{ fontFamily: 'Oswald', fontSize: '20px' }} >
                             Ngày lập hóa đơn: {item.ngay_lap_hd_dat}
                         </Grid>
-                        <Grid sx={{ paddingBottom: '30px', fontFamily: 'Jura' }}>
+                        <Grid sx={{ paddingBottom: '30px', fontFamily: 'Oswald', fontSize: '20px' }}>
                             Tổng tiền: {item.tong_tien}
                         </Grid >
                         < Stepper activeStep={item.id_trang_thai} alternativeLabel >

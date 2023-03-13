@@ -28,6 +28,8 @@ function ListItem({ cart, setCart }) {
     const dataUser = User || [];
     const [itemLocal, setItemLocal] = useState(dataUser);
     const [productTotal, setProductTotal] = useState()
+    const now = new Date();
+    const mysqlDateString = now.toISOString().slice(0, 19).replace('T', ' ');
     useEffect(() => {
         try {
             const fetchCart = async () => {
@@ -162,19 +164,19 @@ function ListItem({ cart, setCart }) {
             {!isLogin ? (<Container disableGutters maxWidth='xl'>
                 <Grid className='root-cart-header'>
                     <Grid item xs={5} lg={5} xl={5}>
-                        <Typography sx={{ fontFamily: 'Jura' }}>Sản phẩm</Typography>
+                        <Typography sx={{ fontFamily: 'Oswald' }}>Sản phẩm</Typography>
                     </Grid>
                     <Grid item xs={4} lg={3} xl={3}>
-                        <Typography sx={{ fontFamily: 'Jura' }}>Đơn giá</Typography>
+                        <Typography sx={{ fontFamily: 'Oswald' }}>Đơn giá</Typography>
                     </Grid>
                     <Grid item xs={2} lg={1} xl={1}>
-                        <Typography sx={{ fontFamily: 'Jura' }}>Số lượng</Typography>
+                        <Typography sx={{ fontFamily: 'Oswald' }}>Số lượng</Typography>
                     </Grid>
                     <Grid item xs={0} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
-                        <Typography sx={{ fontFamily: 'Jura' }}>Thành tiền</Typography>
+                        <Typography sx={{ fontFamily: 'Oswald' }}>Thành tiền</Typography>
                     </Grid>
                     <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex' } }}>
-                        <Typography sx={{ fontFamily: 'Jura' }}>Thao tác</Typography>
+                        <Typography sx={{ fontFamily: 'Oswald' }}>Thao tác</Typography>
                     </Grid>
                 </Grid>
                 <hr />
@@ -188,17 +190,24 @@ function ListItem({ cart, setCart }) {
                                         src={item.hinh_anh_chinh}
                                         alt="anh 1"
                                     />
-                                    <Typography sx={{ fontFamily: 'Jura' }}> Size: {item.ten_kich_thuoc}/{item.ten_mau_sac}</Typography>
+                                    <Typography sx={{ fontFamily: 'Oswald' }}> Size: {item.ten_kich_thuoc}/{item.ten_mau_sac}</Typography>
                                 </Grid>
                                 <Grid>
-                                    <Typography sx={{ fontFamily: 'Jura' }}>{item.ten_sp}</Typography>
+                                    <Typography sx={{ fontFamily: 'Oswald' }}>{item.ten_sp}</Typography>
                                 </Grid>
                             </Box >
                         </Grid>
                         <Grid item xs={4} lg={3} xl={3}>
-                            <Typography sx={{ fontFamily: 'Jura' }}>{item.gia_sp}</Typography>
+                            {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}>
+                                <p className="detail-item" style={{ color: 'red' }}>{(item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp))}</p>
+                            </div>
+                            ) : (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}><p sx={{ fontFamily: 'Oswald' }} >{item.gia_sp}</p></div>
+                            )}
+
+
+                            {/* <Typography sx={{ fontFamily: 'Oswald' }}>{item.gia_sp}</Typography> */}
                         </Grid>
-                        <Grid item xs={2} lg={1} xl={1} sx={{ display: 'flex', justifyContent: 'center', fontFamily: 'Jura', alignItems: 'center' }}>
+                        <Grid item xs={2} lg={1} xl={1} sx={{ display: 'flex', justifyContent: 'center', fontFamily: 'Oswald', alignItems: 'center' }}>
                             <IconButton onClick={() => handleDownCountLocal(index)}>
                                 <RemoveIcon />
                             </IconButton>
@@ -208,7 +217,7 @@ function ListItem({ cart, setCart }) {
                             </IconButton>
                         </Grid>
                         <Grid item xs={0} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
-                            <Typography sx={{ fontFamily: 'Jura' }}>{item.gia_sp * item.so_luong}</Typography>
+                            <Typography sx={{ fontFamily: 'Oswald' }}>{item.gia_sp * item.so_luong}</Typography>
                         </Grid>
                         <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex', paddingRight: '50px' } }}>
                             <IconButton onClick={() => handleRemove(item.id_sp, item.ten_mau_sac, item.ten_kich_thuoc, item.so_luong)}>
@@ -221,19 +230,19 @@ function ListItem({ cart, setCart }) {
 
                 <Grid className='root-cart-header'>
                     <Grid item xs={5} lg={5} xl={5}>
-                        <Typography sx={{ fontFamily: 'Jura' }}>Sản phẩm</Typography>
+                        <Typography sx={{ fontFamily: 'Oswald' }}>Sản phẩm</Typography>
                     </Grid>
                     <Grid item xs={4} lg={3} xl={3}>
-                        <Typography sx={{ fontFamily: 'Jura' }}>Đơn giá</Typography>
+                        <Typography sx={{ fontFamily: 'Oswald' }}>Đơn giá</Typography>
                     </Grid>
                     <Grid item xs={2} lg={1} xl={1}>
-                        <Typography sx={{ fontFamily: 'Jura' }}>Số lượng</Typography>
+                        <Typography sx={{ fontFamily: 'Oswald' }}>Số lượng</Typography>
                     </Grid>
                     <Grid item xs={0} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
-                        <Typography sx={{ fontFamily: 'Jura' }}>Thành tiền</Typography>
+                        <Typography sx={{ fontFamily: 'Oswald' }}>Thành tiền</Typography>
                     </Grid>
                     <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex' } }}>
-                        <Typography sx={{ fontFamily: 'Jura' }}>Thao tác</Typography>
+                        <Typography sx={{ fontFamily: 'Oswald' }}>Thao tác</Typography>
                     </Grid>
                 </Grid>
                 <hr />
@@ -248,17 +257,23 @@ function ListItem({ cart, setCart }) {
                                         src={item.hinh_anh_chinh}
                                         alt="anh 1"
                                     />
-                                    <Typography sx={{ fontFamily: 'Jura' }}> Size: {item.ten_kich_thuoc}/{item.ten_mau_sac}</Typography>
+                                    <Typography sx={{ fontFamily: 'Oswald' }}> Size: {item.ten_kich_thuoc}/{item.ten_mau_sac}</Typography>
                                 </Grid>
                                 <Grid>
-                                    <Typography sx={{ fontFamily: 'Jura' }}>{item.ten_sp}</Typography>
+                                    <Typography sx={{ fontFamily: 'Oswald' }}>{item.ten_sp}</Typography>
                                 </Grid>
                             </Box >
                         </Grid>
                         <Grid item xs={4} lg={3} xl={3}>
-                            <Typography sx={{ fontFamily: 'Jura' }}>{item.gia_sp}</Typography>
+                            {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}>
+                                <p className="detail-item" style={{ color: 'red' }}>{(item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp))}</p>
+                            </div>
+                            ) : (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}><p sx={{ fontFamily: 'Oswald' }} >{item.gia_sp}</p></div>
+                            )}
+
+                            {/* <Typography sx={{ fontFamily: 'Oswald' }}>{item.gia_sp}</Typography> */}
                         </Grid>
-                        <Grid item xs={1} lg={1} xl={1} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontFamily: 'Jura', paddingRight: '30px' }}>
+                        <Grid item xs={1} lg={1} xl={1} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontFamily: 'Oswald', paddingRight: '30px' }}>
                             <IconButton onClick={() => handleDownCount(index, item.id_sp, item.id_khach_hang, item.ten_mau_sac, item.ten_kich_thuoc, item.so_luong)}>
                                 <RemoveIcon />
                             </IconButton>
@@ -269,7 +284,13 @@ function ListItem({ cart, setCart }) {
 
                         </Grid>
                         <Grid item xs={0} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
-                            <Typography sx={{ fontFamily: 'Jura' }}>{item.gia_sp * item.so_luong}</Typography>
+                            {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}>
+                                <p className="detail-item" style={{ color: 'red' }}>{((item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp)) * item.so_luong)}</p>
+                            </div>
+                            ) : (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}><p sx={{ fontFamily: 'Oswald' }} >{item.gia_sp * item.so_luong}</p></div>
+                            )}
+
+                            {/* <Typography sx={{ fontFamily: 'Oswald' }}>{item.gia_sp * item.so_luong}</Typography> */}
                         </Grid>
                         <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex', paddingRight: '30px' } }}>
                             <IconButton onClick={() => handleRemoveItemDB(item.id_sp, item.id_khach_hang, item.ten_mau_sac, item.ten_kich_thuoc, item.so_luong)}>

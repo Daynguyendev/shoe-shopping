@@ -204,6 +204,7 @@ function Header() {
               sx={{
                 display: { xs: 'block', md: 'none', xl: 'none' },
               }}
+              variant='primary'
             >
               {listTrademark.map((item, index) => (
                 <MenuItem key={index} sx={{ width: '350px' }} onClick={() => handlecClickSneaker(item.ten_thuong_hieu)}>
@@ -243,7 +244,7 @@ function Header() {
               flexGrow: 1,
               fontWeight: 700,
               marginLeft: '-10px',
-              color: 'inherit',
+              color: 'white',
               textDecoration: 'none',
               paddingLeft: '20px'
             }}
@@ -264,7 +265,7 @@ function Header() {
 
           </Box>
 
-          <ManageAccountsIcon onClick={handleAccount} sx={{ padding: '10px', cursor: 'pointer' }} ></ManageAccountsIcon>
+          <ManageAccountsIcon onClick={handleAccount} sx={{ padding: '10px', cursor: 'pointer', color: 'white' }} ></ManageAccountsIcon>
 
           <Box sx={{ flexGrow: 0, color: 'white', textAlign: 'center', alignItems: 'center', display: 'flex', cursor: 'pointer', fontFamily: 'Jura' }} onClick={handlecClickcart}>
             <ShoppingCartIcon />

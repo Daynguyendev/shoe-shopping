@@ -5,7 +5,7 @@ import './ListProduct.scss'
 import { Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-function ListProduct({ product }) {
+function ListProduct({ product, value1 }) {
     const navigate = useNavigate();
     const handleClickProduct = () => {
         navigate(`/detail`)
@@ -23,14 +23,14 @@ function ListProduct({ product }) {
                     <hr />
                 </Grid>
                 <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
-                    <h1>Sản phẩm mới</h1>
+                    <h1>Sản phẩm</h1>
                 </Grid>
                 <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
                     <hr />
                 </Grid>
             </Grid>
             <Grid container spacing={2} className='Listproduct' >
-                <Product xs={6} sm={6} md={4} lg={3} xl={3} so_luong={8} product={product} />
+                <Product xs={6} sm={6} md={4} lg={3} xl={3} so_luong={8} product={product} value1={value1} />
             </Grid>
         </Container >
     );

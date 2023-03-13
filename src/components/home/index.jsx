@@ -9,7 +9,10 @@ import { useState, useEffect } from 'react';
 import productAPI from './../API/productAPI';
 function Home(props) {
 
+
     const [product, setProduct] = useState([]);
+    const [productSale, setProductSale] = useState([]);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         try {
             const fetchProduct = async () => {
@@ -23,14 +26,39 @@ function Home(props) {
             console.log('Failed to fetch Product: ', error);
         }
     }, []);
+    console.log('test product', product);
+
+    useEffect(() => {
+        try {
+            const fetchProduct = async () => {
+                if (productSale !== null) {
+                    const result = await productAPI.getAllItemSale();
+                    setProductSale(result.data.data);
+                    setLoading(false);
+                }
+            };
+            fetchProduct();
+        } catch (error) {
+            console.log('Failed to fetch ProductSale: ', error);
+        }
+    }, []);
+
+    console.log(productSale);
+
 
     return (
         <Container maxWidth="xl" >
-            <ReviewShop />
-            {/* <ItemtypeReview /> */}
-            <ListProduct product={product} />
-            <ItemSale product={product} />
-            <NewHot />
+            {loading ? (
+                <p>Loading...</p>) : (
+                <>
+                    <ReviewShop />
+                    {/* <ItemtypeReview /> */}
+                    <ListProduct product={product} value1={1} />
+                    <ItemSale Sale={productSale} value2={2} />
+                    <NewHot />
+                </>
+            )}
+
         </Container>
     );
 }

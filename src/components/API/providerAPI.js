@@ -2,11 +2,11 @@ import axiosClient from "./axiosCilent";
 
 const providerAPI = {
     get() {
-        const url = `/product/provider`;
+        const url = `/provider`;
         return axiosClient.get(url);
     },
     add(data) {
-        const url = `/product/provider`;
+        const url = `/provider`;
         return axiosClient.post(url, data);
     },
 };

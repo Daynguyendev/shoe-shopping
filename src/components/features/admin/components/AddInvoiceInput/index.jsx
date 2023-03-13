@@ -13,6 +13,13 @@ import productAPI from '../../../../API/productAPI'
 import invoiceAPI from '../../../../API/invoiceAPI';
 import DetailProductAPI from '../../../../API/detailproductAPI';
 import { useParams } from 'react-router-dom';
+import UploadProduct from '../UploadProduct';
+import categoryAPI from '../../../../API/categoryAPI';
+import imageAPI from '../../../../API/imageAPI';
+import discountAPI from '../../../../API/discountAPI';
+import providerAPI from '../../../../API/providerAPI';
+import trademarkAPI from '../../../../API/trademarkAPI';
+import promotionAPI from '../../../../API/promotionAPI';
 
 const columns = [
     { field: 'id_chi_tiet_hd', headerName: 'id_chi_tiet_hd', width: 70 },
@@ -32,14 +39,31 @@ function AddInvoiceInput() {
     const [quantity, setQuantity] = useState('');
     const [priceInput, setPriceInput] = useState('');
     const [total, setTotal] = useState('');
-    const [sizeDetail, setSizeDetail] = useState([]);
     const [product, setProduct] = useState([]);
     const [productItem, setProductItem] = useState(0);
     const [colorItem, setColorItem] = useState('');
     const [sizeItem, setSizeItem] = useState('');
-    const [colorDetail, setColorDetail] = useState([]);
     const [invoiceFull, setInvoiceFull] = useState([]);
     const [productAdd, setProductAdd] = useState('');
+    const [sizeDetail, setSizeDetail] = useState([]);
+    const [idPromotion, setIdPromotion] = useState('');
+    const [trademark, setTrademark] = useState('');
+    const [discount, setDiscount] = useState('');
+    const [category, setCategory] = useState('');
+    const [provider, setprovider] = useState('');
+    const [nameProduct, setNameProduct] = useState('');
+    const [priceProduct, setPriceProduct] = useState('');
+    const [inforProduct, setInforProduct] = useState('');
+    const [mainImg, setMainImg] = useState('');
+    const [categoryDetail, setCategoryDetail] = useState([]);
+    const [colorDetail, setColorDetail] = useState([]);
+    const [imageDetail, setImageDetailDetail] = useState([]);
+    const [discountDetail, setDiscountDetail] = useState([]);
+    const [providerDetail, setProviderDetail] = useState([]);
+    const [promotion, setPromotion] = useState([]);
+
+
+
 
 
     const handleProduct = event => {
@@ -56,6 +80,123 @@ function AddInvoiceInput() {
         console.log(event.target.value);
 
     };
+    const handlePromotion = event => {
+        setIdPromotion(event.target.value);
+        console.log(event.target.value);
+
+    };
+
+    const handleTrademark = event => {
+        setTrademark(event.target.value);
+        console.log(event.target.value);
+    };
+    const handleDiscount = event => {
+        setDiscount(event.target.value);
+        console.log(event.target.value);
+    };
+
+    const handleProvider = event => {
+        setprovider(event.target.value);
+        console.log(event.target.value);
+    };
+
+    const handleCategory = event => {
+        setCategory(event.target.value);
+        console.log(event.target.value);
+    };
+
+    useEffect(() => {
+        try {
+            const fetchCategorry = async () => {
+                if (categoryDetail !== null) {
+                    const result = await categoryAPI.get();
+                    setCategoryDetail(result.data.data);
+                    console.log('categoryDetail', result.data)
+                }
+            };
+            fetchCategorry();
+        } catch (error) {
+            console.log('Failed to fetch SizeDetail: ', error);
+        }
+    }, []);
+
+    useEffect(() => {
+        try {
+            const fetchImageDetail = async () => {
+                if (imageDetail !== null) {
+                    const result = await imageAPI.getAll();
+                    setImageDetailDetail(result.data.data);
+                    console.log('imageDetail', result.data)
+                }
+            };
+            fetchImageDetail();
+        } catch (error) {
+            console.log('Failed to fetch imageDetail: ', error);
+        }
+    }, []);
+
+    useEffect(() => {
+        try {
+            const fetchDiscountDetail = async () => {
+                if (discountDetail !== null) {
+                    const result = await discountAPI.get();
+                    setDiscountDetail(result.data.data);
+                    console.log('discountDetail', result.data)
+                }
+            };
+            fetchDiscountDetail();
+        } catch (error) {
+            console.log('Failed to fetch discountDetail: ', error);
+        }
+    }, []);
+
+    useEffect(() => {
+        try {
+            const fetchProviderDetail = async () => {
+                if (providerDetail !== null) {
+                    const result = await providerAPI.get();
+                    setProviderDetail(result.data.data);
+                    console.log('providerDetail', result.data)
+                }
+            };
+            fetchProviderDetail();
+        } catch (error) {
+            console.log('Failed to fetch providerDetail: ', error);
+        }
+    }, []);
+
+    const [trademarkDetail, setTrademarkDetail] = useState([]);
+    useEffect(() => {
+        try {
+            const fetchtrademarkDetail = async () => {
+                if (trademarkDetail !== null) {
+                    const result = await trademarkAPI.get();
+                    setTrademarkDetail(result.data.data);
+                    console.log('trademark', result.data)
+                }
+            };
+            fetchtrademarkDetail();
+        } catch (error) {
+            console.log('Failed to fetch trademark: ', error);
+        }
+    }, []);
+
+    useEffect(() => {
+        try {
+            const fetchCategorry = async () => {
+                if (promotion !== null) {
+                    const result = await promotionAPI.get();
+                    setPromotion(result.data.data);
+                    console.log('promotion', result.data)
+                }
+            };
+            fetchCategorry();
+        } catch (error) {
+            console.log('Failed to fetch promotion: ', error);
+        }
+    }, []);
+
+    console.log('Promotion', promotion);
 
     useEffect(() => {
         if (productItem != 0)
@@ -148,39 +289,67 @@ function AddInvoiceInput() {
         }
     }, []);
 
-    const handleSubmit = (event) => {
-        detailInvoiceAPI.add({
-            id_sp: productItem,
-            id_hd_nhap_hang: invoiceDetail,
-            ten_mau_sac: colorItem,
-            ten_kich_thuoc: sizeItem,
-            so_luong: quantity,
-            gia_nhap: priceInput,
+    const handleSubmit = async (event) => {
+        console.log('test0', {
+            ten_sp: nameProduct,
+            gia_sp: priceProduct,
+            hinh_anh_chinh: mainImg,
+            thong_tin_sp: inforProduct,
+            id_thuong_hieu: trademark,
+            id_loai_sp: category,
+            id_khuyen_mai: idPromotion,
         })
-        DetailProductAPI.add({
-            id_sp: productItem,
-            ten_sp: productAdd[0].ten_sp,
-            gia_sp: productAdd[0].gia_sp,
-            hinh_anh_chinh: productAdd[0].hinh_anh_chinh,
-            thong_tin_sp: productAdd[0].thong_tin_sp,
-            id_hinh_anh: productAdd[0].id_hinh_anh,
-            id_thuong_hieu: productAdd[0].id_thuong_hieu,
-            id_loai_sp: productAdd[0].id_loai_sp,
-            ten_mau_sac: colorItem,
-            ten_kich_thuoc: sizeItem,
-            so_luong_kho: quantity,
+        const submitProduct = await productAPI.add({
+            ten_sp: nameProduct,
+            gia_sp: priceProduct,
+            hinh_anh_chinh: mainImg,
+            thong_tin_sp: inforProduct,
+            id_thuong_hieu: trademark,
+            id_loai_sp: category,
+            id_khuyen_mai: idPromotion,
         })
-            .then(function (response) {
-                enqueueSnackbar('Thêm chi tiết hóa đơn thành công', {
+
+
+            .then(async function (response) {
+                const setItem = await setProductItem(response.data.data.id_sp);
+                const submitDetailInvoice = await detailInvoiceAPI.add({
+                    id_sp: response.data.data.id_sp,
+                    id_hd_nhap_hang: invoiceDetail,
+                    ten_mau_sac: colorItem,
+                    ten_kich_thuoc: sizeItem,
+                    so_luong: quantity,
+                    gia_nhap: priceInput,
+                })
+
+                const submitDetailProduct = await DetailProductAPI.add({
+                    id_sp: response.data.data.id_sp,
+                    ten_sp: nameProduct,
+                    gia_sp: priceProduct,
+                    hinh_anh_chinh: mainImg,
+                    thong_tin_sp: inforProduct,
+                    id_thuong_hieu: trademark,
+                    id_loai_sp: category,
+                    id_khuyen_mai: idPromotion,
+                    ten_mau_sac: colorItem,
+                    ten_kich_thuoc: sizeItem,
+                    so_luong_kho: quantity,
+                })
+                setColorItem('')
+                setSizeItem('')
+                setQuantity('')
+                setPriceInput('')
+                enqueueSnackbar('Nhập hàng thành công', {
                     variant: 'success',
                     autoHideDuration: 800,
                     anchorOrigin: {
                         vertical: 'top',
                         horizontal: 'right',
                     },
-                });
-
+                })
             })
+
+
+
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
     };
@@ -192,79 +361,125 @@ function AddInvoiceInput() {
     return (
 
         <Box
-            component="form"
             sx={{
-                '& .MuiTextField-root': { m: 1, width: '45ch' },
                 backgroundColor: 'white',
             }}
-            noValidate
-            autoComplete="off"
+
         >
 
             <div>
-                <div>
-                    <TextField
-                        select
-                        label="ID Sản phẩm"
-                        value={productItem}
-                        onChange={handleProduct}
-                        helperText="Vui lòng ID sản phẩm"
-                    >
-                        {product.map((option) => (
-                            <MenuItem key={option.id_sp} value={option.id_sp}>
-                                {option.ten_sp}
-                            </MenuItem>
-                        ))}
-                    </TextField>
 
-                </div>
-                <div>
-                    <TextField
-                        select
-                        label="kích thước"
-                        value={sizeItem}
-                        onChange={handleSize}
-                        helperText="Vui lòng chọn kích thước"
-                    >
-                        {sizeDetail.map((option) => (
-                            <MenuItem key={option.id_kich_thuoc} value={option.ten_kich_thuoc}>
-                                {option.ten_kich_thuoc}
-                            </MenuItem>
-                        ))}
-                    </TextField>
+                <h1>THÊM SẢN PHẨM</h1>
 
-                    <TextField
-                        select
-                        label="Màu sắc"
-                        value={colorItem}
-                        onChange={handleColor}
-                        helperText="Vui lòng chọn màu sắc"
 
-                    >
-                        {colorDetail.map((option) => (
-                            <MenuItem key={option.id_mau_sac} value={option.ten_mau_sac}>
-                                {option.ten_mau_sac}
-                            </MenuItem>
-                        ))}
-                    </TextField>
+                <TextField
+                    select
+                    label="Thương hiệu"
+                    value={trademark}
+                    onChange={handleTrademark}
+                    fullWidth
+                    helperText="Chọn thương hiệu"
+                >
+                    {trademarkDetail.map((option) => (
+                        <MenuItem key={option.id_thuong_hieu} value={option.id_thuong_hieu} >
+                            {option.ten_thuong_hieu}
+                        </MenuItem>
+                    ))}
+                </TextField>
+                <TextField
+                    select
+                    label="Nhà cung cấp"
+                    value={provider}
+                    onChange={handleProvider}
+                    fullWidth
+                    helperText="Chọn nhà cung cấp"
+                >
+                    {providerDetail.map((option) => (
+                        <MenuItem key={option.id_nha_cc} value={option.id_nha_cc}>
+                            {option.ten_nha_cc}
+                        </MenuItem>
+                    ))}
+                </TextField>
+                <TextField
+                    fullWidth
+                    select
+                    label="Loại"
+                    value={category}
+                    onChange={handleCategory}
+                    helperText="Chọn loại"
+                >
+                    {categoryDetail.map((option) => (
+                        <MenuItem key={option.id_loai_sp} value={option.id_loai_sp}>
+                            {option.ten_loai_sp}
+                        </MenuItem>
+                    ))}
+                </TextField>
+                <TextField helperText="Nhập tên sản phẩm" fullWidth id="outlined-basic" label="Tên sản phẩm" variant="outlined" onChange={(e) => setNameProduct(e.target.value)} />
+                <TextField helperText="Nhập giá sản phẩm" fullWidth id="filled-basic" label="Giá sản phẩm" variant="outlined" onChange={(e) => setPriceProduct(e.target.value)} />
+                <TextField helperText="Nhập thông tin sản phẩm" fullWidth id="standard-basic" label="Thông tin sản phẩm" variant="outlined" onChange={(e) => setInforProduct(e.target.value)} />
+                <TextField helperText="Nhập liên kết ảnh chính" fullWidth id="outlined-basic" label="URL ảnh chính" variant="outlined" onChange={(e) => setMainImg(e.target.value)} />
+                <TextField
+                    fullWidth
+                    select
+                    label="ID khuyến mãi"
+                    value={idPromotion}
 
-                </div>
-                <div>
-                    <TextField onChange={(e) => setQuantity(e.target.value)} value={quantity} label="Số lượng" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
-                    <TextField onChange={(e) => setPriceInput(e.target.value)} value={priceInput} label="Giá nhập" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
-                </div>
+                    onChange={handlePromotion}
+                    helperText="Vui lòng chọn mã khuyến mãi"
+                >
+                    {promotion.map((option) => (
+                        <MenuItem key={option.id_khuyen_mai} value={option.id_khuyen_mai}>
+                            {option.ten_khuyen_mai} <br />
+                            {option.ngay_bat_dau} <br />
+                            {option.ngay_ket_thuc} <br />
+                            {option.phan_tram_giam}
+                        </MenuItem>
+                    ))}
+                </TextField>
+                <TextField
+                    fullWidth
+                    select
+                    label="kích thước"
+                    value={sizeItem}
+                    onChange={handleSize}
+                    helperText="Vui lòng chọn kích thước"
+                >
+                    {sizeDetail.map((option) => (
+                        <MenuItem key={option.id_kich_thuoc} value={option.ten_kich_thuoc}>
+                            {option.ten_kich_thuoc}
+                        </MenuItem>
+                    ))}
+                </TextField>
+
+                <TextField
+                    select
+                    fullWidth
+                    label="Màu sắc"
+                    value={colorItem}
+                    onChange={handleColor}
+                    helperText="Vui lòng chọn màu sắc"
+
+                >
+                    {colorDetail.map((option) => (
+                        <MenuItem key={option.id_mau_sac} value={option.ten_mau_sac}>
+                            {option.ten_mau_sac}
+                        </MenuItem>
+                    ))}
+                </TextField>
+
+
+
+                <TextField helperText="Nhập số lượng"
+                    fullWidth onChange={(e) => setQuantity(e.target.value)} value={quantity} label="Số lượng" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+                <TextField helperText="Giá nhập"
+                    fullWidth onChange={(e) => setPriceInput(e.target.value)} value={priceInput} label="Giá nhập" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+
 
 
 
                 <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
                     Nhập sản phẩm
                 </Button>
-                <div>
-                    <TextField onChange={(e) => setTotal(e.target.value)} value={total} label="Tổng tiền" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
-
-                </div>
-
-
 
                 <div style={{ height: 400, width: '100%', paddingTop: '50px' }}>
                     <DataGrid

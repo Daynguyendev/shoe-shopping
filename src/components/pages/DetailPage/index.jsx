@@ -21,6 +21,8 @@ import userAPI from '../../API/userAPI';
 import cartAPI from './../../API/cartAPI';
 import ButtonForm from '../../Formcontrol/ButtonForm';
 import PageRateProduct from '../../features/product/component/PageRateProduct';
+import colorAPI from '../../API/colorAPI';
+import sizeAPI from './../../API/sizeAPI';
 
 function DetailPage() {
     let { id } = useParams();
@@ -42,6 +44,22 @@ function DetailPage() {
     let so_luong_kho = 0;
     const sizemap = sizeDisplay || [];
     const colormap = colorDisplay || [];
+    const now = new Date();
+    const mysqlDateString = now.toISOString().slice(0, 19).replace('T', ' ');
+    useEffect(() => {
+
+        try {
+            const fetchSize = async () => {
+                const res = await sizeAPI.getName(id)
+                setSizeDisplay(res.data.data)
+            };
+            fetchSize();
+        } catch (error) {
+            console.log('Failed to fetch color: ', error);
+        }
+    }, []);
+    console.log('size', sizeDisplay)
+
 
     useEffect(() => {
 
@@ -55,6 +73,20 @@ function DetailPage() {
             console.log('Failed to fetch idUser: ', error);
         }
     }, []);
+
+    useEffect(() => {
+
+        try {
+            const fetchColor = async () => {
+                const res = await colorAPI.getdetailbyId(id)
+                setColorDisplay(res.data.data)
+            };
+            fetchColor();
+        } catch (error) {
+            console.log('Failed to fetch color: ', error);
+        }
+    }, []);
+    console.log('color', colorDisplay)
 
     const handleDecrease = (item) => {
         if (count > 1) {
@@ -72,29 +104,11 @@ function DetailPage() {
     const handleButtonClick = (name) => {
 
         setColorAdd(name);
-        const fillterColor = detailProduct.filter(item => item.ten_mau_sac == name)
-        const fillterQuantity = fillterColor.filter(item => item.so_luong_kho >= 1)
-        const Sizedisplay = fillterQuantity.reduce((listSize, size) => {
-            if (!listSize.includes(size.ten_kich_thuoc)) {
-                listSize.push(size.ten_kich_thuoc);
-            }
-            return listSize;
-        }, []);
-        setSizeDisplay(Sizedisplay)
         setSelectedButtonId(name);
 
     };
     const handleButtonClickSize = (id) => {
         setSizeAdd(id);
-        const fillterSize = detailProduct.filter(item => item.ten_kich_thuoc == id)
-        const fillterQuantity = fillterSize.filter(item => item.so_luong_kho >= 1)
-        const colornew = fillterQuantity.reduce((accumulator, color) => {
-            if (!accumulator.includes(color.ten_mau_sac)) {
-                accumulator.push(color.ten_mau_sac);
-            }
-            return accumulator;
-        }, [])
-        setColorDisplay(colornew)
         setSelectedButtonSize(id);
 
     };
@@ -114,27 +128,6 @@ function DetailPage() {
     }, []);
 
     useEffect(() => {
-        const colornew = detailProduct.reduce((accumulator, color) => {
-            if (!accumulator.includes(color.ten_mau_sac)) {
-                accumulator.push(color.ten_mau_sac);
-            }
-            return accumulator;
-        }, [])
-        setColorDisplay(colornew);
-
-    }, [detailProduct])
-
-    useEffect(() => {
-        const sizenew = detailProduct.reduce((listSize, size) => {
-            if (!listSize.includes(size.ten_kich_thuoc)) {
-                listSize.push(size.ten_kich_thuoc);
-            }
-            return listSize;
-        }, [])
-        setSizeDisplay(sizenew);
-    }, [detailProduct])
-
-    useEffect(() => {
         if (sizeAdd && colorAdd || colorAdd && sizeAdd) {
             const fillterTotal = detailProduct.filter(item => item.ten_kich_thuoc === sizeAdd && item.ten_mau_sac === colorAdd)
             for (let i = 0; i < fillterTotal.length; i++) {
@@ -143,6 +136,7 @@ function DetailPage() {
             setTotal(so_luong_kho)
         }
     }, [colorAdd, sizeAdd])
+
 
     useEffect(() => {
         try {
@@ -158,8 +152,20 @@ function DetailPage() {
         }
     }, []);
 
+
     ///// Submit add data database and localstore
     const handleAddSubmit = async (data) => {
+        if (total <= 0) {
+            enqueueSnackbar('Sản phẩm đã hết', {
+                variant: 'error',
+                autoHideDuration: 1000,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
         if (colorAdd !== undefined && colorAdd !== null && sizeAdd !== undefined && sizeAdd !== null) {
             try {
                 if (!isLogin) {
@@ -222,7 +228,7 @@ function DetailPage() {
                     }
                     localStorage.setItem('cartUser', JSON.stringify(cartUser));
 
-                    enqueueSnackbar('Thêm vào giỏ hàng DB thành công', {
+                    enqueueSnackbar('Thêm vào giỏ hàng thành công', {
                         variant: 'success',
                         autoHideDuration: 800,
                         anchorOrigin: {
@@ -253,57 +259,66 @@ function DetailPage() {
     return (
         <Container disableGutters maxWidth='xl' >
 
-            <Breadcrumbs aria-label="breadcrumb" style={{ backgroundColor: 'white' }}>
-                <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Jura' }} onClick={handleHome}>Trang chủ </p>
-                <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Jura' }} onClick={handleTrademark} >{pageDetail[0]?.ten_thuong_hieu} </p>
-                <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Jura' }}  >{pageDetail[0]?.ten_sp} </p>
+            <Breadcrumbs className='breadcrum' aria-label="breadcrumb" style={{ backgroundColor: 'white' }}>
+                <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Oswald' }} onClick={handleHome}>Trang chủ </p>
+                <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Oswald' }} onClick={handleTrademark} >{pageDetail[0]?.ten_thuong_hieu} </p>
+                <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Oswald' }}  >{pageDetail[0]?.ten_sp.replace(/-+/g, ' ')} </p>
             </Breadcrumbs>
             <Grid item xs={12} className='detail-page' minHeight='885px' sx={{ display: { xs: 'block', sm: 'flex', lg: 'flex', xl: 'flex' } }} >
                 <Grid item xs={12} lg={7} xl={7}  >
-                    < ImageDetail />
+                    < ImageDetail colorAdd={colorAdd} />
                 </Grid>
                 {
                     pageDetail.map((item, i) => (
                         <Grid item xs={12} lg={6} xl={6} key={i} >
-                            <Typography variant='h4' sx={{ fontFamily: 'Jura' }} >{item.ten_sp}</Typography>
+                            <Typography variant='h4' sx={{ fontFamily: 'Oswald', fontWeight: '1000' }} >{item.ten_sp.replace(/-+/g, ' ')}</Typography>
                             <Grid item xs={1} >
                                 <hr />
                             </Grid>
                             <Grid item xs={12} >
-                                <Typography variant='h4' sx={{ fontFamily: 'Jura', marginTop: '15px' }} >{item.gia_sp}{'đ'}</Typography>
+                                {console.log('tesst log', item)}
+                                {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div style={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}><p style={{ color: 'red', fontSize: '35px' }}>{(item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+
+                                    <Typography variant='h4' sx={{ fontFamily: 'Oswald', marginLeft: '10px', textDecoration: 'line-through' }} >{item.gia_sp.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</Typography>
+
+                                </div>
+
+                                ) : (<Typography variant='h4' sx={{ fontFamily: 'Oswald', marginTop: '15px' }} >{item.gia_sp.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</Typography>
+                                )}
                             </Grid>
                             <Grid item xs={12} sx={{ display: 'flex' }} >
                                 <Grid item xs={3}>
-                                    <Typography variant='h5' sx={{ fontFamily: 'Jura', marginTop: '30px', }} >Màu sắc</Typography>
+                                    <Typography variant='h5' sx={{ fontFamily: 'Oswald', marginTop: '30px', }} >Màu sắc</Typography>
                                 </Grid>
                                 <Grid item xs={9} sx={{ display: 'flex', marginLeft: '30px' }}>
                                     {colormap.map((item, index) => (
                                         <button style={{ marginTop: '25px', marginRight: '15px', backgroundColor: 'white', }} key={index}
-                                            className={selectedButtonId === item ? 'selectedcolor' : ''}
-                                            onClick={() => handleButtonClick(item)}
+                                            className={selectedButtonId === item.ten_mau_sac ? 'selectedcolor' : ''}
+                                            onClick={() => handleButtonClick(item.ten_mau_sac)}
 
-                                        >{item}</button>
+                                        >{item.ten_mau_sac}</button>
                                     ))}
+
 
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sx={{ display: 'flex' }} className='size'>
                                 <Grid item xs={3}>
-                                    <Typography variant='h5' sx={{ fontFamily: 'Jura', marginTop: '10px' }} >Kích thước</Typography>
+                                    <Typography variant='h5' sx={{ fontFamily: 'Oswald', marginTop: '10px' }} >Kích thước</Typography>
                                 </Grid>
-                                <Grid item xs={9} sx={{ fontFamily: 'Jura', marginLeft: '30px' }}>
-                                    {sizemap.map((item, index) => (
+                                <Grid item xs={9} sx={{ fontFamily: 'Oswald', marginLeft: '30px' }}>
+                                    {sizeDisplay.map((item, index) => (
 
                                         <button style={{ marginRight: '15px', marginTop: '10px', maxWidth: '40px', height: '30px', backgroundColor: 'white' }}
-                                            key={index} className={selectedButtonSize === item ? 'selectedsize' : ''}
-                                            onClick={() => handleButtonClickSize(item)} value={item}>{item}</button>
+                                            key={index} className={selectedButtonSize === item.ten_kich_thuoc ? 'selectedsize' : ''}
+                                            onClick={() => handleButtonClickSize(item.ten_kich_thuoc)} value={item.ten_kich_thuoc}>{item.ten_kich_thuoc}</button>
                                     ))}
                                 </Grid>
 
                             </Grid>
-                            <Grid item xs={12} sx={{ marginTop: '30px' }}>
-                                <Typography variant='h7' sx={{ fontFamily: 'Jura' }} >Số lượng còn lại</Typography>
-                                <Typography variant='h6' sx={{ fontFamily: 'Jura', marginLeft: '60px', fontWeight: 'bold' }} >{total}</Typography>
+                            <Grid item xs={12} sx={{ marginTop: '30px', display: 'flex' }}>
+                                <Typography variant='h5' sx={{ fontFamily: 'Oswald' }} >Số lượng còn lại</Typography>
+                                <Typography variant='h6' sx={{ fontFamily: 'Oswald', marginLeft: '43px', fontWeight: 'bold' }} >{total}</Typography>
 
                             </Grid>
 
@@ -318,7 +333,7 @@ function DetailPage() {
                                     <IconButton onClick={() => handleDecrease(item)}>
                                         <RemoveIcon />
                                     </IconButton>
-                                    <Typography sx={{ fontFamily: 'Jura' }}>{count}</Typography>
+                                    <Typography sx={{ fontFamily: 'Oswald', fontWeight: 'bold' }}>{count}</Typography>
                                     <IconButton onClick={() => handleIncrease(item)}>
                                         <AddIcon />
                                     </IconButton>

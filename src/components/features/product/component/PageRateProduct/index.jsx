@@ -10,11 +10,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import { useSnackbar } from 'notistack';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+
 import { useNavigate } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 import UploadImage from '../../../admin/components/UploadImage';
@@ -47,40 +43,7 @@ export default function PageRateProduct() {
     const handleClose = () => {
         setOpen(false);
     };
-    const handleSubmit = (event) => {
-        rateAPI.add({
-            ten_nguoi_danh_gia: nameRate,
-            noi_dung: content,
-            id_sp: id,
-            hinh_anh_danh_gia: imgRate,
-            so_sao_danh_gia: start,
-        })
-            .then(function (response) {
 
-                const dataAdd = [...rate]
-                const data = ({
-                    id_danh_gia: response.data.data,
-                    ten_nguoi_danh_gia: nameRate,
-                    noi_dung: content,
-                    id_sp: id,
-                    hinh_anh_danh_gia: imgRate,
-                    so_sao_danh_gia: start,
-                })
-
-                dataAdd.push(data)
-                setRate(dataAdd)
-                enqueueSnackbar('Đánh giá thành công', {
-                    variant: 'success',
-                    autoHideDuration: 800,
-                    anchorOrigin: {
-                        vertical: 'top',
-                        horizontal: 'right',
-                    },
-                }); setOpen(false);
-            })
-            .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
-            );
-    };
 
     useEffect(() => {
         try {
@@ -123,68 +86,17 @@ export default function PageRateProduct() {
 
 
 
-            <Grid >
+            <Grid sx={{ paddingBottom: '50px' }} >
                 <RateProduct rate={rate} />
             </Grid>
-            <Stack spacing={2} sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', paddingTop: '30px' }} >
+            {/* <Stack spacing={2} sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', paddingTop: '30px' }} >
                 <Button variant="outlined" onClick={handleClickOpen}>Viết đánh giá</Button>
                 <Button variant="outlined">Xem đánh giá</Button>
 
-            </Stack>
+            </Stack> */}
 
 
-            <Dialog open={open} onClose={handleClose}>
-                <DialogActions>
 
-
-                    <IconButton onClick={handleClose}>
-                        <DisabledByDefaultIcon />
-                    </IconButton>
-                </DialogActions>
-                <DialogTitle>Đánh giá</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Vui lòng đánh giá thật để giúp chúng tôi cải thiện chất lượng
-                    </DialogContentText>
-                    <TextField
-                        fullWidth
-                        label="Tên"
-                        onChange={(event) => (setNameRate(event.target.value))}
-                        autoFocus
-                    />
-
-                    <TextField
-                        fullWidth
-                        label="Nội dung đánh giá"
-                        onChange={(event) => (setContent(event.target.value))}
-                        sx={{ marginTop: '17px' }}
-
-                    />
-                    <Typography sx={{ paddingTop: '10px' }}>Sao đánh giá</Typography>
-                    <Rating
-                        name="simple-controlled"
-                        value={start}
-                        onChange={(event, newValue) => {
-                            setStart(newValue);
-                        }}
-                        size="large"
-                    />
-                    <UploadImage />
-
-                    <TextField
-                        fullWidth
-                        label="Dán URL hình ảnh đánh giá"
-                        onChange={(event) => (setImgRate(event.target.value))}
-                        sx={{ marginTop: '20px' }}
-
-                    />
-
-                </DialogContent>
-                <DialogActions>
-                    <ButtonForm name={'Đánh giá'} onClick={handleSubmit} />
-                </DialogActions>
-
-            </Dialog>
 
         </Box >
     );

@@ -22,6 +22,8 @@ function Pay({ cart, setCart }) {
     const [idUser, setIdUser] = useState();
     const isLogin = useSelector((state) => state?.user.isLogin);
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
+    const now = new Date();
+    const mysqlDateString = now.toISOString().slice(0, 19).replace('T', ' ');
     useEffect(() => {
         try {
             const fetchIdUser = async () => {
@@ -64,9 +66,15 @@ function Pay({ cart, setCart }) {
 
     useEffect(() => {
         const NewArray = [...data];
-        const sum = NewArray.reduce((total, product) => {
-            return total + product.so_luong * product.gia_sp;
-        }, 0);
+        let sum = parseInt(0);
+        for (let i = 0; i < NewArray.length; i++) {
+            if (mysqlDateString >= NewArray[i]?.ngay_bat_dau && mysqlDateString <= NewArray[i]?.ngay_ket_thuc) {
+                sum = (sum + parseInt(NewArray[i].gia_sp - (NewArray[i].phan_tram_giam / 100 * NewArray[i].gia_sp)) * NewArray[i].so_luong)
+            }
+            else
+                sum = sum + parseInt(NewArray[i]?.gia_sp * NewArray[i].so_luong);
+        }
+        console.log('test sum', sum);
         setTotal(sum);
     }, [data]);
 
@@ -85,24 +93,24 @@ function Pay({ cart, setCart }) {
             color: 'black', padding: '12px'
         }} >
 
-            <Typography variant='h6' sx={{ fontFamily: 'Jura' }}>
+            <Typography variant='h6' sx={{ fontFamily: 'Oswald' }}>
                 Cộng giỏ hàng
             </Typography>
             <hr />
 
-            <Typography sx={{ fontFamily: 'Jura' }}>
+            <Typography sx={{ fontFamily: 'Oswald' }}>
                 Tạm tính : {total}
             </Typography>
             <hr />
-            <Typography sx={{ fontFamily: 'Jura' }}>
+            <Typography sx={{ fontFamily: 'Oswald' }}>
                 Giao hàng : {totalShip}
             </Typography>
             <hr />
-            <Typography sx={{ fontFamily: 'Jura' }}>
+            <Typography sx={{ fontFamily: 'Oswald' }}>
                 Tổng : {total + totalShip}
             </Typography>
             <hr />
-            <Button onClick={handleCheckout} variant="contained" disableElevation fullWidth sx={{ backgroundColor: 'Coral', fontFamily: 'Jura' }}>
+            <Button onClick={handleCheckout} variant="contained" disableElevation fullWidth sx={{ backgroundColor: 'Coral', fontFamily: 'Oswald' }}>
                 Tiến hành thanh toán
             </Button>
         </Container >

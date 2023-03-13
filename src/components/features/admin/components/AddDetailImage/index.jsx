@@ -7,10 +7,15 @@ import { useState, useEffect } from 'react';
 import imageAPI from '../../../../API/imageAPI';
 import UploadImage from '../UploadImage';
 import { useSnackbar } from 'notistack';
+import productAPI from '../../../../API/productAPI'
+import colorAPI from '../../../../API/colorAPI';
+import MenuItem from '@mui/material/MenuItem';
+
 
 const columns = [
     { field: 'id_anh', headerName: 'id_anh', width: 70 },
-    { field: 'id_hinh_anh', headerName: 'id_hinh_anh', width: 130 },
+    { field: 'id_sp', headerName: 'id_sp', width: 130 },
+    { field: 'id_mau_sac', headerName: 'id_mau_sac', width: 130 },
     { field: 'link_hinh_anh_ct', headerName: 'link_hinh_anh_ct', width: 130 },
 
 ];
@@ -19,6 +24,40 @@ function AddDetailImage() {
     const [idImage, setIdImage] = useState('');
     const [linkImage, setLinkImage] = useState('');
     const { enqueueSnackbar } = useSnackbar();
+    const [idProduct, setIdproduct] = useState('');
+    const [idColor, setidColor] = useState('');
+    const [product, setProduct] = useState([]);
+    const [colorDetail, setColorDetail] = useState([]);
+
+    useEffect(() => {
+        try {
+            const fetchProduct = async () => {
+                if (product !== null) {
+                    const result = await productAPI.getAll();
+                    setProduct(result.data.data);
+                    console.log('product', result.data.data)
+                }
+            };
+            fetchProduct();
+        } catch (error) {
+            console.log('Failed to fetch product: ', error);
+        }
+    }, []);
+
+    useEffect(() => {
+        try {
+            const fetchColorDetail = async () => {
+                if (colorDetail !== null) {
+                    const result = await colorAPI.get();
+                    setColorDetail(result.data.data);
+                    console.log('colorDetail', result.data)
+                }
+            };
+            fetchColorDetail();
+        } catch (error) {
+            console.log('Failed to fetch colorDetail: ', error);
+        }
+    }, []);
 
     useEffect(() => {
         try {
@@ -38,7 +77,8 @@ function AddDetailImage() {
     const handleSubmit = (event) => {
 
         imageAPI.add({
-            id_hinh_anh: idImage,
+            id_sp: idProduct,
+            id_mau_sac: idColor,
             link_hinh_anh_ct: linkImage
         })
             .then(function (response) {
@@ -70,7 +110,6 @@ function AddDetailImage() {
                 backgroundColor: 'white',
                 minHeight: '550px',
                 minWidth: '100%',
-
                 paddingTop: '50px',
                 display: 'list-item'
             }}
@@ -78,8 +117,42 @@ function AddDetailImage() {
             <h1>THÊM HÌNH ẢNH CHI TIẾT</h1>
             <UploadImage />
             <br />
-            <TextField onChange={(e) => setIdImage(e.target.value)} label="id của ảnh chính" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
-            <TextField onChange={(e) => setLinkImage(e.target.value)} value={linkImage} label="link hình ảnh" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+            <br />
+            <TextField
+                fullWidth
+                select
+                label="ID sản phẩm"
+                value={idProduct}
+                onChange={(e) => setIdproduct(e.target.value)}
+
+
+            >
+                {product.map((option) => (
+                    <MenuItem key={option.id_sp} value={option.id_sp}>
+                        {option.ten_sp}
+                    </MenuItem>
+                ))}
+            </TextField>
+            <br />
+            <br />
+            <TextField
+                fullWidth
+                select
+                label="ID màu sắc"
+                value={idColor}
+                onChange={(e) => setidColor(e.target.value)}
+            >
+                {colorDetail.map((option) => (
+                    <MenuItem key={option.id_mau_sac} value={option.id_mau_sac}>
+                        {option.ten_mau_sac}
+                    </MenuItem>
+                ))}
+            </TextField>
+            <br />
+            <br />
+            <TextField fullWidth onChange={(e) => setLinkImage(e.target.value)} value={linkImage} label="link hình ảnh" />
+            <br />
+            <br />
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
                 Thêm hình ảnh
             </Button>

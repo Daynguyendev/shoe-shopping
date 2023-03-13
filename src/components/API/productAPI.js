@@ -6,6 +6,11 @@ const productAPI = {
         return axiosClient.get(url);
 
     },
+    getAllItemSale() {
+        const url = `/productsale`;
+        return axiosClient.get(url);
+
+    },
     get(id) {
         const url = `/product/detail/${id}`;
         return axiosClient.get(url);
