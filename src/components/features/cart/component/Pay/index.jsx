@@ -49,7 +49,7 @@ function Pay({ cart, setCart }) {
                     id_kich_thuoc: item.id_kich_thuoc,
                 });
                 if (
-                    result.data.data.so_luong_kho - resultt.data.data[i].so_luong >= 0
+                    result.data.data.so_luong_kho - resultt.data.data[i]?.so_luong >= 0
 
                 ) {
                     continue;

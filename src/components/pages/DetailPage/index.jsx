@@ -309,7 +309,7 @@ function DetailPage() {
                                     <Typography variant='h5' sx={{ fontFamily: 'Oswald', marginTop: '10px' }} >Kích thước</Typography>
                                 </Grid>
                                 <Grid item xs={9} sx={{ fontFamily: 'Oswald', marginLeft: '30px' }}>
-                                    {sizeDisplay.map((item, index) => (
+                                    {sizemap.map((item, index) => (
 
                                         <button style={{ marginRight: '15px', marginTop: '10px', maxWidth: '40px', height: '30px', backgroundColor: 'white' }}
                                             key={index} className={selectedButtonSize === item.id_kich_thuoc ? 'selectedsize' : ''}

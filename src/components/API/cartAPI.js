@@ -28,9 +28,9 @@ const cartAPI = {
         const url = `/cart`;
         return axiosClient.post(url, data);
     },
-    remove({ id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc }) {
-        const url = `/cart/${id_sp}/${id_khach_hang}/${ten_mau_sac}/${ten_kich_thuoc}`;
-        return axiosClient.delete(url, id_sp, id_khach_hang, ten_mau_sac, ten_kich_thuoc);
+    remove({ id_sp, id_khach_hang, id_mau_sac, id_kich_thuoc }) {
+        const url = `/cart/${id_sp}/${id_khach_hang}/${id_mau_sac}/${id_kich_thuoc}`;
+        return axiosClient.delete(url, id_sp, id_khach_hang, id_mau_sac, id_kich_thuoc);
     },
     removeAll({ id_khach_hang }) {
         const url = `/cart/all/${id_khach_hang}}`;

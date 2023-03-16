@@ -293,7 +293,7 @@ function ListItem({ cart, setCart }) {
                             {/* <Typography sx={{ fontFamily: 'Oswald' }}>{item.gia_sp * item.so_luong}</Typography> */}
                         </Grid>
                         <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex', paddingRight: '30px' } }}>
-                            <IconButton onClick={() => handleRemoveItemDB(item.id_sp, item.id_khach_hang, item.id_mau_sac, item.id_kich_thuoc, item.so_luong)}>
+                            <IconButton onClick={() => handleRemoveItemDB(item.id_sp, item.id_khach_hang, item.id_mau_sac, item.id_kich_thuoc)}>
                                 <DeleteOutlineIcon />
                             </IconButton>
                         </Grid>
