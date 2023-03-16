@@ -44,18 +44,18 @@ function Pay({ itemNotLogin, cart, setCart }) {
 
 
     const handleCheckout = async () => {
-        if (totallocal + totalShiplocal <= 0) {
-            enqueueSnackbar('Vui lòng thêm sản phẩm vào giỏ', {
-                variant: 'error',
-                autoHideDuration: 800,
-                anchorOrigin: {
-                    vertical: 'top',
-                    horizontal: 'right',
-                },
-            });
-            return;
+        // if (totallocal + totalShiplocal <= 0) {
+        //     enqueueSnackbar('Vui lòng thêm sản phẩm vào giỏ', {
+        //         variant: 'error',
+        //         autoHideDuration: 800,
+        //         anchorOrigin: {
+        //             vertical: 'top',
+        //             horizontal: 'right',
+        //         },
+        //     });
+        //     return;
 
-        }
+        // }
         if (isLogin) {
             const resultt = await cartAPI.getDetail(idUser)
             setProductTotal(resultt.data.data);

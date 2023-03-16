@@ -286,7 +286,6 @@ function DetailPage() {
                                 <hr />
                             </Grid>
                             <Grid item xs={12} >
-                                {console.log('tesst log', mysqlDateString)}
                                 {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div style={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}><p style={{ color: 'red', fontSize: '35px' }}>{(item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
 
                                     <Typography variant='h4' sx={{ fontFamily: 'Oswald', marginLeft: '10px', textDecoration: 'line-through' }} >{item.gia_sp.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</Typography>
