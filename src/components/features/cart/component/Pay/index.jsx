@@ -45,8 +45,8 @@ function Pay({ cart, setCart }) {
                 const item = cartUser[i];
                 const result = await DetailProductAPI.getQuantityCart({
                     id_sp: item.id_sp,
-                    ten_mau_sac: item.ten_mau_sac,
-                    ten_kich_thuoc: item.ten_kich_thuoc,
+                    id_mau_sac: item.id_mau_sac,
+                    id_kich_thuoc: item.id_kich_thuoc,
                 });
                 if (
                     result.data.data.so_luong_kho - resultt.data.data[i].so_luong >= 0

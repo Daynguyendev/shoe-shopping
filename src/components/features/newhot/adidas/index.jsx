@@ -5,7 +5,7 @@ import './adidas.scss'
 function Adidas(props) {
 
     return (
-        <Container disableGutters maxWidth="xl" sx={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', fontFamily: 'Oswald', alignItems: 'center', textAlign: 'center', backgroundColor: 'white', paddingBottom: '100px' }}  >
+        <Container disableGutters maxWidth="xl" className='detail-adidas' >
             <Grid item xs={12}>
                 <h1>TIN TỨC</h1>
                 <h1> Giày Adidas Ultra Boost 2021 là một đôi giày thế nào ?</h1>
@@ -17,11 +17,7 @@ function Adidas(props) {
 
 
             </Grid>
-            <Grid item xs={12}>
-                <img className="img" src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/UltraBOOST-21-2.jpg" alt="1" />
 
-
-            </Grid>
             <Grid item xs={12}>
                 <img className="img" src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/UltraBOOST-21-6.jpg" alt="1" />
 

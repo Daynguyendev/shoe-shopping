@@ -6,16 +6,18 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import trademarkAPI from './../../../../API/trademarkAPI';
 import { useSnackbar } from 'notistack';
-
-const columns = [
-    { field: 'id_thuong_hieu', headerName: 'id_thuong_hieu', width: 70 },
-    { field: 'ten_thuong_hieu', headerName: 'ten_thuong_hieu', width: 130 },
-];
+import tableIcons from '../MaterialTableControl';
+import MaterialTable from 'material-table';
 
 function AddTrademark() {
     const [trademarkDetail, setTrademarkDetail] = useState([]);
     const [trademark, setTrademark] = useState('');
     const { enqueueSnackbar } = useSnackbar();
+
+    const columns = [
+        { field: 'id_thuong_hieu', title: 'id_thuong_hieu', width: 70 },
+        { field: 'ten_thuong_hieu', title: 'ten_thuong_hieu', width: 130 },
+    ];
 
     useEffect(() => {
         try {
@@ -48,11 +50,51 @@ function AddTrademark() {
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
     };
+    const getTrademarkDetail = async () => {
 
-    const handleRowSelection = (e) => {
-        setTrademark(e);
-        console.log(e)
+        const result = await trademarkAPI.get();
+        setTrademarkDetail(result.data.data);
+        console.log('trademarkDetail', result.data)
+    };
 
+
+    const handleRowUpdate = (newData, oldData, resolve) => {
+        const updateTrademark = async () => {
+            try {
+                const { data } = await trademarkAPI.update({ id_thuong_hieu: newData.id_thuong_hieu, ten_thuong_hieu: newData.ten_thuong_hieu });
+                getTrademarkDetail();
+            } catch (error) {
+                console.log('Failed to update trademarkDetail list: ', error);
+            }
+        };
+        updateTrademark();
+        resolve();
+    };
+
+    const handleRowAdd = (newData, resolve) => {
+        const addTrademark = async () => {
+            try {
+                const { data } = await trademarkAPI.add({ ten_thuong_hieu: newData.ten_thuong_hieu });
+                getTrademarkDetail();
+            } catch (error) {
+                console.log('Failed toadd trademarkDetail list: ', error);
+            }
+        };
+        addTrademark();
+        resolve();
+    };
+
+    const handleRowDelete = (oldData, resolve) => {
+        const deleteTrademark = async () => {
+            try {
+                const { data } = await trademarkAPI.delete(oldData.id_thuong_hieu);
+                getTrademarkDetail();
+            } catch (error) {
+                console.log('Failed to update trademarkDetail list: ', error);
+            }
+        };
+        deleteTrademark();
+        resolve();
     };
     return (
         <Box
@@ -70,24 +112,34 @@ function AddTrademark() {
         >
             <h1>THÊM THƯƠNG HIỆU</h1>
 
-            <TextField onChange={(e) => setTrademark(e.target.value)} value={trademark} label="Thương hiệu" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+            {/* <TextField onChange={(e) => setTrademark(e.target.value)} value={trademark} label="Thương hiệu" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
 
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
                 Thêm thương hiệu
-            </Button>
+            </Button> */}
 
-            <div style={{ height: 400, width: '100%', paddingTop: '50px' }}>
-                <DataGrid
-                    getRowId={(row) => row.id_thuong_hieu}
-                    rows={trademarkDetail}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    checkboxSelection
-                    onRowSelected={handleRowSelection}
-                    onSelectionModelChange={handleRowSelection}
-                />
-            </div>
+
+            <MaterialTable
+                title="Danh sách thương hiệu"
+                columns={columns}
+                data={trademarkDetail}
+                icons={tableIcons}
+                editable={{
+                    onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve) => {
+                            handleRowUpdate(newData, oldData, resolve);
+                        }),
+                    onRowAdd: (newData) =>
+                        new Promise((resolve) => {
+                            // handleRowAdd(newData, resolve);
+                            handleRowAdd(newData, resolve);
+                        }),
+                    onRowDelete: (oldData) =>
+                        new Promise((resolve) => {
+                            handleRowDelete(oldData, resolve);
+                        }),
+                }}
+            />
         </Box >
     );
 }

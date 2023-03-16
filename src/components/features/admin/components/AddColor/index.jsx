@@ -6,16 +6,19 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import colorAPI from '../../../../API/colorAPI';
 import { useSnackbar } from 'notistack';
+import tableIcons from '../MaterialTableControl';
+import MaterialTable from 'material-table';
 
-const columns = [
-    { field: 'id_mau_sac', headerName: 'id_mau_sac', width: 70 },
-    { field: 'ten_mau_sac', headerName: 'ten_mau_sac', width: 130 },
-];
 
 function AddColor() {
     const [colorDetail, setColorDetail] = useState([]);
     const [color, setColor] = useState('');
     const { enqueueSnackbar } = useSnackbar();
+    const columns = [
+        { field: 'id_mau_sac', title: 'id_mau_sac', width: 70 },
+        { field: 'ten_mau_sac', title: 'ten_mau_sac', width: 130 },
+    ];
+
 
     useEffect(() => {
         try {
@@ -30,6 +33,53 @@ function AddColor() {
             console.log('Failed to fetch colorDetail: ', error);
         }
     }, []);
+
+
+    const getColorDetail = async () => {
+
+        const result = await colorAPI.get();
+        setColorDetail(result.data.data);
+        console.log('pageDetail', result.data)
+    };
+
+    const handleRowUpdate = (newData, oldData, resolve) => {
+        const updateSize = async () => {
+            try {
+                const { data } = await colorAPI.update({ id_mau_sac: newData.id_mau_sac, ten_mau_sac: newData.ten_mau_sac });
+                getColorDetail();
+            } catch (error) {
+                console.log('Failed to update size list: ', error);
+            }
+        };
+        updateSize();
+        resolve();
+    };
+
+    const handleRowAdd = (newData, resolve) => {
+        const addSize = async () => {
+            try {
+                const { data } = await colorAPI.add({ ten_mau_sac: newData.ten_mau_sac });
+                getColorDetail();
+            } catch (error) {
+                console.log('Failed toadd size list: ', error);
+            }
+        };
+        addSize();
+        resolve();
+    };
+
+    const handleRowDelete = (oldData, resolve) => {
+        const deleteSize = async () => {
+            try {
+                const { data } = await colorAPI.delete(oldData.id_mau_sac);
+                getColorDetail();
+            } catch (error) {
+                console.log('Failed to update product list: ', error);
+            }
+        };
+        deleteSize();
+        resolve();
+    };
 
     const handleSubmit = (event) => {
         colorAPI.add({ ten_mau_sac: color })
@@ -47,10 +97,6 @@ function AddColor() {
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
     };
-
-    const handleRowSelection = (e) => {
-        setColor(e);
-    };
     return (
         <Box
             sx={{
@@ -66,25 +112,34 @@ function AddColor() {
             }}
         >
             <h1>THÊM MÀU SẮC</h1>
-
+            {/* 
             <TextField onChange={(e) => setColor(e.target.value)} value={color} label="Màu sắc" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
 
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
                 Thêm màu sắc
-            </Button>
+            </Button> */}
 
-            <div style={{ height: 400, width: '100%', paddingTop: '50px' }}>
-                <DataGrid
-                    getRowId={(row) => row.id_mau_sac}
-                    rows={colorDetail}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    checkboxSelection
-                    onRowSelected={handleRowSelection}
-                    onSelectionModelChange={handleRowSelection}
-                />
-            </div>
+            <MaterialTable
+                title="Danh sách màu sắc"
+                columns={columns}
+                data={colorDetail}
+                icons={tableIcons}
+                editable={{
+                    onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve) => {
+                            handleRowUpdate(newData, oldData, resolve);
+                        }),
+                    onRowAdd: (newData) =>
+                        new Promise((resolve) => {
+                            // handleRowAdd(newData, resolve);
+                            handleRowAdd(newData, resolve);
+                        }),
+                    onRowDelete: (oldData) =>
+                        new Promise((resolve) => {
+                            handleRowDelete(oldData, resolve);
+                        }),
+                }}
+            />
         </Box >
     );
 }

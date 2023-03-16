@@ -171,11 +171,51 @@ function Header() {
     <AppBar position="static" sx={{ backgroundColor: 'black' }} >
       <Container disableGutters sx={{ maxWidth: 'xl', zIndex: 20, backgroundColor: 'black' }} >
         <Toolbar disableGutters >
-          <Box className='box-img' sx={{ display: { xl: 'block', lg: 'block', md: 'none', sm: 'none', xs: 'none', cursor: 'pointer' } }} onClick={handlecClicklogo}>
+          <Box className='box-img' sx={{ display: { xl: 'block', lg: 'block', md: 'block', sm: 'none', xs: 'none', cursor: 'pointer' } }} onClick={handlecClicklogo}>
             <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/logoStore.png" alt="logoStore" style={{ width: '90%' }} />
           </Box>
+          <Typography
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            variant="h7"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              display: { xs: 'flex', md: 'none' },
+              fontWeight: 700,
+              marginLeft: '-10px',
+              color: 'white',
+              textDecoration: 'none',
+              paddingLeft: '20px',
+              width: '50px'
+            }}
+          >
+            <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/logoStore.png" alt="logoStore" style={{ width: '90%' }} />
+
+
+          </Typography>
+          <Search sx={{ width: '220px' }}>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{
+                'aria-label': 'search',
+                onChange: (e) => searchProducts(e.target.value)
+              }}
+              value={searchValue}
+              autoFocus
+
+              sx={{ fontFamily: 'Jura' }}
+            />
+            {open && searchResult ? <ProductSearch searchResult={searchResult} setOpen={setOpen} /> : ''
+            }
+          </Search>
+
+
+
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -204,7 +244,6 @@ function Header() {
               sx={{
                 display: { xs: 'block', md: 'none', xl: 'none' },
               }}
-              variant='primary'
             >
               {listTrademark.map((item, index) => (
                 <MenuItem key={index} sx={{ width: '350px' }} onClick={() => handlecClickSneaker(item.ten_thuong_hieu)}>
@@ -214,44 +253,7 @@ function Header() {
             </Menu>
 
           </Box>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{
-                'aria-label': 'search',
-                onChange: (e) => searchProducts(e.target.value)
-              }}
-              value={searchValue}
-              autoFocus
 
-              sx={{ fontFamily: 'Jura' }}
-            />
-            {open && searchResult ? <ProductSearch searchResult={searchResult} setOpen={setOpen} /> : ''
-            }
-          </Search>
-          <Typography
-
-            variant="h7"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontWeight: 700,
-              marginLeft: '-10px',
-              color: 'white',
-              textDecoration: 'none',
-              paddingLeft: '20px'
-            }}
-          >
-            HN STORE
-
-          </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 
@@ -260,7 +262,7 @@ function Header() {
               onClick={() => handlecClickSneaker()}
               sx={{ color: 'white', display: 'block', fontSize: '15px', fontWeight: 'normal', fontFamily: 'Jura' }}
             >
-              <h3> SNEAKER </h3>
+              <h3> DANH MỤC </h3>
             </Button>
 
           </Box>

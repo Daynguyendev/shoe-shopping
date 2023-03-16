@@ -29,6 +29,7 @@ import Typography from '@mui/material/Typography';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import Stack from '@mui/material/Stack';
 import invoiceoutputAPI from '../../../../API/invoiceoutputAPI';
+import './Status.scss'
 export default function Status() {
     const { id_khach_hang } = useParams();
     const { enqueueSnackbar } = useSnackbar();
@@ -196,30 +197,28 @@ export default function Status() {
                 <hr />
                 <Grid >
                     <Grid sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', fontFamily: 'Oswald', fontSize: '20px' }}>
-                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>Tên sp:</Grid>
-                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>Màu sắc:</Grid>
-                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>Kích thước:</Grid>
-                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>Số Lượng:</Grid>
-                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>Hình ảnh</Grid>
-                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>Đánh giá</Grid>
-
+                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}>Tên sp</Grid>
+                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}>Màu sắc</Grid>
+                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}>Kích thước</Grid>
+                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}>Số Lượng</Grid>
+                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}>Hình ảnh</Grid>
+                        {statusRateList?.id_trang_thai === 3 ? (<Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}>Đánh giá</Grid>) : ('')}
                     </Grid>
                     <hr />
-                    {console.log('teststt', statusRateList)}
                     {statusRateList?.id_trang_thai === 3 ? (<>
                         {
                             detailclone.map((item, index) => (
                                 <Grid key={index}>
 
                                     <Grid sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', fontFamily: 'Oswald', fontSize: '20px' }}>
-                                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_sp}</Grid>
-                                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_mau_sac}</Grid>
-                                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}> {item.ten_kich_thuoc}</Grid>
-                                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}> {item.so_luong}</Grid>
-                                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}><img style={{ width: '100px', height: '100px' }} src={item.hinh_anh_chinh} alt={index} /></Grid>
-                                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>
-                                            <Button variant="outlined" onClick={() => handleClickOpen2(item.id_sp)}
-                                            >Viết đánh giá</Button>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_sp}</Grid>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_mau_sac}</Grid>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}> {item.ten_kich_thuoc}</Grid>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}> {item.so_luong}</Grid>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}><img className='img-detail-status' src={item.hinh_anh_chinh} alt={index} /></Grid>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}>
+                                            <Button onClick={() => handleClickOpen2(item.id_sp)}
+                                            > Đánh giá</Button>
                                         </Grid>
                                         <Dialog open={open2} onClose={handleClose2}>
                                             <DialogActions>
@@ -287,11 +286,11 @@ export default function Status() {
                                 <Grid key={index}>
 
                                     <Grid sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', fontFamily: 'Oswald', fontSize: '20px' }}>
-                                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_sp}</Grid>
-                                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_mau_sac}</Grid>
-                                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}> {item.ten_kich_thuoc}</Grid>
-                                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}> {item.so_luong}</Grid>
-                                        <Grid item xl={5} lg={5} xs={5} sm={5} md={5}><img style={{ width: '100px', height: '100px' }} src={item.hinh_anh_chinh} alt={index} /></Grid>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_sp}</Grid>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_mau_sac}</Grid>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}> {item.ten_kich_thuoc}</Grid>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}> {item.so_luong}</Grid>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}><img className='img-detail-status' src={item.hinh_anh_chinh} alt={index} /></Grid>
                                     </Grid>
                                     <hr />
                                 </Grid>

@@ -25,15 +25,15 @@ function AddDetail() {
                 display: 'list-item'
             }}
         >
-            <AddSize />
+            {/* <AddSize />
             <AddColor />
             <AddCategory />
             <AddProvider />
             <AddTrademark />
             <AddDiscount />
-            {/* <UploadProduct /> */}
+            <UploadProduct />
             <AddDetailImage />
-            <AddInvoice />
+            <AddInvoice /> */}
         </Box >
     );
 }

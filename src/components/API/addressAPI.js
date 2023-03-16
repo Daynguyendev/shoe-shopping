@@ -9,10 +9,14 @@ const addresskAPI = {
         const url = `/account`;
         return axiosClient.post(url, data);
     },
-    remove(data) {
+    update(data) {
         const url = `/account`;
-        return axiosClient.delete(url, data);
+        return axiosClient.patch(url, data);
     },
+    delete(id_dia_chi) {
+        const url = `/account/${id_dia_chi}`;
+        return axiosClient.delete(url);
+    }
 };
 
 export default addresskAPI;

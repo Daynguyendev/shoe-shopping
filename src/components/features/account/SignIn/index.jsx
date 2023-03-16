@@ -69,7 +69,8 @@ export default function SignIn() {
         })
             .then(function (response) {
                 dispatch(login({ email_khach_hang: email, token: response.data.token }));
-                let data = { email_khach_hang: email, token: response.data.token, isLogin: true }
+                let data = { email_khach_hang: email, isLogin: true }
+                localStorage.setItem('token', response.data.token);
                 localStorage.setItem('user', JSON.stringify(data));
                 navigate(`/`)
                 enqueueSnackbar('Đăng nhập thành công', {

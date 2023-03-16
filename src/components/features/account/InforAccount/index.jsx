@@ -18,15 +18,10 @@ import ListItemText from '@mui/material/ListItemText';
 import { useSelector } from 'react-redux';
 import SignIn from '../SignIn';
 import userAPI from '../../../API/userAPI';
-import { DataGrid } from '@mui/x-data-grid';
+import tableIcons from '../../admin/components/MaterialTableControl';
+import MaterialTable from 'material-table';
 
-const columns = [
-    { field: 'id_dia_chi', headerName: 'ID', width: 70 },
-    { field: 'ten_dia_chi', headerName: 'ten_dia_chi', width: 130 },
-    { field: 'ten_khach_hang', headerName: 'ten_khach_hang', width: 130 },
-    { field: 'sdt_khach_hang', headerName: 'sdt_khach_hang', width: 130 },
 
-];
 export default function InforAccount() {
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
@@ -41,6 +36,13 @@ export default function InforAccount() {
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
     const isLogin = useSelector((state) => state.user.isLogin);
     const email = useSelector((state) => state.user);
+    const columns = [
+        { field: 'id_dia_chi', title: 'ID', width: 70 },
+        { field: 'ten_dia_chi', title: 'ten_dia_chi', width: 130 },
+        { field: 'ten_khach_hang', title: 'ten_khach_hang', width: 130 },
+        { field: 'sdt_khach_hang', title: 'sdt_khach_hang', width: 130 },
+
+    ];
 
     useEffect(() => {
         try {
@@ -80,6 +82,7 @@ export default function InforAccount() {
     };
     const handleLogout = () => {
         localStorage.removeItem('user');
+        localStorage.removeItem('token');
         navigate('/');
         window.location.reload();
 
@@ -99,19 +102,6 @@ export default function InforAccount() {
         }
 
     }
-    useEffect(() => {
-        if (idUser)
-            try {
-                const fetchCategorry = async () => {
-                    if (listAddress !== null) {
-
-                    }
-                };
-                fetchCategorry();
-            } catch (error) {
-                console.log('Failed to fetch listAddress: ', error);
-            }
-    }, [idUser]);
 
     useEffect(() => {
         if (idUser)
@@ -133,6 +123,52 @@ export default function InforAccount() {
         setRemove(e);
         navigate(`/account/${e}`);
 
+    };
+
+    const getAddress = async () => {
+
+        const result = await addresskAPI.getAddress({ id_khach_hang: idUser });
+        setListAddress(result.data.data);
+        console.log('ListAddress', result.data)
+    };
+
+    const handleRowUpdate = (newData, oldData, resolve) => {
+        const updateListAddress = async () => {
+            try {
+                const { data } = await addresskAPI.update({ id_dia_chi: newData.id_dia_chi, ten_dia_chi: newData.ten_dia_chi, ten_khach_hang: newData.ten_khach_hang, sdt_khach_hang: newData.sdt_khach_hang });
+                getAddress();
+            } catch (error) {
+                console.log('Failed to update ListAddress: ', error);
+            }
+        };
+        updateListAddress();
+        resolve();
+    };
+
+    const handleRowAdd = (newData, resolve) => {
+        const addListAddress = async () => {
+            try {
+                const { data } = await addresskAPI.add({ id_khach_hang: idUser, ten_dia_chi: newData.ten_dia_chi, ten_khach_hang: newData.ten_khach_hang, sdt_khach_hang: newData.sdt_khach_hang });
+                getAddress();
+            } catch (error) {
+                console.log('Failed toadd ListAddress: ', error);
+            }
+        };
+        addListAddress();
+        resolve();
+    };
+
+    const handleRowDelete = (oldData, resolve) => {
+        const deleteListAddress = async () => {
+            try {
+                const { data } = await addresskAPI.delete(oldData.id_dia_chi);
+                getAddress();
+            } catch (error) {
+                console.log('Failed to update ListAddress: ', error);
+            }
+        };
+        deleteListAddress();
+        resolve();
     };
 
     return (
@@ -205,24 +241,35 @@ export default function InforAccount() {
                         </Grid>
                     </Grid>
 
-                    <div style={{ width: '100%', height: '500px', paddingTop: '50px' }}>
-                        <button onClick={removeAddress}>Xóa</button>
-                        <DataGrid
-                            getRowId={(row) => row.id_dia_chi}
-                            rows={ListShow}
-                            columns={columns}
-                            pageSize={5}
-                            rowsPerPageOptions={[5]}
-                            checkboxSelection
-                            onRowSelected={handleRowSelection}
-                            onSelectionModelChange={handleRowSelection}
-                        />
-                    </div>
+
+
                 </Box>
+                <MaterialTable
+                    title="Danh sách địa chỉ"
+                    columns={columns}
+                    data={listAddress}
+                    icons={tableIcons}
+                    editable={{
+                        onRowUpdate: (newData, oldData) =>
+                            new Promise((resolve) => {
+                                handleRowUpdate(newData, oldData, resolve);
+                            }),
+                        onRowAdd: (newData) =>
+                            new Promise((resolve) => {
+                                // handleRowAdd(newData, resolve);
+                                handleRowAdd(newData, resolve);
+                            }),
+                        onRowDelete: (oldData) =>
+                            new Promise((resolve) => {
+                                handleRowDelete(oldData, resolve);
+                            }),
+                    }}
+                />
             </Container>
 
         ) : (
             <SignIn />
-        )}</>
+        )
+        }</>
     );
 }

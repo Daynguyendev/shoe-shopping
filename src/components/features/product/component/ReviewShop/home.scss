@@ -25,7 +25,7 @@
     display: flex;
     height: 600px;
     width: 100%;
-    animation: zoom-in 5s infinite
+    animation: zoom-in 12s infinite
   }
 
 }
@@ -44,7 +44,7 @@
   }
 
   100% {
-    transform: scale(1.02);
+    transform: scale(1.01);
   }
 
 

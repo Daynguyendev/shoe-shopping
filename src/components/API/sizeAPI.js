@@ -9,6 +9,10 @@ const sizeAPI = {
         const url = `/size`;
         return axiosClient.post(url, data);
     },
+    update(data) {
+        const url = `/size`;
+        return axiosClient.patch(url, data);
+    },
     getName(id) {
         const url = `/size/${id}`;
         return axiosClient.get(url);

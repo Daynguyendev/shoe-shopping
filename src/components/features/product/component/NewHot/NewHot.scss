@@ -1,5 +1,35 @@
+//iphone5
+@media only screen and (max-width: 320px) {
+    .new-hot {
+        display: flex;
+        color: white;
+        text-align: center;
+        align-items: center;
+        padding: 30px 0 50px 0;
+        font-family: 'Jura', sans-serif;
+        font-size: 10px;
+
+    }
+
+}
+
 //mobile
-@media only screen and (max-width: 739px) {
+@media only screen and (min-width: 321px) and (max-width: 376px) {
+    .new-hot {
+        display: flex;
+        color: white;
+        text-align: center;
+        align-items: center;
+        // padding: 30px 0 50px 0;
+        font-family: 'Jura', sans-serif;
+        font-size: 10px;
+
+    }
+
+}
+
+//pho thong
+@media only screen and (min-width: 376px) and (max-width: 739px) {
     .new-hot {
         display: flex;
         color: white;
@@ -14,9 +44,22 @@
 }
 
 //tablet
-@media only screen and (min-width: 740px) and (max-width: 1023px) {
+@media only screen and (min-width: 740px) and (max-width: 1024px) {
+    .new-hot {
+        display: flex;
+        color: white;
+        text-align: center;
+        align-items: center;
+        padding: 30px 0 50px 0;
+        font-family: 'Jura', sans-serif;
+        font-size: 10px;
 
+    }
 
+}
+
+//desktop
+@media only screen and (min-width: 1025px) and (max-width: 1396px) {
     .new-hot {
         display: flex;
         color: white;
@@ -26,6 +69,8 @@
         font-family: 'Jura', sans-serif;
         font-size: 15px;
 
+
+
     }
 
     .tin-tuc {
@@ -33,9 +78,7 @@
     }
 }
 
-//desktop
-@media only screen and (min-width: 1024px) {
-
+@media only screen and (min-width: 1396px) {
 
     .new-hot {
         display: flex;

@@ -1,48 +1,93 @@
 //iphone5
 @media only screen and (max-width: 320px) {
-    .img {
-        width: 200px;
-        height: auto;
+    .detail-adidas {
+        background-color: white;
+        justify-content: center;
+        padding-bottom: 50px;
+        padding-top: 30px;
+
+
+        .img {
+            width: 250px;
+            height: 100%;
+
+        }
     }
+
 
 }
 
 //mobile
 @media only screen and (min-width: 321px) and (max-width: 376px) {
-    .img {
-        width: 300px;
-        height: auto;
+    .detail-adidas {
+        background-color: white;
+        text-align: center;
+        padding-bottom: 50px;
+        padding-top: 30px;
 
+        .img {
+            width: 300px;
+            height: 100%;
+
+        }
     }
 
 }
 
 //pho thong
 @media only screen and (min-width: 376px) and (max-width: 739px) {
-    .img {
-        width: 300px;
-        height: auto;
+    .detail-adidas {
+        background-color: white;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding-bottom: 50px;
+        padding-top: 30px;
 
 
+        .img {
+            width: 300px;
+            height: 100%;
+
+        }
     }
+
 
 }
 
 //tablet
 @media only screen and (min-width: 740px) and (max-width: 1024px) {
-    .img {
-        width: 400px;
-        height: auto;
+    .detail-adidas {
+        background-color: white;
+        text-align: center;
+        padding-bottom: 50px;
+        padding-top: 30px;
 
+
+        .img {
+            width: 400px;
+            height: 100%;
+
+        }
     }
 
 }
 
 //desktop
 @media only screen and (min-width: 1025px) {
-    .img {
-        width: 500px;
-        height: auto;
+    .detail-adidas {
+        background-color: white;
+        text-align: center;
+        padding-bottom: 50px;
+        padding-top: 30px;
+
+
+        .img {
+            width: 500px;
+            height: 100%;
+
+        }
     }
+
 
 }

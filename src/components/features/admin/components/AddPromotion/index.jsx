@@ -12,6 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import categoryAPI from '../../../../API/categoryAPI';
 import productAPI from '../../../../API/productAPI';
 import trademarkAPI from '../../../../API/trademarkAPI';
+
 const columns = [
     { field: 'id_nha_cc', headerName: 'id_nha_cc', width: 70 },
     { field: 'ten_nha_cc', headerName: 'ten_nha_cc', width: 130 },
@@ -36,6 +37,12 @@ function AddPromotion() {
     const listTrademark = trademark || [];
     const listProduct = product || [];
     const listPromotion = promotionDetail || [];
+    const columns = [
+        { field: 'id_nha_cc', headerName: 'id_nha_cc', width: 70 },
+        { field: 'ten_nha_cc', headerName: 'ten_nha_cc', width: 130 },
+        { field: 'dia_chi_cc', headerName: 'dia_chi_cc', width: 130 },
+
+    ];
 
     const { enqueueSnackbar } = useSnackbar();
 

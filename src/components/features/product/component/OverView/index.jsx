@@ -9,6 +9,8 @@ import productAPI from '../../../../API/productAPI';
 import { useState, useEffect } from 'react';
 import trademarkAPI from '../../../../API/trademarkAPI';
 import categoryAPI from '../../../../API/categoryAPI';
+import { Container } from '@mui/material';
+
 function OverView() {
     const [tradeMarkAll, setTradeMarkAll] = useState([]);
     const { name } = useParams();
@@ -88,20 +90,20 @@ function OverView() {
     }, [name]);
 
     return (
-        <Grid>
+        <Container disableGutters maxWidth="xl" >
             <Breadcrumbs aria-label="breadcrumb" style={{ backgroundColor: 'white', padding: '5px' }}>
                 <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Jura' }} onClick={handleHome}>Trang chủ </p>
                 <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Jura' }}  >{name} </p>
             </Breadcrumbs>
             <Grid item xs={12} className='overview' >
                 <Grid item xs={3} className='danh-muc'  >
-                    <h2>Thương hiệu</h2>
+                    <h3>Thương hiệu</h3>
                     {tradeMarkAll.map((item, index) => (
                         <h3 key={index} style={{ fontFamily: 'Jura', cursor: 'pointer' }} onClick={() => handleClickDetail(item.ten_thuong_hieu)}>
                             {item.ten_thuong_hieu}
                         </h3>
                     ))}
-                    <h2>Loại</h2>
+                    <h3>Loại</h3>
                     {category.map((item, index) => (
                         <h3 key={index} style={{ fontFamily: 'Jura', cursor: 'pointer' }} onClick={() => handleClickDetail(item.id_loai_sp)}>
                             {item.ten_loai_sp}
@@ -109,11 +111,11 @@ function OverView() {
                     ))}
                 </Grid>
                 <Grid container className='product' >
-                    <Product xs={6} sm={6} md={4} lg={4} xl={4} display={display} so_luong={6} product={product} productCategory={productCategory} newcolor="white" colortext="black" page={page} handleReset={onResetData} />
+                    <Product xs={12} sm={6} md={4} lg={4} xl={4} display={display} so_luong={6} product={product} productCategory={productCategory} newcolor="white" colortext="black" page={page} handleReset={onResetData} />
                 </Grid>
 
             </Grid>
-        </Grid>
+        </Container>
     );
 }
 

@@ -29,7 +29,7 @@ export default function ImageDetail({ colorAdd }) {
 
     useEffect(() => {
         if (colorAdd !== undefined) {
-            const product = imageDetail.filter((p) => p.ten_mau_sac === colorAdd);
+            const product = imageDetail.filter((p) => p.id_mau_sac == colorAdd);
             const list = [...product]
             setImageDisplay(list);
             console.log('test product', product)

@@ -130,7 +130,7 @@ function Product({ xs, sm, md, lg, xl, so_luong, product, productCategory, displ
     <>
       {renderProductList()}
       <Pagination
-        // count={Math.ceil(product.length / 8)}
+        count={product ? Math.ceil(product?.length / 8) : 0}
         page={currentPage}
         onChange={handlePageChange}
         color="primary"

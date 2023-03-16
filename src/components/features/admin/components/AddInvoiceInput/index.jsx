@@ -2,7 +2,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import detailInvoiceAPI from './../../../../API/detailinvoiceAPI';
@@ -20,17 +19,9 @@ import discountAPI from '../../../../API/discountAPI';
 import providerAPI from '../../../../API/providerAPI';
 import trademarkAPI from '../../../../API/trademarkAPI';
 import promotionAPI from '../../../../API/promotionAPI';
+import tableIcons from '../MaterialTableControl';
+import MaterialTable from 'material-table';
 
-const columns = [
-    { field: 'id_chi_tiet_hd', headerName: 'id_chi_tiet_hd', width: 70 },
-    { field: 'id_sp', headerName: 'id_sp', width: 70 },
-    { field: 'id_hd_nhap_hang', headerName: 'id_hd_nhap_hang', width: 70 },
-    { field: 'ten_mau_sac', headerName: 'ten_mau_sac', width: 70 },
-    { field: 'ten_kich_thuoc', headerName: 'ten_kich_thuoc', width: 70 },
-    { field: 'so_luong', headerName: 'so_luong', width: 70 },
-    { field: 'gia_nhap', headerName: 'gia_nhap', width: 200 },
-
-];
 
 function AddInvoiceInput() {
     let { name } = useParams();
@@ -61,10 +52,19 @@ function AddInvoiceInput() {
     const [discountDetail, setDiscountDetail] = useState([]);
     const [providerDetail, setProviderDetail] = useState([]);
     const [promotion, setPromotion] = useState([]);
+    const [detaiIinvoice, setDetailInvoice] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const columns = [
+        { field: 'id_chi_tiet_hd', title: 'id_chi_tiet_hd', width: 70 },
+        { field: 'id_sp', title: 'id_sp', width: 70 },
+        { field: 'id_hd_nhap_hang', title: 'id_hd_nhap_hang', width: 70 },
+        { field: 'id_mau_sac', title: 'id_mau_sac', width: 70 },
+        { field: 'id_kich_thuoc', title: 'id_kich_thuoc', width: 70 },
+        { field: 'so_luong', title: 'so_luong', width: 70 },
+        { field: 'gia_nhap', title: 'gia_nhap', width: 200 },
 
 
-
-
+    ];
 
     const handleProduct = event => {
         setProductItem(event.target.value);
@@ -112,6 +112,7 @@ function AddInvoiceInput() {
                     const result = await categoryAPI.get();
                     setCategoryDetail(result.data.data);
                     console.log('categoryDetail', result.data)
+                    setLoading(false);
                 }
             };
             fetchCategorry();
@@ -127,6 +128,7 @@ function AddInvoiceInput() {
                     const result = await imageAPI.getAll();
                     setImageDetailDetail(result.data.data);
                     console.log('imageDetail', result.data)
+                    setLoading(false);
                 }
             };
             fetchImageDetail();
@@ -142,6 +144,7 @@ function AddInvoiceInput() {
                     const result = await discountAPI.get();
                     setDiscountDetail(result.data.data);
                     console.log('discountDetail', result.data)
+                    setLoading(false);
                 }
             };
             fetchDiscountDetail();
@@ -157,6 +160,7 @@ function AddInvoiceInput() {
                     const result = await providerAPI.get();
                     setProviderDetail(result.data.data);
                     console.log('providerDetail', result.data)
+                    setLoading(false);
                 }
             };
             fetchProviderDetail();
@@ -173,6 +177,7 @@ function AddInvoiceInput() {
                     const result = await trademarkAPI.get();
                     setTrademarkDetail(result.data.data);
                     console.log('trademark', result.data)
+                    setLoading(false);
                 }
             };
             fetchtrademarkDetail();
@@ -188,6 +193,7 @@ function AddInvoiceInput() {
                     const result = await promotionAPI.get();
                     setPromotion(result.data.data);
                     console.log('promotion', result.data)
+                    setLoading(false);
                 }
             };
             fetchCategorry();
@@ -206,6 +212,7 @@ function AddInvoiceInput() {
                         const result = await productAPI.getItemById({ id_sp: productItem });
                         setProductAdd(result.data.data);
                         console.log('productAdd', result.data.data)
+                        setLoading(false);
                     }
                 };
                 fetchProduct();
@@ -221,6 +228,7 @@ function AddInvoiceInput() {
                     const result = await productAPI.getAll();
                     setProduct(result.data.data);
                     console.log('product', result.data.data)
+                    setLoading(false);
                 }
             };
             fetchProduct();
@@ -236,6 +244,7 @@ function AddInvoiceInput() {
                     const result = await sizeAPI.get();
                     setSizeDetail(result.data.data);
                     console.log('sizeDetail', result.data.data)
+                    setLoading(false);
                 }
             };
             fetchSizeDetail();
@@ -251,6 +260,7 @@ function AddInvoiceInput() {
                     const result = await colorAPI.get();
                     setColorDetail(result.data.data);
                     console.log('colorDetail', result.data)
+                    setLoading(false);
                 }
             };
             fetchColorDetail();
@@ -266,6 +276,7 @@ function AddInvoiceInput() {
                     const result = await invoiceAPI.getByName(name);
                     setInvoiceDetail(result.data.data[0].id_hd_nhap_hang);
                     console.log('invoiceadd', result.data.data[0].id_hd_nhap_hang)
+                    setLoading(false);
 
                 }
             };
@@ -275,12 +286,33 @@ function AddInvoiceInput() {
         }
     }, []);
 
+
+    useEffect(() => {
+        try {
+            const fetchInvoiceDetailInput = async () => {
+                if (detaiIinvoice !== null) {
+                    const result = await detailInvoiceAPI.getByNameInvoice(name);
+                    setDetailInvoice(result.data.data);
+                    setLoading(false);
+
+
+                }
+            };
+            fetchInvoiceDetailInput();
+        } catch (error) {
+            console.log('Failed to fetch detaiIinvoice: ', error);
+        }
+    }, []);
+
+
+
     useEffect(() => {
         try {
             const fetchInvoiceFull = async () => {
                 if (invoiceFull !== null) {
                     const result = await detailInvoiceAPI.get();
                     setInvoiceFull(result.data.data);
+                    setLoading(false);
                 }
             };
             fetchInvoiceFull();
@@ -289,16 +321,143 @@ function AddInvoiceInput() {
         }
     }, []);
 
+
+
+
+
+    const getInvoiceDetail = async () => {
+        const result = await detailInvoiceAPI.getByNameInvoice(name);
+        setDetailInvoice(result.data.data);
+
+    };
+
+    const handleRowUpdate = (newData, oldData, resolve) => {
+
+        let errorList = [];
+        if (newData.id_chi_tiet_hd === '') {
+            errorList.push('Please enter id_chi_tiet_hd');
+        }
+        if (newData.id_sp === '') {
+            errorList.push('Please enter id_sp');
+        }
+        if (newData.id_hd_nhap_hang === '') {
+            errorList.push('Please enter id_hd_nhap_hang');
+        }
+        if (newData.id_mau_sac === '') {
+            errorList.push('Please enter id_mau_sac');
+        }
+        if (newData.id_kich_thuoc === '') {
+            errorList.push('Please enter id_kich_thuoc');
+        }
+        if (newData.gia_nhap === '') {
+            errorList.push('Please enter gia_nhap');
+        }
+
+
+        if (errorList.length < 1) {
+
+
+            const updateInvoiceDetail = async () => {
+                try {
+                    const { data } = await detailInvoiceAPI.update({
+                        id_chi_tiet_hd: newData.id_chi_tiet_hd,
+                        id_sp: newData.id_sp,
+                        id_hd_nhap_hang: newData.id_hd_nhap_hang,
+                        id_mau_sac: newData.id_mau_sac,
+                        id_kich_thuoc: newData.id_kich_thuoc,
+                        so_luong: newData.so_luong,
+                        gia_nhap: newData.gia_nhap
+                    });
+                    getInvoiceDetail();
+                } catch (error) {
+                    console.log('Failed to update InvoiceDetail list: ', error);
+                }
+            };
+            updateInvoiceDetail();
+            resolve();
+
+        } else {
+            console.log('loi');
+            resolve();
+        }
+
+
+    };
+
+    const handleRowAdd = (newData, resolve) => {
+        let errorList = [];
+        if (newData.id_sp === '') {
+            errorList.push('Please enter id_sp');
+        }
+        if (newData.id_hd_nhap_hang === '') {
+            errorList.push('Please enter id_hd_nhap_hang');
+        }
+        if (newData.id_mau_sac === '') {
+            errorList.push('Please enter id_mau_sac');
+        }
+        if (newData.id_kich_thuoc === '') {
+            errorList.push('Please enter id_kich_thuoc');
+        }
+        if (newData.gia_nhap === '') {
+            errorList.push('Please enter gia_nhap');
+        }
+
+
+        if (errorList.length < 1) {
+            const addInvoiceDetail = async () => {
+                try {
+                    const { data } = await detailInvoiceAPI.add({
+                        id_sp: newData.id_sp,
+                        id_hd_nhap_hang: newData.id_hd_nhap_hang,
+                        id_mau_sac: newData.id_mau_sac,
+                        id_kich_thuoc: newData.id_kich_thuoc,
+                        so_luong: newData.so_luong,
+                        gia_nhap: newData.gia_nhap
+                    });
+                    getInvoiceDetail();
+                } catch (error) {
+                    console.log('Failed toadd InvoiceDetail list: ', error);
+                }
+            };
+            addInvoiceDetail();
+            resolve();
+
+        } else {
+            console.log('loi');
+            resolve();
+        }
+
+
+
+    };
+
+    const handleRowDelete = (oldData, resolve) => {
+        const deleteInvoiceDetail = async () => {
+            try {
+                const { data } = await detailInvoiceAPI.delete(oldData.id_chi_tiet_hd);
+                getInvoiceDetail();
+            } catch (error) {
+                console.log('Failed to update InvoiceDetail list: ', error);
+            }
+        };
+        deleteInvoiceDetail();
+        resolve();
+    };
+
     const handleSubmit = async (event) => {
-        console.log('test0', {
-            ten_sp: nameProduct,
-            gia_sp: priceProduct,
-            hinh_anh_chinh: mainImg,
-            thong_tin_sp: inforProduct,
-            id_thuong_hieu: trademark,
-            id_loai_sp: category,
-            id_khuyen_mai: idPromotion,
-        })
+        if (nameProduct == '' || priceProduct == '' || mainImg == '' || inforProduct == '' || trademark == '' || category == '' || idPromotion == '' || invoiceDetail == '' || colorItem == '' || sizeItem == '' || quantity == '' || priceInput == '') {
+            enqueueSnackbar('Vui lòng nhập đủ thông tin', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            })
+
+            return;
+        }
+
         const submitProduct = await productAPI.add({
             ten_sp: nameProduct,
             gia_sp: priceProduct,
@@ -315,8 +474,8 @@ function AddInvoiceInput() {
                 const submitDetailInvoice = await detailInvoiceAPI.add({
                     id_sp: response.data.data.id_sp,
                     id_hd_nhap_hang: invoiceDetail,
-                    ten_mau_sac: colorItem,
-                    ten_kich_thuoc: sizeItem,
+                    id_mau_sac: colorItem,
+                    id_kich_thuoc: sizeItem,
                     so_luong: quantity,
                     gia_nhap: priceInput,
                 })
@@ -330,10 +489,11 @@ function AddInvoiceInput() {
                     id_thuong_hieu: trademark,
                     id_loai_sp: category,
                     id_khuyen_mai: idPromotion,
-                    ten_mau_sac: colorItem,
-                    ten_kich_thuoc: sizeItem,
+                    id_mau_sac: colorItem,
+                    id_kich_thuoc: sizeItem,
                     so_luong_kho: quantity,
                 })
+                getInvoiceDetail();
                 setColorItem('')
                 setSizeItem('')
                 setQuantity('')
@@ -353,11 +513,6 @@ function AddInvoiceInput() {
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
     };
-
-    const handleRowSelection = (e) => {
-        console.log(e)
-    };
-
     return (
 
         <Box
@@ -366,135 +521,159 @@ function AddInvoiceInput() {
             }}
 
         >
+            {loading ? (
+                <p>Loading...</p>) : (
+                <>
+                    <Box
+                        sx={{
+                            backgroundColor: 'white',
+                        }}
 
-            <div>
+                    >
 
-                <h1>THÊM SẢN PHẨM</h1>
+                        <div>
 
-
-                <TextField
-                    select
-                    label="Thương hiệu"
-                    value={trademark}
-                    onChange={handleTrademark}
-                    fullWidth
-                    helperText="Chọn thương hiệu"
-                >
-                    {trademarkDetail.map((option) => (
-                        <MenuItem key={option.id_thuong_hieu} value={option.id_thuong_hieu} >
-                            {option.ten_thuong_hieu}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    select
-                    label="Nhà cung cấp"
-                    value={provider}
-                    onChange={handleProvider}
-                    fullWidth
-                    helperText="Chọn nhà cung cấp"
-                >
-                    {providerDetail.map((option) => (
-                        <MenuItem key={option.id_nha_cc} value={option.id_nha_cc}>
-                            {option.ten_nha_cc}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    fullWidth
-                    select
-                    label="Loại"
-                    value={category}
-                    onChange={handleCategory}
-                    helperText="Chọn loại"
-                >
-                    {categoryDetail.map((option) => (
-                        <MenuItem key={option.id_loai_sp} value={option.id_loai_sp}>
-                            {option.ten_loai_sp}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField helperText="Nhập tên sản phẩm" fullWidth id="outlined-basic" label="Tên sản phẩm" variant="outlined" onChange={(e) => setNameProduct(e.target.value)} />
-                <TextField helperText="Nhập giá sản phẩm" fullWidth id="filled-basic" label="Giá sản phẩm" variant="outlined" onChange={(e) => setPriceProduct(e.target.value)} />
-                <TextField helperText="Nhập thông tin sản phẩm" fullWidth id="standard-basic" label="Thông tin sản phẩm" variant="outlined" onChange={(e) => setInforProduct(e.target.value)} />
-                <TextField helperText="Nhập liên kết ảnh chính" fullWidth id="outlined-basic" label="URL ảnh chính" variant="outlined" onChange={(e) => setMainImg(e.target.value)} />
-                <TextField
-                    fullWidth
-                    select
-                    label="ID khuyến mãi"
-                    value={idPromotion}
-
-                    onChange={handlePromotion}
-                    helperText="Vui lòng chọn mã khuyến mãi"
-                >
-                    {promotion.map((option) => (
-                        <MenuItem key={option.id_khuyen_mai} value={option.id_khuyen_mai}>
-                            {option.ten_khuyen_mai} <br />
-                            {option.ngay_bat_dau} <br />
-                            {option.ngay_ket_thuc} <br />
-                            {option.phan_tram_giam}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    fullWidth
-                    select
-                    label="kích thước"
-                    value={sizeItem}
-                    onChange={handleSize}
-                    helperText="Vui lòng chọn kích thước"
-                >
-                    {sizeDetail.map((option) => (
-                        <MenuItem key={option.id_kich_thuoc} value={option.ten_kich_thuoc}>
-                            {option.ten_kich_thuoc}
-                        </MenuItem>
-                    ))}
-                </TextField>
-
-                <TextField
-                    select
-                    fullWidth
-                    label="Màu sắc"
-                    value={colorItem}
-                    onChange={handleColor}
-                    helperText="Vui lòng chọn màu sắc"
-
-                >
-                    {colorDetail.map((option) => (
-                        <MenuItem key={option.id_mau_sac} value={option.ten_mau_sac}>
-                            {option.ten_mau_sac}
-                        </MenuItem>
-                    ))}
-                </TextField>
+                            <h1>THÊM SẢN PHẨM</h1>
 
 
+                            <TextField
+                                select
+                                label="Thương hiệu"
+                                value={trademark}
+                                onChange={handleTrademark}
+                                fullWidth
+                                helperText="Chọn thương hiệu"
+                            >
+                                {trademarkDetail.map((option) => (
+                                    <MenuItem key={option.id_thuong_hieu} value={option.id_thuong_hieu} >
+                                        {option.ten_thuong_hieu}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                            <TextField
+                                select
+                                label="Nhà cung cấp"
+                                value={provider}
+                                onChange={handleProvider}
+                                fullWidth
+                                helperText="Chọn nhà cung cấp"
+                            >
+                                {providerDetail.map((option) => (
+                                    <MenuItem key={option.id_nha_cc} value={option.id_nha_cc}>
+                                        {option.ten_nha_cc}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                            <TextField
+                                fullWidth
+                                select
+                                label="Loại"
+                                value={category}
+                                onChange={handleCategory}
+                                helperText="Chọn loại"
+                            >
+                                {categoryDetail.map((option) => (
+                                    <MenuItem key={option.id_loai_sp} value={option.id_loai_sp}>
+                                        {option.ten_loai_sp}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                            <TextField helperText="Nhập tên sản phẩm" fullWidth id="outlined-basic" label="Tên sản phẩm" variant="outlined" onChange={(e) => setNameProduct(e.target.value)} />
+                            <TextField helperText="Nhập giá sản phẩm" fullWidth id="filled-basic" label="Giá sản phẩm" variant="outlined" onChange={(e) => setPriceProduct(e.target.value)} />
+                            <TextField helperText="Nhập thông tin sản phẩm" fullWidth id="standard-basic" label="Thông tin sản phẩm" variant="outlined" onChange={(e) => setInforProduct(e.target.value)} />
+                            <TextField helperText="Nhập liên kết ảnh chính" fullWidth id="outlined-basic" label="URL ảnh chính" variant="outlined" onChange={(e) => setMainImg(e.target.value)} />
+                            <TextField
+                                fullWidth
+                                select
+                                label="ID khuyến mãi"
+                                value={idPromotion}
 
-                <TextField helperText="Nhập số lượng"
-                    fullWidth onChange={(e) => setQuantity(e.target.value)} value={quantity} label="Số lượng" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
-                <TextField helperText="Giá nhập"
-                    fullWidth onChange={(e) => setPriceInput(e.target.value)} value={priceInput} label="Giá nhập" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+                                onChange={handlePromotion}
+                                helperText="Vui lòng chọn mã khuyến mãi"
+                            >
+                                {promotion.map((option) => (
+                                    <MenuItem key={option.id_khuyen_mai} value={option.id_khuyen_mai}>
+                                        {option.ten_khuyen_mai} <br />
+                                        {option.ngay_bat_dau} <br />
+                                        {option.ngay_ket_thuc} <br />
+                                        {option.phan_tram_giam}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                            <TextField
+                                fullWidth
+                                select
+                                label="kích thước"
+                                value={sizeItem}
+                                onChange={handleSize}
+                                helperText="Vui lòng chọn kích thước"
+                            >
+                                {sizeDetail.map((option) => (
+                                    <MenuItem key={option.id_kich_thuoc} value={option.id_kich_thuoc}>
+                                        {option.ten_kich_thuoc}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+
+                            <TextField
+                                select
+                                fullWidth
+                                label="Màu sắc"
+                                value={colorItem}
+                                onChange={handleColor}
+                                helperText="Vui lòng chọn màu sắc"
+
+                            >
+                                {colorDetail.map((option) => (
+                                    <MenuItem key={option.id_mau_sac} value={option.id_mau_sac}>
+                                        {option.ten_mau_sac}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+
+
+
+                            <TextField helperText="Nhập số lượng"
+                                fullWidth onChange={(e) => setQuantity(e.target.value)} value={quantity} label="Số lượng" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+                            <TextField helperText="Giá nhập"
+                                fullWidth onChange={(e) => setPriceInput(e.target.value)} value={priceInput} label="Giá nhập" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
 
 
 
 
-                <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
-                    Nhập sản phẩm
-                </Button>
+                            <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
+                                Nhập sản phẩm
+                            </Button>
 
-                <div style={{ height: 400, width: '100%', paddingTop: '50px' }}>
-                    <DataGrid
-                        getRowId={(row) => row.id_chi_tiet_hd}
-                        rows={invoiceFull}
-                        columns={columns}
-                        pageSize={10}
-                        rowsPerPageOptions={[5]}
-                        checkboxSelection
-                        onRowSelected={handleRowSelection}
-                        onSelectionModelChange={handleRowSelection}
-                    />
-                </div>
+                            <MaterialTable
+                                title="Danh sách sản phẩm nhập hàng"
+                                columns={columns}
+                                data={detaiIinvoice}
+                                icons={tableIcons}
+                                editable={{
+                                    onRowUpdate: (newData, oldData) =>
+                                        new Promise((resolve) => {
+                                            handleRowUpdate(newData, oldData, resolve);
+                                        }),
+                                    onRowAdd: (newData) =>
+                                        new Promise((resolve) => {
+                                            handleRowAdd(newData, resolve);
+                                        }),
+                                    onRowDelete: (oldData) =>
+                                        new Promise((resolve) => {
+                                            handleRowDelete(oldData, resolve);
+                                        }),
+                                }}
+                            />
+                        </div>
 
-            </div>
+
+
+
+                    </Box>
+                </>
+            )}
+
 
 
 

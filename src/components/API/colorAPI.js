@@ -21,6 +21,14 @@ const colorAPI = {
         const url = `/all/${id}`;
         return axiosClient.get(url, id);
     },
+    update(data) {
+        const url = `/color`;
+        return axiosClient.patch(url, data);
+    },
+    delete(id_mau_sac) {
+        const url = `/color/${id_mau_sac}`;
+        return axiosClient.delete(url);
+    }
 };
 
 export default colorAPI;

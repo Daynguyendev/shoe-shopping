@@ -9,26 +9,16 @@ import { useSnackbar } from 'notistack';
 import tableIcons from '../MaterialTableControl';
 import MaterialTable from 'material-table';
 
-const columns = [
-    { field: 'id_kich_thuoc', title: 'id_kich_thuoc', width: 70 },
-    { field: 'ten_kich_thuoc', title: 'ten_kich_thuoc', width: 130 },
-];
 
 function AddSize() {
     const [sizeDetail, setSizeDetail] = useState([]);
     const [size, setSize] = useState('');
     const { enqueueSnackbar } = useSnackbar();
-    const [state, setState] = React.useState({
-        columns: [
-            { title: 'Name', field: 'name' },
-            { title: 'Age', field: 'age', type: 'numeric' },
-            { title: 'Email', field: 'email' },
-        ],
-        data: [
-            { name: 'John Doe', age: 25, email: 'johndoe@example.com' },
-            { name: 'Jane Doe', age: 32, email: 'janedoe@example.com' },
-        ],
-    });
+    const [state, setState] = React.useState({});
+    const columns = [
+        { field: 'id_kich_thuoc', title: 'id_kich_thuoc', width: 70 },
+        { field: 'ten_kich_thuoc', title: 'ten_kich_thuoc', width: 130 },
+    ];
 
     useEffect(() => {
         try {
@@ -69,6 +59,32 @@ function AddSize() {
             );
     };
 
+    const handleRowUpdate = (newData, oldData, resolve) => {
+        const updateSize = async () => {
+            try {
+                const { data } = await sizeAPI.update({ id_kich_thuoc: newData.id_kich_thuoc, ten_kich_thuoc: newData.ten_kich_thuoc });
+                getSizeDetail();
+            } catch (error) {
+                console.log('Failed to update size list: ', error);
+            }
+        };
+        updateSize();
+        resolve();
+    };
+
+    const handleRowAdd = (newData, resolve) => {
+        const addSize = async () => {
+            try {
+                const { data } = await sizeAPI.add({ ten_kich_thuoc: newData.ten_kich_thuoc });
+                getSizeDetail();
+            } catch (error) {
+                console.log('Failed toadd size list: ', error);
+            }
+        };
+        addSize();
+        resolve();
+    };
+
     const handleRowDelete = (oldData, resolve) => {
         const deleteSize = async () => {
             try {
@@ -96,10 +112,10 @@ function AddSize() {
             }}
         >
             <h1>THÊM KÍCH THƯỚC</h1>
-            <TextField onChange={(e) => setSize(e.target.value)} value={size} label="Kích thước" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+            {/* <TextField onChange={(e) => setSize(e.target.value)} value={size} label="Kích thước" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
                 Thêm kích thước
-            </Button>
+            </Button> */}
             <MaterialTable
                 title="Danh sách khuyến mãi"
                 columns={columns}
@@ -108,11 +124,12 @@ function AddSize() {
                 editable={{
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve) => {
-                            // handleRowUpdate(newData, oldData, resolve);
+                            handleRowUpdate(newData, oldData, resolve);
                         }),
                     onRowAdd: (newData) =>
                         new Promise((resolve) => {
                             // handleRowAdd(newData, resolve);
+                            handleRowAdd(newData, resolve);
                         }),
                     onRowDelete: (oldData) =>
                         new Promise((resolve) => {

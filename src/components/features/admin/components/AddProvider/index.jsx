@@ -6,20 +6,23 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import providerAPI from '../../../../API/providerAPI';
 import { useSnackbar } from 'notistack';
+import tableIcons from '../MaterialTableControl';
+import MaterialTable from 'material-table';
 
-const columns = [
-    { field: 'id_nha_cc', headerName: 'id_nha_cc', width: 70 },
-    { field: 'ten_nha_cc', headerName: 'ten_nha_cc', width: 130 },
-    { field: 'dia_chi_cc', headerName: 'dia_chi_cc', width: 130 },
 
-];
+
 
 function AddProvider() {
     const [providerDetail, setProviderDetail] = useState([]);
     const [nameprovider, setNameProvider] = useState('');
     const [addressProvider, setAddressProvider] = useState('');
     const { enqueueSnackbar } = useSnackbar();
+    const columns = [
+        { field: 'id_nha_cc', title: 'id_nha_cc', width: 70 },
+        { field: 'ten_nha_cc', title: 'ten_nha_cc', width: 130 },
+        { field: 'dia_chi_cc', title: 'dia_chi_cc', width: 130 },
 
+    ];
     useEffect(() => {
         try {
             const fetchProviderDetail = async () => {
@@ -55,10 +58,51 @@ function AddProvider() {
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
             );
     };
+    const getProviderDetail = async () => {
 
-    const handleRowSelection = (e) => {
-        console.log(e)
+        const result = await providerAPI.get();
+        setProviderDetail(result.data.data);
+        console.log('providerDetail', result.data)
+    };
 
+
+    const handleRowUpdate = (newData, oldData, resolve) => {
+        const updateProvider = async () => {
+            try {
+                const { data } = await providerAPI.update({ id_nha_cc: newData.id_nha_cc, ten_nha_cc: newData.ten_nha_cc, dia_chi_cc: newData.dia_chi_cc });
+                getProviderDetail();
+            } catch (error) {
+                console.log('Failed to update providerDetail list: ', error);
+            }
+        };
+        updateProvider();
+        resolve();
+    };
+
+    const handleRowAdd = (newData, resolve) => {
+        const addProvider = async () => {
+            try {
+                const { data } = await providerAPI.add({ ten_nha_cc: newData.ten_nha_cc, dia_chi_cc: newData.dia_chi_cc });
+                getProviderDetail();
+            } catch (error) {
+                console.log('Failed toadd providerDetail list: ', error);
+            }
+        };
+        addProvider();
+        resolve();
+    };
+
+    const handleRowDelete = (oldData, resolve) => {
+        const deleteProvider = async () => {
+            try {
+                const { data } = await providerAPI.delete(oldData.id_nha_cc);
+                getProviderDetail();
+            } catch (error) {
+                console.log('Failed to update providerDetail list: ', error);
+            }
+        };
+        deleteProvider();
+        resolve();
     };
 
     return (
@@ -77,26 +121,34 @@ function AddProvider() {
         >
             <h1>THÊM NHÀ CUNG CẤP</h1>
 
-            <TextField onChange={(e) => setNameProvider(e.target.value)} value={nameprovider} label="Tên nhà cung cấp" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+            {/* <TextField onChange={(e) => setNameProvider(e.target.value)} value={nameprovider} label="Tên nhà cung cấp" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
             <TextField onChange={(e) => setAddressProvider(e.target.value)} value={addressProvider} label="Địa chỉ nhà cung cấp" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
 
 
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
                 Thêm nhà cung cấp
-            </Button>
-
-            <div style={{ height: 400, width: '100%', paddingTop: '50px' }}>
-                <DataGrid
-                    getRowId={(row) => row.id_nha_cc}
-                    rows={providerDetail}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    checkboxSelection
-                    onRowSelected={handleRowSelection}
-                    onSelectionModelChange={handleRowSelection}
-                />
-            </div>
+            </Button> */}
+            <MaterialTable
+                title="Danh sách nhà cung cấp"
+                columns={columns}
+                data={providerDetail}
+                icons={tableIcons}
+                editable={{
+                    onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve) => {
+                            handleRowUpdate(newData, oldData, resolve);
+                        }),
+                    onRowAdd: (newData) =>
+                        new Promise((resolve) => {
+                            // handleRowAdd(newData, resolve);
+                            handleRowAdd(newData, resolve);
+                        }),
+                    onRowDelete: (oldData) =>
+                        new Promise((resolve) => {
+                            handleRowDelete(oldData, resolve);
+                        }),
+                }}
+            />
         </Box >
     );
 }

@@ -129,13 +129,15 @@ function DetailPage() {
 
     useEffect(() => {
         if (sizeAdd && colorAdd || colorAdd && sizeAdd) {
-            const fillterTotal = detailProduct.filter(item => item.ten_kich_thuoc === sizeAdd && item.ten_mau_sac === colorAdd)
+            const fillterTotal = detailProduct.filter(item => item.id_kich_thuoc === sizeAdd && item.id_mau_sac === colorAdd)
             for (let i = 0; i < fillterTotal.length; i++) {
                 so_luong_kho = so_luong_kho + fillterTotal[i].so_luong_kho;
             }
             setTotal(so_luong_kho)
         }
     }, [colorAdd, sizeAdd])
+
+    console.log('test size display', sizeDisplay)
 
 
     useEffect(() => {
@@ -181,8 +183,8 @@ function DetailPage() {
                             id_sp: pageDetail[0].id_sp,
                             ten_sp: pageDetail[0].ten_sp,
                             gia_sp: pageDetail[0].gia_sp,
-                            ten_mau_sac: colorAdd,
-                            ten_kich_thuoc: sizeAdd,
+                            id_mau_sac: colorAdd,
+                            id_kich_thuoc: sizeAdd,
                             hinh_anh_chinh: pageDetail[0].hinh_anh_chinh,
                             so_luong: count
                         };
@@ -202,14 +204,14 @@ function DetailPage() {
                         id_sp: pageDetail[0].id_sp,
                         id_khach_hang: idUser,
                         ten_sp: pageDetail[0].ten_sp,
-                        ten_mau_sac: colorAdd,
-                        ten_kich_thuoc: sizeAdd,
+                        id_mau_sac: colorAdd,
+                        id_kich_thuoc: sizeAdd,
                         so_luong: count
                     })
 
                     let cartUser = JSON.parse(localStorage.getItem('cartUser')) || [];
                     // Tìm sản phẩm trong giỏ hàng.
-                    const index = cartUser.findIndex(item => item.id_sp === pageDetail[0].id_sp && item.ten_mau_sac === colorAdd && item.ten_kich_thuoc === sizeAdd);
+                    const index = cartUser.findIndex(item => item.id_sp === pageDetail[0].id_sp && item.id_mau_sac === colorAdd && item.id_kich_thuoc === sizeAdd);
                     // Nếu sản phẩm đã có trong giỏ hàng, cập nhật số lượng sản phẩm.
                     if (index !== -1) {
                         cartUser[index].so_luong += count;
@@ -218,8 +220,8 @@ function DetailPage() {
                             id_sp: pageDetail[0].id_sp,
                             ten_sp: pageDetail[0].ten_sp,
                             gia_sp: pageDetail[0].gia_sp,
-                            ten_mau_sac: colorAdd,
-                            ten_kich_thuoc: sizeAdd,
+                            id_mau_sac: colorAdd,
+                            id_kich_thuoc: sizeAdd,
                             hinh_anh_chinh: pageDetail[0].hinh_anh_chinh,
                             so_luong: count
                         };
@@ -276,7 +278,7 @@ function DetailPage() {
                                 <hr />
                             </Grid>
                             <Grid item xs={12} >
-                                {console.log('tesst log', item)}
+                                {console.log('tesst log', mysqlDateString)}
                                 {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div style={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}><p style={{ color: 'red', fontSize: '35px' }}>{(item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
 
                                     <Typography variant='h4' sx={{ fontFamily: 'Oswald', marginLeft: '10px', textDecoration: 'line-through' }} >{item.gia_sp.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</Typography>
@@ -293,8 +295,8 @@ function DetailPage() {
                                 <Grid item xs={9} sx={{ display: 'flex', marginLeft: '30px' }}>
                                     {colormap.map((item, index) => (
                                         <button style={{ marginTop: '25px', marginRight: '15px', backgroundColor: 'white', }} key={index}
-                                            className={selectedButtonId === item.ten_mau_sac ? 'selectedcolor' : ''}
-                                            onClick={() => handleButtonClick(item.ten_mau_sac)}
+                                            className={selectedButtonId === item.id_mau_sac ? 'selectedcolor' : ''}
+                                            onClick={() => handleButtonClick(item.id_mau_sac)}
 
                                         >{item.ten_mau_sac}</button>
                                     ))}
@@ -310,8 +312,8 @@ function DetailPage() {
                                     {sizeDisplay.map((item, index) => (
 
                                         <button style={{ marginRight: '15px', marginTop: '10px', maxWidth: '40px', height: '30px', backgroundColor: 'white' }}
-                                            key={index} className={selectedButtonSize === item.ten_kich_thuoc ? 'selectedsize' : ''}
-                                            onClick={() => handleButtonClickSize(item.ten_kich_thuoc)} value={item.ten_kich_thuoc}>{item.ten_kich_thuoc}</button>
+                                            key={index} className={selectedButtonSize === item.id_kich_thuoc ? 'selectedsize' : ''}
+                                            onClick={() => handleButtonClickSize(item.id_kich_thuoc)} value={item.id_kich_thuoc}>{item.ten_kich_thuoc}</button>
                                     ))}
                                 </Grid>
 
@@ -347,12 +349,12 @@ function DetailPage() {
 
                             <Grid item xs={12} className='slogan'>
                                 <Grid item xs={4} lg={4}>
-                                    Bảo hành keo vĩnh viễn
+                                    <p>Bảo hành keo vĩnh viễn cho sản phẩm tại cửa hàng</p>
 
                                 </Grid>
 
                                 <Grid item xs={4} lg={4}>
-                                    Miễn phí vận chuyển toàn quốc cho đơn hàng từ 150k
+                                    Vận chuyển toàn quốc cấp tốc cho đơn hàng từ 150k
                                 </Grid>
                                 <Grid item xs={4} lg={4}>
                                     Đổi trả dễ dàng (trong vòng 7 ngày nếu lỗi nhà sản xuất)
@@ -360,7 +362,7 @@ function DetailPage() {
                             </Grid>
                             <Grid item xs={12} className='slogan'>
                                 <Grid item xs={4} lg={4}>
-                                    Hotline 1900.633.349 hỗ trợ từ 8h30-21h30
+                                    Hotline 1900.766.767 hỗ trợ từ 8h30-21h30
 
                                 </Grid>
 
@@ -368,7 +370,7 @@ function DetailPage() {
                                     Giao hàng tận nơi, nhận hàng xong thanh toán
                                 </Grid>
                                 <Grid item xs={4} lg={4}>
-                                    Ưu đãi tích điểm và hưởng quyền lợi thành viên từ MWC
+                                    Ưu đãi tích điểm và hưởng quyền lợi thành viên từ HN STORE
                                 </Grid>
                             </Grid>
                         </Grid>

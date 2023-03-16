@@ -27,6 +27,7 @@ import OverView from './components/features/product/component/OverView';
 import AddDetail from './components/features/admin/components/AddDetail';
 import AddPromotion from './components/features/admin/components/AddPromotion';
 import Adidas from './components/features/newhot/adidas';
+
 function App() {
 
   return (
@@ -41,7 +42,16 @@ function App() {
           <Route path="/cart/:id/:id_khach_hang/:ten_mau_sac/:ten_kich_thuoc" element={<Cart />}></Route>
           <Route path="/colection/:id" element={<DetailPage />}></Route>
           <Route path="/importproduct" element={<Page />}></Route>
-          <Route path="/detail" element={<AddDetail />}></Route>
+          {/* <Route path="/detail" element={<AddDetail />}></Route> */}
+          <Route path="/size" element={<AddSize />}></Route>
+          <Route path="/category" element={<AddCategory />}></Route>
+          <Route path="/trademark" element={<AddTrademark />}></Route>
+          <Route path="/color" element={<AddColor />}></Route>
+          <Route path="/promotion" element={<AddDiscount />}></Route>
+          <Route path="/provider" element={<AddProvider />}></Route>
+          <Route path="/image" element={<AddDetailImage />}></Route>
+          <Route path="/invoice" element={<AddInvoice />}></Route>
+
           <Route path="/promotion" element={<AddPromotion />}></Route>
           <Route path="/adidas" element={<Adidas />}></Route>
           <Route path="/invoice/:name" element={<AddInvoiceInput />}></Route>
@@ -50,7 +60,6 @@ function App() {
           <Route path="/status/:id_khach_hang/:id_hd_dat" element={<StatusNew />}></Route>
           <Route path="/Duyet" element={<OrderConfirmation />}></Route>
           <Route path="/colections/:name" element={<OverView />}></Route>
-
 
 
 
