@@ -131,7 +131,7 @@ export default function SignUp() {
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs" sx={{
-                backgroundColor: 'white',
+                backgroundColor: 'white', paddingTop: '80px'
 
             }}>
                 <CssBaseline />
