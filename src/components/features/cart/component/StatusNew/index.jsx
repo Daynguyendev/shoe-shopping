@@ -43,7 +43,7 @@ export default function StatusNew() {
         }
     }, []);
     return (
-        <Box sx={{ width: '100%', minHeight: '550px', backgroundColor: 'white', paddingTop: '50px' }}>
+        <Box sx={{ width: '100%', minHeight: '550px', backgroundColor: 'white', paddingTop: '80px' }}>
             {
                 statusList.map((item, index) => (
                     <Grid key={index} sx={{ padding: '20px' }}>

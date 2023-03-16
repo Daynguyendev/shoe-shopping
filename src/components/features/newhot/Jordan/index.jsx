@@ -10,7 +10,7 @@ function Jordan(props) {
     }, []);
 
     return (
-        <Container disableGutters maxWidth="xl" className='detail-jordan' >
+        <Container disableGutters maxWidth="xl" className='detail-jordan' sx={{ paddingTop: '100px' }} >
             <Grid item xs={12}>
                 <h1>TIN TỨC</h1>
                 <h1> Nike Air Jordan 1 không chỉ là một đôi giày bóng rổ</h1>

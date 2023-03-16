@@ -10,7 +10,7 @@ function Adidas(props) {
 
 
     return (
-        <Container disableGutters maxWidth="xl" className='detail-adidas' >
+        <Container disableGutters maxWidth="xl" className='detail-adidas' sx={{ paddingTop: '100px' }} >
             <Grid item xs={12}>
                 <h1>TIN TỨC</h1>
                 <h1> Giày Adidas Ultra Boost 2021 là một đôi giày thế nào ?</h1>

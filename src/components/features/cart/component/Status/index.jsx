@@ -146,7 +146,7 @@ export default function Status() {
     }, []);
 
     return (
-        <Box sx={{ width: '100%', minHeight: '550px', backgroundColor: 'white', paddingTop: '50px' }}>
+        <Box sx={{ width: '100%', minHeight: '550px', backgroundColor: 'white', paddingTop: '80px' }}>
             {
                 statusList.map((item, index) => (
 
