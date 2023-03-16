@@ -181,25 +181,23 @@ export default function InforAccount() {
                     alignItems: 'center',
                     backgroundColor: 'white',
                     minHeight: '650px'
+                    , paddingTop: '80px'
                 }}>
                     <h3>Xin chào , {email.user.email_khach_hang}!</h3>
                     <Grid container spacing={2}>
-                        <Grid item xs={4}>
+                        <Grid item xs={12}>
                             <List
-                                sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+                                sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', fontSize: '30px' }}
                                 aria-label="contacts"
                             >
-                                <ListItem disablePadding>
-                                    <ListItemButton >
-                                        <ListItemText primary="Thêm địa chỉ" />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem disablePadding>
+
+                                <ListItem disablePadding >
                                     <ListItemButton onClick={handlemyBill}>
-                                        <ListItemText primary="Đơn hàng của tôi" />
+                                        <ListItemText primary="Kiểm tra đơn hàng của tôi" />
                                     </ListItemButton>
                                 </ListItem>
-                                <ListItem disablePadding>
+                                <hr />
+                                <ListItem disablePadding sx={{ fontSize: '30px' }}>
                                     <ListItemButton onClick={handleLogout}>
                                         <ListItemText primary="Đăng xuất" />
                                     </ListItemButton>
@@ -208,7 +206,7 @@ export default function InforAccount() {
                             </List>
 
                         </Grid>
-                        <Grid item xs={8} sx={{ marginTop: '17px' }}>
+                        {/* <Grid item xs={8} sx={{ marginTop: '17px' }}>
                             <Box
                                 component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}
                             >
@@ -235,15 +233,15 @@ export default function InforAccount() {
                                 <Stack sx={{ paddingTop: '17px' }}>
                                     <Button variant="contained" endIcon={<SendIcon />} onClick={handleSubmit}>
                                         Thêm địa chỉ
-                                    </Button>
-                                </Stack>
-                            </Box>
-                        </Grid>
+                                    </Button> */}
+                        {/* </Stack>
+                </Box>
+            </Grid> */}
                     </Grid>
 
 
 
-                </Box>
+                </Box >
                 <MaterialTable
                     title="Danh sách địa chỉ"
                     columns={columns}
@@ -265,7 +263,7 @@ export default function InforAccount() {
                             }),
                     }}
                 />
-            </Container>
+            </Container >
 
         ) : (
             <SignIn />

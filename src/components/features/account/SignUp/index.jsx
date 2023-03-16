@@ -45,6 +45,55 @@ export default function SignUp() {
 
 
     const handleSubmit = async (event) => {
+        if (name == '') {
+            enqueueSnackbar('Vui lòng nhập tên', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
+
+        if (email == '') {
+            enqueueSnackbar('Vui lòng nhập email', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
+
+        if (birthday == '' || birthday == null) {
+            enqueueSnackbar('Vui lòng nhập ngày sinh', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
+
+        if (password == '') {
+            enqueueSnackbar('Vui lòng nhập mật khẩu', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
+
+
         userAPI.register({
             ten_khach_hang: name,
             email_khach_hang: email,

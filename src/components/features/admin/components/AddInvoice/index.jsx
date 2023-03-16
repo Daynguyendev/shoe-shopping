@@ -164,7 +164,7 @@ function AddInvoice() {
             component="form"
             sx={{
                 '& .MuiTextField-root': { m: 1, width: '45ch' },
-                backgroundColor: 'white', textAlign: 'center', minHeight: '600px', paddingTop: '50px'
+                backgroundColor: 'white', textAlign: 'center', minHeight: '600px', paddingTop: '80px'
             }}
             noValidate
             autoComplete="off"

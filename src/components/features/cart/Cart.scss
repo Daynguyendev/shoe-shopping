@@ -2,12 +2,16 @@
 @media only screen and (max-width: 320px) {
     .full-cart {
         background-color: white;
+        padding-top: 80px;
+
     }
 }
 
 //mobile
 @media only screen and (min-width: 321px) and (max-width: 376px) {
     .full-cart {
+        padding-top: 60px;
+
         background-color: white;
     }
 }
@@ -16,6 +20,7 @@
 @media only screen and (min-width: 376px) and (max-width: 739px) {
     .full-cart {
         background-color: white;
+        padding-top: 60px;
 
         .pay {
             border: 1px solid black;
@@ -31,6 +36,7 @@
     .full-cart {
         background-color: white;
         display: flex;
+        padding-top: 80px;
 
     }
 }
@@ -39,6 +45,8 @@
 @media only screen and (min-width: 1025px) {
     .full-cart {
         display: flex;
+        padding-top: 80px;
+
         background-color: white;
 
         .pay {

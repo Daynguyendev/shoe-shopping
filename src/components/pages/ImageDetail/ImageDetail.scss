@@ -1,8 +1,8 @@
 //iphone5
 @media only screen and (max-width: 320px) {
     .img-list {
-        width: 330px;
-        height: 330px;
+        width: 300px;
+        height: 300px;
         margin-bottom: 250px;
 
     }
@@ -11,10 +11,10 @@
 //mobile
 @media only screen and (min-width: 321px) and (max-width: 376px) {
     .img-list {
-        width: 360px;
-        height: 360px;
+        width: 300px;
+        height: 300px;
         margin-bottom: 250px;
-
+        width: 100%;
     }
 
 }
@@ -22,8 +22,8 @@
 //pho thong
 @media only screen and (min-width: 376px) and (max-width: 739px) {
     .img-list {
-        width: 412px;
-        height: 412px;
+        width: 392px;
+        height: 392px;
         margin-bottom: 250px;
 
     }
@@ -32,8 +32,8 @@
 //tablet
 @media only screen and (min-width: 740px) and (max-width: 1024px) {
     .img-list {
-        width: 568px;
-        height: 568px;
+        width: 538px;
+        height: 538px;
         margin-bottom: 150px;
 
 
@@ -46,8 +46,8 @@
 //desktop
 @media only screen and (min-width: 1025px) {
     .img-list {
-        width: 768px;
-        height: 768px;
+        width: 738px;
+        height: 738px;
 
         .imgdetail {
             max-width: 768px;

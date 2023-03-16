@@ -108,6 +108,7 @@ function AddTrademark() {
                 alignItems: 'center',
                 paddingTop: '50px',
                 display: 'list-item'
+                , paddingTop: '80px'
             }}
         >
             <h1>THÊM THƯƠNG HIỆU</h1>

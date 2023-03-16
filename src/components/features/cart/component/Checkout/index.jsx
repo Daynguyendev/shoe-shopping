@@ -138,6 +138,55 @@ export default function UploadProduct() {
         setOpen(false);
     };
     const handleSubmit = (event) => {
+
+        if (idUser == '' || idUser == null) {
+            enqueueSnackbar('Lấy ID thất bại vui lòng đăng nhập lại', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
+        if (name == '' || name == null) {
+            enqueueSnackbar('Vui lòng nhập tên', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
+
+        if (addressadd == '' || addressadd == null) {
+            enqueueSnackbar('Vui lòng nhập địa chỉ ', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
+
+
+
+        if (phone == '' || phone == null) {
+            enqueueSnackbar('Vui lòng nhập số điện thoại', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
         addresskAPI.add({
             id_khach_hang: idUser,
             ten_dia_chi: addressadd,
@@ -191,6 +240,7 @@ export default function UploadProduct() {
     }, [idHd]);
 
     const handlesubmitFullInvoice = async (event) => {
+
         const check = await handleSubmitCheck();
         const promises = datacart.map(item => {
             return DetailProductAPI.UpdateQuantity({
@@ -205,6 +255,55 @@ export default function UploadProduct() {
             .then(responses => {
                 localStorage.removeItem('cartUser');
                 // Nếu tất cả các Promise đều thành công, tiếp tục thực hiện phần tiếp theo
+
+                if (idUser == '' || idUser == null) {
+                    enqueueSnackbar('Lấy ID thất bại vui lòng đăng nhập lại', {
+                        variant: 'error',
+                        autoHideDuration: 800,
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
+                    return;
+                }
+
+                if (addressSubmit == '' || addressSubmit == null) {
+                    enqueueSnackbar('Vui lòng nhập địa chỉ', {
+                        variant: 'error',
+                        autoHideDuration: 800,
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
+                    return;
+                }
+
+                if (checkoutSubmit == '' || checkoutSubmit == null) {
+                    enqueueSnackbar('Vui lòng chọn phương thức thanh toán', {
+                        variant: 'error',
+                        autoHideDuration: 800,
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
+                    return;
+                }
+
+                if (total + totalShip <= 0) {
+                    enqueueSnackbar('Có Lỗi! Vui lòng đăng nhập lại', {
+                        variant: 'error',
+                        autoHideDuration: 800,
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
+                    return;
+                }
+
                 invoiceoutputAPI.add({
                     id_khach_hang: idUser,
                     id_dia_chi: addressSubmit,
@@ -290,7 +389,7 @@ export default function UploadProduct() {
             component="form"
             sx={{
                 '& .MuiTextField-root': { m: 1 },
-                backgroundColor: 'white'
+                backgroundColor: 'white', paddingTop: '80px'
             }}
             noValidate
             autoComplete="off"

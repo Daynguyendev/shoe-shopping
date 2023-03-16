@@ -68,8 +68,30 @@ export default function SignIn() {
 
 
 
-    const handleSubmit = (event) => {
-        userAPI.login({
+    const handleSubmit = async (event) => {
+        if (email == '' || email == null) {
+            enqueueSnackbar('Vui lòng nhập email', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
+        if (password == '' || password == null) {
+            enqueueSnackbar('Vui lòng nhập mật khẩu', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
+        await userAPI.login({
             email_khach_hang: email,
             mat_khau_khach_hang: password
         })

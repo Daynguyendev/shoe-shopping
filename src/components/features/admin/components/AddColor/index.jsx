@@ -108,7 +108,8 @@ function AddColor() {
                 textAlign: 'center',
                 alignItems: 'center',
                 paddingTop: '50px',
-                display: 'list-item'
+                display: 'list-item',
+                paddingTop: '80px'
             }}
         >
             <h1>THÊM MÀU SẮC</h1>

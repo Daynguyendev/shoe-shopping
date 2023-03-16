@@ -1,6 +1,6 @@
 //iphone5
 @media only screen and (max-width: 320px) {
-    .detail-adidas {
+    .detail-jordan {
         background-color: white;
         justify-content: center;
         padding-bottom: 50px;
@@ -8,7 +8,8 @@
         padding-left: 20px;
         padding-right: 20px;
 
-        .img {
+
+        .imgjordan {
             width: 250px;
             height: 100%;
 
@@ -20,7 +21,7 @@
 
 //mobile
 @media only screen and (min-width: 321px) and (max-width: 376px) {
-    .detail-adidas {
+    .detail-jordan {
         background-color: white;
         text-align: center;
         padding-bottom: 50px;
@@ -28,7 +29,7 @@
         padding-left: 20px;
         padding-right: 20px;
 
-        .img {
+        .imgjordan {
             width: 300px;
             height: 100%;
 
@@ -39,7 +40,7 @@
 
 //pho thong
 @media only screen and (min-width: 376px) and (max-width: 739px) {
-    .detail-adidas {
+    .detail-jordan {
         background-color: white;
         justify-content: center;
         align-items: center;
@@ -50,7 +51,7 @@
         padding-right: 20px;
 
 
-        .img {
+        .imgjordan {
             width: 300px;
             height: 100%;
 
@@ -62,14 +63,16 @@
 
 //tablet
 @media only screen and (min-width: 740px) and (max-width: 1024px) {
-    .detail-adidas {
+    .detail-jordan {
         background-color: white;
         text-align: center;
         padding-bottom: 50px;
         padding-top: 50px;
+        padding-left: 20px;
+        padding-right: 20px;
 
 
-        .img {
+        .imgjordan {
             width: 400px;
             height: 100%;
 
@@ -80,7 +83,7 @@
 
 //desktop
 @media only screen and (min-width: 1025px) {
-    .detail-adidas {
+    .detail-jordan {
         background-color: white;
         text-align: center;
         padding-bottom: 50px;
@@ -89,8 +92,7 @@
         padding-right: 20px;
 
 
-
-        .img {
+        .imgjordan {
             width: 500px;
             height: 100%;
 

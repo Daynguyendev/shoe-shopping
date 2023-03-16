@@ -108,6 +108,7 @@ function AddCategory() {
                 alignItems: 'center',
                 paddingTop: '50px',
                 display: 'list-item'
+                , paddingTop: '80px'
             }}
         >
             <h1>THÊM LOẠI SẢN PHẨM</h1>

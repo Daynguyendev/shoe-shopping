@@ -163,6 +163,30 @@ function DetailPage() {
 
     ///// Submit add data database and localstore
     const handleAddSubmit = async (data) => {
+        if (colorAdd == '' || colorAdd == null) {
+            enqueueSnackbar('Chọn màu sắc', {
+                variant: 'error',
+                autoHideDuration: 1000,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
+        if (sizeAdd == '' || sizeAdd == null) {
+            enqueueSnackbar('Chọn kích thước', {
+                variant: 'error',
+                autoHideDuration: 1000,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
+
+
         if (total <= 0) {
             enqueueSnackbar('Sản phẩm đã hết', {
                 variant: 'error',
@@ -267,7 +291,7 @@ function DetailPage() {
     }, []);
 
     return (
-        <Container disableGutters maxWidth='xl' >
+        <Container disableGutters maxWidth='xl' className='detaipagefixed' >
 
             <Breadcrumbs className='breadcrum' aria-label="breadcrumb" style={{ backgroundColor: 'white' }}>
                 <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Oswald' }} onClick={handleHome}>Trang chủ </p>
@@ -286,22 +310,22 @@ function DetailPage() {
                                 <hr />
                             </Grid>
                             <Grid item xs={12} >
-                                {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div style={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}><p style={{ color: 'red', fontSize: '35px' }}>{(item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+                                {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div style={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}><p style={{ color: 'red', fontSize: '25px' }}>{(item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
 
-                                    <Typography variant='h4' sx={{ fontFamily: 'Oswald', marginLeft: '10px', textDecoration: 'line-through' }} >{item.gia_sp.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</Typography>
+                                    <Typography variant='h5' sx={{ fontFamily: 'Oswald', marginLeft: '10px', textDecoration: 'line-through' }} >{item.gia_sp.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</Typography>
 
                                 </div>
 
-                                ) : (<Typography variant='h4' sx={{ fontFamily: 'Oswald', marginTop: '15px' }} >{item.gia_sp.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</Typography>
+                                ) : (<Typography variant='h5' sx={{ fontFamily: 'Oswald', marginTop: '15px' }} >{item.gia_sp.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</Typography>
                                 )}
                             </Grid>
                             <Grid item xs={12} sx={{ display: 'flex' }} >
                                 <Grid item xs={3}>
-                                    <Typography variant='h5' sx={{ fontFamily: 'Oswald', marginTop: '30px', }} >Màu sắc</Typography>
+                                    <Typography variant='h5' sx={{ fontFamily: 'Oswald', }} >Màu sắc</Typography>
                                 </Grid>
                                 <Grid item xs={9} sx={{ display: 'flex', marginLeft: '30px' }}>
                                     {colormap.map((item, index) => (
-                                        <button style={{ marginTop: '25px', marginRight: '15px', backgroundColor: 'white', }} key={index}
+                                        <button style={{ marginRight: '15px', backgroundColor: 'white', height: '30px' }} key={index}
                                             className={selectedButtonId === item.id_mau_sac ? 'selectedcolor' : ''}
                                             onClick={() => handleButtonClick(item.id_mau_sac, item.ten_mau_sac)}
 
@@ -338,7 +362,9 @@ function DetailPage() {
                                 <Grid item xs={4} lg={2}>
                                     <ButtonForm name={'Mua Ngay'} />
                                 </Grid>
-                                <Grid item xs={3} lg={2} sx={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
+                                <Grid item xs={3} lg={2}>
+                                </Grid>
+                                {/* <Grid item xs={3} lg={2} sx={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
                                     <IconButton onClick={() => handleDecrease(item)}>
                                         <RemoveIcon />
                                     </IconButton>
@@ -346,9 +372,9 @@ function DetailPage() {
                                     <IconButton onClick={() => handleIncrease(item)}>
                                         <AddIcon />
                                     </IconButton>
-                                </Grid>
+                                </Grid> */}
                                 <Grid item xs={4} lg={4}>
-                                    <ButtonForm name={'Thêm vào giỏ hàng'} onClick={handleAddSubmit} />
+                                    <ButtonForm name={'Thêm vào giỏ'} onClick={handleAddSubmit} />
 
                                 </Grid>
                             </Grid>

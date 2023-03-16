@@ -109,6 +109,7 @@ function AddSize() {
                 alignItems: 'center',
                 paddingTop: '50px',
                 display: 'list-item'
+                , paddingTop: '80px'
             }}
         >
             <h1>THÊM KÍCH THƯỚC</h1>

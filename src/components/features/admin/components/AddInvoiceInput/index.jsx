@@ -21,7 +21,7 @@ import trademarkAPI from '../../../../API/trademarkAPI';
 import promotionAPI from '../../../../API/promotionAPI';
 import tableIcons from '../MaterialTableControl';
 import MaterialTable from 'material-table';
-
+import UploadImage from '../UploadImage';
 
 function AddInvoiceInput() {
     let { name } = useParams();
@@ -526,7 +526,7 @@ function AddInvoiceInput() {
                 <>
                     <Box
                         sx={{
-                            backgroundColor: 'white',
+                            backgroundColor: 'white', paddingTop: '80px'
                         }}
 
                     >
@@ -640,10 +640,13 @@ function AddInvoiceInput() {
 
 
 
-
                             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
                                 Nhập sản phẩm
                             </Button>
+                            <br />
+                            <br />
+                            <UploadImage />
+
 
                             <MaterialTable
                                 title="Danh sách sản phẩm nhập hàng"

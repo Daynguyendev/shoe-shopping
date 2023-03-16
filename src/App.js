@@ -27,6 +27,7 @@ import OverView from './components/features/product/component/OverView';
 import AddDetail from './components/features/admin/components/AddDetail';
 import AddPromotion from './components/features/admin/components/AddPromotion';
 import Adidas from './components/features/newhot/adidas';
+import Jordan from './components/features/newhot/Jordan';
 
 function App() {
 
@@ -42,7 +43,6 @@ function App() {
           <Route path="/cart/:id/:id_khach_hang/:ten_mau_sac/:ten_kich_thuoc" element={<Cart />}></Route>
           <Route path="/colection/:id" element={<DetailPage />}></Route>
           <Route path="/importproduct" element={<Page />}></Route>
-          {/* <Route path="/detail" element={<AddDetail />}></Route> */}
           <Route path="/size" element={<AddSize />}></Route>
           <Route path="/category" element={<AddCategory />}></Route>
           <Route path="/trademark" element={<AddTrademark />}></Route>
@@ -54,6 +54,8 @@ function App() {
 
           <Route path="/promotion" element={<AddPromotion />}></Route>
           <Route path="/adidas" element={<Adidas />}></Route>
+          <Route path="/jordan" element={<Jordan />}></Route>
+
           <Route path="/invoice/:name" element={<AddInvoiceInput />}></Route>
           <Route path="/checkout/:id" element={<Checkout />}></Route>
           <Route path="/status/:id_khach_hang" element={<Status />}></Route>

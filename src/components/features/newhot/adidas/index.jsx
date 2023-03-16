@@ -1,8 +1,13 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { Container } from '@mui/material';
+import { useLayoutEffect } from 'react';
 import './adidas.scss'
 function Adidas(props) {
+    useLayoutEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
 
     return (
         <Container disableGutters maxWidth="xl" className='detail-adidas' >

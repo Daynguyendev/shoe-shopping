@@ -119,6 +119,7 @@ function AddDiscount() {
                 alignItems: 'center',
                 paddingTop: '50px',
                 display: 'list-item'
+                , paddingTop: '80px'
             }}
         >
 

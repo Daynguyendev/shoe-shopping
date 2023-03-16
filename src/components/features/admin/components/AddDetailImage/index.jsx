@@ -156,6 +156,7 @@ function AddDetailImage() {
                 minWidth: '100%',
                 paddingTop: '50px',
                 display: 'list-item'
+                , paddingTop: '80px'
             }}
         >
             <h1>THÊM HÌNH ẢNH CHI TIẾT</h1>

@@ -36,6 +36,7 @@ function Header() {
   const listTrademark = [...tradeMarkAll] || [];
   const isLogin = useSelector((state) => state?.user.isLogin);
   let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
+  const [auto, setAuto] = useState(false);
 
   useEffect(() => {
     try {
@@ -53,9 +54,11 @@ function Header() {
 
   const searchProducts = (keyword) => {
     setOpen(true);
+    setAuto(true);
     setSearchValue(keyword);
     if (keyword.length == 0) {
       setOpen(false);
+      setAuto(false);
     }
     const filteredProducts = products.filter((product) =>
       product.ten_sp.includes(keyword)
@@ -168,7 +171,7 @@ function Header() {
   }
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: 'black' }} >
+    <AppBar position="static" sx={{ backgroundColor: 'black', position: 'fixed', zIndex: '100' }} >
       <Container disableGutters sx={{ maxWidth: 'xl', zIndex: 20, backgroundColor: 'black' }} >
         <Toolbar disableGutters >
           <Box className='box-img' sx={{ display: { xl: 'block', lg: 'block', md: 'block', sm: 'none', xs: 'none', cursor: 'pointer' } }} onClick={handlecClicklogo}>
@@ -203,10 +206,10 @@ function Header() {
               inputProps={{
                 'aria-label': 'search',
                 onChange: (e) => searchProducts(e.target.value)
-              }}
-              value={searchValue}
-              // autoFocus
 
+              }}
+              autoFocus={auto}
+              value={searchValue}
               sx={{ fontFamily: 'Jura' }}
             />
             {open && searchResult ? <ProductSearch searchResult={searchResult} setOpen={setOpen} /> : ''

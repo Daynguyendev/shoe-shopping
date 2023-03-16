@@ -9,7 +9,7 @@ import { Grid } from '@mui/material';
 function ReviewShop(props) {
     return (
         <Container disableGutters maxWidth="xl" sx={{
-            paddingBottom: '30px'
+            paddingBottom: '30px', paddingTop: '80px'
         }} >
             <Slide>
                 {
