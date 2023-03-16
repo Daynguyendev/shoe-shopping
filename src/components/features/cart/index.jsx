@@ -15,6 +15,8 @@ function Cart(props) {
     const [cart, setCart] = useState();
     let User = JSON.parse(localStorage.getItem('cart')) || [];
     const dataUser = User || [];
+    const [itemNotLogin, setItemNotLogin] = useState(dataUser);
+
     const [idUser, setIdUser] = useState(null);
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
     const isLogin = useSelector((state) => state?.user.isLogin);
@@ -36,17 +38,18 @@ function Cart(props) {
     useEffect(() => {
         if (idUser) {
             handleAddCartDb()
+            console.log('ta iduser dumtao', idUser)
         }
     }, [idUser])
 
     const handleAddCartDb = async () => {
 
         for (const item of dataUser) {
-            cartAPI.updateQuantity({
+            const results = await cartAPI.updateQuantity({
                 id_khach_hang: idUser,
                 id_sp: item.id_sp,
-                ten_mau_sac: item.ten_mau_sac,
-                ten_kich_thuoc: item.ten_kich_thuoc,
+                id_mau_sac: item.id_mau_sac,
+                id_kich_thuoc: item.id_kich_thuoc,
                 so_luong: item.so_luong,
             })
 
@@ -76,11 +79,11 @@ function Cart(props) {
         <Container container="true" disableGutters maxWidth='xl'>
             <Grid className='full-cart' minHeight='600px'>
                 <Grid item xs={12} sm={12} lg={8} xl={8} className='list-item'>
-                    <ListItem cart={cart} setCart={setCart} isLoading={isLoading} />
+                    <ListItem cart={cart} setCart={setCart} setItemNotLogin={setItemNotLogin} isLoading={isLoading} />
                 </Grid>
 
                 <Grid item xs={12} sm={12} lg={4} xl={4} className='pay'>
-                    <Pay cart={cart} setCart={setCart} isLoading={isLoading} />
+                    <Pay itemNotLogin={itemNotLogin} cart={cart} setCart={setCart} isLoading={isLoading} />
                 </Grid>
 
             </Grid>

@@ -14,7 +14,9 @@
         width: 360px;
         height: 360px;
         margin-bottom: 250px;
+
     }
+
 }
 
 //pho thong
@@ -35,7 +37,10 @@
         margin-bottom: 150px;
 
 
+
+
     }
+
 }
 
 //desktop
@@ -47,6 +52,8 @@
         .imgdetail {
             max-width: 768px;
             max-height: 768px;
+            pointer-events: none;
+
         }
 
     }

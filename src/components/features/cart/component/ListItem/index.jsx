@@ -16,7 +16,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DetailProductAPI from '../../../../API/detailproductAPI';
 
-function ListItem({ cart, setCart }) {
+function ListItem({ cart, setCart, setItemNotLogin }) {
     let { id } = useParams();
     let User = JSON.parse(localStorage.getItem('cart')) || [];
     const [items, setItems] = useState([]);
@@ -69,14 +69,15 @@ function ListItem({ cart, setCart }) {
         setItems(storedItems);
     }, []);
 
-    const handleRemove = (id_sp, ten_mau_sac, ten_kich_thuoc, so_luong) => {
+    const handleRemove = (id_sp, id_mau_sac, id_kich_thuoc, so_luong) => {
         let cartList = JSON.parse(localStorage.getItem('cart'));
         cartList = cartList.filter(item => (
             item.id_sp !== id_sp ||
-            item.ten_mau_sac !== ten_mau_sac ||
-            item.ten_kich_thuoc !== ten_kich_thuoc || item.so_luong !== so_luong
+            item.id_mau_sac !== id_mau_sac ||
+            item.id_kich_thuoc !== id_kich_thuoc || item.so_luong !== so_luong
         ));
         setItemLocal(cartList);
+        setItemNotLogin(cartList)
         localStorage.setItem('cart', JSON.stringify(cartList));
     };
 
@@ -84,6 +85,8 @@ function ListItem({ cart, setCart }) {
         items[index].so_luong += 1;
 
         const updateCart = [...items];
+        setItemNotLogin(updateCart)
+
         localStorage.setItem('cart', JSON.stringify(updateCart));
         setItemLocal(updateCart)
     }
@@ -92,6 +95,8 @@ function ListItem({ cart, setCart }) {
         if (items[index].so_luong > 1) {
             items[index].so_luong -= 1;
             const updateCart = [...items];
+            setItemNotLogin(updateCart)
+
             localStorage.setItem('cart', JSON.stringify(updateCart));
             setItemLocal(updateCart)
         }

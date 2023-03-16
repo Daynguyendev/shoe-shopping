@@ -19,6 +19,7 @@ import userAPI from '../../../API/userAPI';
 import { useDispatch } from 'react-redux';
 import { login } from '../userSlice';
 import { useSelector } from 'react-redux';
+import cartAPI from './../../../API/cartAPI';
 
 function Copyright(props) {
     return (
@@ -54,6 +55,7 @@ export default function SignIn() {
                 if (isLogin) {
                     const res = await userAPI.getID({ email_khach_hang: email_khach_hang });
                     setIdUser(res.data.data[0]?.id_khach_hang)
+
                 }
             };
             fetchIdUser();
@@ -62,12 +64,17 @@ export default function SignIn() {
         }
     }, []);
 
+
+
+
+
     const handleSubmit = (event) => {
         userAPI.login({
             email_khach_hang: email,
             mat_khau_khach_hang: password
         })
-            .then(function (response) {
+
+            .then(async function (response) {
                 dispatch(login({ email_khach_hang: email, token: response.data.token }));
                 let data = { email_khach_hang: email, isLogin: true }
                 localStorage.setItem('token', response.data.token);

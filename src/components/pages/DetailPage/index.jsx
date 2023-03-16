@@ -34,6 +34,8 @@ function DetailPage() {
     const [selectedButtonSize, setSelectedButtonSize] = useState(null);
     const [sizeAdd, setSizeAdd] = useState();
     const [colorAdd, setColorAdd] = useState();
+    const [sizeAddlocal, setSizeAddlocal] = useState();
+    const [colorAddlocal, setColorAddlocal] = useState();
     const [count, setCount] = useState(1);
     const [total, setTotal] = useState(0);
     const [idUser, setIdUser] = useState();
@@ -101,14 +103,18 @@ function DetailPage() {
 
     const dispatch = useDispatch()
 
-    const handleButtonClick = (name) => {
+    const handleButtonClick = (id, name) => {
 
-        setColorAdd(name);
-        setSelectedButtonId(name);
+        setColorAddlocal(name);
+
+        setColorAdd(id);
+        setSelectedButtonId(id);
 
     };
-    const handleButtonClickSize = (id) => {
+    const handleButtonClickSize = (id, name) => {
         setSizeAdd(id);
+        setSizeAddlocal(name);
+
         setSelectedButtonSize(id);
 
     };
@@ -174,7 +180,7 @@ function DetailPage() {
                     // Lấy dữ liệu từ local storage và chuyển đổi thành mảng (nếu có).
                     let cart = JSON.parse(localStorage.getItem('cart')) || [];
                     // Tìm sản phẩm trong giỏ hàng.
-                    const index = cart.findIndex(item => item.id_sp === pageDetail[0].id_sp && item.ten_mau_sac === colorAdd && item.ten_kich_thuoc === sizeAdd);
+                    const index = cart.findIndex(item => item.id_sp === pageDetail[0].id_sp && item.id_mau_sac === colorAdd && item.id_kich_thuoc === sizeAdd);
                     // Nếu sản phẩm đã có trong giỏ hàng, cập nhật số lượng sản phẩm.
                     if (index !== -1) {
                         cart[index].so_luong += count;
@@ -186,7 +192,9 @@ function DetailPage() {
                             id_mau_sac: colorAdd,
                             id_kich_thuoc: sizeAdd,
                             hinh_anh_chinh: pageDetail[0].hinh_anh_chinh,
-                            so_luong: count
+                            so_luong: count,
+                            ten_mau_sac: colorAddlocal,
+                            ten_kich_thuoc: sizeAddlocal
                         };
                         cart.push(newItem);
                     }
@@ -296,7 +304,7 @@ function DetailPage() {
                                     {colormap.map((item, index) => (
                                         <button style={{ marginTop: '25px', marginRight: '15px', backgroundColor: 'white', }} key={index}
                                             className={selectedButtonId === item.id_mau_sac ? 'selectedcolor' : ''}
-                                            onClick={() => handleButtonClick(item.id_mau_sac)}
+                                            onClick={() => handleButtonClick(item.id_mau_sac, item.ten_mau_sac)}
 
                                         >{item.ten_mau_sac}</button>
                                     ))}
@@ -313,7 +321,7 @@ function DetailPage() {
 
                                         <button style={{ marginRight: '15px', marginTop: '10px', maxWidth: '40px', height: '30px', backgroundColor: 'white' }}
                                             key={index} className={selectedButtonSize === item.id_kich_thuoc ? 'selectedsize' : ''}
-                                            onClick={() => handleButtonClickSize(item.id_kich_thuoc)} value={item.id_kich_thuoc}>{item.ten_kich_thuoc}</button>
+                                            onClick={() => handleButtonClickSize(item.id_kich_thuoc, item.ten_kich_thuoc)} value={item.id_kich_thuoc}>{item.ten_kich_thuoc}</button>
                                     ))}
                                 </Grid>
 

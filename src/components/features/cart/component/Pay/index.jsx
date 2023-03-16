@@ -10,13 +10,18 @@ import { useSelector } from 'react-redux';
 import cartAPI from '../../../../API/cartAPI';
 import DetailProductAPI from '../../../../API/detailproductAPI';
 import userAPI from '../../../../API/userAPI';
+import { useSnackbar } from 'notistack';
 
-function Pay({ cart, setCart }) {
+function Pay({ itemNotLogin, cart, setCart }) {
     let { id } = useParams();
+    const { enqueueSnackbar } = useSnackbar();
+
     let cartUser = JSON.parse(localStorage.getItem('cartUser')) || [];
     const navigate = useNavigate();
     const [total, setTotal] = useState(0)
     const [totalShip, setTotalShip] = useState(0)
+    const [totallocal, setTotallocal] = useState(0)
+    const [totalShiplocal, setTotalShiplocal] = useState(0)
     const data = cart || [];
     const [productTotal, setProductTotal] = useState()
     const [idUser, setIdUser] = useState();
@@ -24,6 +29,7 @@ function Pay({ cart, setCart }) {
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
     const now = new Date();
     const mysqlDateString = now.toISOString().slice(0, 19).replace('T', ' ');
+
     useEffect(() => {
         try {
             const fetchIdUser = async () => {
@@ -38,6 +44,18 @@ function Pay({ cart, setCart }) {
 
 
     const handleCheckout = async () => {
+        if (totallocal + totalShiplocal === 0) {
+            enqueueSnackbar('Vui lòng thêm sản phẩm vào giỏ', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+
+        }
         if (isLogin) {
             const resultt = await cartAPI.getDetail(idUser)
             setProductTotal(resultt.data.data);
@@ -76,6 +94,7 @@ function Pay({ cart, setCart }) {
         }
         console.log('test sum', sum);
         setTotal(sum);
+
     }, [data]);
 
     useEffect(() => {
@@ -88,31 +107,83 @@ function Pay({ cart, setCart }) {
         setTotalShip(ship)
     }, [data]);
 
+
+
+    ///// Not login
+    useEffect(() => {
+        const NewArray = [...itemNotLogin];
+        let sum = parseInt(0);
+        for (let i = 0; i < NewArray.length; i++) {
+            if (mysqlDateString >= NewArray[i]?.ngay_bat_dau && mysqlDateString <= NewArray[i]?.ngay_ket_thuc) {
+                sum = (sum + parseInt(NewArray[i].gia_sp - (NewArray[i].phan_tram_giam / 100 * NewArray[i].gia_sp)) * NewArray[i].so_luong)
+            }
+            else
+                sum = sum + parseInt(NewArray[i]?.gia_sp * NewArray[i].so_luong);
+        }
+        setTotallocal(sum);
+    }, [itemNotLogin]);
+
+
+    useEffect(() => {
+        const NewArray = [...itemNotLogin];
+        const sum = NewArray.reduce((total, product) => {
+            return total + product.so_luong;
+        }, 0);
+        let Number = Math.ceil(sum / 3);
+        const ship = Number * 30000;
+        setTotalShiplocal(ship)
+
+
+    }, [itemNotLogin]);
+
+
+
+
     return (
         <Container disableGutters maxWidth='xl' sx={{
             color: 'black', padding: '12px'
         }} >
-
-            <Typography variant='h6' sx={{ fontFamily: 'Oswald' }}>
+            {isLogin ? (<>  <Typography variant='h6' sx={{ fontFamily: 'Oswald' }}>
                 Cộng giỏ hàng
             </Typography>
-            <hr />
+                <hr />
 
-            <Typography sx={{ fontFamily: 'Oswald' }}>
-                Tạm tính : {total}
-            </Typography>
-            <hr />
-            <Typography sx={{ fontFamily: 'Oswald' }}>
-                Giao hàng : {totalShip}
-            </Typography>
-            <hr />
-            <Typography sx={{ fontFamily: 'Oswald' }}>
-                Tổng : {total + totalShip}
-            </Typography>
-            <hr />
-            <Button onClick={handleCheckout} variant="contained" disableElevation fullWidth sx={{ backgroundColor: 'Coral', fontFamily: 'Oswald' }}>
-                Tiến hành thanh toán
-            </Button>
+                <Typography sx={{ fontFamily: 'Oswald' }}>
+                    Tạm tính : {total}
+                </Typography>
+                <hr />
+                <Typography sx={{ fontFamily: 'Oswald' }}>
+                    Giao hàng : {totalShip}
+                </Typography>
+                <hr />
+                <Typography sx={{ fontFamily: 'Oswald' }}>
+                    Tổng : {total + totalShip}
+                </Typography>
+                <hr />
+                <Button onClick={handleCheckout} variant="contained" disableElevation fullWidth sx={{ backgroundColor: 'Coral', fontFamily: 'Oswald' }}>
+                    Tiến hành thanh toán
+                </Button></>) : (<>  <Typography variant='h6' sx={{ fontFamily: 'Oswald' }}>
+                    Cộng giỏ hàng
+                </Typography>
+                    <hr />
+
+                    <Typography sx={{ fontFamily: 'Oswald' }}>
+                        Tạm tính : {totallocal}
+                    </Typography>
+                    <hr />
+                    <Typography sx={{ fontFamily: 'Oswald' }}>
+                        Giao hàng : {totalShiplocal}
+                    </Typography>
+                    <hr />
+                    <Typography sx={{ fontFamily: 'Oswald' }}>
+                        Tổng : {totallocal + totalShiplocal}
+                    </Typography>
+                    <hr />
+                    <Button onClick={handleCheckout} variant="contained" disableElevation fullWidth sx={{ backgroundColor: 'Coral', fontFamily: 'Oswald' }}>
+                        Tiến hành thanh toán
+                    </Button></>)}
+
+
         </Container >
     );
 }

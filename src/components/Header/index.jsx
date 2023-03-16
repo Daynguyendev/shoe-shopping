@@ -150,7 +150,7 @@ function Header() {
   };
 
   const handlecClickcart = () => {
-    navigate(`/cart/${idUser}/id_sp/ten_mau_sac/ten_kich_thuoc`)
+    navigate(`/cart/${idUser}/id_sp/id_mau_sac/id_kich_thuoc`)
     // window.location.reload();
   }
 
@@ -158,9 +158,9 @@ function Header() {
     navigate(`/`)
   }
 
-  const handlecClickSneaker = () => {
-    navigate(`/colections/Nike`)
-    window.location.reload()
+  const handlecClickSneaker = (name) => {
+    navigate(`/colections/danh-muc`)
+    // window.location.reload()
   }
 
   const handleAccount = () => {
@@ -244,12 +244,14 @@ function Header() {
               sx={{
                 display: { xs: 'block', md: 'none', xl: 'none' },
               }}
+
             >
-              {listTrademark.map((item, index) => (
+              <h3 onClick={() => handlecClickSneaker()} style={{ width: '350px' }}>Danh mục</h3>
+              {/* {listTrademark.map((item, index) => (
                 <MenuItem key={index} sx={{ width: '350px' }} onClick={() => handlecClickSneaker(item.ten_thuong_hieu)}>
                   <h3>{item.ten_thuong_hieu}</h3>
                 </MenuItem>
-              ))}
+              ))} */}
             </Menu>
 
           </Box>

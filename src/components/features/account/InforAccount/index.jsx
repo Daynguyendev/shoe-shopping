@@ -182,7 +182,7 @@ export default function InforAccount() {
                     backgroundColor: 'white',
                     minHeight: '650px'
                 }}>
-                    <p>Xin chào , {email.user.email_khach_hang}!</p>
+                    <h3>Xin chào , {email.user.email_khach_hang}!</h3>
                     <Grid container spacing={2}>
                         <Grid item xs={4}>
                             <List

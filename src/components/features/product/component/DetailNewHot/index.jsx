@@ -4,7 +4,7 @@ import './DetailNewHot.scss';
 
 function DetailNewHot({ Background, title, onClick }) {
     return (
-        <Box >
+        <Box sx={{ padding: '5px' }}>
             <Box className="imgtype" style={{ backgroundImage: `url(${Background})` }}>
                 <Box className="detail" onClick={onClick}>{title.toUpperCase()}</Box>
 
