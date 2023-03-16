@@ -205,7 +205,7 @@ function Header() {
                 onChange: (e) => searchProducts(e.target.value)
               }}
               value={searchValue}
-              autoFocus
+              // autoFocus
 
               sx={{ fontFamily: 'Jura' }}
             />
