@@ -195,7 +195,6 @@ function Header() {
           >
             <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/logoStore.png" alt="logoStore" style={{ width: '90%' }} />
 
-
           </Typography>
           <Search sx={{ width: '220px' }}>
             <SearchIconWrapper>
@@ -215,53 +214,19 @@ function Header() {
             {open && searchResult ? <ProductSearch searchResult={searchResult} setOpen={setOpen} /> : ''
             }
           </Search>
-
-
-
           <Box sx={{ display: { xs: 'flex', md: 'none' }, }}>
             <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
+              onClick={handlecClickSneaker}
               color="inherit"
             >
               <MenuIcon />
             </IconButton>
-
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none', xl: 'none' },
-              }}
-
-            >
-              <h3 onClick={() => handlecClickSneaker()} style={{ width: '350px' }}>Danh mục</h3>
-              {/* {listTrademark.map((item, index) => (
-                <MenuItem key={index} sx={{ width: '350px' }} onClick={() => handlecClickSneaker(item.ten_thuong_hieu)}>
-                  <h3>{item.ten_thuong_hieu}</h3>
-                </MenuItem>
-              ))} */}
-            </Menu>
-
           </Box>
-
-
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-
             <Button
 
               onClick={() => handlecClickSneaker()}
@@ -276,8 +241,6 @@ function Header() {
 
           <Box sx={{ flexGrow: 0, color: 'white', textAlign: 'center', alignItems: 'center', display: 'flex', cursor: 'pointer', fontFamily: 'Jura' }} onClick={handlecClickcart}>
             <ShoppingCartIcon />
-
-
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"

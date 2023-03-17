@@ -9,6 +9,8 @@ import { useParams } from 'react-router-dom';
 import cartAPI from '../../API/cartAPI'
 import { useSelector } from 'react-redux';
 import userAPI from '../../API/userAPI';
+import { useLayoutEffect } from 'react';
+
 function Cart(props) {
     let { id } = useParams();
     const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +22,11 @@ function Cart(props) {
     const [idUser, setIdUser] = useState(null);
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
     const isLogin = useSelector((state) => state?.user.isLogin);
+
+    useLayoutEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
 
     useEffect(() => {
         try {

@@ -44,7 +44,7 @@ function Pay({ itemNotLogin, cart, setCart }) {
 
 
     const handleCheckout = async () => {
-        if (total <= 0) {
+        if (total <= 0 && totallocal <= 0) {
             enqueueSnackbar('Vui lòng thêm sản phẩm vào giỏ', {
                 variant: 'error',
                 autoHideDuration: 800,

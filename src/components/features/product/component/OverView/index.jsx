@@ -19,8 +19,8 @@ function OverView() {
     const [product, setProduct] = useState([]);
     const [productCategory, setProductCategory] = useState([]);
     const [category, setCategory] = useState([]);
-    const [display, setDisplay] = useState(1);
-
+    const [display, setDisplay] = useState(null);
+    const [productDefault, setProductDefault] = useState([]);
     const handleClickDetail = (item) => {
         navigate(`/colections/${item}`)
         setPage(1);
@@ -78,6 +78,21 @@ function OverView() {
     useEffect(() => {
         try {
             const fetchProduct = async () => {
+                if (productDefault !== null) {
+                    const result = await productAPI.getAll();
+                    setProductDefault(result.data.data);
+                }
+            };
+            fetchProduct();
+        } catch (error) {
+            console.log('Failed to fetch productDefault: ', error);
+        }
+    }, []);
+    console.log('test product default', productDefault);
+
+    useEffect(() => {
+        try {
+            const fetchProduct = async () => {
                 if (productCategory !== null) {
                     const result = await productAPI.getCategory(name);
                     setProductCategory(result.data.data);
@@ -89,6 +104,7 @@ function OverView() {
         }
     }, [name]);
 
+
     return (
         <Container disableGutters maxWidth="xl" >
             <Breadcrumbs aria-label="breadcrumb" style={{ backgroundColor: 'white', padding: '5px' }}>
@@ -97,7 +113,7 @@ function OverView() {
             </Breadcrumbs>
             <Grid item xs={12} className='overview' >
                 <Grid item xs={3} className='danh-muc'  >
-                    <h3 style={{ color: 'red' }}>Thương hiệu</h3>
+                    <h3 style={{ color: 'red', marginTop: '-5px' }}>Thương hiệu</h3>
                     {tradeMarkAll.map((item, index) => (
                         <h4 key={index} style={{ fontFamily: 'Jura', cursor: 'pointer' }} onClick={() => handleClickDetail(item.ten_thuong_hieu)}>
                             {item.ten_thuong_hieu}
@@ -111,7 +127,7 @@ function OverView() {
                     ))}
                 </Grid>
                 <Grid container className='product' >
-                    <Product xs={12} sm={6} md={4} lg={4} xl={4} display={display} so_luong={6} product={product} productCategory={productCategory} newcolor="white" colortext="black" page={page} handleReset={onResetData} />
+                    <Product xs={12} sm={6} md={4} lg={4} xl={4} productDefault={productDefault} display={display} value5={5} so_luong={2} productView={product} productCategory={productCategory} newcolor="white" colortext="black" page={page} handleReset={onResetData} />
                 </Grid>
 
             </Grid>

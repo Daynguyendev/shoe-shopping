@@ -24,7 +24,7 @@ function ItemSale({ Sale, value2 }) {
                 </Grid>
             </Grid>
             <Grid container spacing={2} className='ListItemsale' >
-                <Product xs={6} sm={6} md={4} lg={3} xl={3} so_luong={8} Sale={Sale} value2={value2} />
+                <Product xs={6} sm={6} md={4} lg={3} xl={3} so_luong={8} Sale={Sale} value2={2} />
             </Grid>
         </Container >
     );

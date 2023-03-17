@@ -6,6 +6,7 @@ import { Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 function ListProduct({ product, value1 }) {
+
     const navigate = useNavigate();
     const handleClickProduct = () => {
         navigate(`/detail`)
@@ -30,7 +31,7 @@ function ListProduct({ product, value1 }) {
                 </Grid>
             </Grid>
             <Grid container spacing={2} className='Listproduct' >
-                <Product xs={6} sm={6} md={4} lg={3} xl={3} so_luong={8} product={product} value1={value1} />
+                <Product xs={6} sm={6} md={4} lg={3} xl={3} so_luong={8} product={product} value1={1} />
             </Grid>
         </Container >
     );

@@ -9,7 +9,7 @@ import SendIcon from '@mui/icons-material/Send';
 import './account.scss'
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import addresskAPI from '../../../API/addressAPI';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -170,6 +170,9 @@ export default function InforAccount() {
         deleteListAddress();
         resolve();
     };
+    useLayoutEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <>   {isLogin ? (

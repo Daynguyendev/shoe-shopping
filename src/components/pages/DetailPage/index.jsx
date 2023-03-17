@@ -48,6 +48,71 @@ function DetailPage() {
     const colormap = colorDisplay || [];
     const now = new Date();
     const mysqlDateString = now.toISOString().slice(0, 19).replace('T', ' ');
+    // let cartUser = JSON.parse(localStorage.getItem('cartUser')) || [];
+
+
+    const handleBuyNow = async () => {
+        if (colorAdd == '' || colorAdd == null) {
+
+            enqueueSnackbar('Vui lòng chọn màu sắc', {
+                variant: 'error',
+                autoHideDuration: 1000,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+
+        }
+        if (sizeAdd == '' || sizeAdd == null) {
+
+            enqueueSnackbar('Vui lòng chọn kích thước', {
+                variant: 'error',
+                autoHideDuration: 1000,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+
+        }
+
+        const data = {
+            id_mau_sac: colorAdd,
+            id_kich_thuoc: sizeAdd,
+            id_sp: id,
+        }
+
+        const result = await localStorage.setItem('Buy-now', JSON.stringify(data));
+
+        if (isLogin) {
+            // const resultt = await cartAPI.getDetail(idUser)
+            // setProductTotal(resultt.data.data);
+            // for (let i = 0; i < cartUser.length; i++) {
+            //     const item = cartUser[i];
+            //     const result = await DetailProductAPI.getQuantityCart({
+            //         id_sp: item.id_sp,
+            //         id_mau_sac: item.id_mau_sac,
+            //         id_kich_thuoc: item.id_kich_thuoc,
+            //     });
+            //     if (
+            //         result.data.data.so_luong_kho - resultt.data.data[i]?.so_luong >= 0
+
+            //     ) {
+            //         continue;
+            //     }
+            //     else
+            //         alert('Sản phẩm không còn đủ số lượng ' + result.data.data.ten_sp + ' ' + result.data.data.ten_mau_sac + ' ' + result.data.data.ten_kich_thuoc + ' Chỉ còn ' + result.data.data.so_luong_kho);
+            //     return;
+            // }
+            navigate(`/checkout/${id}`);
+        } else {
+            navigate(`/login`);
+        }
+    };
+
     useEffect(() => {
 
         try {
@@ -360,7 +425,7 @@ function DetailPage() {
                             </Grid>
                             <Grid item xs={12} className='buy-now'>
                                 <Grid item xs={4} lg={2}>
-                                    <ButtonForm name={'Mua Ngay'} />
+                                    <ButtonForm name={'Mua Ngay'} onClick={handleBuyNow} />
                                 </Grid>
                                 <Grid item xs={3} lg={2}>
                                 </Grid>
