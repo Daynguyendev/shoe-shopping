@@ -23,7 +23,7 @@ import ButtonForm from '../../Formcontrol/ButtonForm';
 import PageRateProduct from '../../features/product/component/PageRateProduct';
 import colorAPI from '../../API/colorAPI';
 import sizeAPI from './../../API/sizeAPI';
-
+import Progress from '../../Formcontrol/Progress';
 function DetailPage() {
     let { id } = useParams();
     const navigate = useNavigate()
@@ -48,6 +48,8 @@ function DetailPage() {
     const colormap = colorDisplay || [];
     const now = new Date();
     const mysqlDateString = now.toISOString().slice(0, 19).replace('T', ' ');
+    const [loading, setLoading] = useState(false);
+
     // let cartUser = JSON.parse(localStorage.getItem('cartUser')) || [];
 
 
@@ -297,35 +299,36 @@ function DetailPage() {
                         },
                     });
                 } else {
-                    const result = cartAPI.add({
+
+                    const result = await cartAPI.add({
                         id_sp: pageDetail[0].id_sp,
                         id_khach_hang: idUser,
                         ten_sp: pageDetail[0].ten_sp,
                         id_mau_sac: colorAdd,
                         id_kich_thuoc: sizeAdd,
-                        so_luong: count
+                        so_luong: count,
                     })
 
-                    let cartUser = JSON.parse(localStorage.getItem('cartUser')) || [];
-                    // Tìm sản phẩm trong giỏ hàng.
-                    const index = cartUser.findIndex(item => item.id_sp === pageDetail[0].id_sp && item.id_mau_sac === colorAdd && item.id_kich_thuoc === sizeAdd);
-                    // Nếu sản phẩm đã có trong giỏ hàng, cập nhật số lượng sản phẩm.
-                    if (index !== -1) {
-                        cartUser[index].so_luong += count;
-                    } else { // Ngược lại, thêm sản phẩm mới vào giỏ hàng.
-                        const newItem = {
-                            id_sp: pageDetail[0].id_sp,
-                            ten_sp: pageDetail[0].ten_sp,
-                            gia_sp: pageDetail[0].gia_sp,
-                            id_mau_sac: colorAdd,
-                            id_kich_thuoc: sizeAdd,
-                            hinh_anh_chinh: pageDetail[0].hinh_anh_chinh,
-                            so_luong: count
-                        };
-                        cartUser.push(newItem);
+                    // let cartUser = JSON.parse(localStorage.getItem('cartUser')) || [];
+                    // // Tìm sản phẩm trong giỏ hàng.
+                    // const index = cartUser.findIndex(item => item.id_sp === pageDetail[0].id_sp && item.id_mau_sac === colorAdd && item.id_kich_thuoc === sizeAdd);
+                    // // Nếu sản phẩm đã có trong giỏ hàng, cập nhật số lượng sản phẩm.
+                    // if (index !== -1) {
+                    //     cartUser[index].so_luong += count;
+                    // } else { // Ngược lại, thêm sản phẩm mới vào giỏ hàng.
+                    //     const newItem = {
+                    //         id_sp: pageDetail[0].id_sp,
+                    //         ten_sp: pageDetail[0].ten_sp,
+                    //         gia_sp: pageDetail[0].gia_sp,
+                    //         id_mau_sac: colorAdd,
+                    //         id_kich_thuoc: sizeAdd,
+                    //         hinh_anh_chinh: pageDetail[0].hinh_anh_chinh,
+                    //         so_luong: count
+                    //     };
+                    //     cartUser.push(newItem);
 
-                    }
-                    localStorage.setItem('cartUser', JSON.stringify(cartUser));
+                    // }
+                    // localStorage.setItem('cartUser', JSON.stringify(cartUser));
 
                     enqueueSnackbar('Thêm vào giỏ hàng thành công', {
                         variant: 'success',
@@ -481,7 +484,6 @@ function DetailPage() {
                 }
             </Grid>
             <PageRateProduct />
-
         </Container >
     );
 }

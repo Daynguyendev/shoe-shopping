@@ -91,16 +91,16 @@ export default function SignIn() {
             });
             return;
         }
-        await userAPI.login({
+        const result = await userAPI.login({
             email_khach_hang: email,
             mat_khau_khach_hang: password
         })
 
             .then(async function (response) {
-                dispatch(login({ email_khach_hang: email, token: response.data.token }));
+                const results = await dispatch(login({ email_khach_hang: email, token: response.data.token }));
                 let data = { email_khach_hang: email, isLogin: true }
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('user', JSON.stringify(data));
+                const resultSaveToken = await localStorage.setItem('token', response.data.token);
+                const resultsSaveUser = await localStorage.setItem('user', JSON.stringify(data));
                 navigate(`/`)
                 enqueueSnackbar('Đăng nhập thành công', {
                     variant: 'success',
@@ -123,7 +123,7 @@ export default function SignIn() {
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="lg" sx={{
 
-                backgroundColor: 'white', paddingTop: '80px'
+                backgroundColor: 'white', paddingTop: '20px'
 
             }}>
                 <CssBaseline />
@@ -141,7 +141,7 @@ export default function SignIn() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Đăng Nhập
                     </Typography>
                     <Box component="form" noValidate sx={{ mt: 1 }}>
                         <TextField
@@ -160,18 +160,16 @@ export default function SignIn() {
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
+                            label="Lưu thông tin"
                         />
 
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
+
                             </Grid>
                             <Grid item>
-                                <Link href="" variant="body2" onClick={handleNextPage}>
-                                    {"Don't have an account? Sign Up"}
+                                <Link href="" variant="body1" onClick={handleNextPage}>
+                                    {"Chưa có tải khoản? Đăng Ký"}
 
                                 </Link>
                             </Grid>
@@ -186,7 +184,7 @@ export default function SignIn() {
                         onClick={handleSubmit}
 
                     >
-                        Sign In
+                        Đăng Nhập
                     </Button>
                 </Box>
                 <Copyright sx={{ mt: 8, mb: 4 }} />

@@ -35,6 +35,8 @@ export default function SignUp() {
     const navigate = useNavigate();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [passwordRepeat, setPasswordRepeat] = useState();
+
     const [birthday, setBirthday] = useState();
     const [role, setRole] = useState(1);
     const { enqueueSnackbar } = useSnackbar();
@@ -93,8 +95,20 @@ export default function SignUp() {
             return;
         }
 
+        if (password != passwordRepeat) {
+            enqueueSnackbar('Vui lòng nhập lại đúng mật khẩu', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
 
-        userAPI.register({
+
+        const result = await userAPI.register({
             ten_khach_hang: name,
             email_khach_hang: email,
             mat_khau_khach_hang: password,
@@ -103,8 +117,8 @@ export default function SignUp() {
         })
 
 
-            .then(function (response) {
-                addresskAPI.add({
+            .then(async function (response) {
+                const results = await addresskAPI.add({
                     id_khach_hang: response.data.users.id_khach_hang,
                     ten_dia_chi: address,
                     ten_khach_hang: name,
@@ -131,7 +145,7 @@ export default function SignUp() {
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs" sx={{
-                backgroundColor: 'white', paddingTop: '80px'
+                backgroundColor: 'white', paddingTop: '20px'
 
             }}>
                 <CssBaseline />
@@ -148,7 +162,7 @@ export default function SignUp() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign up
+                        Đăng Ký
                     </Typography>
                     <Box sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
@@ -198,13 +212,22 @@ export default function SignUp() {
                                 />
                             </Grid>
                             <Grid item xs={12}>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        label=" Nhập lại mật khẩu"
+                                        type="password"
+                                        onChange={(e) => setPasswordRepeat(e.target.value)}
+                                    />
+                                </Grid>
+
 
                             </Grid>
                         </Grid>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="" variant="body2" onClick={handleNextPage}>
-                                    Already have an account? Sign in
+                                <Link href="" variant="body1" onClick={handleNextPage}>
+                                    Đã có tài khoản? Đăng Nhập
                                 </Link>
                             </Grid>
                         </Grid>
@@ -217,7 +240,7 @@ export default function SignUp() {
                     sx={{ mt: 3, mb: 2 }}
                     onClick={handleSubmit}
                 >
-                    Sign Up
+                    Đăng Ký
                 </Button>
                 <Copyright sx={{ mt: 5 }} />
             </Container>
