@@ -526,19 +526,6 @@ export default function UploadProduct() {
                     });
                     return;
                 }
-
-                if (total + totalShip <= 0) {
-                    enqueueSnackbar('Có Lỗi! Vui lòng thêm sản phẩm', {
-                        variant: 'error',
-                        autoHideDuration: 800,
-                        anchorOrigin: {
-                            vertical: 'top',
-                            horizontal: 'right',
-                        },
-                    });
-                    return;
-                }
-
                 const result = await invoiceoutputAPI.add({
                     id_khach_hang: idUser,
                     id_dia_chi: addressSubmit,
@@ -567,8 +554,9 @@ export default function UploadProduct() {
                 console.log(error.message)
             });
     };
-
-
+    window.addEventListener("beforeunload", function (event) {
+        localStorage.removeItem('Buy-now');
+    });
 
     return (
         <Box
