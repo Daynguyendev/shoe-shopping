@@ -424,11 +424,14 @@ function DetailPage() {
                                 <hr />
                             </Grid>
                             <Grid item xs={12} className='buy-now'>
+                                <Grid item xs={1} lg={1}>
+                                </Grid>
                                 <Grid item xs={4} lg={2}>
                                     <ButtonForm name={'Mua Ngay'} onClick={handleBuyNow} />
                                 </Grid>
-                                <Grid item xs={3} lg={2}>
+                                <Grid item xs={2} lg={2}>
                                 </Grid>
+
                                 {/* <Grid item xs={3} lg={2} sx={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
                                     <IconButton onClick={() => handleDecrease(item)}>
                                         <RemoveIcon />
@@ -438,9 +441,11 @@ function DetailPage() {
                                         <AddIcon />
                                     </IconButton>
                                 </Grid> */}
-                                <Grid item xs={4} lg={4}>
+                                <Grid item xs={4} lg={2}>
                                     <ButtonForm name={'Thêm vào giỏ'} onClick={handleAddSubmit} />
 
+                                </Grid>
+                                <Grid item xs={1} lg={1}>
                                 </Grid>
                             </Grid>
 

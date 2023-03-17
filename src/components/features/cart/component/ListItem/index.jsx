@@ -15,7 +15,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DetailProductAPI from '../../../../API/detailproductAPI';
-
+import Progress from '../../../../Formcontrol/Progress'
 function ListItem({ cart, setCart, setItemNotLogin }) {
     let { id } = useParams();
     let User = JSON.parse(localStorage.getItem('cart')) || [];
@@ -30,6 +30,8 @@ function ListItem({ cart, setCart, setItemNotLogin }) {
     const [productTotal, setProductTotal] = useState()
     const now = new Date();
     const mysqlDateString = now.toISOString().slice(0, 19).replace('T', ' ');
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         try {
             const fetchCart = async () => {
@@ -154,7 +156,10 @@ function ListItem({ cart, setCart, setItemNotLogin }) {
             const fetchCart = async () => {
                 if (cart !== null) {
                     const result = await cartAPI.getDetail(id);
-                    setCart(result.data.data);
+                    let cartUser = await localStorage.setItem('cartUser', JSON.stringify(result.data.data));
+                    const results = await setCart(result.data.data);
+                    setLoading(false)
+
                 }
             };
             fetchCart();
@@ -166,147 +171,150 @@ function ListItem({ cart, setCart, setItemNotLogin }) {
 
     return (
         <>
-            {!isLogin ? (<Container disableGutters maxWidth='xl'>
-                <Grid className='root-cart-header'>
-                    <Grid item xs={5} lg={5} xl={5}>
-                        <Typography sx={{ fontFamily: 'Oswald' }}>Sản phẩm</Typography>
-                    </Grid>
-                    <Grid item xs={4} lg={3} xl={3}>
-                        <Typography sx={{ fontFamily: 'Oswald' }}>Đơn giá</Typography>
-                    </Grid>
-                    <Grid item xs={2} lg={1} xl={1}>
-                        <Typography sx={{ fontFamily: 'Oswald' }}>Số lượng</Typography>
-                    </Grid>
-                    <Grid item xs={0} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
-                        <Typography sx={{ fontFamily: 'Oswald' }}>Thành tiền</Typography>
-                    </Grid>
-                    <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex' } }}>
-                        <Typography sx={{ fontFamily: 'Oswald' }}>Thao tác</Typography>
-                    </Grid>
-                </Grid>
-                <hr />
-                {itemLocal.map((item, index) => (
-                    <Grid item xs={12} className='root-cart' key={index} >
-                        <Grid item xs={5} lg={5} xl={5} >
-                            <Box className="full-box-product">
-                                <Grid>
-                                    <img
-                                        className="img"
-                                        src={item.hinh_anh_chinh}
-                                        alt="anh 1"
-                                    />
-                                    <Typography sx={{ fontFamily: 'Oswald' }}> Size: {item.ten_kich_thuoc}/{item.ten_mau_sac}</Typography>
-                                </Grid>
-                                <Grid>
-                                    <Typography sx={{ fontFamily: 'Oswald' }}>{item.ten_sp}</Typography>
-                                </Grid>
-                            </Box >
+            {loading ? (
+                <Progress />) : (<>            {!isLogin ? (<Container disableGutters maxWidth='xl'>
+                    <Grid className='root-cart-header'>
+                        <Grid item xs={5} lg={5} xl={5}>
+                            <Typography sx={{ fontFamily: 'Oswald' }}>Sản phẩm</Typography>
                         </Grid>
                         <Grid item xs={4} lg={3} xl={3}>
-                            {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}>
-                                <p className="detail-item" style={{ color: 'red' }}>{(item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp))}</p>
-                            </div>
-                            ) : (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}><p sx={{ fontFamily: 'Oswald' }} >{item.gia_sp}</p></div>
-                            )}
-
-
-                            {/* <Typography sx={{ fontFamily: 'Oswald' }}>{item.gia_sp}</Typography> */}
+                            <Typography sx={{ fontFamily: 'Oswald' }}>Đơn giá</Typography>
                         </Grid>
-                        <Grid item xs={2} lg={1} xl={1} sx={{ display: 'flex', justifyContent: 'center', fontFamily: 'Oswald', alignItems: 'center' }}>
-                            <IconButton onClick={() => handleDownCountLocal(index)}>
-                                <RemoveIcon />
-                            </IconButton>
-                            {item.so_luong}
-                            <IconButton onClick={() => handleUpCountLocal(index)}>
-                                <AddIcon />
-                            </IconButton>
+                        <Grid item xs={2} lg={1} xl={1}>
+                            <Typography sx={{ fontFamily: 'Oswald' }}>Số lượng</Typography>
                         </Grid>
                         <Grid item xs={0} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
-                            <Typography sx={{ fontFamily: 'Oswald' }}>{item.gia_sp * item.so_luong}</Typography>
+                            <Typography sx={{ fontFamily: 'Oswald' }}>Thành tiền</Typography>
                         </Grid>
-                        <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex', paddingRight: '50px' } }}>
-                            <IconButton onClick={() => handleRemove(item.id_sp, item.id_mau_sac, item.id_kich_thuoc, item.so_luong)}>
-                                <DeleteOutlineIcon />
-                            </IconButton>
+                        <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex' } }}>
+                            <Typography sx={{ fontFamily: 'Oswald' }}>Thao tác</Typography>
                         </Grid>
                     </Grid>
-                ))}
-            </Container >) : (<Container disableGutters maxWidth='xl'>
+                    <hr />
+                    {itemLocal.map((item, index) => (
+                        <Grid item xs={12} className='root-cart' key={index} >
+                            <Grid item xs={5} lg={5} xl={5} >
+                                <Box className="full-box-product">
+                                    <Grid>
+                                        <img
+                                            className="img"
+                                            src={item.hinh_anh_chinh}
+                                            alt="anh 1"
+                                        />
+                                        <Typography sx={{ fontFamily: 'Oswald' }}> Size: {item.ten_kich_thuoc}/{item.ten_mau_sac}</Typography>
+                                    </Grid>
+                                    <Grid>
+                                        <Typography sx={{ fontFamily: 'Oswald' }}>{item.ten_sp}</Typography>
+                                    </Grid>
+                                </Box >
+                            </Grid>
+                            <Grid item xs={4} lg={3} xl={3}>
+                                {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}>
+                                    <p className="detail-item" style={{ color: 'red' }}>{(item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp))}</p>
+                                </div>
+                                ) : (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}><p sx={{ fontFamily: 'Oswald' }} >{item.gia_sp}</p></div>
+                                )}
 
-                <Grid className='root-cart-header'>
-                    <Grid item xs={5} lg={5} xl={5}>
-                        <Typography sx={{ fontFamily: 'Oswald' }}>Sản phẩm</Typography>
-                    </Grid>
-                    <Grid item xs={4} lg={3} xl={3}>
-                        <Typography sx={{ fontFamily: 'Oswald' }}>Đơn giá</Typography>
-                    </Grid>
-                    <Grid item xs={2} lg={1} xl={1}>
-                        <Typography sx={{ fontFamily: 'Oswald' }}>Số lượng</Typography>
-                    </Grid>
-                    <Grid item xs={0} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
-                        <Typography sx={{ fontFamily: 'Oswald' }}>Thành tiền</Typography>
-                    </Grid>
-                    <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex' } }}>
-                        <Typography sx={{ fontFamily: 'Oswald' }}>Thao tác</Typography>
-                    </Grid>
-                </Grid>
-                <hr />
 
-                {data.map((item, index) => (
-                    <Grid className='root-cart' key={index} >
-                        <Grid item xs={5} lg={5} xl={5} >
-                            <Box className="full-box-product">
-                                <Grid>
-                                    <img
-                                        className="img"
-                                        src={item.hinh_anh_chinh}
-                                        alt="anh 1"
-                                    />
-                                    <Typography sx={{ fontFamily: 'Oswald' }}> Size: {item.ten_kich_thuoc}/{item.ten_mau_sac}</Typography>
-                                </Grid>
-                                <Grid>
-                                    <Typography sx={{ fontFamily: 'Oswald' }}>{item.ten_sp}</Typography>
-                                </Grid>
-                            </Box >
+                                {/* <Typography sx={{ fontFamily: 'Oswald' }}>{item.gia_sp}</Typography> */}
+                            </Grid>
+                            <Grid item xs={2} lg={1} xl={1} sx={{ display: 'flex', justifyContent: 'center', fontFamily: 'Oswald', alignItems: 'center' }}>
+                                <IconButton onClick={() => handleDownCountLocal(index)}>
+                                    <RemoveIcon />
+                                </IconButton>
+                                {item.so_luong}
+                                <IconButton onClick={() => handleUpCountLocal(index)}>
+                                    <AddIcon />
+                                </IconButton>
+                            </Grid>
+                            <Grid item xs={0} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
+                                <Typography sx={{ fontFamily: 'Oswald' }}>{item.gia_sp * item.so_luong}</Typography>
+                            </Grid>
+                            <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex', paddingRight: '50px' } }}>
+                                <IconButton onClick={() => handleRemove(item.id_sp, item.id_mau_sac, item.id_kich_thuoc, item.so_luong)}>
+                                    <DeleteOutlineIcon />
+                                </IconButton>
+                            </Grid>
+                        </Grid>
+                    ))}
+                </Container >) : (<Container disableGutters maxWidth='xl'>
+
+                    <Grid className='root-cart-header'>
+                        <Grid item xs={5} lg={5} xl={5}>
+                            <Typography sx={{ fontFamily: 'Oswald' }}>Sản phẩm</Typography>
                         </Grid>
                         <Grid item xs={4} lg={3} xl={3}>
-                            {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}>
-                                <p className="detail-item" style={{ color: 'red' }}>{(item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp))}</p>
-                            </div>
-                            ) : (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}><p sx={{ fontFamily: 'Oswald' }} >{item.gia_sp}</p></div>
-                            )}
-
-                            {/* <Typography sx={{ fontFamily: 'Oswald' }}>{item.gia_sp}</Typography> */}
+                            <Typography sx={{ fontFamily: 'Oswald' }}>Đơn giá</Typography>
                         </Grid>
-                        <Grid item xs={2} lg={1} xl={1} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontFamily: 'Oswald', paddingRight: '30px' }}>
-                            <IconButton onClick={() => handleDownCount(index, item.id_sp, item.id_khach_hang, item.id_mau_sac, item.id_kich_thuoc, item.so_luong)}>
-                                <RemoveIcon />
-                            </IconButton>
-                            {item.so_luong}
-                            <IconButton onClick={() => handleUpCount(index, item.id_sp, item.id_khach_hang, item.id_mau_sac, item.id_kich_thuoc, item.so_luong)}>
-                                <AddIcon />
-                            </IconButton>
-
+                        <Grid item xs={2} lg={1} xl={1}>
+                            <Typography sx={{ fontFamily: 'Oswald' }}>Số lượng</Typography>
                         </Grid>
                         <Grid item xs={0} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
-                            {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}>
-                                <p className="detail-item" style={{ color: 'red' }}>{((item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp)) * item.so_luong)}</p>
-                            </div>
-                            ) : (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}><p sx={{ fontFamily: 'Oswald' }} >{item.gia_sp * item.so_luong}</p></div>
-                            )}
-
-                            {/* <Typography sx={{ fontFamily: 'Oswald' }}>{item.gia_sp * item.so_luong}</Typography> */}
+                            <Typography sx={{ fontFamily: 'Oswald' }}>Thành tiền</Typography>
                         </Grid>
-                        <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex', paddingRight: '30px' } }}>
-                            <IconButton onClick={() => handleRemoveItemDB(item.id_sp, item.id_khach_hang, item.id_mau_sac, item.id_kich_thuoc)}>
-                                <DeleteOutlineIcon />
-                            </IconButton>
+                        <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex' } }}>
+                            <Typography sx={{ fontFamily: 'Oswald' }}>Thao tác</Typography>
                         </Grid>
-
                     </Grid>
-                ))}
-            </Container >)
-            }
+                    <hr />
+
+                    {data.map((item, index) => (
+                        <Grid className='root-cart' key={index} >
+                            <Grid item xs={5} lg={5} xl={5} >
+                                <Box className="full-box-product">
+                                    <Grid>
+                                        <img
+                                            className="img"
+                                            src={item.hinh_anh_chinh}
+                                            alt="anh 1"
+                                        />
+                                        <Typography sx={{ fontFamily: 'Oswald' }}> Size: {item.ten_kich_thuoc}/{item.ten_mau_sac}</Typography>
+                                    </Grid>
+                                    <Grid>
+                                        <Typography sx={{ fontFamily: 'Oswald' }}>{item.ten_sp}</Typography>
+                                    </Grid>
+                                </Box >
+                            </Grid>
+                            <Grid item xs={4} lg={3} xl={3}>
+                                {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}>
+                                    <p className="detail-item" style={{ color: 'red' }}>{(item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp))}</p>
+                                </div>
+                                ) : (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}><p sx={{ fontFamily: 'Oswald' }} >{item.gia_sp}</p></div>
+                                )}
+
+                                {/* <Typography sx={{ fontFamily: 'Oswald' }}>{item.gia_sp}</Typography> */}
+                            </Grid>
+                            <Grid item xs={2} lg={1} xl={1} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', fontFamily: 'Oswald', paddingRight: '30px' }}>
+                                <IconButton onClick={() => handleDownCount(index, item.id_sp, item.id_khach_hang, item.id_mau_sac, item.id_kich_thuoc, item.so_luong)}>
+                                    <RemoveIcon />
+                                </IconButton>
+                                {item.so_luong}
+                                <IconButton onClick={() => handleUpCount(index, item.id_sp, item.id_khach_hang, item.id_mau_sac, item.id_kich_thuoc, item.so_luong)}>
+                                    <AddIcon />
+                                </IconButton>
+
+                            </Grid>
+                            <Grid item xs={0} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
+                                {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}>
+                                    <p className="detail-item" style={{ color: 'red' }}>{((item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp)) * item.so_luong)}</p>
+                                </div>
+                                ) : (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}><p sx={{ fontFamily: 'Oswald' }} >{item.gia_sp * item.so_luong}</p></div>
+                                )}
+
+                                {/* <Typography sx={{ fontFamily: 'Oswald' }}>{item.gia_sp * item.so_luong}</Typography> */}
+                            </Grid>
+                            <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex', paddingRight: '30px' } }}>
+                                <IconButton onClick={() => handleRemoveItemDB(item.id_sp, item.id_khach_hang, item.id_mau_sac, item.id_kich_thuoc)}>
+                                    <DeleteOutlineIcon />
+                                </IconButton>
+                            </Grid>
+
+                        </Grid>
+                    ))}
+                </Container >)
+                }</>)}
+
+
         </>
     );
 }

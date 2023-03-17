@@ -74,6 +74,7 @@ function Pay({ itemNotLogin, cart, setCart }) {
                 }
                 else
                     alert('Sản phẩm không còn đủ số lượng ' + result.data.data.ten_sp + ' ' + result.data.data.ten_mau_sac + ' ' + result.data.data.ten_kich_thuoc + ' Chỉ còn ' + result.data.data.so_luong_kho);
+                window.location.reload();
                 return;
             }
             navigate(`/checkout/${id}`);

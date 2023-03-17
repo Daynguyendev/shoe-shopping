@@ -7,6 +7,7 @@ import ItemSale from '../features/product/component/ItemSale';
 import NewHot from '../features/product/component/NewHot';
 import { useState, useEffect } from 'react';
 import productAPI from './../API/productAPI';
+import Progress from '../Formcontrol/Progress'
 function Home(props) {
 
 
@@ -49,7 +50,7 @@ function Home(props) {
     return (
         <Container maxWidth="xl" >
             {loading ? (
-                <p>Loading...</p>) : (
+                <Progress />) : (
                 <>
                     <ReviewShop />
                     {/* <ItemtypeReview /> */}
