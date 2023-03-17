@@ -393,7 +393,7 @@ function DetailPage() {
                                 </Grid>
                                 <Grid item xs={9} sx={{ display: 'flex', marginLeft: '30px' }}>
                                     {colormap.map((item, index) => (
-                                        <button style={{ marginRight: '15px', backgroundColor: 'white', height: '30px' }} key={index}
+                                        <button style={{ marginRight: '15px', backgroundColor: 'white' }} key={index}
                                             className={selectedButtonId === item.id_mau_sac ? 'selectedcolor' : ''}
                                             onClick={() => handleButtonClick(item.id_mau_sac, item.ten_mau_sac)}
 
