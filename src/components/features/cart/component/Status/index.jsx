@@ -30,6 +30,9 @@ import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import Stack from '@mui/material/Stack';
 import invoiceoutputAPI from '../../../../API/invoiceoutputAPI';
 import './Status.scss'
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
 export default function Status() {
     const { id_khach_hang } = useParams();
     const { enqueueSnackbar } = useSnackbar();
@@ -50,10 +53,23 @@ export default function Status() {
     const [start, setStart] = useState(2)
     const [statusRate, setStatusRate] = useState()
     const [idBill, setIdBill] = useState()
-
-
     let statusRateList = statusRate || [];
+    const [invoice, setInvoice] = useState();
+    const invoiceAll = invoice || []
 
+    const handleRemove = async (index, id_khach_hang, id_hd_dat) => {
+        const result = await statusAPI.UpdateStatus({ id_trang_thai: 4, id_khach_hang: id_khach_hang, id_hd_dat: id_hd_dat });
+        const updateCart = [...statusList];
+        updateCart[index].id_trang_thai = 4;
+        setStatus(updateCart);
+    }
+
+    const handleFinish = async (index, id_khach_hang, id_hd_dat) => {
+        const result = await statusAPI.UpdateStatus({ id_trang_thai: 3, id_khach_hang: id_khach_hang, id_hd_dat: id_hd_dat });
+        const updateCart = [...statusList];
+        updateCart[index].id_trang_thai = 3;
+        setStatus(updateCart);
+    }
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -62,7 +78,6 @@ export default function Status() {
     };
 
     const handleClickOpen2 = async (id_sp) => {
-        console.log('sao lai nhu the', id_sp, id_khach_hang)
         setidSP(id_sp)
         const checkrate = await invoiceoutputAPI.checkRate({ id_sp: id_sp, id_hd_dat: idBill }, id_khach_hang);
         if (checkrate.data.data.length > 0) {
@@ -75,7 +90,6 @@ export default function Status() {
     const handleClose2 = () => {
         setOpen2(false);
     };
-    console.log('test detail', idBill)
 
     const handleSubmit = async (event) => {
 
@@ -106,7 +120,6 @@ export default function Status() {
 
     const HandleShowDetail = async (id_hd_dat, id_sp) => {
         setIdBill(id_hd_dat);
-        console.log('idsp', id_sp)
         const result = await detailinvoiceoutputAPI.getDetail({ id_hd_dat: id_hd_dat })
         const results = await invoiceoutputAPI.getByIdBill({ id_hd_dat: id_hd_dat })
         setDetail(result.data.data);
@@ -149,8 +162,7 @@ export default function Status() {
         <Box sx={{ width: '100%', minHeight: '550px', backgroundColor: 'white', paddingTop: '80px' }}>
             {
                 statusList.map((item, index) => (
-
-                    <Grid key={index} sx={{ padding: '20px' }}>
+                    < Grid key={index} sx={{ padding: '20px' }}>
                         <Grid sx={{ fontFamily: 'Oswald', fontSize: '20px' }} >
                             ID hóa đơn : {item.id_hd_dat}
                         </Grid>
@@ -169,7 +181,6 @@ export default function Status() {
                         <Grid sx={{ paddingBottom: '30px', fontFamily: 'Oswald', fontSize: '20px' }}>
                             Tổng tiền: {item.tong_tien}
                         </Grid>
-                        {console.log('kakakakakaa', item.id_sp)}
                         <IconButton sx={{ fontFamily: 'Oswald', fontSize: '20px' }} onClick={(e) => HandleShowDetail(item.id_hd_dat, item.id_sp)}  >
                             <RemoveRedEyeIcon /> Xem chi tiết hóa đơn
                         </IconButton>
@@ -186,10 +197,16 @@ export default function Status() {
 
                             </div>
                         ) : (<> <h1 style={{ fontFamily: 'Oswald' }}>Đơn hàng của bạn đã bị hủy</h1></>)}
-
+                        {item.id_trang_thai == 2 ? (<> <IconButton onClick={() => handleFinish(index, item.id_khach_hang, item.id_hd_dat)} sx={{ fontFamily: 'Oswald', fontSize: '20px', display: 'flex', left: '45%' }}>
+                            <DoneAllIcon />Đã nhận hàng
+                        </IconButton></>) : ('')}
+                        {item.id_trang_thai == 0 ? (<> <IconButton onClick={() => handleRemove(index, item.id_khach_hang, item.id_hd_dat)} sx={{ fontFamily: 'Oswald', fontSize: '20px', display: 'flex', left: '45%' }}>
+                            <DeleteForeverIcon />Hủy đơn hàng
+                        </IconButton></>) : ('')}
                         <br />
                         <br />
                         <hr />
+
                     </Grid>))
             }
 

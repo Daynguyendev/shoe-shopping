@@ -56,11 +56,18 @@ export default function StatusNew() {
                         <Grid sx={{ paddingBottom: '30px', fontFamily: 'Oswald', fontSize: '20px' }}>
                             Tổng tiền: {item.tong_tien}
                         </Grid >
-                        < Stepper activeStep={item.id_trang_thai} alternativeLabel >
+                        < Stepper activeStep={item.id_trang_thai} alternativeLabel  >
                             {
                                 statusAllList.map((item, index) => (
                                     <Step key={item.id_trang_thai}>
-                                        <StepLabel>{item.ten_trang_thai}</StepLabel>
+                                        <StepLabel
+                                            StepIconProps={{
+                                                style: {
+                                                    background: 'black'
+
+                                                },
+                                            }}
+                                        >{item.ten_trang_thai}</StepLabel>
                                     </Step>
                                 ))
                             }

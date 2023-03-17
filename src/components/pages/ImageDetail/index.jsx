@@ -11,7 +11,6 @@ export default function ImageDetail({ colorAdd }) {
     const [imageDetail, setImagedetail] = useState([]);
     const [imageDisplay, setImageDisplay] = useState(imageDetail);
 
-    console.log('test anh hien thi', imageDetail);
     useEffect(() => {
         try {
             const fetchImagedetail = async () => {
@@ -32,7 +31,6 @@ export default function ImageDetail({ colorAdd }) {
             const product = imageDetail.filter((p) => p.id_mau_sac == colorAdd);
             const list = [...product]
             setImageDisplay(list);
-            console.log('test product', product)
         }
     }, [colorAdd])
 

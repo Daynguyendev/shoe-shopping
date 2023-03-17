@@ -13,7 +13,6 @@ function ListProduct({ product, value1 }) {
     }
 
     const handleClickDetail = (item) => {
-        console.log(item.target.alt);
         navigate(`/product/${item.target.alt.replace(/\s+/g, '-')}`)
 
     }

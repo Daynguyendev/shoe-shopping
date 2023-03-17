@@ -49,11 +49,25 @@ function DetailPage() {
     const now = new Date();
     const mysqlDateString = now.toISOString().slice(0, 19).replace('T', ' ');
     const [loading, setLoading] = useState(false);
+    let price = 0;
+
+
 
     // let cartUser = JSON.parse(localStorage.getItem('cartUser')) || [];
 
 
     const handleBuyNow = async () => {
+        if (total <= 0) {
+            enqueueSnackbar('Sản phẩm đã hết', {
+                variant: 'error',
+                autoHideDuration: 1000,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
         if (colorAdd == '' || colorAdd == null) {
 
             enqueueSnackbar('Vui lòng chọn màu sắc', {
@@ -82,9 +96,12 @@ function DetailPage() {
         }
 
         const data = {
+            id_khach_hang: idUser,
             id_mau_sac: colorAdd,
             id_kich_thuoc: sizeAdd,
-            id_sp: id,
+            id_sp: parseInt(id),
+            so_luong: count,
+            gia_sp: price,
         }
 
         const result = await localStorage.setItem('Buy-now', JSON.stringify(data));
@@ -127,7 +144,6 @@ function DetailPage() {
             console.log('Failed to fetch color: ', error);
         }
     }, []);
-    console.log('size', sizeDisplay)
 
 
     useEffect(() => {
@@ -155,7 +171,6 @@ function DetailPage() {
             console.log('Failed to fetch color: ', error);
         }
     }, []);
-    console.log('color', colorDisplay)
 
     const handleDecrease = (item) => {
         if (count > 1) {
@@ -210,7 +225,6 @@ function DetailPage() {
         }
     }, [colorAdd, sizeAdd])
 
-    console.log('test size display', sizeDisplay)
 
 
     useEffect(() => {
@@ -378,13 +392,13 @@ function DetailPage() {
                                 <hr />
                             </Grid>
                             <Grid item xs={12} >
-                                {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div style={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}><p style={{ color: 'red', fontSize: '25px' }}>{(item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+                                {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div style={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}><p style={{ color: 'red', fontSize: '25px' }}>{(price = item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
 
                                     <Typography variant='h5' sx={{ fontFamily: 'Oswald', marginLeft: '10px', textDecoration: 'line-through' }} >{item.gia_sp.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</Typography>
 
                                 </div>
 
-                                ) : (<Typography variant='h5' sx={{ fontFamily: 'Oswald', marginTop: '15px' }} >{item.gia_sp.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</Typography>
+                                ) : (<Typography variant='h5' sx={{ fontFamily: 'Oswald', marginTop: '15px' }} > {price = (item.gia_sp).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</Typography>
                                 )}
                             </Grid>
                             <Grid item xs={12} sx={{ display: 'flex' }} >
@@ -435,7 +449,7 @@ function DetailPage() {
                                 <Grid item xs={2} lg={2}>
                                 </Grid>
 
-                                {/* <Grid item xs={3} lg={2} sx={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
+                                <Grid item xs={3} lg={2} sx={{ display: 'flex', alignItems: 'center' }}>
                                     <IconButton onClick={() => handleDecrease(item)}>
                                         <RemoveIcon />
                                     </IconButton>
@@ -443,7 +457,7 @@ function DetailPage() {
                                     <IconButton onClick={() => handleIncrease(item)}>
                                         <AddIcon />
                                     </IconButton>
-                                </Grid> */}
+                                </Grid>
                                 <Grid item xs={4} lg={2}>
                                     <ButtonForm name={'Thêm vào giỏ'} onClick={handleAddSubmit} />
 

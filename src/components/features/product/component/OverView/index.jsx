@@ -88,7 +88,6 @@ function OverView() {
             console.log('Failed to fetch productDefault: ', error);
         }
     }, []);
-    console.log('test product default', productDefault);
 
     useEffect(() => {
         try {

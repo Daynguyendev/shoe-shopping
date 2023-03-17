@@ -61,7 +61,7 @@ export default function OrderConfirmation() {
                 if (invoice !== null) {
                     const result = await invoiceoutputAPI.getAll()
                     setInvoice(result.data.data);
-                    console.log('invoice', result.data.data)
+
                 }
             };
             fetchCart();
@@ -76,7 +76,7 @@ export default function OrderConfirmation() {
                 if (invoiceDetail !== null) {
                     const result = await detailinvoiceoutputAPI.getAll()
                     setInvoiceDetail(result.data.data);
-                    console.log('invoiceDetail', result.data.data)
+
                 }
             };
             fetchCart();
@@ -102,7 +102,7 @@ export default function OrderConfirmation() {
                 if (statusAll !== null) {
                     const result = await statusAPI.getAll();
                     setStatusAll(result.data.data);
-                    console.log('statusAll', result.data.data)
+
                 }
             };
             fetchCart();
@@ -115,7 +115,7 @@ export default function OrderConfirmation() {
         const result = await statusAPI.UpdateStatus({ id_trang_thai: 1, id_khach_hang: id_khach_hang, id_hd_dat: id_hd_dat });
         const updateCart = [...invoiceAll];
         updateCart[index].id_trang_thai = 1;
-        console.log('statusAll', updateCart[index].id_trang_thai);
+
         setInvoice(updateCart);
     }
     const handleHuy = async (index, id_khach_hang, id_hd_dat) => {

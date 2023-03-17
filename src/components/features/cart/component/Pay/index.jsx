@@ -73,7 +73,7 @@ function Pay({ itemNotLogin, cart, setCart }) {
                     continue;
                 }
                 else
-                    alert('Sản phẩm không còn đủ số lượng ' + result.data.data.ten_sp + ' ' + result.data.data.ten_mau_sac + ' ' + result.data.data.ten_kich_thuoc + ' Chỉ còn ' + result.data.data.so_luong_kho);
+                    alert('Sản phẩm không còn đủ số lượng ' + result.data.data.ten_sp + ' ' + result.data.data.id_mau_sac + ' ' + result.data.data.id_kich_thuoc + ' Chỉ còn ' + result.data.data.so_luong_kho);
                 window.location.reload();
                 return;
             }
@@ -93,7 +93,6 @@ function Pay({ itemNotLogin, cart, setCart }) {
             else
                 sum = sum + parseInt(NewArray[i]?.gia_sp * NewArray[i].so_luong);
         }
-        console.log('test sum', sum);
         setTotal(sum);
 
     }, [data]);

@@ -11,7 +11,6 @@ import Pagination from '@mui/material/Pagination';
 
 function Product({ xs, sm, md, lg, xl, so_luong, productDefault, product, productView, productCategory, display, newcolor, colortext, page, handleReset, Sale, value1, value2, value5 }) {
   const navigate = useNavigate();
-  console.log('test2 ra 1', value1)
   const [currentPage, setCurrentPage] = useState(1);
   const now = new Date();
   const mysqlDateString = now.toISOString().slice(0, 19).replace('T', ' ');
@@ -40,7 +39,6 @@ function Product({ xs, sm, md, lg, xl, so_luong, productDefault, product, produc
   const renderProductList = () => {
 
     if (value1 = 1 && product) {
-      console.log('vai pro duct', product)
       return product.slice(startIndex, endIndex).map((product, index) => (
         <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl} key={product.id_sp}   >
           <Box className="fullbox" style={{ backgroundColor: newcolor }}  >
@@ -69,7 +67,6 @@ function Product({ xs, sm, md, lg, xl, so_luong, productDefault, product, produc
 
     }
 
-    console.log('salele', Sale)
     if (value2 = 2 && Sale) {
       return Sale.slice(startIndex, endIndex).map((product, index) => (
         <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl} key={product.id_sp}   >
@@ -159,7 +156,6 @@ function Product({ xs, sm, md, lg, xl, so_luong, productDefault, product, produc
 
 
     if (value5 = 5 && productView) {
-      console.log('vai pro duct', product)
       return productView.slice(startIndex, endIndex).map((product, index) => (
         <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl} key={product.id_sp}   >
           <Box className="fullbox" style={{ backgroundColor: newcolor }}  >
@@ -198,7 +194,6 @@ function Product({ xs, sm, md, lg, xl, so_luong, productDefault, product, produc
 
     <>
       {renderProductList()}
-      {console.log('testsss', display == 2 || display == 1 || display == 3)}
       <Pagination
         count={display == 2 || display == 1 || display == 3 ? Math.ceil(productCategory?.length / 2) : productDefault && display == null ? Math.ceil(productDefault?.length / 2) : value1 ? Math.ceil(product?.length / 8) : value5 ? Math.ceil(productView?.length / 2) : Sale && value2 ? Math.ceil(Sale?.length / 4) : 5}
         page={currentPage}

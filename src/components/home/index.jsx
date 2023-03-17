@@ -27,7 +27,6 @@ function Home(props) {
             console.log('Failed to fetch Product: ', error);
         }
     }, []);
-    console.log('test product', product);
 
     useEffect(() => {
         try {
@@ -44,7 +43,6 @@ function Home(props) {
         }
     }, []);
 
-    console.log(productSale);
 
 
     return (

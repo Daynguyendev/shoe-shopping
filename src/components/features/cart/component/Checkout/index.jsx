@@ -35,6 +35,7 @@ export default function UploadProduct() {
     const [totalShip, setTotalShip] = useState(0)
     const [total, setTotal] = useState(0)
     const [idHd, setIdHd] = useState(null);
+    const [idHdBuynow, setIdHdBuynow] = useState(null);
     const [count, setCount] = useState(1);
     const [productTotal, setProductTotal] = useState()
     const [addressSubmit, setAddressSubmit] = useState('')
@@ -46,15 +47,20 @@ export default function UploadProduct() {
     const isLogin = useSelector((state) => state?.user.isLogin);
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
     let cartUser = JSON.parse(localStorage.getItem('cartUser')) || [];
+    let buyNow = JSON.parse(localStorage.getItem('Buy-now')) || [];
     const datacart = cartJoin || [];
     const cartMap = cartJoin || [];
     const now = new Date();
     const mysqlDateString = now.toISOString().slice(0, 19).replace('T', ' ');
+    let totalBuynow = 0;
+    let gia = 0;
+    { buyNow.gia_sp % 1 !== 0 ? gia = parseInt(buyNow.gia_sp?.replace(/\D/g, '')) : gia = buyNow.gia_sp }
+
+
 
     useEffect(() => {
         try {
             const fetchIdUser = async () => {
-                console.log('test', email_khach_hang);
                 const res = await userAPI.getID({ email_khach_hang: email_khach_hang });
                 setIdUser(res.data.data[0].id_khach_hang)
             };
@@ -82,7 +88,7 @@ export default function UploadProduct() {
                 ) {
                     continue;
                 }
-                else alert('Sản phẩm không còn đủ số lượng ' + result.data.data.ten_sp + ' ' + result.data.data.ten_mau_sac + ' ' + result.data.data.ten_kich_thuoc + ' Chỉ còn ' + result.data.data.so_luong_kho);
+                else alert('Sản phẩm không còn đủ số lượng ' + result.data.data.ten_sp + ' ' + result.data.data.id_mau_sac + ' ' + result.data.data.id_kich_thuoc + ' Chỉ còn ' + result.data.data.so_luong_kho);
                 return;
             }
             navigate(`/checkout/${id}`);
@@ -111,7 +117,6 @@ export default function UploadProduct() {
             else
                 sum = sum + parseInt(NewArray[i]?.gia_sp * NewArray[i].so_luong);
         }
-        console.log('test sum', sum);
         setTotal(sum);
     }, [datacart]);
 
@@ -137,7 +142,7 @@ export default function UploadProduct() {
     const handleClose = () => {
         setOpen(false);
     };
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
 
         if (idUser == '' || idUser == null) {
             enqueueSnackbar('Lấy ID thất bại vui lòng đăng nhập lại', {
@@ -187,7 +192,7 @@ export default function UploadProduct() {
             });
             return;
         }
-        addresskAPI.add({
+        const result = await addresskAPI.add({
             id_khach_hang: idUser,
             ten_dia_chi: addressadd,
             ten_khach_hang: name,
@@ -232,12 +237,37 @@ export default function UploadProduct() {
         }
     }
 
+    const handleadddetailbuyNow = async () => {
+
+        const result = await detailinvoiceoutputAPI.add({
+            id_sp: buyNow.id_sp,
+            id_hd_dat: idHdBuynow,
+            so_luong: buyNow.so_luong,
+            id_mau_sac: buyNow.id_mau_sac,
+            id_kich_thuoc: buyNow.id_kich_thuoc,
+        })
+
+        localStorage.removeItem('Buy-now');
+
+
+
+
+    }
+
     useEffect(() => {
         if (idHd) {
             handleadddetail();
             navigate(`/status/${id}/${idHd}`)
         }
     }, [idHd]);
+
+    useEffect(() => {
+        if (idHdBuynow) {
+            handleadddetailbuyNow();
+            navigate(`/status/${id}/${idHdBuynow}`)
+        }
+    }, [idHdBuynow]);
+
 
     const handlesubmitFullInvoice = async (event) => {
 
@@ -252,7 +282,8 @@ export default function UploadProduct() {
         });
 
         Promise.all(promises)
-            .then(responses => {
+            .then(async responses => {
+
                 localStorage.removeItem('cartUser');
                 // Nếu tất cả các Promise đều thành công, tiếp tục thực hiện phần tiếp theo
 
@@ -304,7 +335,7 @@ export default function UploadProduct() {
                     return;
                 }
 
-                invoiceoutputAPI.add({
+                const result = await invoiceoutputAPI.add({
                     id_khach_hang: idUser,
                     id_dia_chi: addressSubmit,
                     id_phuong_thuc_tt: checkoutSubmit,
@@ -383,6 +414,161 @@ export default function UploadProduct() {
         }
     }, []);
 
+    const handleSubmitCheckBuyNow = async () => {
+        if (isLogin) {
+            const resultt = await cartAPI.getDetail(idUser)
+            setProductTotal(resultt.data.data);
+            for (let i = 0; i < cartUser.length; i++) {
+                const item = cartUser[i];
+                const result = await DetailProductAPI.getQuantityCart({
+                    id_sp: item.id_sp,
+                    id_mau_sac: item.id_mau_sac,
+                    id_kich_thuoc: item.id_kich_thuoc,
+                });
+                if (
+                    result.data.data.so_luong_kho - resultt.data.data[i].so_luong >= 0
+
+                ) {
+                    continue;
+                }
+                else alert('Sản phẩm không còn đủ số lượng ' + result.data.data.ten_sp + ' ' + result.data.data.id_mau_sac + ' ' + result.data.data.id_kich_thuoc + ' Chỉ còn ' + result.data.data.so_luong_kho);
+                return;
+            }
+            navigate(`/checkout/${id}`);
+        } else {
+            navigate(`/login`);
+        }
+    };
+
+
+    const handlesubmitFullInvoiceBuyNow = async (event) => {
+
+        if (idUser == '' || idUser == null) {
+            enqueueSnackbar('Lấy ID thất bại vui lòng đăng nhập lại', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
+
+        if (addressSubmit == '' || addressSubmit == null) {
+            enqueueSnackbar('Vui lòng nhập địa chỉ', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
+        if (checkoutSubmit == '' || checkoutSubmit == null) {
+            enqueueSnackbar('Vui lòng chọn phương thức thanh toán', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
+
+
+        // const check = await handleSubmitCheck();
+        const result = await DetailProductAPI.UpdateQuantity({
+            so_luong: buyNow.so_luong,
+            id_sp: buyNow.id_sp,
+            id_mau_sac: buyNow.id_mau_sac,
+            id_kich_thuoc: buyNow.id_kich_thuoc,
+        })
+
+            .then(async responses => {
+                // localStorage.removeItem('Buy-now');
+                // Nếu tất cả các Promise đều thành công, tiếp tục thực hiện phần tiếp theo
+
+                if (idUser == '' || idUser == null) {
+                    enqueueSnackbar('Lấy ID thất bại vui lòng đăng nhập lại', {
+                        variant: 'error',
+                        autoHideDuration: 800,
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
+                    return;
+                }
+
+                if (addressSubmit == '' || addressSubmit == null) {
+                    enqueueSnackbar('Vui lòng nhập địa chỉ', {
+                        variant: 'error',
+                        autoHideDuration: 800,
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
+                    return;
+                }
+
+                if (checkoutSubmit == '' || checkoutSubmit == null) {
+                    enqueueSnackbar('Vui lòng chọn phương thức thanh toán', {
+                        variant: 'error',
+                        autoHideDuration: 800,
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
+                    return;
+                }
+
+                if (total + totalShip <= 0) {
+                    enqueueSnackbar('Có Lỗi! Vui lòng thêm sản phẩm', {
+                        variant: 'error',
+                        autoHideDuration: 800,
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'right',
+                        },
+                    });
+                    return;
+                }
+
+                const result = await invoiceoutputAPI.add({
+                    id_khach_hang: idUser,
+                    id_dia_chi: addressSubmit,
+                    id_phuong_thuc_tt: checkoutSubmit,
+                    id_trang_thai: 0,
+                    tong_tien: totalBuynow,
+                })
+                    .then(function (response) {
+                        setIdHdBuynow(response.data.data)
+                        // cartAPI.removeAll({ id_khach_hang: id })
+                        enqueueSnackbar('Đặt hàng thành công', {
+                            variant: 'success',
+                            autoHideDuration: 800,
+                            anchorOrigin: {
+                                vertical: 'top',
+                                horizontal: 'right',
+                            },
+                        });
+                        setOpen(false);
+                    })
+                    .catch(error => {
+                        enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
+                    });
+            })
+            .catch(error => {
+                console.log(error.message)
+            });
+    };
+
+
 
     return (
         <Box
@@ -459,49 +645,85 @@ export default function UploadProduct() {
 
                     </Grid>
 
-                    {cartMap.map((item, index) => (
-
-                        <Grid key={index} sx={{ display: 'flex', margin: '10px' }} >
+                    {buyNow.gia_sp ? (<><Grid sx={{ display: 'flex', margin: '10px' }} >
 
 
-                            <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
-                                {item.ten_sp}
-                            </Grid>
-                            <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
-                                {item.so_luong}
-                            </Grid>
-                            <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
-                                {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div>
-                                    {((item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp)) * item.so_luong)}
-                                </div>
-                                ) : (<div >{item.gia_sp * item.so_luong}</div>
-                                )}
-                            </Grid>
 
+                        <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
+                            {buyNow.ten_sp}
+                        </Grid>
+                        <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
+                            {buyNow.so_luong}
+                        </Grid>
+                        <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
+                            {gia}
                         </Grid>
 
+                    </Grid>  <hr />
+                        <Grid item xs={12} sx={{ margin: '10px' }} >
+                            Tổng sản phẩm : {buyNow.so_luong *
+                                gia
+                            }
+                        </Grid>
+                        <Grid item xs={12} sx={{ margin: '10px' }} >
+                            Phí ship : {30000 * (Math.ceil(buyNow.so_luong / 3))}
+
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} sx={{ margin: '10px' }}  >
+
+                            Tổng tiền thanh toán : {totalBuynow = (buyNow.so_luong * gia) + (30000 * (Math.ceil(buyNow.so_luong / 3)))}
+                        </Grid>
+                        <Button onClick={handlesubmitFullInvoiceBuyNow} disableElevation sx={{ marginBottom: '10px', fontFamily: 'Oswald', fontWeight: 'bold', width: '115px', height: '44px', fontSize: '14px', marginTop: '9px', marginLeft: '8px', color: 'black' }} variant="outlined">
+                            Đặt hàng
+                        </Button></>) : (<> {cartMap.map((item, index) => (
+
+                            <Grid key={index} sx={{ display: 'flex', margin: '10px' }} >
+
+
+                                <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
+                                    {item.ten_sp}
+                                </Grid>
+                                <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
+                                    {item.so_luong}
+                                </Grid>
+                                <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
+                                    {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div>
+                                        {((item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp)) * item.so_luong)}
+                                    </div>
+                                    ) : (<div >{item.gia_sp * item.so_luong}</div>
+                                    )}
+                                </Grid>
+
+                            </Grid>
 
 
 
 
-                    ))}
-                    <hr />
-                    <Grid item xs={12} sx={{ margin: '10px' }} >
-                        Tổng sản phẩm : {total}
-                    </Grid>
-                    <Grid item xs={12} sx={{ margin: '10px' }} >
 
-                        Phí ship : {totalShip}
-                    </Grid>
-                    <hr />
-                    <Grid item xs={12} sx={{ margin: '10px' }}  >
+                        ))}
+                            <hr />
+                            <Grid item xs={12} sx={{ margin: '10px' }} >
+                                Tổng sản phẩm : {total}
+                            </Grid>
+                            <Grid item xs={12} sx={{ margin: '10px' }} >
 
-                        Tổng tiền thanh toán : {totalShip + total}
-                    </Grid>
+                                Phí ship : {totalShip}
+                            </Grid>
+                            <hr />
+                            <Grid item xs={12} sx={{ margin: '10px' }}  >
 
-                    <Button onClick={handlesubmitFullInvoice} disableElevation sx={{ marginBottom: '10px', fontFamily: 'Oswald', fontWeight: 'bold', width: '115px', height: '44px', fontSize: '14px', marginTop: '9px', marginLeft: '8px', color: 'black' }} variant="outlined">
-                        Đặt hàng
-                    </Button>
+                                Tổng tiền thanh toán : {totalShip + total}
+                            </Grid>
+
+                            <Button onClick={handlesubmitFullInvoice} disableElevation sx={{ marginBottom: '10px', fontFamily: 'Oswald', fontWeight: 'bold', width: '115px', height: '44px', fontSize: '14px', marginTop: '9px', marginLeft: '8px', color: 'black' }} variant="outlined">
+                                Đặt hàng
+                            </Button>
+                        </>)}
+
+
+
+
 
 
 
