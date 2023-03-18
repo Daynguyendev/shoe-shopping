@@ -23,7 +23,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-
+import DetailProductAPI from '../../../../API/detailproductAPI';
 export default function OrderConfirmation() {
     const { id_khach_hang } = useParams();
     const [status, setStatus] = useState();
@@ -38,6 +38,7 @@ export default function OrderConfirmation() {
     const [detail, setDetail] = useState([]);
     const detailclone = detail || [];
     const [fillter, setFillter] = useState();
+    const [idBill, setIdBill] = useState()
 
 
     function reverseInvoice() {
@@ -120,9 +121,21 @@ export default function OrderConfirmation() {
     }
     const handleHuy = async (index, id_khach_hang, id_hd_dat) => {
         const result = await statusAPI.UpdateStatus({ id_trang_thai: 4, id_khach_hang: id_khach_hang, id_hd_dat: id_hd_dat });
+        setIdBill(id_hd_dat);
+        const resultDetailInvoice = await detailinvoiceoutputAPI.getDetail({ id_hd_dat: id_hd_dat })
+        for (let i = 0; i < (resultDetailInvoice.data.data).length; i++) {
+            const results = await DetailProductAPI.UpdateQuantityRemove({
+                so_luong: resultDetailInvoice.data.data[i].so_luong,
+                id_sp: resultDetailInvoice.data.data[i].id_sp,
+                id_mau_sac: resultDetailInvoice.data.data[i].id_mau_sac,
+                id_kich_thuoc: resultDetailInvoice.data.data[i].id_kich_thuoc,
+            })
+
+        }
         const updateCart = [...invoiceAll];
+        console.log('test id tt', updateCart)
         updateCart[index].id_trang_thai = 4;
-        setInvoice(updateCart);
+        setStatus(updateCart);
     }
 
     const handleVanChuyen = async (index, id_khach_hang, id_hd_dat) => {

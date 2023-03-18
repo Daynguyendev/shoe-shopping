@@ -38,6 +38,10 @@ const DetailProductAPI = {
         const url = `/all/quantity`;
         return axiosClient.post(url, data);
     },
+    UpdateQuantityRemove(data) {
+        const url = `/all/quantityremove`;
+        return axiosClient.post(url, data);
+    },
     getQuantityCart(data) {
         const url = `/quantitycart/all`;
         return axiosClient.post(url, data);

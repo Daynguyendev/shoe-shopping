@@ -170,6 +170,38 @@ function Header() {
     navigate(`/account`)
   }
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+
+  const handleMenu = (event) => {
+    if (isLogin) {
+      setAnchorEl(event.currentTarget);
+    }
+    else {
+      navigate(`/login`)
+    }
+
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    navigate('/');
+    handleClose()
+    window.location.reload();
+
+  }
+
+  const handlemyBill = () => {
+    if (idUser)
+      navigate(`/status/${idUser}`);
+    handleClose()
+
+  }
+
   return (
     <AppBar position="static" sx={{ backgroundColor: 'black', position: 'fixed', zIndex: '100' }} >
       <Container disableGutters sx={{ maxWidth: 'xl', zIndex: 20, backgroundColor: 'black' }} >
@@ -237,28 +269,34 @@ function Header() {
 
           </Box>
 
-          <ManageAccountsIcon onClick={handleAccount} sx={{ padding: '10px', cursor: 'pointer', color: 'white' }} ></ManageAccountsIcon>
+          <ManageAccountsIcon onClick={handleMenu} sx={{ padding: '10px', cursor: 'pointer', color: 'white' }} ></ManageAccountsIcon>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            style={{ marginTop: '40px' }}
+          >
+
+            <MenuItem
+
+              sx={{ width: '350px' }}
+
+              onClick={handlemyBill}> <h3>Đơn hàng của tôi</h3></MenuItem>
+            <MenuItem onClick={handleLogout}><h3>Đăng xuất</h3></MenuItem>
+          </Menu>
 
           <Box sx={{ flexGrow: 0, color: 'white', textAlign: 'center', alignItems: 'center', display: 'flex', cursor: 'pointer', fontFamily: 'Jura' }} onClick={handlecClickcart}>
             <ShoppingCartIcon />
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-            </Menu>
-
           </Box>
         </Toolbar>
       </Container>

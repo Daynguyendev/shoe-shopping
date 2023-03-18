@@ -28,7 +28,8 @@ import AddDetail from './components/features/admin/components/AddDetail';
 import AddPromotion from './components/features/admin/components/AddPromotion';
 import Adidas from './components/features/newhot/adidas';
 import Jordan from './components/features/newhot/Jordan';
-
+import ReturnPolicy from './components/Footer/ReturnPolicy';
+import Guarantee from './components/Footer/Guarantee';
 function App() {
 
   return (
@@ -55,6 +56,10 @@ function App() {
           <Route path="/promotion" element={<AddPromotion />}></Route>
           <Route path="/adidas" element={<Adidas />}></Route>
           <Route path="/jordan" element={<Jordan />}></Route>
+          <Route path="/chinhsach" element={<ReturnPolicy />}></Route>
+          <Route path="/baohanh" element={<Guarantee />}></Route>
+
+
 
           <Route path="/invoice/:name" element={<AddInvoiceInput />}></Route>
           <Route path="/checkout/:id" element={<Checkout />}></Route>

@@ -5,7 +5,16 @@ import { Container } from '@mui/material';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import { useNavigate } from 'react-router-dom';
 function Footer(props) {
+  const navigate = useNavigate();
+
+  const handleChinhsach = () => {
+    navigate(`/chinhsach`);
+  }
+  const handleBaoHanh = () => {
+    navigate(`/baohanh`);
+  }
   return (
     <Container maxWidth="xl"
     >
@@ -13,13 +22,14 @@ function Footer(props) {
         <Grid item xs={12} xl={3} lg={3}>
           <h3>HN STORE</h3>
           <hr />
+
+          <p>3/2 Ninh Kiều</p>
+
+          <p>Cần Thơ</p>
+
+          <p>Hotline: 08 8888 8888</p>
+
           <p>
-            3/2 Ninh Kiều
-            <br />
-            Cần Thơ
-            <br />
-            Hotline: 08 8888 8888
-            <br />
             <FacebookIcon className='lien-he' />
             <InstagramIcon className='lien-he' />
             <MailOutlineIcon className='lien-he' />
@@ -29,19 +39,14 @@ function Footer(props) {
         <Grid item xs={12} xl={3} lg={3}>
           <h3>THÔNG TIN</h3>
           <hr />
-          <p>
-            Chính sách đổi trả
-            <br />
-            Chính sách vận chuyển
-            <br />
-            Chính sách bảo hành
-            <br />
-            Hình thức thanh toán
-            <br />
-            Hướng dẫn mua hàng
-            <br />
-            Thông tin bảo mật
-          </p>
+
+          <p onClick={handleChinhsach} style={{ cursor: 'pointer' }}>Chính sách đổi trả</p>
+          <p style={{ cursor: 'pointer' }}>Chính sách vận chuyển</p>
+          <p onClick={handleBaoHanh} style={{ cursor: 'pointer' }}> Chính sách bảo hành</p>
+          <p style={{ cursor: 'pointer' }}> Hình thức thanh toán</p>
+          <p style={{ cursor: 'pointer' }}> Hướng dẫn mua hàng</p>
+          <p style={{ cursor: 'pointer' }}> Thông tin bảo mật</p>
+
         </Grid>
       </Grid>
       <Grid>

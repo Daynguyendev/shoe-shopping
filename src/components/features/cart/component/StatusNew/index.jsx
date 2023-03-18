@@ -61,12 +61,7 @@ export default function StatusNew() {
                                 statusAllList.map((item, index) => (
                                     <Step key={item.id_trang_thai}>
                                         <StepLabel
-                                            StepIconProps={{
-                                                style: {
-                                                    background: 'black'
 
-                                                },
-                                            }}
                                         >{item.ten_trang_thai}</StepLabel>
                                     </Step>
                                 ))

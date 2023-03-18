@@ -32,7 +32,7 @@ import invoiceoutputAPI from '../../../../API/invoiceoutputAPI';
 import './Status.scss'
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-
+import DetailProductAPI from '../../../../API/detailproductAPI'
 export default function Status() {
     const { id_khach_hang } = useParams();
     const { enqueueSnackbar } = useSnackbar();
@@ -59,6 +59,17 @@ export default function Status() {
 
     const handleRemove = async (index, id_khach_hang, id_hd_dat) => {
         const result = await statusAPI.UpdateStatus({ id_trang_thai: 4, id_khach_hang: id_khach_hang, id_hd_dat: id_hd_dat });
+        setIdBill(id_hd_dat);
+        const resultDetailInvoice = await detailinvoiceoutputAPI.getDetail({ id_hd_dat: id_hd_dat })
+        for (let i = 0; i < (resultDetailInvoice.data.data).length; i++) {
+            const results = await DetailProductAPI.UpdateQuantityRemove({
+                so_luong: resultDetailInvoice.data.data[i].so_luong,
+                id_sp: resultDetailInvoice.data.data[i].id_sp,
+                id_mau_sac: resultDetailInvoice.data.data[i].id_mau_sac,
+                id_kich_thuoc: resultDetailInvoice.data.data[i].id_kich_thuoc,
+            })
+
+        }
         const updateCart = [...statusList];
         updateCart[index].id_trang_thai = 4;
         setStatus(updateCart);
@@ -208,6 +219,7 @@ export default function Status() {
                         <hr />
 
                     </Grid>))
+
             }
 
             <Dialog fullScreen open={open} onClose={handleClose}>

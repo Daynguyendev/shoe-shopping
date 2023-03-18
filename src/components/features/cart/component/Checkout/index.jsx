@@ -488,9 +488,6 @@ export default function UploadProduct() {
         })
 
             .then(async responses => {
-                // localStorage.removeItem('Buy-now');
-                // Nếu tất cả các Promise đều thành công, tiếp tục thực hiện phần tiếp theo
-
                 if (idUser == '' || idUser == null) {
                     enqueueSnackbar('Lấy ID thất bại vui lòng đăng nhập lại', {
                         variant: 'error',
@@ -612,22 +609,25 @@ export default function UploadProduct() {
                         ))}
                     </TextField>
 
+                    {checkoutSubmit == 2 ? (<h3 style={{ fontFamily: 'Oswald', margin: '10px', color: 'red', textAlign: 'center' }}>Thực hiện thanh toán vào ngay tài khoản ngân hàng của chúng tôi MB BANK 0987789789987. Vui lòng sử dụng Mã đơn hàng của bạn trong phần Nội dung thanh toán. Đơn hàng sẽ đươc giao sau khi tiền đã chuyển.</h3>) : (<h4 style={{ fontFamily: 'Oswald', margin: '10px', textAlign: 'center' }}>Thanh toán bằng tiền mặt khi nhận hàng</h4>)}
+
+
 
                 </Grid>
                 <Grid item xs={1} xl={1} lg={1} sm={1} md={1} >
                 </Grid>
-                <Grid item xs={11} xl={5} lg={5} sm={5} md={5} sx={{ border: '2px solid red', margin: '10px' }}>
+                <Grid item xs={11} xl={5} lg={5} sm={5} md={5} sx={{ border: '2px solid DodgerBlue', margin: '10px' }}>
                     <h3 style={{ margin: '10px' }}>Đơn hàng của bạn</h3>
                     <Grid sx={{ display: 'flex', margin: '10px' }} >
 
 
-                        <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
+                        <Grid item xs={6} xl={6} lg={6} sm={6} md={6} sx={{ fontWeight: 'bold' }}  >
                             Tên sản phẩm
                         </Grid>
-                        <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
+                        <Grid item xs={6} xl={6} lg={6} sm={6} md={6} sx={{ fontWeight: 'bold' }}  >
                             Số lượng
                         </Grid>
-                        <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
+                        <Grid item xs={6} xl={6} lg={6} sm={6} md={6} sx={{ fontWeight: 'bold' }} >
                             Tạm tính
                         </Grid>
 
@@ -672,10 +672,10 @@ export default function UploadProduct() {
                                 <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
                                     {item.ten_sp}
                                 </Grid>
-                                <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
+                                <Grid item xs={6} xl={6} lg={6} sm={6} md={6}>
                                     {item.so_luong}
                                 </Grid>
-                                <Grid item xs={6} xl={6} lg={6} sm={6} md={6} >
+                                <Grid item xs={6} xl={6} lg={6} sm={6} md={6}  >
                                     {mysqlDateString >= item.ngay_bat_dau && mysqlDateString <= item.ngay_ket_thuc ? (<div>
                                         {((item.gia_sp - (item.phan_tram_giam / 100 * item.gia_sp)) * item.so_luong)}
                                     </div>
@@ -704,8 +704,8 @@ export default function UploadProduct() {
                                 Tổng tiền thanh toán : {totalShip + total}
                             </Grid>
 
-                            <Button onClick={handlesubmitFullInvoice} disableElevation sx={{ marginBottom: '10px', fontFamily: 'Oswald', fontWeight: 'bold', width: '115px', height: '44px', fontSize: '14px', marginTop: '9px', marginLeft: '8px', color: 'black' }} variant="outlined">
-                                Đặt hàng
+                            <Button onClick={handlesubmitFullInvoice} disableElevation sx={{ marginBottom: '10px', fontFamily: 'Jura', fontWeight: 'bold', width: '115px', height: '44px', fontSize: '14px', marginTop: '9px', marginLeft: '8px', color: 'white', backgroundColor: 'LightSalmon' }} variant="contained">
+                                ĐẶT HÀNG
                             </Button>
                         </>)}
 
