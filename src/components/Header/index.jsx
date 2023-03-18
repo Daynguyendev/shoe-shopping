@@ -17,7 +17,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import userAPI from '../API/userAPI';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import trademarkAPI from '../API/trademarkAPI';
 import productAPI from './../API/productAPI';
@@ -37,7 +37,16 @@ function Header() {
   const isLogin = useSelector((state) => state?.user.isLogin);
   let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
   const [auto, setAuto] = useState(false);
+  const inputRef = useRef(null);
 
+  const handleClick = () => {
+    const value = inputRef.current.value;
+
+    if (value != '') {
+      navigate(`colections/${value.replace(/\s+/g, '-')}`)
+    }
+
+  };
   useEffect(() => {
     try {
       const fetchProduct = async () => {
@@ -52,6 +61,7 @@ function Header() {
     }
   }, []);
 
+
   const searchProducts = (keyword) => {
     setOpen(true);
     setAuto(true);
@@ -61,7 +71,7 @@ function Header() {
       setAuto(false);
     }
     const filteredProducts = products.filter((product) =>
-      product.ten_sp.includes(keyword)
+      (product.ten_sp).toLowerCase().includes(keyword.toLowerCase())
     );
     setSearchResult(filteredProducts);
   };
@@ -136,22 +146,6 @@ function Header() {
     }
   }, [isLogin]);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   const handlecClickcart = () => {
     navigate(`/cart/${idUser}/id_sp/id_mau_sac/id_kich_thuoc`)
     // window.location.reload();
@@ -166,11 +160,7 @@ function Header() {
     // window.location.reload()
   }
 
-  const handleAccount = () => {
-    navigate(`/account`)
-  }
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
 
   const handleMenu = (event) => {
@@ -228,16 +218,14 @@ function Header() {
             <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/logoStore.png" alt="logoStore" style={{ width: '90%' }} />
 
           </Typography>
-          <Search sx={{ width: '220px' }}>
+          {/* <Search sx={{ width: '220px' }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Tìm kiếm…"
               inputProps={{
-                'aria-label': 'search',
-                onChange: (e) => searchProducts(e.target.value)
-
+                onChange: (e) => searchProducts(e.target.value),
               }}
               autoFocus={auto}
               value={searchValue}
@@ -245,7 +233,19 @@ function Header() {
             />
             {open && searchResult ? <ProductSearch searchResult={searchResult} setOpen={setOpen} /> : ''
             }
-          </Search>
+          </Search> */}
+          <div style={{ display: 'flex' }}>
+
+            <input type="search" placeholder="Tìm kiếm…" ref={inputRef} onKeyUp={event => {
+              if (event.key === 'Enter') {
+                handleClick()
+              }
+            }
+            } />
+            < IconButton color="secondary" onClick={handleClick} > <SearchIcon /></IconButton>
+            {/* {open && searchResult ? <ProductSearch searchResult={searchResult} setOpen={setOpen} /> : ''
+            } */}
+          </div>
           <Box sx={{ display: { xs: 'flex', md: 'none' }, }}>
             <IconButton
               size="large"

@@ -74,20 +74,29 @@ function OverView() {
             console.log('Failed to fetch Product: ', error);
         }
     }, [name]);
-
+    console.log('test prodct', product)
     useEffect(() => {
         try {
             const fetchProduct = async () => {
                 if (productDefault !== null) {
                     const result = await productAPI.getAll();
-                    setProductDefault(result.data.data);
+                    if (name == 'danh-muc') {
+                        setProductDefault(result.data.data);
+                    }
+                    else {
+                        const filteredProducts = await result.data.data.filter((product) =>
+                            (product.ten_sp.replace(/\s+/g, '-')).toLowerCase().includes(name.toLowerCase())
+                        );
+                        setProductDefault(filteredProducts);
+
+                    }
                 }
             };
             fetchProduct();
         } catch (error) {
             console.log('Failed to fetch productDefault: ', error);
         }
-    }, []);
+    }, [name]);
 
     useEffect(() => {
         try {

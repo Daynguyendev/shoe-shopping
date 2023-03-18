@@ -406,7 +406,7 @@ function DetailPage() {
                                 <Grid item xs={3}>
                                     <Typography variant='h5' sx={{ fontFamily: 'Oswald', }} >Màu sắc</Typography>
                                 </Grid>
-                                <Grid item xs={9} sx={{ display: 'flex', marginLeft: '30px' }}>
+                                <Grid item xs={9} sx={{ marginLeft: '30px', justifyContent: 'center' }}>
 
                                     {/* <ToggleButton
                                     key={index}
@@ -418,7 +418,7 @@ function DetailPage() {
                                 </ToggleButton> */}
 
                                     {colormap.map((item, index) => (
-                                        <ToggleButton style={{ marginRight: '15px', backgroundColor: 'white' }} key={index} value={item.id_mau_sac}
+                                        <ToggleButton sx={{ whiteSpace: 'break-spaces', margin: '5px', height: '40px' }} key={index} value={item.id_mau_sac}
                                             className={selectedButtonId === item.id_mau_sac ? 'selectedcolor' : ''}
                                             onClick={() => handleButtonClick(item.id_mau_sac, item.ten_mau_sac)}
 
@@ -437,7 +437,7 @@ function DetailPage() {
 
                                         <ToggleButton style={{ marginRight: '15px', marginTop: '10px', maxWidth: '40px', height: '30px', backgroundColor: 'white' }}
                                             value={item.id_kich_thuoc} key={index} className={selectedButtonSize === item.id_kich_thuoc ? 'selectedsize' : ''}
-                                            onClick={() => handleButtonClickSize(item.id_kich_thuoc, item.ten_kich_thuoc)} value={item.id_kich_thuoc}>{item.ten_kich_thuoc}</ToggleButton>
+                                            onClick={() => handleButtonClickSize(item.id_kich_thuoc, item.ten_kich_thuoc)} >{item.ten_kich_thuoc}</ToggleButton>
                                     ))}
                                 </Grid>
 

@@ -404,7 +404,7 @@ export default function UploadProduct() {
         try {
             const fetchCart = async () => {
                 if (address !== null) {
-                    const result = await addresskAPI.getAddress({ id_khach_hang: id });
+                    const result = await addresskAPI.getAddress({ id_khach_hang: idUser });
                     setAddress(result.data.data);
                 }
             };
@@ -412,7 +412,7 @@ export default function UploadProduct() {
         } catch (error) {
             console.log('Failed to fetch checkout: ', error);
         }
-    }, []);
+    }, [idUser]);
 
     const handleSubmitCheckBuyNow = async () => {
         if (isLogin) {
@@ -609,7 +609,7 @@ export default function UploadProduct() {
                         ))}
                     </TextField>
 
-                    {checkoutSubmit == 2 ? (<h3 style={{ fontFamily: 'Oswald', margin: '10px', color: 'red', textAlign: 'center' }}>Thực hiện thanh toán vào ngay tài khoản ngân hàng của chúng tôi MB BANK 0987789789987. Vui lòng sử dụng Mã đơn hàng của bạn trong phần Nội dung thanh toán. Đơn hàng sẽ đươc giao sau khi tiền đã chuyển.</h3>) : (<h4 style={{ fontFamily: 'Oswald', margin: '10px', textAlign: 'center' }}>Thanh toán bằng tiền mặt khi nhận hàng</h4>)}
+                    {checkoutSubmit == 2 ? (<h4 style={{ fontFamily: 'Oswald', margin: '10px', color: 'red', textAlign: 'center' }}>Thực hiện thanh toán vào ngay tài khoản ngân hàng của chúng tôi MB BANK 0987789789987. Vui lòng sử dụng Mã đơn hàng của bạn trong phần Nội dung thanh toán. Đơn hàng sẽ đươc giao sau khi tiền đã chuyển.</h4>) : (<h4 style={{ fontFamily: 'Oswald', margin: '10px', textAlign: 'center' }}>Thanh toán bằng tiền mặt khi nhận hàng</h4>)}
 
 
 

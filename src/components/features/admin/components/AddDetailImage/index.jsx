@@ -66,16 +66,15 @@ function AddDetailImage() {
         try {
             const fetchImageDetail = async () => {
                 if (imageDetail !== null) {
-                    const result = await imageAPI.getAll();
+                    const result = await imageAPI.get(idProduct);
                     setImageDetailDetail(result.data.data);
-                    console.log('imageDetail', result.data)
                 }
             };
             fetchImageDetail();
         } catch (error) {
             console.log('Failed to fetch imageDetail: ', error);
         }
-    }, []);
+    }, [idProduct]);
 
     const handleSubmit = (event) => {
 
@@ -101,7 +100,7 @@ function AddDetailImage() {
     };
     const getImageDetail = async () => {
 
-        const result = await imageAPI.getAll();
+        const result = await imageAPI.get(idProduct);
         setImageDetailDetail(result.data.data);
         console.log('imageDetail', result.data)
     };

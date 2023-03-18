@@ -11,13 +11,14 @@ function ProductSearch({ searchResult, }) {
         window.location.reload();
     }
     return (
-        <Grid className='Search'>
+        <Grid className='Search' >
             <List
                 sx={{
                     width: '100%',
                     maxWidth: 360,
                     position: 'relative',
                     overflow: 'auto',
+
                     maxHeight: 300,
                     '& ul': { padding: 0 },
                 }}
