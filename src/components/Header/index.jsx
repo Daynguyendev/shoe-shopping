@@ -286,6 +286,8 @@ function Header() {
             onClose={handleClose}
             style={{ marginTop: '40px' }}
           >
+            <MenuItem disabled><h3>Xin chào {email_khach_hang}</h3></MenuItem>
+
 
             <MenuItem
 

@@ -24,6 +24,7 @@ import PageRateProduct from '../../features/product/component/PageRateProduct';
 import colorAPI from '../../API/colorAPI';
 import sizeAPI from './../../API/sizeAPI';
 import Progress from '../../Formcontrol/Progress';
+import ToggleButton from '@mui/material/ToggleButton';
 function DetailPage() {
     let { id } = useParams();
     const navigate = useNavigate()
@@ -406,12 +407,22 @@ function DetailPage() {
                                     <Typography variant='h5' sx={{ fontFamily: 'Oswald', }} >Màu sắc</Typography>
                                 </Grid>
                                 <Grid item xs={9} sx={{ display: 'flex', marginLeft: '30px' }}>
+
+                                    {/* <ToggleButton
+                                    key={index}
+                                    value={item.ten_mau_sac}
+                                    selected={selectedButtons.includes(item.id_mau_sac)}
+                                    onChange={() => handleClick(item.id_mau_sac)}
+                                >
+                                    {item.ten_mau_sac}
+                                </ToggleButton> */}
+
                                     {colormap.map((item, index) => (
-                                        <button style={{ marginRight: '15px', backgroundColor: 'white' }} key={index}
+                                        <ToggleButton style={{ marginRight: '15px', backgroundColor: 'white' }} key={index} value={item.id_mau_sac}
                                             className={selectedButtonId === item.id_mau_sac ? 'selectedcolor' : ''}
                                             onClick={() => handleButtonClick(item.id_mau_sac, item.ten_mau_sac)}
 
-                                        >{item.ten_mau_sac}</button>
+                                        >{item.ten_mau_sac}</ToggleButton>
                                     ))}
 
 
@@ -424,9 +435,9 @@ function DetailPage() {
                                 <Grid item xs={9} sx={{ fontFamily: 'Oswald', marginLeft: '30px' }}>
                                     {sizemap.map((item, index) => (
 
-                                        <button style={{ marginRight: '15px', marginTop: '10px', maxWidth: '40px', height: '30px', backgroundColor: 'white' }}
-                                            key={index} className={selectedButtonSize === item.id_kich_thuoc ? 'selectedsize' : ''}
-                                            onClick={() => handleButtonClickSize(item.id_kich_thuoc, item.ten_kich_thuoc)} value={item.id_kich_thuoc}>{item.ten_kich_thuoc}</button>
+                                        <ToggleButton style={{ marginRight: '15px', marginTop: '10px', maxWidth: '40px', height: '30px', backgroundColor: 'white' }}
+                                            value={item.id_kich_thuoc} key={index} className={selectedButtonSize === item.id_kich_thuoc ? 'selectedsize' : ''}
+                                            onClick={() => handleButtonClickSize(item.id_kich_thuoc, item.ten_kich_thuoc)} value={item.id_kich_thuoc}>{item.ten_kich_thuoc}</ToggleButton>
                                     ))}
                                 </Grid>
 

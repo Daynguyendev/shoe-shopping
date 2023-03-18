@@ -51,7 +51,7 @@ function AddDetailImage() {
         try {
             const fetchColorDetail = async () => {
                 if (colorDetail !== null) {
-                    const result = await colorAPI.get();
+                    const result = await colorAPI.getdetailbyId(idProduct);
                     setColorDetail(result.data.data);
                     console.log('colorDetail', result.data)
                 }
@@ -60,7 +60,7 @@ function AddDetailImage() {
         } catch (error) {
             console.log('Failed to fetch colorDetail: ', error);
         }
-    }, []);
+    }, [idProduct]);
 
     useEffect(() => {
         try {
