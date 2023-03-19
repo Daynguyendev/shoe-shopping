@@ -10,10 +10,10 @@ function Footer(props) {
   const navigate = useNavigate();
 
   const handleChinhsach = () => {
-    navigate(`/chinhsach`);
+    navigate(`fotter/chinhsach`);
   }
   const handleBaoHanh = () => {
-    navigate(`/baohanh`);
+    navigate(`fotter/baohanh`);
   }
   return (
     <Container maxWidth="xl"

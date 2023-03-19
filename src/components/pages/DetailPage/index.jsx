@@ -457,7 +457,7 @@ function DetailPage() {
                                 <Grid item xs={4} lg={2}>
                                     <ButtonForm name={'Mua Ngay'} onClick={handleBuyNow} />
                                 </Grid>
-                                <Grid item xs={2} lg={2}>
+                                <Grid item xs={1} lg={1}>
                                 </Grid>
 
                                 <Grid item xs={3} lg={2} sx={{ display: 'flex', alignItems: 'center' }}>

@@ -30,7 +30,7 @@ function AddInvoice() {
             render: (rowData) => {
 
                 const handleViewDetail = () => {
-                    navigate(`/invoice/${rowData.ten_hoa_don_nhap}`);
+                    navigate(`/admin/invoice/${rowData.ten_hoa_don_nhap}`);
                 };
 
                 return (
@@ -43,7 +43,7 @@ function AddInvoice() {
 
     const handleClickDetail = (item) => {
         handleSubmitHD()
-        navigate(`/invoice/${namebill}`)
+        navigate(`/admin/invoice/${namebill}`)
 
     }
 

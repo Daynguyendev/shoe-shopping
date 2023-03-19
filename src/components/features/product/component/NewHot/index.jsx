@@ -8,11 +8,11 @@ function NewHot(props) {
     const navigate = useNavigate();
 
     const handleAdidas = () => {
-        navigate(`/adidas`)
+        navigate(`fotter/adidas`)
     }
 
     const handleJordan = () => {
-        navigate(`/jordan`)
+        navigate(`fotter/jordan`)
     }
     return (
         <Container disableGutters maxWidth="xl"  >

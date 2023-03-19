@@ -48,32 +48,40 @@ function AddDetailImage() {
     }, []);
 
     useEffect(() => {
-        try {
-            const fetchColorDetail = async () => {
-                if (colorDetail !== null) {
-                    const result = await colorAPI.getdetailbyId(idProduct);
-                    setColorDetail(result.data.data);
-                    console.log('colorDetail', result.data)
-                }
-            };
-            fetchColorDetail();
-        } catch (error) {
-            console.log('Failed to fetch colorDetail: ', error);
+        if (idProduct) {
+            try {
+                const fetchColorDetail = async () => {
+                    if (colorDetail !== null) {
+                        const result = await colorAPI.getdetailbyId(idProduct);
+                        setColorDetail(result.data.data);
+                        console.log('colorDetail', result.data)
+                    }
+                };
+                fetchColorDetail();
+            } catch (error) {
+                console.log('Failed to fetch colorDetail: ', error);
+            }
+
         }
+
     }, [idProduct]);
 
     useEffect(() => {
-        try {
-            const fetchImageDetail = async () => {
-                if (imageDetail !== null) {
-                    const result = await imageAPI.get(idProduct);
-                    setImageDetailDetail(result.data.data);
-                }
-            };
-            fetchImageDetail();
-        } catch (error) {
-            console.log('Failed to fetch imageDetail: ', error);
+        if (idProduct) {
+            try {
+                const fetchImageDetail = async () => {
+                    if (imageDetail !== null) {
+                        const result = await imageAPI.get(idProduct);
+                        setImageDetailDetail(result.data.data);
+                    }
+                };
+                fetchImageDetail();
+            } catch (error) {
+                console.log('Failed to fetch imageDetail: ', error);
+            }
+
         }
+
     }, [idProduct]);
 
     const handleSubmit = (event) => {

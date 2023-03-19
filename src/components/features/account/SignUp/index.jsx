@@ -139,7 +139,7 @@ export default function SignUp() {
     };
 
     const handleNextPage = () => {
-        navigate(`/login`)
+        navigate(`register`)
     }
 
     return (

@@ -13,6 +13,10 @@ const userAPI = {
         const url = `/account/id`;
         return axiosClient.post(url, data);
     },
+    getAdmin(data) {
+        const url = `/admin/id`;
+        return axiosClient.post(url, data);
+    },
 
 };
 
