@@ -236,7 +236,7 @@ function Header() {
           </Search> */}
           <div style={{ display: 'flex' }}>
 
-            <input type="search" placeholder="Tìm kiếm…" ref={inputRef} onKeyUp={event => {
+            <input className='search' type="search" placeholder="Tìm kiếm…" ref={inputRef} onKeyUp={event => {
               if (event.key === 'Enter') {
                 handleClick()
               }

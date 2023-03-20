@@ -55,7 +55,7 @@ export default function CustomizedList() {
     });
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', paddingTop: '80px' }}>
             <ThemeProvider
                 theme={createTheme({
                     components: {

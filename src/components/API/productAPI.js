@@ -19,16 +19,16 @@ const productAPI = {
         const url = `/product/getid/id`;
         return axiosClient.post(url, id);
     },
-    update(id, data) {
-        const url = `/products/${id}`;
+    update(data) {
+        const url = `/product`;
         return axiosClient.patch(url, data);
     },
     add(data) {
         const url = `/product`;
         return axiosClient.post(url, data);
     },
-    delete(id) {
-        const url = `/products/${id}`;
+    delete(id_sp) {
+        const url = `/product/${id_sp}`;
         return axiosClient.delete(url);
     },
     getName(name) {

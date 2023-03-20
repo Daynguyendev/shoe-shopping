@@ -13,6 +13,9 @@ import trademarkAPI from '../../../../API/trademarkAPI';
 import Button from '@mui/material/Button';
 import productAPI from './../../../../API/productAPI';
 import { useSnackbar } from 'notistack';
+import tableIcons from '../MaterialTableControl';
+import MaterialTable from 'material-table';
+
 
 export default function UploadProduct() {
     const { enqueueSnackbar } = useSnackbar();
@@ -31,6 +34,19 @@ export default function UploadProduct() {
     const [imageDetail, setImageDetailDetail] = useState([]);
     const [discountDetail, setDiscountDetail] = useState([]);
     const [providerDetail, setProviderDetail] = useState([]);
+    const [product, setProduct] = useState([]);
+
+    const columns = [
+        { field: 'id_sp', title: 'id_sp', width: 70 },
+        { field: 'ten_sp', title: 'ten_sp', width: 130 },
+        { field: 'gia_sp', title: 'gia_sp', width: 130 },
+        { field: 'hinh_anh_chinh', title: 'hinh_anh_chinh', width: 130 },
+        { field: 'thong_tin_sp', title: 'thong_tin_sp', width: 70 },
+        { field: 'id_thuong_hieu', title: 'id_thuong_hieu', width: 50 },
+        { field: 'id_loai_sp', title: 'id_loai_sp', width: 50 },
+        { field: 'id_khuyen_mai', title: 'id_khuyen_mai', width: 50 },
+
+    ];
 
     const handleTrademark = event => {
         setTrademark(event.target.value);
@@ -50,6 +66,22 @@ export default function UploadProduct() {
         setCategory(event.target.value);
         console.log(event.target.value);
     };
+
+    useEffect(() => {
+        try {
+            const fetchProduct = async () => {
+                if (product !== null) {
+                    const result = await productAPI.getAll();
+                    setProduct(result.data.data);
+                    console.log('product', result.data.data)
+                }
+            };
+            fetchProduct();
+        } catch (error) {
+            console.log('Failed to fetch product: ', error);
+        }
+    }, []);
+
 
     const handleSubmit = () => {
         productAPI.add({
@@ -180,12 +212,76 @@ export default function UploadProduct() {
         }
     }, []);
 
+    const getProduct = async () => {
+
+        const result = await productAPI.getAll();
+        setProduct(result.data.data);
+        console.log('setProduct', result.data)
+    };
+
+
+    const handleRowUpdate = (newData, oldData, resolve) => {
+        const updateProduct = async () => {
+            try {
+                const { data } = await productAPI.update({
+                    id_sp: newData.id_sp,
+                    ten_sp: newData.ten_sp,
+                    gia_sp: newData.gia_sp,
+                    thong_tin_sp: newData.thong_tin_sp,
+                    id_thuong_hieu: newData.id_thuong_hieu,
+                    id_loai_sp: newData.id_loai_sp,
+                    hinh_anh_chinh: newData.hinh_anh_chinh,
+                    id_khuyen_mai: newData.id_khuyen_mai,
+                });
+                getProduct();
+            } catch (error) {
+                console.log('Failed to update providerDetail list: ', error);
+            }
+        };
+        updateProduct();
+        resolve();
+    };
+
+    const handleRowAdd = (newData, resolve) => {
+        const addProduct = async () => {
+            try {
+                const { data } = await productAPI.add({
+                    ten_sp: newData.ten_sp,
+                    gia_sp: newData.gia_sp,
+                    thong_tin_sp: newData.thong_tin_sp,
+                    id_thuong_hieu: newData.id_thuong_hieu,
+                    id_loai_sp: newData.id_loai_sp,
+                    hinh_anh_chinh: newData.hinh_anh_chinh,
+                    id_khuyen_mai: newData.id_khuyen_mai,
+                });
+                getProduct();
+            } catch (error) {
+                console.log('Failed toadd providerDetail list: ', error);
+            }
+        };
+        addProduct();
+        resolve();
+    };
+
+    const handleRowDelete = (oldData, resolve) => {
+        const deleteProduct = async () => {
+            try {
+                const { data } = await productAPI.delete(oldData.id_sp);
+                getProduct();
+            } catch (error) {
+                console.log('Failed to update providerDetail list: ', error);
+            }
+        };
+        deleteProduct();
+        resolve();
+    };
+
     return (
         <Box
         >
             <h1>THÊM SẢN PHẨM</h1>
 
-
+            {/* 
             <TextField
                 select
                 label="Thương hiệu"
@@ -230,12 +326,33 @@ export default function UploadProduct() {
             </TextField>
             <TextField helperText="Nhập tên sản phẩm" fullWidth id="outlined-basic" label="Tên sản phẩm" variant="outlined" onChange={(e) => setNameProduct(e.target.value)} />
             <TextField helperText="Nhập giá sản phẩm" fullWidth id="filled-basic" label="Giá sản phẩm" variant="outlined" onChange={(e) => setPriceProduct(e.target.value)} />
-            <TextField helperText="Nhập thông tin sản phẩm" fullWidth id="standard-basic" label="Thông tin sản phẩm" variant="outlined" onChange={(e) => setInforProduct(e.target.value)} />
+            <TextField helperText="Nhập thông tin sản phẩm" fullWidth id="standard-basic" label="Thông tin sản phẩm" variant="outlined" onChange={(e) => setInforProduct(e.target.value)} /> */}
             {/* <TextField fullWidth id="standard-basic" label="id hình ảnh chi tiết" variant="outlined" onChange={(e) => setImgDetail(e.target.value)} /> */}
-            <TextField helperText="Nhập liên kết ảnh chính" fullWidth id="outlined-basic" label="URL ảnh chính" variant="outlined" onChange={(e) => setMainImg(e.target.value)} />
+            {/* <TextField helperText="Nhập liên kết ảnh chính" fullWidth id="outlined-basic" label="URL ảnh chính" variant="outlined" onChange={(e) => setMainImg(e.target.value)} /> */}
             {/* <Button onClick={handleSubmit} disableElevation sx={{ width: '215px', height: '55px', fontSize: '10px', marginTop: '9px', marginLeft: '8px' }} variant="contained">
                 Thêm sản phẩm
             </Button> */}
+            <MaterialTable
+                title="Danh sách nhà cung cấp"
+                columns={columns}
+                data={product}
+                icons={tableIcons}
+                editable={{
+                    onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve) => {
+                            handleRowUpdate(newData, oldData, resolve);
+                        }),
+                    onRowAdd: (newData) =>
+                        new Promise((resolve) => {
+                            // handleRowAdd(newData, resolve);
+                            handleRowAdd(newData, resolve);
+                        }),
+                    onRowDelete: (oldData) =>
+                        new Promise((resolve) => {
+                            handleRowDelete(oldData, resolve);
+                        }),
+                }}
+            />
 
         </Box>
     );
