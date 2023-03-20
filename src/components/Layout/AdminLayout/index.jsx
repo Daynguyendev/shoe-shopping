@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import Dns from '@mui/icons-material/Dns';
 import { useNavigate } from 'react-router-dom';
-
+import './AdminLayout.scss'
 export default function CustomizedList() {
     const [open, setOpen] = React.useState(true);
     const navigate = useNavigate();
@@ -26,8 +26,8 @@ export default function CustomizedList() {
         { icon: <Dns />, label: 'Quản lý hóa đơn nhập', handle: 'invoice' },
         { icon: <Dns />, label: 'Quản lý nhà cung cấp', handle: 'provider' },
         { icon: <Dns />, label: 'Quản lý nhà hóa đơn đặt', handle: 'accept' },
-        { icon: <Dns />, label: 'Quản lý trạng thái', handle: 'accept' },
-        { icon: <Dns />, label: 'Quản lý phương thức thanh toán', handle: 'accept' },
+        { icon: <Dns />, label: 'Quản lý trạng thái', handle: 'status' },
+        { icon: <Dns />, label: 'Quản lý phương thức thanh toán', handle: 'checkout' },
 
 
 
@@ -55,7 +55,7 @@ export default function CustomizedList() {
     });
 
     return (
-        <Box sx={{ display: 'flex', paddingTop: '80px' }}>
+        <Box className='root-admin' >
             <ThemeProvider
                 theme={createTheme({
                     components: {

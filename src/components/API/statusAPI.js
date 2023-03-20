@@ -29,6 +29,14 @@ const statusAPI = {
         const url = `/status/fillter`;
         return axiosClient.post(url, data);
     },
+    update(data) {
+        const url = `/status/update`;
+        return axiosClient.patch(url, data);
+    },
+    delete(id_trang_thai) {
+        const url = `/status/${id_trang_thai}`;
+        return axiosClient.delete(url);
+    }
 
 };
 

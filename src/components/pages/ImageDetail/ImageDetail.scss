@@ -14,6 +14,8 @@
         width: 320px;
         height: 320px;
         margin-bottom: 250px;
+
+
     }
 
 }
@@ -25,6 +27,7 @@
         height: 365px;
         margin-bottom: 250px;
 
+
     }
 }
 
@@ -35,6 +38,7 @@
         height: 538px;
         margin-bottom: 150px;
 
+        pointer-events: none;
 
 
 
@@ -51,7 +55,6 @@
         .imgdetail {
             max-width: 768px;
             max-height: 768px;
-            pointer-events: none;
 
         }
 

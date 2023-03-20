@@ -20,7 +20,7 @@ function AddInvoice() {
 
 
     const columns = [
-        { field: 'id_hd_nhap_hang', title: 'id_hd_nhap_hang', width: 70 },
+        { field: 'id_hd_nhap_hang', title: 'ID', width: 70 },
         { field: 'ten_hoa_don_nhap', title: 'ten_hoa_don_nhap', width: 130 },
         { field: 'ngay_lap_hd', title: 'ngay_lap_hd', width: 130 },
         {
@@ -55,7 +55,6 @@ function AddInvoice() {
                 if (billDetail !== null) {
                     const result = await invoiceAPI.getAll();
                     setBillDetail(result.data.data);
-                    console.log('billDetail', result.data)
                 }
             };
             fetchBillDetail();
@@ -71,7 +70,6 @@ function AddInvoice() {
                 if (namebillDetail !== null) {
                     const result = await detailInvoiceAPI.get(namebill);
                     setNameBillDetail(result.data.data);
-                    console.log(namebillDetail)
                 }
             };
             fetchNameBill();
@@ -117,7 +115,6 @@ function AddInvoice() {
 
         const result = await invoiceAPI.getAll();
         setBillDetail(result.data.data);
-        console.log('BillDetail', result.data)
     };
 
 
@@ -190,7 +187,6 @@ function AddInvoice() {
                         }),
                     onRowAdd: (newData) =>
                         new Promise((resolve) => {
-                            // handleRowAdd(newData, resolve);
                             handleRowAdd(newData, resolve);
                         }),
                     onRowDelete: (oldData) =>

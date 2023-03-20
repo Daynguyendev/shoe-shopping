@@ -116,20 +116,20 @@ function OverView() {
     return (
         <Container disableGutters maxWidth="xl" >
             <Breadcrumbs aria-label="breadcrumb" style={{ backgroundColor: 'white', padding: '5px' }}>
-                <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Jura' }} onClick={handleHome}>Trang chủ </p>
-                <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Jura' }}  >{name} </p>
+                <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Oswald' }} onClick={handleHome}>Trang chủ </p>
+                <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Oswald' }}  >{name} </p>
             </Breadcrumbs>
             <Grid item xs={12} className='overview' >
                 <Grid item xs={3} className='danh-muc'  >
                     <h3 style={{ color: 'red', marginTop: '-5px' }}>Thương hiệu</h3>
                     {tradeMarkAll.map((item, index) => (
-                        <h4 key={index} style={{ fontFamily: 'Jura', cursor: 'pointer' }} onClick={() => handleClickDetail(item.ten_thuong_hieu)}>
+                        <h4 key={index} style={{ fontFamily: 'Oswald', cursor: 'pointer' }} onClick={() => handleClickDetail(item.ten_thuong_hieu)}>
                             {item.ten_thuong_hieu}
                         </h4>
                     ))}
                     <h3 style={{ color: 'red' }}>Loại</h3>
                     {category.map((item, index) => (
-                        <h4 key={index} style={{ fontFamily: 'Jura', cursor: 'pointer' }} onClick={() => handleClickDetail(item.id_loai_sp)}>
+                        <h4 key={index} style={{ fontFamily: 'Oswald', cursor: 'pointer' }} onClick={() => handleClickDetail(item.id_loai_sp)}>
                             {item.ten_loai_sp}
                         </h4>
                     ))}

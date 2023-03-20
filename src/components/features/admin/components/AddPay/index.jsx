@@ -1,76 +1,76 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { useState, useEffect } from 'react';
-import sizeAPI from '../../../../API/sizeAPI';
 import tableIcons from '../MaterialTableControl';
 import MaterialTable from 'material-table';
+import checkoutAPI from './../../../../API/checkoutAPI';
 
-function AddSize() {
-    const [sizeDetail, setSizeDetail] = useState([]);
+function AddPay() {
+    const [checkoutDetail, setCheckoutDetail] = useState([]);
     const columns = [
-        { field: 'id_kich_thuoc', title: 'ID', width: 70 },
-        { field: 'ten_kich_thuoc', title: 'ten_kich_thuoc', width: 130 },
+        { field: 'id_phuong_thuc_tt', title: 'ID', width: 70 },
+        { field: 'ten_phuong_thuc_tt', title: 'ten_phuong_thuc_tt', width: 130 },
     ];
-
     useEffect(() => {
         try {
-            const fetchSizeDetail = async () => {
-                if (sizeDetail !== null) {
-                    const result = await sizeAPI.get();
-                    setSizeDetail(result.data.data);
+            const fetchColorDetail = async () => {
+                if (checkoutDetail !== null) {
+                    const result = await checkoutAPI.get();
+                    setCheckoutDetail(result.data.data);
                 }
             };
-            fetchSizeDetail();
+            fetchColorDetail();
         } catch (error) {
-            console.log('Failed to fetch SizeDetail: ', error);
+            console.log('Failed to fetch checkoutDetail: ', error);
         }
     }, []);
 
-    const getSizeDetail = async () => {
 
-        const result = await sizeAPI.get();
-        setSizeDetail(result.data.data);
+    const getCheckoutDetail = async () => {
+
+        const result = await checkoutAPI.get();
+        setCheckoutDetail(result.data.data);
     };
 
-
     const handleRowUpdate = (newData, oldData, resolve) => {
-        const updateSize = async () => {
+        const updateCheckout = async () => {
             try {
-                const { data } = await sizeAPI.update({ id_kich_thuoc: newData.id_kich_thuoc, ten_kich_thuoc: newData.ten_kich_thuoc });
-                getSizeDetail();
+                const { data } = await checkoutAPI.update({ id_phuong_thuc_tt: newData.id_phuong_thuc_tt, ten_phuong_thuc_tt: newData.ten_phuong_thuc_tt });
+                getCheckoutDetail();
             } catch (error) {
-                console.log('Failed to update size list: ', error);
+                console.log('Failed to update checkout list: ', error);
             }
         };
-        updateSize();
+        updateCheckout();
         resolve();
     };
 
     const handleRowAdd = (newData, resolve) => {
-        const addSize = async () => {
+        const addCheckout = async () => {
             try {
-                const { data } = await sizeAPI.add({ ten_kich_thuoc: newData.ten_kich_thuoc });
-                getSizeDetail();
+                const { data } = await checkoutAPI.add({ ten_phuong_thuc_tt: newData.ten_phuong_thuc_tt });
+                getCheckoutDetail();
             } catch (error) {
-                console.log('Failed toadd size list: ', error);
+                console.log('Failed toadd checkout list: ', error);
             }
         };
-        addSize();
+        addCheckout();
         resolve();
     };
 
     const handleRowDelete = (oldData, resolve) => {
-        const deleteSize = async () => {
+        const deleteCheckout = async () => {
             try {
-                const { data } = await sizeAPI.delete(oldData.id_kich_thuoc);
-                getSizeDetail();
+                const { data } = await checkoutAPI.delete(oldData.id_phuong_thuc_tt);
+                getCheckoutDetail();
             } catch (error) {
-                console.log('Failed to update product list: ', error);
+                console.log('Failed to update checkout list: ', error);
             }
         };
-        deleteSize();
+        deleteCheckout();
         resolve();
     };
+
     return (
         <Box
             sx={{
@@ -82,15 +82,15 @@ function AddSize() {
                 textAlign: 'center',
                 alignItems: 'center',
                 paddingTop: '50px',
-                display: 'list-item'
-                , paddingTop: '80px'
+                display: 'list-item',
+                paddingTop: '80px'
             }}
         >
-            <h1>KÍCH THƯỚC</h1>
+            <h1>PHƯƠNG THỨC THANH TOÁN</h1>
             <MaterialTable
-                title="Danh sách kích thước"
+                title="Danh sách trạng thái"
                 columns={columns}
-                data={sizeDetail}
+                data={checkoutDetail}
                 icons={tableIcons}
                 editable={{
                     onRowUpdate: (newData, oldData) =>
@@ -111,4 +111,4 @@ function AddSize() {
     );
 }
 
-export default AddSize;
+export default AddPay;

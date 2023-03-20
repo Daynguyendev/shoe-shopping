@@ -388,7 +388,7 @@ function DetailPage() {
                 {
                     pageDetail.map((item, i) => (
                         <Grid item xs={12} lg={6} xl={6} key={i} >
-                            <Typography variant='h4' sx={{ fontFamily: 'Oswald', fontWeight: '1000' }} >{item.ten_sp.replace(/-+/g, ' ')}</Typography>
+                            <Typography variant='h3' sx={{ fontFamily: 'Oswald', fontWeight: '1000' }} >{item.ten_sp.replace(/-+/g, ' ')}</Typography>
                             <Grid item xs={1} >
                                 <hr />
                             </Grid>
@@ -404,21 +404,12 @@ function DetailPage() {
                             </Grid>
                             <Grid item xs={12} sx={{ display: 'flex' }} >
                                 <Grid item xs={3}>
-                                    <Typography variant='h5' sx={{ fontFamily: 'Oswald', }} >Màu sắc</Typography>
+                                    <Typography variant='h5' sx={{ fontFamily: 'Oswald', paddingTop: '20px' }} >Màu sắc</Typography>
                                 </Grid>
                                 <Grid item xs={9} sx={{ marginLeft: '30px', justifyContent: 'center' }}>
 
-                                    {/* <ToggleButton
-                                    key={index}
-                                    value={item.ten_mau_sac}
-                                    selected={selectedButtons.includes(item.id_mau_sac)}
-                                    onChange={() => handleClick(item.id_mau_sac)}
-                                >
-                                    {item.ten_mau_sac}
-                                </ToggleButton> */}
-
                                     {colormap.map((item, index) => (
-                                        <ToggleButton sx={{ whiteSpace: 'break-spaces', margin: '5px', height: '40px' }} key={index} value={item.id_mau_sac}
+                                        <ToggleButton sx={{ whiteSpace: 'break-spaces', marginRight: '15px', marginTop: '20px', height: '35px', paddingTop: '10px' }} key={index} value={item.id_mau_sac}
                                             className={selectedButtonId === item.id_mau_sac ? 'selectedcolor' : ''}
                                             onClick={() => handleButtonClick(item.id_mau_sac, item.ten_mau_sac)}
 

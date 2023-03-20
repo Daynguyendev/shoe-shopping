@@ -32,6 +32,8 @@ import Jordan from './components/features/newhot/Jordan';
 import ReturnPolicy from './components/Footer/ReturnPolicy';
 import Guarantee from './components/Footer/Guarantee';
 import PrivateRoute from './components/routers/PrivateRoute';
+import AddStatus from './components/features/admin/components/AddStatus';
+import AddPay from './components/features/admin/components/AddPay';
 function App() {
 
   return (
@@ -75,6 +77,10 @@ function App() {
           <Route path="invoice" element={<AddInvoice />}></Route>
           <Route path="invoice/:name" element={<AddInvoiceInput />}></Route>
           <Route path="accept" element={<OrderConfirmation />}></Route>
+          <Route path="status" element={<AddStatus />}></Route>
+          <Route path="checkout" element={<AddPay />}></Route>
+
+
           <Route path="*" element={<NotFound />} />
 
         </Route>

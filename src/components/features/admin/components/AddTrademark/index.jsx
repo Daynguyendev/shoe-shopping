@@ -1,21 +1,15 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import trademarkAPI from './../../../../API/trademarkAPI';
-import { useSnackbar } from 'notistack';
 import tableIcons from '../MaterialTableControl';
 import MaterialTable from 'material-table';
 
 function AddTrademark() {
     const [trademarkDetail, setTrademarkDetail] = useState([]);
-    const [trademark, setTrademark] = useState('');
-    const { enqueueSnackbar } = useSnackbar();
 
     const columns = [
-        { field: 'id_thuong_hieu', title: 'id_thuong_hieu', width: 70 },
+        { field: 'id_thuong_hieu', title: 'ID', width: 70 },
         { field: 'ten_thuong_hieu', title: 'ten_thuong_hieu', width: 130 },
     ];
 
@@ -25,7 +19,6 @@ function AddTrademark() {
                 if (trademarkDetail !== null) {
                     const result = await trademarkAPI.get();
                     setTrademarkDetail(result.data.data);
-                    console.log('trademark', result.data)
                 }
             };
             fetchtrademarkDetail();
@@ -34,27 +27,10 @@ function AddTrademark() {
         }
     }, []);
 
-    const handleSubmit = (event) => {
-        trademarkAPI.add({ ten_thuong_hieu: trademark })
-            .then(function (response) {
-                enqueueSnackbar('Thêm thương hiệu thành công', {
-                    variant: 'success',
-                    autoHideDuration: 800,
-                    anchorOrigin: {
-                        vertical: 'top',
-                        horizontal: 'right',
-                    },
-                });
-                setTrademark('');
-            })
-            .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
-            );
-    };
     const getTrademarkDetail = async () => {
 
         const result = await trademarkAPI.get();
         setTrademarkDetail(result.data.data);
-        console.log('trademarkDetail', result.data)
     };
 
 
@@ -111,14 +87,7 @@ function AddTrademark() {
                 , paddingTop: '80px'
             }}
         >
-            <h1>THÊM THƯƠNG HIỆU</h1>
-
-            {/* <TextField onChange={(e) => setTrademark(e.target.value)} value={trademark} label="Thương hiệu" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
-
-            <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
-                Thêm thương hiệu
-            </Button> */}
-
+            <h1>THƯƠNG HIỆU</h1>
 
             <MaterialTable
                 title="Danh sách thương hiệu"
@@ -132,7 +101,6 @@ function AddTrademark() {
                         }),
                     onRowAdd: (newData) =>
                         new Promise((resolve) => {
-                            // handleRowAdd(newData, resolve);
                             handleRowAdd(newData, resolve);
                         }),
                     onRowDelete: (oldData) =>

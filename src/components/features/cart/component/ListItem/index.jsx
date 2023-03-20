@@ -187,7 +187,7 @@ function ListItem({ cart, setCart, setItemNotLogin }) {
                             <Typography sx={{ fontFamily: 'Oswald' }}>Thành tiền</Typography>
                         </Grid>
                         <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex' } }}>
-                            <Typography sx={{ fontFamily: 'Oswald' }}>Thao tác</Typography>
+                            <Typography sx={{ fontFamily: 'Oswald' }}>Xóa</Typography>
                         </Grid>
                     </Grid>
                     <hr />
@@ -247,13 +247,13 @@ function ListItem({ cart, setCart, setItemNotLogin }) {
                             <Typography sx={{ fontFamily: 'Oswald' }}>Đơn giá</Typography>
                         </Grid>
                         <Grid item xs={2} lg={1} xl={1}>
-                            <Typography sx={{ fontFamily: 'Oswald' }}>Số lượng</Typography>
+                            <Typography sx={{ fontFamily: 'Oswald', paddingRight: '20px' }}>Số lượng</Typography>
                         </Grid>
                         <Grid item xs={0} lg={2} xl={2} sx={{ display: { xs: 'none', xl: 'flex' } }}>
                             <Typography sx={{ fontFamily: 'Oswald' }}>Thành tiền</Typography>
                         </Grid>
                         <Grid item xs={1} lg={1} xl={1} sx={{ display: { xl: 'flex' } }}>
-                            <Typography sx={{ fontFamily: 'Oswald' }}>Thao tác</Typography>
+                            <Typography sx={{ fontFamily: 'Oswald', paddingLeft: '10px' }}>Xóa</Typography>
                         </Grid>
                     </Grid>
                     <hr />

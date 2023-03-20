@@ -50,7 +50,7 @@ function Footer(props) {
         </Grid>
       </Grid>
       <Grid>
-        <p className='end-fotter' style={{ color: 'white', fontFamily: 'Jura' }}>2023 HN STORE bảo lưu mọi quyền</p>
+        <p className='end-fotter' style={{ color: 'white', fontFamily: 'Oswald' }}>2023 HN STORE bảo lưu mọi quyền</p>
       </Grid>
       <Grid item xs={12} className='img-full-fotter'>
         <Grid item xs={10}></Grid>

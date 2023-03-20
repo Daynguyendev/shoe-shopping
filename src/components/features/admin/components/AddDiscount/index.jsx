@@ -1,9 +1,5 @@
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
-import { useSnackbar } from 'notistack';
 import promotionAPI from './../../../../API/promotionAPI';
 import React from 'react';
 import tableIcons from '../MaterialTableControl';
@@ -13,47 +9,21 @@ import MaterialTable from 'material-table';
 
 function AddDiscount() {
     const [promotionDetail, setPromotionDetail] = useState([]);
-    const [namePromotion, setNamPromotion] = useState('');
-    const [dateStart, setDateStart] = useState('');
-    const [dateEnd, setDateEnd] = useState('');
-    const [discount, setDiscount] = useState('');
-    const [state, setState] = useState([]);
-    const [pricediscount, setPriceDiscount] = useState('');
-    const { enqueueSnackbar } = useSnackbar();
-
     const [data, setData] = useState([]);
     const columns = [
-        { field: 'id_khuyen_mai', title: 'id_khuyen_mai', width: 70 },
+        { field: 'id_khuyen_mai', title: 'ID', width: 70 },
         { field: 'ten_khuyen_mai', title: 'ten_khuyen_mai', width: 130 },
         { field: 'ngay_bat_dau', title: 'ngay_bat_dau', width: 130 },
         { field: 'ngay_ket_thuc', title: 'ngay_ket_thuc', width: 130 },
         { field: 'phan_tram_giam', title: 'phan_tram_giam', width: 130 },
 
     ];
-
-    const handleAdd = (newData) => {
-        setData([...data, newData]);
-    };
-
-    const handleUpdate = (newData, oldData) => {
-        const index = data.indexOf(oldData);
-        data[index] = newData;
-        setData([...data]);
-    };
-
-    const handleDelete = (oldData) => {
-        const index = data.indexOf(oldData);
-        data.splice(index, 1);
-        setData([...data]);
-    };
-
     useEffect(() => {
         try {
             const fetchpromotionDetail = async () => {
                 if (promotionDetail !== null) {
                     const result = await promotionAPI.get();
                     setPromotionDetail(result.data.data);
-                    console.log('promotionDetail', result.data)
                 }
             };
             fetchpromotionDetail();
@@ -66,7 +36,6 @@ function AddDiscount() {
 
         const result = await promotionAPI.get();
         setPromotionDetail(result.data.data);
-        console.log('setPromotionDetail', result.data)
     };
 
     const handleRowUpdate = (newData, oldData, resolve) => {
@@ -75,7 +44,7 @@ function AddDiscount() {
                 const { data } = await promotionAPI.update({ id_khuyen_mai: newData.id_khuyen_mai, ten_khuyen_mai: newData.ten_khuyen_mai, ngay_bat_dau: newData.ngay_bat_dau, ngay_ket_thuc: newData.ngay_ket_thuc, phan_tram_giam: newData.phan_tram_giam });
                 getPromotionDetail();
             } catch (error) {
-                console.log('Failed to update size list: ', error);
+                console.log('Failed to update promotion list: ', error);
             }
         };
         updatePromotion();
@@ -88,7 +57,7 @@ function AddDiscount() {
                 const { data } = await promotionAPI.add({ ten_khuyen_mai: newData.ten_khuyen_mai, ngay_bat_dau: newData.ngay_bat_dau, ngay_ket_thuc: newData.ngay_ket_thuc, phan_tram_giam: newData.phan_tram_giam });
                 getPromotionDetail();
             } catch (error) {
-                console.log('Failed toadd size list: ', error);
+                console.log('Failed toadd promotion list: ', error);
             }
         };
         addPromotion();
@@ -101,7 +70,7 @@ function AddDiscount() {
                 const { data } = await promotionAPI.delete(oldData.id_khuyen_mai);
                 getPromotionDetail();
             } catch (error) {
-                console.log('Failed to update product list: ', error);
+                console.log('Failed to update promotion list: ', error);
             }
         };
         deletePromotion();
@@ -123,7 +92,7 @@ function AddDiscount() {
             }}
         >
 
-            <h1>THÊM KHUYẾN MÃI</h1>
+            <h1>KHUYẾN MÃI</h1>
             <div style={{ maxWidth: "100%" }}>
                 <MaterialTable
                     title="Danh sách khuyến mãi"

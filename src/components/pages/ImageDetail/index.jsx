@@ -34,23 +34,35 @@ export default function ImageDetail({ colorAdd }) {
         }
     }, [colorAdd])
 
-
+    const [pointerEvents, setPointerEvents] = useState('auto');
+    const handleClick = () => {
+        setPointerEvents('none');
+    };
 
 
     return (
-        <Carousel className='img-list' >
+        <div >
+            <Carousel className='img-list' swipe={true}   >
 
-            {
-                imageDisplay.length === 0 ? (imageDetail.map((item, index) => (
-                    <div key={item.id_mau_sac} >
-                        <img className='imgdetail' src={item.link_hinh_anh_ct} alt={index} />
-                    </div>
-                ))) : (imageDisplay.map((item, index) => (
-                    <div key={item.id_mau_sac} >
-                        <img className='imgdetail' src={item.link_hinh_anh_ct} alt={index} />
-                    </div>
-                )))
-            }
-        </Carousel >
+                {
+                    imageDisplay.length === 0 ? (imageDetail.map((item, index) => (
+                        <div key={item.id_mau_sac} >
+                            <img onClick={handleClick}
+                                style={{ pointerEvents: pointerEvents }} className='imgdetail' src={item.link_hinh_anh_ct} alt={index} />
+                        </div>
+                    ))) : (imageDisplay.map((item, index) => (
+                        <div key={item.id_mau_sac}  >
+                            <img onClick={handleClick}
+                                style={{ pointerEvents: pointerEvents }} className='imgdetail' src={item.link_hinh_anh_ct} alt={index} />
+                        </div>
+                    )))
+                }
+            </Carousel >
+
+        </div>
+
+
+
+
     );
 }

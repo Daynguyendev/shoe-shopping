@@ -102,6 +102,7 @@ export default function SignIn() {
                 const resultSaveToken = await localStorage.setItem('token', response.data.token);
                 const resultsSaveUser = await localStorage.setItem('user', JSON.stringify(data));
                 navigate(`/`)
+                window.location.reload();
                 enqueueSnackbar('Đăng nhập thành công', {
                     variant: 'success',
                     autoHideDuration: 800,

@@ -1,21 +1,15 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import colorAPI from '../../../../API/colorAPI';
-import { useSnackbar } from 'notistack';
 import tableIcons from '../MaterialTableControl';
 import MaterialTable from 'material-table';
 
 
 function AddColor() {
     const [colorDetail, setColorDetail] = useState([]);
-    const [color, setColor] = useState('');
-    const { enqueueSnackbar } = useSnackbar();
     const columns = [
-        { field: 'id_mau_sac', title: 'id_mau_sac', width: 70 },
+        { field: 'id_mau_sac', title: 'ID', width: 70 },
         { field: 'ten_mau_sac', title: 'ten_mau_sac', width: 130 },
     ];
 
@@ -39,7 +33,6 @@ function AddColor() {
 
         const result = await colorAPI.get();
         setColorDetail(result.data.data);
-        console.log('pageDetail', result.data)
     };
 
     const handleRowUpdate = (newData, oldData, resolve) => {
@@ -81,22 +74,6 @@ function AddColor() {
         resolve();
     };
 
-    const handleSubmit = (event) => {
-        colorAPI.add({ ten_mau_sac: color })
-            .then(function (response) {
-                enqueueSnackbar('Thêm màu sắc thành công', {
-                    variant: 'success',
-                    autoHideDuration: 800,
-                    anchorOrigin: {
-                        vertical: 'top',
-                        horizontal: 'right',
-                    },
-                });
-                setColor('');
-            })
-            .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
-            );
-    };
     return (
         <Box
             sx={{
@@ -112,14 +89,7 @@ function AddColor() {
                 paddingTop: '80px'
             }}
         >
-            <h1>THÊM MÀU SẮC</h1>
-            {/* 
-            <TextField onChange={(e) => setColor(e.target.value)} value={color} label="Màu sắc" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
-
-            <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
-                Thêm màu sắc
-            </Button> */}
-
+            <h1>MÀU SẮC</h1>
             <MaterialTable
                 title="Danh sách màu sắc"
                 columns={columns}
@@ -132,7 +102,6 @@ function AddColor() {
                         }),
                     onRowAdd: (newData) =>
                         new Promise((resolve) => {
-                            // handleRowAdd(newData, resolve);
                             handleRowAdd(newData, resolve);
                         }),
                     onRowDelete: (oldData) =>

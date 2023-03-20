@@ -1,0 +1,40 @@
+//iphone5
+@media only screen and (max-width: 320px) {
+    .root-admin {
+        display: flex;
+        padding-top: 55px;
+    }
+}
+
+//mobile
+@media only screen and (min-width: 321px) and (max-width: 376px) {
+    .root-admin {
+        display: flex;
+        padding-top: 55px;
+    }
+}
+
+//pho thong
+@media only screen and (min-width: 376px) and (max-width: 739px) {
+    .root-admin {
+        display: flex;
+        padding-top: 55px;
+    }
+}
+
+
+//tablet
+@media only screen and (min-width: 740px) and (max-width: 1024px) {
+    .root-admin {
+        display: flex;
+        padding-top: 80px;
+    }
+}
+
+//desktop
+@media only screen and (min-width: 1025px) {
+    .root-admin {
+        display: flex;
+        padding-top: 80px;
+    }
+}

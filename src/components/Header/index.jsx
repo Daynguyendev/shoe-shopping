@@ -21,14 +21,11 @@ import { useState, useEffect, useRef } from 'react';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import trademarkAPI from '../API/trademarkAPI';
 import productAPI from './../API/productAPI';
-import ProductSearch from '../features/product/component/ProductSearch';
 
 function Header() {
   const navigate = useNavigate();
   const [idUser, setIdUser] = useState();
   const [tradeMarkAll, setTradeMarkAll] = useState([]);
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
   const [products, setProducts] = useState([]);
   const [searchResult, setSearchResult] = useState(null);
   const [searchValue, setSearchValue] = useState('');
@@ -39,6 +36,22 @@ function Header() {
   const [auto, setAuto] = useState(false);
   const inputRef = useRef(null);
 
+  const [isAdmin, setIsAdmin] = useState(null);
+  useEffect(() => {
+    try {
+      const fetchIdUser = async () => {
+        if (isLogin) {
+          const res = await userAPI.getAdmin({ email_khach_hang: email_khach_hang });
+          if (res !== null) {
+            setIsAdmin(true);
+          }
+        }
+      };
+      fetchIdUser();
+    } catch (error) {
+      console.log('Failed to fetch idUser: ', error);
+    }
+  }, []);
   const handleClick = () => {
     const value = inputRef.current.value;
 
@@ -148,7 +161,6 @@ function Header() {
 
   const handlecClickcart = () => {
     navigate(`/cart/${idUser}/id_sp/id_mau_sac/id_kich_thuoc`)
-    // window.location.reload();
   }
 
   const handlecClicklogo = () => {
@@ -157,7 +169,6 @@ function Header() {
 
   const handlecClickSneaker = (name) => {
     navigate(`/colections/danh-muc`)
-    // window.location.reload()
   }
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -188,6 +199,14 @@ function Header() {
   const handlemyBill = () => {
     if (idUser)
       navigate(`/status/${idUser}`);
+    handleClose()
+
+  }
+
+
+  const handleAdmin = () => {
+    if (isAdmin)
+      navigate(`/admin`);
     handleClose()
 
   }
@@ -229,7 +248,7 @@ function Header() {
               }}
               autoFocus={auto}
               value={searchValue}
-              sx={{ fontFamily: 'Jura' }}
+              sx={{ fontFamily: 'Oswald' }}
             />
             {open && searchResult ? <ProductSearch searchResult={searchResult} setOpen={setOpen} /> : ''
             }
@@ -262,7 +281,7 @@ function Header() {
             <Button
 
               onClick={() => handlecClickSneaker()}
-              sx={{ color: 'white', display: 'block', fontSize: '15px', fontWeight: 'normal', fontFamily: 'Jura' }}
+              sx={{ color: 'white', display: 'block', fontSize: '15px', fontWeight: 'normal', fontFamily: 'Oswald' }}
             >
               <h3> DANH MỤC </h3>
             </Button>
@@ -286,18 +305,16 @@ function Header() {
             onClose={handleClose}
             style={{ marginTop: '40px' }}
           >
-            <MenuItem disabled><h3>Xin chào {email_khach_hang}</h3></MenuItem>
+            <MenuItem disabled><h4>Email: {email_khach_hang}</h4></MenuItem>
 
 
             <MenuItem
-
-              sx={{ width: '350px' }}
-
-              onClick={handlemyBill}> <h3>Đơn hàng của tôi</h3></MenuItem>
-            <MenuItem onClick={handleLogout}><h3>Đăng xuất</h3></MenuItem>
+              onClick={handlemyBill}> <h4>Đơn hàng của tôi</h4></MenuItem>
+            {isAdmin ? <MenuItem onClick={handleAdmin}><h4>Quản lý Store</h4></MenuItem> : ''}
+            <MenuItem onClick={handleLogout}><h4>Đăng xuất</h4></MenuItem>
           </Menu>
 
-          <Box sx={{ flexGrow: 0, color: 'white', textAlign: 'center', alignItems: 'center', display: 'flex', cursor: 'pointer', fontFamily: 'Jura' }} onClick={handlecClickcart}>
+          <Box sx={{ flexGrow: 0, color: 'white', textAlign: 'center', alignItems: 'center', display: 'flex', cursor: 'pointer', fontFamily: 'Oswald' }} onClick={handlecClickcart}>
             <ShoppingCartIcon />
           </Box>
         </Toolbar>

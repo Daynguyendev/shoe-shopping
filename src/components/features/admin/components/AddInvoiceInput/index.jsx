@@ -12,7 +12,6 @@ import productAPI from '../../../../API/productAPI'
 import invoiceAPI from '../../../../API/invoiceAPI';
 import DetailProductAPI from '../../../../API/detailproductAPI';
 import { useParams } from 'react-router-dom';
-import UploadProduct from '../UploadProduct';
 import categoryAPI from '../../../../API/categoryAPI';
 import imageAPI from '../../../../API/imageAPI';
 import discountAPI from '../../../../API/discountAPI';
@@ -22,7 +21,6 @@ import promotionAPI from '../../../../API/promotionAPI';
 import tableIcons from '../MaterialTableControl';
 import MaterialTable from 'material-table';
 import UploadImage from '../UploadImage';
-import CheckIcon from '@mui/icons-material/Check';
 import ToggleButton from '@mui/material/ToggleButton';
 function AddInvoiceInput() {
     let { name } = useParams();
@@ -30,7 +28,6 @@ function AddInvoiceInput() {
     const [invoiceDetail, setInvoiceDetail] = useState([]);
     const [quantity, setQuantity] = useState('');
     const [priceInput, setPriceInput] = useState('');
-    const [total, setTotal] = useState('');
     const [product, setProduct] = useState([]);
     const [productItem, setProductItem] = useState(0);
     const [colorItem, setColorItem] = useState('');
@@ -58,10 +55,9 @@ function AddInvoiceInput() {
     const [selectedButtons, setSelectedButtons] = useState([]);
     const [selectedButtonsize, setSelectedButtonsize] = useState([]);
 
-    console.log(selectedButtons, selectedButtonsize)
 
     const columns = [
-        { field: 'id_chi_tiet_hd', title: 'id_chi_tiet_hd', width: 70 },
+        { field: 'id_chi_tiet_hd', title: 'ID', width: 70 },
         { field: 'id_sp', title: 'id_sp', width: 70 },
         { field: 'id_hd_nhap_hang', title: 'id_hd_nhap_hang', width: 70 },
         { field: 'id_mau_sac', title: 'id_mau_sac', width: 70 },
@@ -72,43 +68,24 @@ function AddInvoiceInput() {
 
     ];
 
-    const handleProduct = event => {
-        setProductItem(event.target.value);
-        console.log('id', event.target.value);
-    };
-    const handleColor = event => {
-        setColorItem(event.target.value);
-        console.log(event.target.value);
-
-    };
-    const handleSize = event => {
-        setSizeItem(event.target.value);
-        console.log(event.target.value);
-
-    };
     const handlePromotion = event => {
         setIdPromotion(event.target.value);
-        console.log(event.target.value);
 
     };
 
     const handleTrademark = event => {
         setTrademark(event.target.value);
-        console.log(event.target.value);
     };
     const handleDiscount = event => {
         setDiscount(event.target.value);
-        console.log(event.target.value);
     };
 
     const handleProvider = event => {
         setprovider(event.target.value);
-        console.log(event.target.value);
     };
 
     const handleCategory = event => {
         setCategory(event.target.value);
-        console.log(event.target.value);
     };
     const handleClick = (buttonId) => {
         if (selectedButtons.includes(buttonId)) {
@@ -133,7 +110,6 @@ function AddInvoiceInput() {
                 if (categoryDetail !== null) {
                     const result = await categoryAPI.get();
                     setCategoryDetail(result.data.data);
-                    console.log('categoryDetail', result.data)
                     setLoading(false);
                 }
             };
@@ -149,7 +125,6 @@ function AddInvoiceInput() {
                 if (imageDetail !== null) {
                     const result = await imageAPI.getAll();
                     setImageDetailDetail(result.data.data);
-                    console.log('imageDetail', result.data)
                     setLoading(false);
                 }
             };
@@ -165,7 +140,6 @@ function AddInvoiceInput() {
                 if (discountDetail !== null) {
                     const result = await discountAPI.get();
                     setDiscountDetail(result.data.data);
-                    console.log('discountDetail', result.data)
                     setLoading(false);
                 }
             };
@@ -181,7 +155,6 @@ function AddInvoiceInput() {
                 if (providerDetail !== null) {
                     const result = await providerAPI.get();
                     setProviderDetail(result.data.data);
-                    console.log('providerDetail', result.data)
                     setLoading(false);
                 }
             };
@@ -198,7 +171,6 @@ function AddInvoiceInput() {
                 if (trademarkDetail !== null) {
                     const result = await trademarkAPI.get();
                     setTrademarkDetail(result.data.data);
-                    console.log('trademark', result.data)
                     setLoading(false);
                 }
             };
@@ -214,7 +186,6 @@ function AddInvoiceInput() {
                 if (promotion !== null) {
                     const result = await promotionAPI.get();
                     setPromotion(result.data.data);
-                    console.log('promotion', result.data)
                     setLoading(false);
                 }
             };
@@ -224,7 +195,6 @@ function AddInvoiceInput() {
         }
     }, []);
 
-    console.log('Promotion', promotion);
 
     useEffect(() => {
         if (productItem != 0)
@@ -233,7 +203,6 @@ function AddInvoiceInput() {
                     if (productAdd !== null) {
                         const result = await productAPI.getItemById({ id_sp: productItem });
                         setProductAdd(result.data.data);
-                        console.log('productAdd', result.data.data)
                         setLoading(false);
                     }
                 };
@@ -249,7 +218,6 @@ function AddInvoiceInput() {
                 if (product !== null) {
                     const result = await productAPI.getAll();
                     setProduct(result.data.data);
-                    console.log('product', result.data.data)
                     setLoading(false);
                 }
             };
@@ -265,7 +233,6 @@ function AddInvoiceInput() {
                 if (sizeDetail !== null) {
                     const result = await sizeAPI.get();
                     setSizeDetail(result.data.data);
-                    console.log('sizeDetail', result.data.data)
                     setLoading(false);
                 }
             };
@@ -281,7 +248,6 @@ function AddInvoiceInput() {
                 if (colorDetail !== null) {
                     const result = await colorAPI.get();
                     setColorDetail(result.data.data);
-                    console.log('colorDetail', result.data)
                     setLoading(false);
                 }
             };
@@ -297,7 +263,6 @@ function AddInvoiceInput() {
                 if (invoiceDetail !== null) {
                     const result = await invoiceAPI.getByName(name);
                     setInvoiceDetail(result.data.data[0].id_hd_nhap_hang);
-                    console.log('invoiceadd', result.data.data[0].id_hd_nhap_hang)
                     setLoading(false);
 
                 }
@@ -399,7 +364,6 @@ function AddInvoiceInput() {
             resolve();
 
         } else {
-            console.log('loi');
             resolve();
         }
 
@@ -445,7 +409,6 @@ function AddInvoiceInput() {
             resolve();
 
         } else {
-            console.log('loi');
             resolve();
         }
 

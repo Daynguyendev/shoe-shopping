@@ -2,7 +2,6 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import imageAPI from '../../../../API/imageAPI';
 import UploadImage from '../UploadImage';
@@ -12,8 +11,6 @@ import colorAPI from '../../../../API/colorAPI';
 import MenuItem from '@mui/material/MenuItem';
 import tableIcons from '../MaterialTableControl';
 import MaterialTable from 'material-table';
-
-
 
 function AddDetailImage() {
     const [imageDetail, setImageDetailDetail] = useState([]);
@@ -25,7 +22,7 @@ function AddDetailImage() {
     const [product, setProduct] = useState([]);
     const [colorDetail, setColorDetail] = useState([]);
     const columns = [
-        { field: 'id_anh', title: 'id_anh', width: 70 },
+        { field: 'id_anh', title: 'ID', width: 70 },
         { field: 'id_sp', title: 'id_sp', width: 130 },
         { field: 'id_mau_sac', title: 'id_mau_sac', width: 130 },
         { field: 'link_hinh_anh_ct', title: 'link_hinh_anh_ct', width: 130 },
@@ -38,7 +35,6 @@ function AddDetailImage() {
                 if (product !== null) {
                     const result = await productAPI.getAll();
                     setProduct(result.data.data);
-                    console.log('product', result.data.data)
                 }
             };
             fetchProduct();
@@ -54,7 +50,6 @@ function AddDetailImage() {
                     if (colorDetail !== null) {
                         const result = await colorAPI.getdetailbyId(idProduct);
                         setColorDetail(result.data.data);
-                        console.log('colorDetail', result.data)
                     }
                 };
                 fetchColorDetail();
@@ -110,7 +105,6 @@ function AddDetailImage() {
 
         const result = await imageAPI.get(idProduct);
         setImageDetailDetail(result.data.data);
-        console.log('imageDetail', result.data)
     };
 
     const handleRowUpdate = (newData, oldData, resolve) => {
@@ -166,7 +160,7 @@ function AddDetailImage() {
                 , paddingTop: '80px'
             }}
         >
-            <h1>THÊM HÌNH ẢNH CHI TIẾT</h1>
+            <h1>HÌNH ẢNH CHI TIẾT</h1>
             <UploadImage />
             <br />
             <br />
@@ -220,7 +214,6 @@ function AddDetailImage() {
                         }),
                     onRowAdd: (newData) =>
                         new Promise((resolve) => {
-                            // handleRowAdd(newData, resolve);
                             handleRowAdd(newData, resolve);
                         }),
                     onRowDelete: (oldData) =>

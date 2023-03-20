@@ -1,76 +1,75 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { useState, useEffect } from 'react';
-import sizeAPI from '../../../../API/sizeAPI';
 import tableIcons from '../MaterialTableControl';
 import MaterialTable from 'material-table';
+import statusAPI from './../../../../API/statusAPI';
 
-function AddSize() {
-    const [sizeDetail, setSizeDetail] = useState([]);
+function AddStatus() {
+    const [statusDetail, setStatusDetail] = useState([]);
     const columns = [
-        { field: 'id_kich_thuoc', title: 'ID', width: 70 },
-        { field: 'ten_kich_thuoc', title: 'ten_kich_thuoc', width: 130 },
+        { field: 'id_trang_thai', title: 'ID', width: 70 },
+        { field: 'ten_trang_thai', title: 'ten_trang_thai', width: 130 },
     ];
-
     useEffect(() => {
         try {
-            const fetchSizeDetail = async () => {
-                if (sizeDetail !== null) {
-                    const result = await sizeAPI.get();
-                    setSizeDetail(result.data.data);
+            const fetchColorDetail = async () => {
+                if (statusDetail !== null) {
+                    const result = await statusAPI.get();
+                    setStatusDetail(result.data.data);
                 }
             };
-            fetchSizeDetail();
+            fetchColorDetail();
         } catch (error) {
-            console.log('Failed to fetch SizeDetail: ', error);
+            console.log('Failed to fetch statusDetail: ', error);
         }
     }, []);
 
-    const getSizeDetail = async () => {
 
-        const result = await sizeAPI.get();
-        setSizeDetail(result.data.data);
+    const getStatusDetail = async () => {
+        const result = await statusAPI.get();
+        setStatusDetail(result.data.data);
     };
 
-
     const handleRowUpdate = (newData, oldData, resolve) => {
-        const updateSize = async () => {
+        const updateStatus = async () => {
             try {
-                const { data } = await sizeAPI.update({ id_kich_thuoc: newData.id_kich_thuoc, ten_kich_thuoc: newData.ten_kich_thuoc });
-                getSizeDetail();
+                const { data } = await statusAPI.update({ id_trang_thai: newData.id_trang_thai, ten_trang_thai: newData.ten_trang_thai });
+                getStatusDetail();
             } catch (error) {
-                console.log('Failed to update size list: ', error);
+                console.log('Failed to update status list: ', error);
             }
         };
-        updateSize();
+        updateStatus();
         resolve();
     };
 
     const handleRowAdd = (newData, resolve) => {
-        const addSize = async () => {
+        const addStatus = async () => {
             try {
-                const { data } = await sizeAPI.add({ ten_kich_thuoc: newData.ten_kich_thuoc });
-                getSizeDetail();
+                const { data } = await statusAPI.add({ ten_trang_thai: newData.ten_trang_thai });
+                getStatusDetail();
             } catch (error) {
-                console.log('Failed toadd size list: ', error);
+                console.log('Failed toadd status list: ', error);
             }
         };
-        addSize();
+        addStatus();
         resolve();
     };
 
     const handleRowDelete = (oldData, resolve) => {
-        const deleteSize = async () => {
+        const deleteStatus = async () => {
             try {
-                const { data } = await sizeAPI.delete(oldData.id_kich_thuoc);
-                getSizeDetail();
+                const { data } = await statusAPI.delete(oldData.id_trang_thai);
+                getStatusDetail();
             } catch (error) {
-                console.log('Failed to update product list: ', error);
+                console.log('Failed to update status list: ', error);
             }
         };
-        deleteSize();
+        deleteStatus();
         resolve();
     };
+
     return (
         <Box
             sx={{
@@ -82,15 +81,16 @@ function AddSize() {
                 textAlign: 'center',
                 alignItems: 'center',
                 paddingTop: '50px',
-                display: 'list-item'
-                , paddingTop: '80px'
+                display: 'list-item',
+                paddingTop: '80px'
             }}
         >
-            <h1>KÍCH THƯỚC</h1>
+            <h1>TRẠNG THÁI ĐƠN HÀNG</h1>
+
             <MaterialTable
-                title="Danh sách kích thước"
+                title="Danh sách trạng thái"
                 columns={columns}
-                data={sizeDetail}
+                data={statusDetail}
                 icons={tableIcons}
                 editable={{
                     onRowUpdate: (newData, oldData) =>
@@ -111,4 +111,4 @@ function AddSize() {
     );
 }
 
-export default AddSize;
+export default AddStatus;

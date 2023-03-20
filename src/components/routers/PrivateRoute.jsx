@@ -6,10 +6,6 @@ import userAPI from '../API/userAPI';
 import SignIn from '../features/account/SignIn';
 import AdminLayout from '../Layout/AdminLayout'
 import Header from '../Header'
-const MODE = {
-    LOGIN: 'login',
-    REGISTER: 'register',
-};
 
 function PrivateRoute() {
     const [isAdmin, setIsAdmin] = useState(null);

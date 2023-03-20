@@ -1,24 +1,14 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
 import providerAPI from '../../../../API/providerAPI';
-import { useSnackbar } from 'notistack';
 import tableIcons from '../MaterialTableControl';
 import MaterialTable from 'material-table';
 
-
-
-
 function AddProvider() {
     const [providerDetail, setProviderDetail] = useState([]);
-    const [nameprovider, setNameProvider] = useState('');
-    const [addressProvider, setAddressProvider] = useState('');
-    const { enqueueSnackbar } = useSnackbar();
     const columns = [
-        { field: 'id_nha_cc', title: 'id_nha_cc', width: 70 },
+        { field: 'id_nha_cc', title: 'ID', width: 70 },
         { field: 'ten_nha_cc', title: 'ten_nha_cc', width: 130 },
         { field: 'dia_chi_cc', title: 'dia_chi_cc', width: 130 },
 
@@ -29,7 +19,6 @@ function AddProvider() {
                 if (providerDetail !== null) {
                     const result = await providerAPI.get();
                     setProviderDetail(result.data.data);
-                    console.log('providerDetail', result.data)
                 }
             };
             fetchProviderDetail();
@@ -38,31 +27,11 @@ function AddProvider() {
         }
     }, []);
 
-    const handleSubmit = (event) => {
-        providerAPI.add({
-            ten_nha_cc: nameprovider,
-            dia_chi_cc: addressProvider
-        })
-            .then(function (response) {
-                enqueueSnackbar('Thêm nhà cung cấp thành công', {
-                    variant: 'success',
-                    autoHideDuration: 800,
-                    anchorOrigin: {
-                        vertical: 'top',
-                        horizontal: 'right',
-                    },
-                });
-                setNameProvider('');
-                setAddressProvider('');
-            })
-            .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
-            );
-    };
+
     const getProviderDetail = async () => {
 
         const result = await providerAPI.get();
         setProviderDetail(result.data.data);
-        console.log('providerDetail', result.data)
     };
 
 
@@ -120,15 +89,9 @@ function AddProvider() {
                 , paddingTop: '80px'
             }}
         >
-            <h1>THÊM NHÀ CUNG CẤP</h1>
-
-            {/* <TextField onChange={(e) => setNameProvider(e.target.value)} value={nameprovider} label="Tên nhà cung cấp" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
-            <TextField onChange={(e) => setAddressProvider(e.target.value)} value={addressProvider} label="Địa chỉ nhà cung cấp" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+            <h1>NHÀ CUNG CẤP</h1>
 
 
-            <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>
-                Thêm nhà cung cấp
-            </Button> */}
             <MaterialTable
                 title="Danh sách nhà cung cấp"
                 columns={columns}
@@ -141,7 +104,6 @@ function AddProvider() {
                         }),
                     onRowAdd: (newData) =>
                         new Promise((resolve) => {
-                            // handleRowAdd(newData, resolve);
                             handleRowAdd(newData, resolve);
                         }),
                     onRowDelete: (oldData) =>
