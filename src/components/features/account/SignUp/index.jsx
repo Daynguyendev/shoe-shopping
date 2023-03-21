@@ -134,7 +134,14 @@ export default function SignUp() {
                     },
                 });
             })
-            .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
+            .catch(error => enqueueSnackbar('Địa chỉ email đã tồn tại', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            })
             );
     };
 
@@ -190,7 +197,7 @@ export default function SignUp() {
                             <Grid item xs={12}>
                                 <TextField
                                     fullWidth
-                                    label="Số Điện Thoại"
+                                    label="Số điện thoại"
                                     onChange={(e) => setPhone(e.target.value)}
                                 />
                             </Grid>

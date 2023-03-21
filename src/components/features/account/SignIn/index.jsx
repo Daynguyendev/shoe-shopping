@@ -148,14 +148,14 @@ export default function SignIn() {
                         <TextField
                             margin="normal"
                             fullWidth
-                            label="Email Address"
+                            label="Địa chỉ Email"
                             autoFocus
                             onChange={(e) => setEmail(e.target.value)}
                         />
                         <TextField
                             margin="normal"
                             fullWidth
-                            label="Password"
+                            label="Mật khẩu"
                             type="password"
                             onChange={(e) => setPassword(e.target.value)}
                         />
