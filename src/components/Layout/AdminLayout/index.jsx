@@ -16,7 +16,9 @@ export default function CustomizedList() {
     const navigate = useNavigate();
 
     const data = [
+        { icon: <Dns />, label: 'Quản lý khách hàng', handle: 'user' },
         { icon: <Dns />, label: 'Quản lý loại', handle: 'category' },
+        { icon: <Dns />, label: 'Thống kê', handle: 'statistic' },
         { icon: <Dns />, label: 'Quản lý màu sắc', handle: 'color' },
         { icon: <Dns />, label: 'Quản lý kích thước', handle: 'size' },
         { icon: <Dns />, label: 'Quản lý thương hiệu', handle: 'trademark' },
@@ -113,7 +115,7 @@ export default function CustomizedList() {
                                         lineHeight: '20px',
                                         mb: '2px',
                                     }}
-                                    secondary="Authentication, Firestore Database, Realtime Database, Storage, Hosting, Functions, and Machine Learning"
+                                    secondary="Quản lý loại, Firestore Quản lý màu sắc, Quản lý kích thước, Quản lý thương hiệu, Quản lý hình ảnh chi tiết, Quản lý nhà hóa đơn đặt, Quản lý trạng thái, Quản lý phương thức thanh toán"
                                     secondaryTypographyProps={{
                                         noWrap: true,
                                         fontSize: 12,

@@ -10,7 +10,7 @@ function ReturnPolicy(props) {
 
 
     return (
-        <Container disableGutters maxWidth="xl" className='detail-adidas' sx={{ paddingTop: '100px' }} >
+        <Container disableGutters maxWidth="xl" sx={{ paddingTop: '100px', minHeight: '800px', backgroundColor: 'white' }}  >
             <Grid item xs={12}>
 
                 <h1> Chính sách đổi/trả sản phẩm tại HN STORE áp dụng như sau:</h1>

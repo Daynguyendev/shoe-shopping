@@ -17,6 +17,22 @@ const userAPI = {
         const url = `/admin/id`;
         return axiosClient.post(url, data);
     },
+    getAll() {
+        const url = `/user`;
+        return axiosClient.get(url);
+    },
+    getStatistical() {
+        const url = `/statistical`;
+        return axiosClient.get(url);
+    },
+    update(data) {
+        const url = `/user`;
+        return axiosClient.patch(url, data);
+    },
+    delete(id_khach_hang) {
+        const url = `/user/${id_khach_hang}`;
+        return axiosClient.delete(url);
+    }
 
 };
 

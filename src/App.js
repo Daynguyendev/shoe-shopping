@@ -34,6 +34,8 @@ import Guarantee from './components/Footer/Guarantee';
 import PrivateRoute from './components/routers/PrivateRoute';
 import AddStatus from './components/features/admin/components/AddStatus';
 import AddPay from './components/features/admin/components/AddPay';
+import UpdateCustomer from './components/features/admin/components/UpdateCustomer';
+import Statistical from './components/features/admin/components/Statistical';
 function App() {
 
   return (
@@ -67,6 +69,8 @@ function App() {
         </Route>
         <Route path="/admin" element={<PrivateRoute />}>
           <Route path="category" element={<AddCategory />}></Route>
+          <Route path="user" element={<UpdateCustomer />}></Route>
+          <Route path="statistic" element={<Statistical />}></Route>
           <Route path="product" element={<Page />}></Route>
           <Route path="size" element={<AddSize />}></Route>
           <Route path="trademark" element={<AddTrademark />}></Route>
