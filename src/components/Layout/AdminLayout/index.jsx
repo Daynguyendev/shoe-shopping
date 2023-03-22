@@ -57,7 +57,7 @@ export default function CustomizedList() {
     });
 
     return (
-        <Box className='root-admin' >
+        <Box className='root-admin'  >
             <ThemeProvider
                 theme={createTheme({
                     components: {

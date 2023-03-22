@@ -25,7 +25,10 @@ function AddDetailImage() {
         { field: 'id_anh', title: 'ID', width: 70 },
         { field: 'id_sp', title: 'id_sp', width: 130 },
         { field: 'id_mau_sac', title: 'id_mau_sac', width: 130 },
-        { field: 'link_hinh_anh_ct', title: 'link_hinh_anh_ct', width: 130 },
+        {
+            field: 'link_hinh_anh_ct', title: 'link_hinh_anh_ct', width: 130,
+            render: rowData => <img src={rowData.link_hinh_anh_ct} style={{ width: 70, borderRadius: '50%' }} />
+        },
 
     ];
 

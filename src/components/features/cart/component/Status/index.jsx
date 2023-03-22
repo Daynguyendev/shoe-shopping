@@ -192,9 +192,10 @@ export default function Status() {
                         <Grid sx={{ paddingBottom: '30px', fontFamily: 'Oswald', fontSize: '20px' }}>
                             Tổng tiền: {item.tong_tien}
                         </Grid>
-                        <IconButton sx={{ fontFamily: 'Oswald', fontSize: '20px' }} onClick={(e) => HandleShowDetail(item.id_hd_dat, item.id_sp)}  >
-                            <RemoveRedEyeIcon /> Xem chi tiết hóa đơn
-                        </IconButton>
+
+                        <Button sx={{ fontSize: '10px', width: '120px', height: '30px', color: 'black', backgroundColor: 'DeepSkyBlue' }} onClick={(e) => HandleShowDetail(item.id_hd_dat, item.id_sp)}>
+                            Xem chi tiết hóa đơn
+                        </Button>
 
                         {item.id_trang_thai < 4 ? (
                             <div>
@@ -213,7 +214,8 @@ export default function Status() {
                         </IconButton></>) : ('')}
                         {item.id_trang_thai == 0 ? (<> <IconButton onClick={() => handleRemove(index, item.id_khach_hang, item.id_hd_dat)} sx={{ fontFamily: 'Oswald', fontSize: '20px', display: 'flex', left: '45%' }}>
                             <DeleteForeverIcon />Hủy đơn hàng
-                        </IconButton></>) : ('')}
+                        </IconButton>
+                        </>) : ('')}
                         <br />
                         <br />
                         <hr />

@@ -46,14 +46,12 @@ export default function ImageDetail({ colorAdd }) {
 
                 {
                     imageDisplay.length === 0 ? (imageDetail.map((item, index) => (
-                        <div key={item.id_mau_sac} >
-                            <img onClick={handleClick}
-                                style={{ pointerEvents: pointerEvents }} className='imgdetail' src={item.link_hinh_anh_ct} alt={index} />
+                        <div className='imgdetail' key={item.id_mau_sac} >
+                            <img src={item.link_hinh_anh_ct} alt={index} />
                         </div>
                     ))) : (imageDisplay.map((item, index) => (
                         <div key={item.id_mau_sac}  >
-                            <img onClick={handleClick}
-                                style={{ pointerEvents: pointerEvents }} className='imgdetail' src={item.link_hinh_anh_ct} alt={index} />
+                            <img className='imgdetail' src={item.link_hinh_anh_ct} alt={index} />
                         </div>
                     )))
                 }

@@ -34,7 +34,9 @@ function AddInvoice() {
                 };
 
                 return (
-                    <button onClick={handleViewDetail}>Xem chi tiết</button>
+                    <Button sx={{ fontSize: '13px', width: '120px', height: '30px', color: 'white', backgroundColor: 'DeepSkyBlue' }} onClick={handleViewDetail}>
+                        Xem chi tiết
+                    </Button>
                 );
             },
         },

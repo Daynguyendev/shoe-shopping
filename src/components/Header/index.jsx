@@ -237,22 +237,7 @@ function Header() {
             <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/logoStore.png" alt="logoStore" style={{ width: '90%' }} />
 
           </Typography>
-          {/* <Search sx={{ width: '220px' }}>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Tìm kiếm…"
-              inputProps={{
-                onChange: (e) => searchProducts(e.target.value),
-              }}
-              autoFocus={auto}
-              value={searchValue}
-              sx={{ fontFamily: 'Oswald' }}
-            />
-            {open && searchResult ? <ProductSearch searchResult={searchResult} setOpen={setOpen} /> : ''
-            }
-          </Search> */}
+
           <div style={{ display: 'flex' }}>
 
             <input className='search' type="search" placeholder="Tìm kiếm…" ref={inputRef} onKeyUp={event => {

@@ -41,7 +41,7 @@ function PrivateRoute() {
                 <Header />
                 < AdminLayout />
 
-                <Outlet>
+                <Outlet >
 
                 </Outlet>
             </>

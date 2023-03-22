@@ -10,8 +10,7 @@ import providerAPI from '../../../../API/providerAPI';
 import trademarkAPI from '../../../../API/trademarkAPI';
 import productAPI from './../../../../API/productAPI';
 import tableIcons from '../MaterialTableControl';
-import MaterialTable from 'material-table';
-
+import MaterialTable, { MTableToolbar } from 'material-table';
 
 export default function UploadProduct() {
     const [sizeDetail, setSizeDetail] = useState([]);
@@ -26,7 +25,10 @@ export default function UploadProduct() {
         { field: 'id_sp', title: 'ID', width: 70 },
         { field: 'ten_sp', title: 'ten_sp', width: 130 },
         { field: 'gia_sp', title: 'gia_sp', width: 130 },
-        { field: 'hinh_anh_chinh', title: 'hinh_anh_chinh', width: 130 },
+        {
+            field: 'hinh_anh_chinh', title: 'hinh_anh_chinh', width: 130,
+            render: rowData => <img src={rowData.hinh_anh_chinh} style={{ width: 80, borderRadius: '50%' }} />
+        },
         { field: 'thong_tin_sp', title: 'thong_tin_sp', width: 70 },
         { field: 'id_thuong_hieu', title: 'id_thuong_hieu', width: 50 },
         { field: 'id_loai_sp', title: 'id_loai_sp', width: 50 },
