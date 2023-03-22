@@ -10,7 +10,7 @@ function Guarantee(props) {
 
 
     return (
-        <Container disableGutters maxWidth="xl" sx={{ paddingTop: '100px', minHeight: '800px', backgroundColor: 'white' }} >
+        <Container disableGutters maxWidth="xl" sx={{ padding: '100px  40px 40px 40px', minHeight: '800px', backgroundColor: 'white', textAlign: 'center', justifyContent: 'center' }} >
             <Grid item xs={12}>
 
                 <h1> Chính sách Bảo Hành sản phẩm tại HN STORE áp dụng như sau:</h1>
