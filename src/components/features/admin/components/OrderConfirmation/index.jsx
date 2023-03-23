@@ -47,6 +47,7 @@ export default function OrderConfirmation() {
             render: (rowData) => {
                 return (
                     <div >
+                        {console.log('TEST ROWDATA', rowData.tableData.id)}
                         {rowData.id_trang_thai === 4 ? (<Button variant="contained" color="error" >{rowData.id_trang_thai}</Button>
                         ) : (<div style={{ display: 'flex' }}>                    <Button variant="contained" color="success" sx={{ fontSize: '10px' }} >{rowData.id_trang_thai}</Button>
                         </div>)}
@@ -71,19 +72,19 @@ export default function OrderConfirmation() {
                     <div >
                         {rowData.id_trang_thai === 4 ? ('') : (<div style={{ display: 'flex' }}>
                             <div style={{ padding: '2px' }}>
-                                <Button sx={{ fontSize: '10px', width: '120px', height: '30px', padding: '2px' }} variant="contained" color="success" onClick={() => handleXacNhan(rowData.id_hd_dat - 1, rowData.id_khach_hang, rowData.id_hd_dat)}  >
+                                <Button sx={{ fontSize: '10px', width: '120px', height: '30px', padding: '2px' }} variant="contained" color="success" onClick={() => handleXacNhan(rowData.tableData.id, rowData.id_khach_hang, rowData.id_hd_dat)}  >
                                     Xác nhận
                                 </Button>
-                                <Button variant="contained" color="warning" sx={{ fontSize: '10px', width: '120px', height: '30px', padding: '2px' }} onClick={() => handleVanChuyen(rowData.id_hd_dat - 1, rowData.id_khach_hang, rowData.id_hd_dat)}>
+                                <Button variant="contained" color="warning" sx={{ fontSize: '10px', width: '120px', height: '30px', padding: '2px' }} onClick={() => handleVanChuyen(rowData.tableData.id, rowData.id_khach_hang, rowData.id_hd_dat)}>
                                     Đang vận chuyển
                                 </Button>
 
                             </div>
                             <div style={{ padding: '2px' }}>
-                                <Button sx={{ fontSize: '10px', width: '120px', height: '30px', color: 'black', backgroundColor: 'DeepSkyBlue', padding: '2px' }} onClick={() => handleGiaoHang(rowData.id_hd_dat - 1, rowData.id_khach_hang, rowData.id_hd_dat)}>
+                                <Button sx={{ fontSize: '10px', width: '120px', height: '30px', color: 'black', backgroundColor: 'DeepSkyBlue', padding: '2px' }} onClick={() => handleGiaoHang(rowData.tableData.id, rowData.id_khach_hang, rowData.id_hd_dat)}>
                                     Hoàn thành
                                 </Button>
-                                <Button variant="contained" color="error" sx={{ fontSize: '10px', width: '120px', height: '30px', padding: '2px' }} onClick={() => handleHuy(rowData.id_hd_dat - 1, rowData.id_khach_hang, rowData.id_hd_dat)}>
+                                <Button variant="contained" color="error" sx={{ fontSize: '10px', width: '120px', height: '30px', padding: '2px' }} onClick={() => handleHuy(rowData.tableData.id, rowData.id_khach_hang, rowData.id_hd_dat)}>
                                     Hủy
                                 </Button>
 
