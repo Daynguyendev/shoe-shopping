@@ -146,7 +146,7 @@ export default function SignUp() {
     };
 
     const handleNextPage = () => {
-        navigate(`register`)
+        navigate(`/login`)
     }
 
     return (

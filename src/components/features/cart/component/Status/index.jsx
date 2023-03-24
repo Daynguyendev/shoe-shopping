@@ -153,6 +153,7 @@ export default function Status() {
             console.log('Failed to fetch status: ', error);
         }
     }, []);
+    console.log('test statusList ',)
 
 
     useEffect(() => {
@@ -170,45 +171,64 @@ export default function Status() {
     }, []);
 
     return (
-        <Box sx={{ width: '100%', minHeight: '550px', backgroundColor: 'white', paddingTop: '80px' }}>
+        <Box sx={{ width: '100%', minHeight: '550px', backgroundColor: 'white', paddingTop: '60px' }}>
             {
                 statusList.map((item, index) => (
-                    < Grid key={index} sx={{ padding: '20px' }}>
-                        <Grid sx={{ fontFamily: 'Oswald', fontSize: '20px' }} >
-                            ID hóa đơn : {item.id_hd_dat}
-                        </Grid>
-                        <Grid sx={{ fontFamily: 'Oswald', fontSize: '20px' }} >
+                    < Grid key={index} sx={{ padding: '20px', textAlign: 'start', border: '10px solid black' }}>
+                        <Grid  >
+                            <Grid sx={{ fontFamily: 'Oswald', fontSize: '20px' }} >
 
-                            Tên : {item.ten_khach_hang}
-                        </Grid>
-                        <Grid sx={{ fontFamily: 'Oswald', fontSize: '20px' }} >
+                                Hóa đơn : {item.id_hd_dat}
+                            </Grid>
 
-                            Địa chỉ nhận hàng: {item.ten_dia_chi}
-                        </Grid>
-                        <Grid sx={{ fontFamily: 'Oswald', fontSize: '20px' }} >
+                            <Grid sx={{ fontFamily: 'Oswald', fontSize: '20px' }} >
 
-                            Ngày lập hóa đơn: {item.ngay_lap_hd_dat}
-                        </Grid>
-                        <Grid sx={{ paddingBottom: '30px', fontFamily: 'Oswald', fontSize: '20px' }}>
-                            Tổng tiền: {item.tong_tien}
+                                Tên : {item.ten_khach_hang}
+                            </Grid>
+                            <Grid sx={{ fontFamily: 'Oswald', fontSize: '20px' }} >
+
+                                Địa chỉ nhận hàng: {item.ten_dia_chi}
+                            </Grid>
+
                         </Grid>
 
-                        <Button sx={{ fontSize: '10px', width: '120px', height: '30px', color: 'black', backgroundColor: 'DeepSkyBlue' }} onClick={(e) => HandleShowDetail(item.id_hd_dat, item.id_sp)}>
+                        <Button sx={{ fontSize: '10px', width: '120px', height: '30px', color: 'black', backgroundColor: 'DeepSkyBlue', marginBottom: '20px' }} onClick={(e) => HandleShowDetail(item.id_hd_dat, item.id_sp)}>
                             Xem chi tiết hóa đơn
                         </Button>
+                        <Grid sx={{ textAlign: 'end', paddingBottom: '30px', fontFamily: 'Oswald', fontSize: '20px', fontWeight: 'bold' }}>
+                            Tổng tiền: {item.tong_tien.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                        </Grid>
+                        {/* {
+                            detailclone.map((item, index) => (
+                                <Grid key={index}>
+
+                                    <Grid sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', fontFamily: 'Oswald', fontSize: '20px' }}>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}><img className='img-detail-status' src={item.hinh_anh_chinh} alt={index} /></Grid>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_sp}</Grid>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_mau_sac}</Grid>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}> {item.ten_kich_thuoc}</Grid>
+                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}> {item.so_luong}</Grid>
+                                    </Grid>
+                                    <hr />
+                                </Grid>
+                            ))
+                        } */}
+
 
                         {item.id_trang_thai < 4 ? (
-                            <div>
+                            <div >
                                 <Stepper activeStep={item.id_trang_thai} alternativeLabel>
-                                    {statusAllList.map((item, index) => (
-                                        <Step key={item.id_trang_thai}>
-                                            <StepLabel>{item.ten_trang_thai}</StepLabel>
+                                    {statusAllList.map((item1, index) => (
+                                        <Step key={item1.id_trang_thai}>
+                                            <StepLabel StepIconProps={{ style: { color: index === item.id_trang_thai ? 'red' : 'yellow' } }}>
+                                                {item1.ten_trang_thai}
+                                            </StepLabel>
                                         </Step>
                                     ))}
                                 </Stepper>
 
                             </div>
-                        ) : (<> <h1 style={{ fontFamily: 'Oswald' }}>Đơn hàng của bạn đã bị hủy</h1></>)}
+                        ) : (<> <h2 style={{ fontFamily: 'Oswald' }}>Đơn hàng đã bị hủy</h2></>)}
                         {item.id_trang_thai == 2 ? (<> <IconButton onClick={() => handleFinish(index, item.id_khach_hang, item.id_hd_dat)} sx={{ fontFamily: 'Oswald', fontSize: '20px', display: 'flex', left: '45%' }}>
                             <DoneAllIcon />Đã nhận hàng
                         </IconButton></>) : ('')}
@@ -216,10 +236,6 @@ export default function Status() {
                             <DeleteForeverIcon />Hủy đơn hàng
                         </IconButton>
                         </>) : ('')}
-                        <br />
-                        <br />
-                        <hr />
-
                     </Grid>))
 
             }
