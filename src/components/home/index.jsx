@@ -47,16 +47,17 @@ function Home(props) {
 
     return (
         <Container maxWidth="xl" >
+            <ReviewShop />
+
             {loading ? (
                 <Progress />) : (
                 <>
-                    <ReviewShop />
-                    {/* <ItemtypeReview /> */}
                     <ListProduct product={product} value1={1} />
                     <ItemSale Sale={productSale} value2={2} />
-                    <NewHot />
                 </>
             )}
+            <NewHot />
+
 
         </Container>
     );
