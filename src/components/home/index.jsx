@@ -8,9 +8,10 @@ import NewHot from '../features/product/component/NewHot';
 import { useState, useEffect } from 'react';
 import productAPI from './../API/productAPI';
 import Progress from '../Formcontrol/Progress'
+import BestSaler from '../features/product/component/BestSaler';
+import userAPI from '../API/userAPI';
 function Home(props) {
-
-
+    const [userDetail, setUserDetail] = useState([]);
     const [product, setProduct] = useState([]);
     const [productSale, setProductSale] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -28,6 +29,8 @@ function Home(props) {
         }
     }, []);
 
+
+
     useEffect(() => {
         try {
             const fetchProduct = async () => {
@@ -43,6 +46,24 @@ function Home(props) {
         }
     }, []);
 
+    useEffect(() => {
+        try {
+            const fetchCustomerDetail = async () => {
+                if (userDetail !== null) {
+                    const result = await userAPI.getSale();
+
+                    const data = await result.data.data.slice(0, 4)
+                    setUserDetail(data);
+                }
+            };
+            fetchCustomerDetail();
+        } catch (error) {
+            console.log('Failed to fetch Customer: ', error);
+        }
+    }, []);
+    console.log('Customer', userDetail)
+
+
 
 
     return (
@@ -51,7 +72,7 @@ function Home(props) {
 
             {loading ? (
                 <Progress />) : (
-                <>
+                <> <BestSaler bestSale={userDetail} value9={9} />
                     <ListProduct product={product} value1={1} />
                     <ItemSale Sale={productSale} value2={2} />
                 </>

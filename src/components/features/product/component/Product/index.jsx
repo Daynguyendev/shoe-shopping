@@ -9,7 +9,7 @@ import LazyLoad from 'react-lazyload';
 import Pagination from '@mui/material/Pagination';
 
 
-function Product({ xs, sm, md, lg, xl, so_luong, productDefault, product, productView, productCategory, display, newcolor, colortext, page, handleReset, Sale, value1, value2, value5 }) {
+function Product({ xs, sm, md, lg, xl, so_luong, productDefault, product, BestSaler, value9, productView, productCategory, display, newcolor, colortext, page, handleReset, Sale, value1, value2, value5 }) {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const now = new Date();
@@ -34,9 +34,40 @@ function Product({ xs, sm, md, lg, xl, so_luong, productDefault, product, produc
 
   const startIndex = (currentPage - 1) * so_luong;
   const endIndex = startIndex + so_luong;
-
+  console.log('bestsale', BestSaler)
 
   const renderProductList = () => {
+
+    if (value9 = 9 && BestSaler) {
+      return BestSaler.slice(startIndex, endIndex).map((product, index) => (
+        <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl} key={product.id_sp}   >
+          <Box className="fullbox" style={{ backgroundColor: newcolor }}  >
+            <LazyLoad throttle={300} height={393} className="fade-in">
+              <img onClick={handleClickDetail}
+                className="img"
+                src={product.hinh_anh_chinh}
+                alt={product.id_sp}
+              />
+              <p className="detail-item" style={{ color: colortext }}>{product.ten_sp.replace(/-+/g, ' ')}</p>
+              <p className="detail-item" style={{ color: 'yellow', fontWeight: '600' }}>Đã bán {product.tong_so_luong_ban}</p>
+
+              {mysqlDateString >= product.ngay_bat_dau && mysqlDateString <= product.ngay_ket_thuc ? (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center' }}>
+                <p className="detail-item" style={{ fontFamily: 'Oswald', marginRight: '10px', textDecoration: 'line-through', color: colortext }} >{product.gia_sp.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+
+                <p className="detail-item" style={{ color: 'red' }}>{(product.gia_sp - (product.phan_tram_giam / 100 * product.gia_sp)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+
+
+              </div>
+
+              ) : (<div className="detail-item" style={{ display: 'flex', justifyContent: 'center', color: colortext }}><p sx={{ fontFamily: 'Oswald' }} >{product.gia_sp.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p></div>
+              )}
+
+            </LazyLoad>
+          </Box>
+        </Grid>
+      ));
+
+    }
 
     if (value1 = 1 && product) {
       return product.slice(startIndex, endIndex).map((product, index) => (
@@ -195,7 +226,7 @@ function Product({ xs, sm, md, lg, xl, so_luong, productDefault, product, produc
     <>
       {renderProductList()}
       <Pagination
-        count={display == 2 || display == 1 || display == 3 ? Math.ceil(productCategory?.length / 2) : productDefault && display == null ? Math.ceil(productDefault?.length / 2) : value1 ? Math.ceil(product?.length / 8) : value5 ? Math.ceil(productView?.length / 2) : Sale && value2 ? Math.ceil(Sale?.length / 4) : 5}
+        count={display == 2 || display == 1 || display == 3 ? Math.ceil(productCategory?.length / 2) : productDefault && display == null ? Math.ceil(productDefault?.length / 2) : value1 ? Math.ceil(product?.length / 8) : value5 ? Math.ceil(productView?.length / 2) : Sale && value2 ? Math.ceil(Sale?.length / 4) : BestSaler && value9 ? Math.ceil(BestSaler?.length / 4) : 5}
         page={currentPage}
         onChange={handlePageChange}
         color="primary"

@@ -1,0 +1,64 @@
+//mobile
+@media only screen and (max-width: 739px) {
+    .ListItembestsale {
+        display: flex;
+        justify-content: center;
+
+
+    }
+
+    .item-bestsale {
+        display: flex;
+        color: white;
+        text-align: center;
+        align-items: center;
+        padding: 30px 0 50px 0;
+        font-family: 'Oswald', sans-serif;
+        font-size: 10px;
+
+    }
+
+}
+
+//tablet
+@media only screen and (min-width: 740px) and (max-width: 1023px) {
+    .ListItembestsale {
+        display: flex;
+        justify-content: center;
+
+
+    }
+
+    .item-bestsale {
+        display: flex;
+        color: white;
+        text-align: center;
+        align-items: center;
+        padding: 30px 0 50px 0;
+        font-family: 'Oswald', sans-serif;
+        font-size: 15px;
+
+    }
+}
+
+//desktop
+@media only screen and (min-width: 1024px) {
+    .ListItembestsale {
+        display: flex;
+        justify-content: center;
+
+
+    }
+
+    .item-bestsale {
+        display: flex;
+        color: white;
+        text-align: center;
+        align-items: center;
+        padding: 30px 0 50px 0;
+        font-family: 'Oswald', sans-serif;
+        font-size: 15px;
+
+    }
+
+}

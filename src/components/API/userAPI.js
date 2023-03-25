@@ -25,6 +25,10 @@ const userAPI = {
         const url = `/statistical`;
         return axiosClient.get(url);
     },
+    getSale() {
+        const url = `/bestsale`;
+        return axiosClient.get(url);
+    },
     update(data) {
         const url = `/user`;
         return axiosClient.patch(url, data);
