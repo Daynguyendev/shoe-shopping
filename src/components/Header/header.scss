@@ -1,15 +1,104 @@
-.hd {
-    position: fixed;
-    z-index: 50;
+//iphone5
+@media only screen and (max-width: 320px) {
+    .hd {
+        position: fixed;
+        z-index: 50;
+    }
+
+    .box-img {
+        width: 100px;
+        height: 80px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .search {
+        border-radius: 2%;
+        max-width: 100px;
+    }
+
 }
 
-.box-img {
-    width: 100px;
-    height: 80px;
-    text-align: center;
-    align-items: center;
+//mobile
+@media only screen and (min-width: 321px) and (max-width: 376px) {
+    .hd {
+        position: fixed;
+        z-index: 50;
+    }
+
+    .box-img {
+        width: 100px;
+        height: 80px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .search {
+        border-radius: 2%;
+        max-width: 140px;
+    }
+
 }
 
-.search {
-    border-radius: 2%;
+//pho thong
+@media only screen and (min-width: 376px) and (max-width: 739px) {
+    .hd {
+        position: fixed;
+        z-index: 50;
+    }
+
+    .box-img {
+        width: 100px;
+        height: 80px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .search {
+        border-radius: 2%;
+    }
+
+}
+
+//tablet
+@media only screen and (min-width: 740px) and (max-width: 1024px) {
+    .hd {
+        position: fixed;
+        z-index: 50;
+    }
+
+    .box-img {
+        width: 80px;
+        height: 60px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .search {
+        border-radius: 2%;
+    }
+
+}
+
+//desktop
+@media only screen and (min-width: 1025px) {
+
+    .hd {
+        position: fixed;
+        z-index: 50;
+    }
+
+    .box-img {
+        width: 100px;
+        height: 80px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .search {
+        border-radius: 2%;
+    }
+
+
+
 }
