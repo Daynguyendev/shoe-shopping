@@ -45,6 +45,8 @@ function App() {
           <Route path="" element={<Home />}></Route>
           <Route path="/colection/:id" element={<DetailPage />}></Route>
           <Route path="/colections/:name" element={<OverView />}></Route>
+          <Route path="/colection/search/:name" element={<OverView />}></Route>
+
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="/" element={<UserLayout />}>

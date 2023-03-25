@@ -56,7 +56,9 @@ function Header() {
     const value = inputRef.current.value;
 
     if (value != '') {
-      navigate(`colections/${value.replace(/\s+/g, '-')}`)
+      navigate(`colection/search/${value.replace(/\s+/g, '-')}`)
+      window.location.reload();
+
     }
 
   };
