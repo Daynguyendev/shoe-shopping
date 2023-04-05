@@ -11,6 +11,8 @@ import trademarkAPI from '../../../../API/trademarkAPI';
 import categoryAPI from '../../../../API/categoryAPI';
 import { Container } from '@mui/material';
 
+import Fillter from '../Fillter';
+
 function OverView() {
     const [tradeMarkAll, setTradeMarkAll] = useState([]);
     const { name } = useParams();
@@ -21,6 +23,7 @@ function OverView() {
     const [category, setCategory] = useState([]);
     const [display, setDisplay] = useState(null);
     const [productDefault, setProductDefault] = useState([]);
+
     const handleClickDetail = (item) => {
         navigate(`/colections/${item}`)
         setPage(1);
@@ -33,6 +36,26 @@ function OverView() {
     function onResetData() {
         setPage(null);
     }
+
+
+    const [testFillter, setTestFillter] = useState();
+
+
+    useEffect(() => {
+        try {
+            const fetchProduct = async () => {
+                if (testFillter !== null) {
+                    const result = await productAPI.Fillter();
+                    setTestFillter(result.data);
+                    setPage(result.data[0].total_count)
+                }
+            };
+            fetchProduct();
+        } catch (error) {
+            console.log('Failed to fetch testFillter: ', error);
+        }
+    }, []);
+
 
     useEffect(() => {
         try {
@@ -74,7 +97,7 @@ function OverView() {
             console.log('Failed to fetch Product: ', error);
         }
     }, [name]);
-    console.log('test prodct', product)
+
     useEffect(() => {
         try {
             const fetchProduct = async () => {
@@ -115,30 +138,7 @@ function OverView() {
 
     return (
         <Container disableGutters maxWidth="xl" >
-            <Breadcrumbs aria-label="breadcrumb" style={{ backgroundColor: 'white', padding: '5px' }}>
-                <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Oswald' }} onClick={handleHome}>Trang chủ </p>
-                <p style={{ cursor: 'pointer', fontSize: '21px', fontFamily: 'Oswald' }}  >{name} </p>
-            </Breadcrumbs>
-            <Grid item xs={12} className='overview' >
-                <Grid item xs={3} className='danh-muc'  >
-                    <h3 style={{ color: 'red', marginTop: '-5px' }}>Thương hiệu</h3>
-                    {tradeMarkAll.map((item, index) => (
-                        <h4 key={index} style={{ fontFamily: 'Oswald', cursor: 'pointer' }} onClick={() => handleClickDetail(item.ten_thuong_hieu)}>
-                            {item.ten_thuong_hieu}
-                        </h4>
-                    ))}
-                    <h3 style={{ color: 'red' }}>Loại</h3>
-                    {category.map((item, index) => (
-                        <h4 key={index} style={{ fontFamily: 'Oswald', cursor: 'pointer' }} onClick={() => handleClickDetail(item.id_loai_sp)}>
-                            {item.ten_loai_sp}
-                        </h4>
-                    ))}
-                </Grid>
-                <Grid container className='product' >
-                    <Product xs={12} sm={6} md={4} lg={4} xl={4} productDefault={productDefault} display={display} value5={5} so_luong={2} productView={product} productCategory={productCategory} newcolor="white" colortext="black" page={page} handleReset={onResetData} />
-                </Grid>
-
-            </Grid>
+            <Fillter />
         </Container>
     );
 }

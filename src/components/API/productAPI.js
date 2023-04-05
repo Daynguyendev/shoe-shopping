@@ -1,7 +1,15 @@
 import axiosClient from "./axiosCilent";
 
 const productAPI = {
-    async getAll() {
+    async Fillter(params) {
+        const result = await axiosClient.get('/products', { params });
+        console.log('test truyen params', params);
+        return {
+            data: result.data.products,
+            pagination: result.data.pagination,
+        };
+    },
+    getAll() {
         const url = `/product`;
         return axiosClient.get(url);
 

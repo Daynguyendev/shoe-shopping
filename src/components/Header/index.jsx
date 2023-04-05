@@ -56,9 +56,7 @@ function Header() {
     const value = inputRef.current.value;
 
     if (value != '') {
-      navigate(`colection/search/${value.replace(/\s+/g, '-')}`)
-      window.location.reload();
-
+      navigate(`colections/danh-muc?product_ten=${value}`)
     }
 
   };

@@ -36,5 +36,9 @@
     .root-admin {
         display: flex;
         padding-top: 80px;
+
+        .MuiPaper-root {
+            width: 100%;
+        }
     }
 }

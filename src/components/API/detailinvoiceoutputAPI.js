@@ -2,6 +2,13 @@ import axiosClient from "./axiosCilent";
 
 
 const detailinvoiceoutputAPI = {
+    async getAllItem(params) {
+        const result = await axiosClient.get('/detailinvoiceoutput/query', { params });
+        console.log(params);
+        return {
+            data: result.data.products,
+        };
+    },
     getByName(name) {
         const url = `/detailinvoiceoutput/${name}`;
         return axiosClient.get(url);
