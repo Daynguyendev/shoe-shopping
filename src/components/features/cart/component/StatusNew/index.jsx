@@ -51,10 +51,11 @@ export default function StatusNew() {
                             ID hóa đơn : {item.id_hd_dat}
                         </Grid>
                         <Grid sx={{ fontFamily: 'Oswald', fontSize: '20px' }} >
-                            Ngày lập hóa đơn: {item.ngay_lap_hd_dat}
+                            Ngày lập hóa đơn: {item.ngay_lap_hd_dat.slice(0, 10)}
+
                         </Grid>
                         <Grid sx={{ paddingBottom: '30px', fontFamily: 'Oswald', fontSize: '20px' }}>
-                            Tổng tiền: {item.tong_tien}
+                            Tổng tiền: {item.tong_tien.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                         </Grid >
                         < Stepper activeStep={item.id_trang_thai} alternativeLabel  >
                             {

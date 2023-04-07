@@ -8,8 +8,6 @@ import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import { styled, alpha } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import './header.scss'
@@ -21,22 +19,33 @@ import { useState, useEffect, useRef } from 'react';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import trademarkAPI from '../API/trademarkAPI';
 import productAPI from './../API/productAPI';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import MicNoneIcon from '@mui/icons-material/MicNone';
+
+
 
 function Header() {
   const navigate = useNavigate();
   const [idUser, setIdUser] = useState();
   const [tradeMarkAll, setTradeMarkAll] = useState([]);
   const [products, setProducts] = useState([]);
-  const [searchResult, setSearchResult] = useState(null);
-  const [searchValue, setSearchValue] = useState('');
-  const [open, setOpen] = useState(false);
   const listTrademark = [...tradeMarkAll] || [];
   const isLogin = useSelector((state) => state?.user.isLogin);
   let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
-  const [auto, setAuto] = useState(false);
   const inputRef = useRef(null);
-
   const [isAdmin, setIsAdmin] = useState(null);
+  const [searchValue, setSearchValue] = useState('');
+  // Hàm xử lý sự kiện onChange để cập nhật giá trị của input
+  const handleSearchInputChange = event => {
+    setSearchValue(event.target.value);
+  }
+
+  const { transcript, resetTranscript } = useSpeechRecognition()
+
+  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+    console.log('không hỗ trợ thư viện')
+  }
+
   useEffect(() => {
     try {
       const fetchIdUser = async () => {
@@ -54,12 +63,27 @@ function Header() {
   }, []);
   const handleClick = () => {
     const value = inputRef.current.value;
+    console.log('value', value);
 
     if (value != '') {
       navigate(`colections/danh-muc?product_ten=${value}`)
     }
 
   };
+  const [start, setStart] = useState(true);
+
+  const handleVoice = () => {
+    setStart(!start)
+
+    if (start === true) {
+      SpeechRecognition.startListening();
+
+    }
+    SpeechRecognition.stopListening();
+
+  };
+
+
   useEffect(() => {
     try {
       const fetchProduct = async () => {
@@ -73,63 +97,6 @@ function Header() {
       console.log('Failed to fetch Product: ', error);
     }
   }, []);
-
-
-  const searchProducts = (keyword) => {
-    setOpen(true);
-    setAuto(true);
-    setSearchValue(keyword);
-    if (keyword.length == 0) {
-      setOpen(false);
-      setAuto(false);
-    }
-    const filteredProducts = products.filter((product) =>
-      (product.ten_sp).toLowerCase().includes(keyword.toLowerCase())
-    );
-    setSearchResult(filteredProducts);
-  };
-
-  const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '33%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
-  }));
-
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
-
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        width: '12ch',
-        '&:focus': {
-          width: '20ch',
-        },
-      },
-    },
-  }));
-
 
   useEffect(() => {
     try {
@@ -211,6 +178,16 @@ function Header() {
 
   }
 
+  useEffect(() => {
+    if (transcript) {
+      setSearchValue('')
+      setSearchValue(transcript);
+    }
+  }, [transcript]);
+
+
+
+
   return (
     <AppBar position="static" sx={{ backgroundColor: 'black', position: 'fixed', zIndex: '100' }} >
       <Container disableGutters sx={{ maxWidth: 'xl', zIndex: 20, backgroundColor: 'black' }} >
@@ -239,16 +216,36 @@ function Header() {
           </Typography>
 
           <div style={{ display: 'flex' }}>
+            {transcript.length >= 1 ? (<>
+              <input className='search' type="search" placeholder="Tìm kiếm…" ref={inputRef} value={searchValue}
+                autoFocus
+                onChange={handleSearchInputChange}
+                onKeyUp={event => {
+                  if (event.key === 'Enter') {
+                    handleClick()
+                  }
+                }}
+              />
+            </>) : (<>
+              <input className='search' type="search" placeholder="Tìm kiếm…" ref={inputRef}
+                onChange={handleSearchInputChange}
+                onKeyUp={event => {
+                  if (event.key === 'Enter') {
+                    handleClick()
+                  }
+                }}
+              />
+            </>)}
 
-            <input className='search' type="search" placeholder="Tìm kiếm…" ref={inputRef} onKeyUp={event => {
+            {/* <input className='search' type="search" placeholder="Tìm kiếm…" ref={inputRef} onKeyUp={event => {
               if (event.key === 'Enter') {
                 handleClick()
               }
             }
-            } />
+            } /> */}
+            < IconButton color="secondary" onClick={handleVoice} > <MicNoneIcon /></IconButton>
             < IconButton color="secondary" onClick={handleClick} > <SearchIcon /></IconButton>
-            {/* {open && searchResult ? <ProductSearch searchResult={searchResult} setOpen={setOpen} /> : ''
-            } */}
+
           </div>
           <Box sx={{ display: { xs: 'flex', md: 'none' }, }}>
             <IconButton

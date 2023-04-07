@@ -35,13 +35,30 @@ export default function OrderConfirmation() {
     const [fillter, setFillter] = useState();
     const [idBill, setIdBill] = useState()
 
+    console.log('test invoices', invoice)
     const columns = [
         { field: 'id_hd_dat', title: 'ID', width: 10 },
-        { field: 'ten_khach_hang', title: 'ten_khach_hang', width: 10 },
+        { field: 'ten_khach_hang', title: 'Tên khách', width: 10 },
         { field: 'id_khach_hang', title: 'ID_KH', width: 10 },
-        { field: 'ten_dia_chi', title: 'ten_dia_chi', width: 10 },
-        { field: 'ngay_lap_hd_dat', title: 'ngay_lap_hd_dat', width: 10 },
-        { field: 'tong_tien', title: 'tong_tien', width: 10 },
+        { field: 'ten_dia_chi', title: 'Địa chỉ', width: 10 },
+        { field: 'ten_trang_thai_thanh_toan', title: 'Thanh toán', width: 10 },
+        { field: 'ten_thanh_toan', title: 'Hình thức', width: 10 },
+        {
+            title: 'Ngày lập',
+            render: (rowData) => {
+                return (
+                    <p>{(rowData.ngay_lap_hd_dat).slice(0, 10)}</p>
+                );
+            },
+        },
+        {
+            title: 'Tổng tiền',
+            render: (rowData) => {
+                return (
+                    <p>{(rowData.tong_tien).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+                );
+            },
+        },
         {
             title: 'Trạng thái',
             render: (rowData) => {
@@ -60,7 +77,7 @@ export default function OrderConfirmation() {
             title: 'Xem chi tiết',
             render: (rowData) => {
                 return (
-                    <Button variant="contained" color="success" sx={{ fontSize: '10px', width: '120px', height: '30px' }} onClick={(e) => HandleShowDetail(rowData.id_hd_dat)}>Xem chi tiết</Button>
+                    <Button variant="contained" sx={{ backgroundColor: '#f8f8ff', color: 'black', fontSize: '10px', width: '120px', height: '30px' }} onClick={(e) => HandleShowDetail(rowData.id_hd_dat)}>Xem chi tiết</Button>
                 );
             },
         },
@@ -72,21 +89,24 @@ export default function OrderConfirmation() {
                     <div >
                         {rowData.id_trang_thai === 4 ? ('') : (<div style={{ display: 'flex' }}>
                             <div style={{ padding: '2px' }}>
-                                <Button sx={{ fontSize: '10px', width: '120px', height: '30px', padding: '2px' }} variant="contained" color="success" onClick={() => handleXacNhan(rowData.tableData.id, rowData.id_khach_hang, rowData.id_hd_dat)}  >
-                                    Xác nhận
-                                </Button>
-                                <Button variant="contained" color="warning" sx={{ fontSize: '10px', width: '120px', height: '30px', padding: '2px' }} onClick={() => handleVanChuyen(rowData.tableData.id, rowData.id_khach_hang, rowData.id_hd_dat)}>
+                                <Button variant="contained" sx={{ fontSize: '10px', backgroundColor: '#4d4d4d', width: '120px', height: '30px', padding: '2px' }} onClick={() => handleVanChuyen(rowData.tableData.id, rowData.id_khach_hang, rowData.id_hd_dat)}>
                                     Đang vận chuyển
                                 </Button>
+                                <Button variant="contained" sx={{ backgroundColor: '#a6a6a6', fontSize: '10px', marginTop: '5px', width: '120px', height: '30px', padding: '2px' }} onClick={() => handleHuy(rowData.tableData.id, rowData.id_khach_hang, rowData.id_hd_dat)}>
+                                    Hủy
+                                </Button>
+
+
 
                             </div>
                             <div style={{ padding: '2px' }}>
-                                <Button sx={{ fontSize: '10px', width: '120px', height: '30px', color: 'black', backgroundColor: 'DeepSkyBlue', padding: '2px' }} onClick={() => handleGiaoHang(rowData.tableData.id, rowData.id_khach_hang, rowData.id_hd_dat)}>
+                                <Button variant="contained" sx={{ backgroundColor: '#4d4d4d', fontSize: '10px', width: '120px', height: '30px', color: 'white', padding: '2px' }} onClick={() => handleGiaoHang(rowData.tableData.id, rowData.id_khach_hang, rowData.id_hd_dat)}>
                                     Hoàn thành
                                 </Button>
-                                <Button variant="contained" color="error" sx={{ fontSize: '10px', width: '120px', height: '30px', padding: '2px' }} onClick={() => handleHuy(rowData.tableData.id, rowData.id_khach_hang, rowData.id_hd_dat)}>
-                                    Hủy
+                                <Button color="success" sx={{ marginTop: '5px', fontSize: '10px', width: '120px', height: '30px', padding: '2px' }} variant="contained" color="success" onClick={() => handleXacNhan(rowData.tableData.id, rowData.id_khach_hang, rowData.id_hd_dat)}  >
+                                    Xác nhận
                                 </Button>
+
 
                             </div>
 

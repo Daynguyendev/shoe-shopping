@@ -24,7 +24,14 @@ export default function UploadProduct() {
     const columns = [
         { field: 'id_sp', title: 'ID', width: 70 },
         { field: 'ten_sp', title: 'ten_sp', width: 130 },
-        { field: 'gia_sp', title: 'gia_sp', width: 130 },
+        {
+            title: 'Giá',
+            render: (rowData) => {
+                return (
+                    <p>{(rowData.gia_sp).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+                );
+            },
+        },
         {
             field: 'hinh_anh_chinh', title: 'hinh_anh_chinh', width: 130,
             render: rowData => <img src={rowData.hinh_anh_chinh} style={{ width: 80, borderRadius: '50%' }} />

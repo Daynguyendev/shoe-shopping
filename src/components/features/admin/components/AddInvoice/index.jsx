@@ -22,9 +22,21 @@ function AddInvoice() {
     const columns = [
         { field: 'id_hd_nhap_hang', title: 'ID', width: 70 },
         { field: 'ten_hoa_don_nhap', title: 'ten_hoa_don_nhap', width: 130 },
-        { field: 'ngay_lap_hd', title: 'ngay_lap_hd', width: 130 },
         {
-            field: 'tong_tien', title: 'tong_tien', width: 130,
+            title: 'Ngày lập',
+            render: (rowData) => {
+                return (
+                    <p>{(rowData.ngay_lap_hd).slice(0, 10)}</p>
+                );
+            },
+        },
+        {
+            title: 'Tổng tiền',
+            render: (rowData) => {
+                return (
+                    <p>{(rowData.tong_tien).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+                );
+            },
         }, {
             title: 'Xem chi tiết',
             render: (rowData) => {

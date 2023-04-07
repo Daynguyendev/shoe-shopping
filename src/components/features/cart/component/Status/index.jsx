@@ -33,6 +33,8 @@ import './Status.scss'
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DetailProductAPI from '../../../../API/detailproductAPI'
+import checkoutAPI from '../../../../API/checkoutAPI';
+
 export default function Status() {
     const { id_khach_hang } = useParams();
     const { enqueueSnackbar } = useSnackbar();
@@ -138,6 +140,17 @@ export default function Status() {
         setOpen(true);
     };
 
+    const HandlecheckoutVnpay = async (id_hd_dat, tong_tien) => {
+        const result = await checkoutAPI.addCheckout({
+            amount: tong_tien,
+            id_hd: id_hd_dat,
+            bankCode: 'VNBANK',
+        })
+        window.open(result.data.url, '_blank');
+
+    };
+
+
 
 
     useEffect(() => {
@@ -189,38 +202,31 @@ export default function Status() {
 
                                 Địa chỉ nhận hàng: {item.ten_dia_chi}
                             </Grid>
+                            <Grid sx={{ fontFamily: 'Oswald', fontSize: '20px' }} >
+
+                                Thanh toán: {item.ten_trang_thai_thanh_toan} {item.ten_trang_thai_thanh_toan === 'Đã thanh toán' ? ('bằng ' + item.ten_thanh_toan) : ('')}
+                            </Grid>
 
                         </Grid>
 
-                        <Button sx={{ fontSize: '10px', width: '120px', height: '30px', color: 'black', backgroundColor: 'DeepSkyBlue', marginBottom: '20px' }} onClick={(e) => HandleShowDetail(item.id_hd_dat, item.id_sp)}>
+                        <Button sx={{ marginTop: '5px', fontSize: '10px', width: '120px', height: '30px', color: 'black', backgroundColor: '#ffa347', marginBottom: '20px' }} onClick={(e) => HandleShowDetail(item.id_hd_dat, item.id_sp)}>
                             Xem chi tiết hóa đơn
                         </Button>
+                        {item.id_phuong_thuc_tt === 2 && item.ten_trang_thai_thanh_toan != 'Đã thanh toán' ? (<Button sx={{ marginTop: '5px', fontSize: '10px', marginLeft: '20px', width: '120px', height: '30px', color: 'black', backgroundColor: '#ffa347', marginBottom: '20px' }} onClick={(e) => HandlecheckoutVnpay(item.id_hd_dat, item.tong_tien)}>
+                            Thanh toán ngay
+                        </Button>) : ('')}
+
+
                         <Grid sx={{ textAlign: 'end', paddingBottom: '30px', fontFamily: 'Oswald', fontSize: '20px', fontWeight: 'bold' }}>
                             Tổng tiền: {item.tong_tien.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                         </Grid>
-                        {/* {
-                            detailclone.map((item, index) => (
-                                <Grid key={index}>
-
-                                    <Grid sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', fontFamily: 'Oswald', fontSize: '20px' }}>
-                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}><img className='img-detail-status' src={item.hinh_anh_chinh} alt={index} /></Grid>
-                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_sp}</Grid>
-                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}>{item.ten_mau_sac}</Grid>
-                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}> {item.ten_kich_thuoc}</Grid>
-                                        <Grid className='detail-title-status' item xl={5} lg={5} xs={5} sm={5} md={5}> {item.so_luong}</Grid>
-                                    </Grid>
-                                    <hr />
-                                </Grid>
-                            ))
-                        } */}
-
 
                         {item.id_trang_thai < 4 ? (
                             <div >
                                 <Stepper activeStep={item.id_trang_thai} alternativeLabel>
                                     {statusAllList.map((item1, index) => (
                                         <Step key={item1.id_trang_thai}>
-                                            <StepLabel StepIconProps={{ style: { color: index === item.id_trang_thai ? 'red' : 'yellow' } }}>
+                                            <StepLabel StepIconProps={{ style: { color: index === item.id_trang_thai ? 'red' : '#ffa347' } }}>
                                                 {item1.ten_trang_thai}
                                             </StepLabel>
                                         </Step>

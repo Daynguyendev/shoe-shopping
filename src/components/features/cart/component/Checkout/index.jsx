@@ -271,6 +271,7 @@ export default function UploadProduct() {
 
     const handlesubmitFullInvoice = async (event) => {
 
+
         const check = await handleSubmitCheck();
         const promises = datacart.map(item => {
             return DetailProductAPI.UpdateQuantity({
@@ -342,8 +343,16 @@ export default function UploadProduct() {
                     id_trang_thai: 0,
                     tong_tien: total + totalShip,
                 })
-                    .then(function (response) {
+                    .then(async function (response) {
                         setIdHd(response.data.data)
+                        if (checkoutSubmit === 2) {
+                            const result = await checkoutAPI.addCheckout({
+                                amount: total + totalShip,
+                                id_hd: response.data.data,
+                                bankCode: 'VNBANK',
+                            })
+                            window.open(result.data.url, '_blank')
+                        }
                         cartAPI.removeAll({ id_khach_hang: id })
                         enqueueSnackbar('Đặt hàng thành công', {
                             variant: 'success',
@@ -609,7 +618,7 @@ export default function UploadProduct() {
                         ))}
                     </TextField>
 
-                    {checkoutSubmit == 2 ? (<h4 style={{ fontFamily: 'Oswald', margin: '10px', color: 'red', textAlign: 'center' }}>Thực hiện thanh toán vào ngay tài khoản ngân hàng của chúng tôi MB BANK 0987789789987. Vui lòng sử dụng Mã đơn hàng của bạn trong phần Nội dung thanh toán. Đơn hàng sẽ đươc giao sau khi tiền đã chuyển.</h4>) : (<h4 style={{ fontFamily: 'Oswald', margin: '10px', textAlign: 'center' }}>Thanh toán bằng tiền mặt khi nhận hàng</h4>)}
+                    {checkoutSubmit == 2 ? (<h4 style={{ fontFamily: 'Oswald', margin: '10px', color: 'black', textAlign: 'center' }}>Thực hiện thanh toán với VNPAY.</h4>) : (<h4 style={{ fontFamily: 'Oswald', margin: '10px', textAlign: 'center' }}>Thanh toán bằng tiền mặt khi nhận hàng</h4>)}
 
 
 
