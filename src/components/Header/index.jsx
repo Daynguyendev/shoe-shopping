@@ -65,9 +65,7 @@ function Header() {
     const value = inputRef.current.value;
     console.log('value', value);
 
-    if (value != '') {
-      navigate(`colections/danh-muc?product_ten=${value}`)
-    }
+    navigate(`colections/danh-muc?product_ten=${value}`)
 
   };
   const [start, setStart] = useState(true);
@@ -190,115 +188,110 @@ function Header() {
 
   return (
     <AppBar position="static" sx={{ backgroundColor: 'black', position: 'fixed', zIndex: '100' }} >
-      <Container disableGutters sx={{ maxWidth: 'xl', zIndex: 20, backgroundColor: 'black' }} >
+      <Container disableGutters sx={{ maxWidth: 'xl', zIndex: 20, backgroundColor: 'black' }} className='full-hd' >
         <Toolbar disableGutters >
-          <Box className='box-img' sx={{ display: { xl: 'block', lg: 'block', md: 'block', sm: 'none', xs: 'none', cursor: 'pointer' } }} onClick={handlecClicklogo}>
-            <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/logoStore.png" alt="logoStore" style={{ width: '90%' }} />
-          </Box>
-          <Typography
+          <div className='header-full'>
+            <Box className='box-img' sx={{ display: { xl: 'block', lg: 'block', md: 'block', sm: 'none', xs: 'none', cursor: 'pointer' } }} onClick={handlecClicklogo}>
+              <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/logoStore.png" alt="logoStore" style={{ width: '90%' }} />
+            </Box>
+            <Typography
 
-            variant="h7"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              display: { xs: 'flex', md: 'none' },
-              fontWeight: 700,
-              marginLeft: '-10px',
-              color: 'white',
-              textDecoration: 'none',
-              paddingLeft: '20px',
-              width: '50px'
-            }}
-          >
-            <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/logoStore.png" alt="logoStore" style={{ width: '90%' }} />
+              variant="h7"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                display: { xs: 'flex', md: 'none' },
+                fontWeight: 700,
+                marginLeft: '-10px',
+                color: 'white',
+                textDecoration: 'none',
+                paddingLeft: '20px',
+                width: '50px'
+              }}
+            >
+              <img src="https://raw.githubusercontent.com/DayNguyen22022022/images/main/logoStore.png" alt="logoStore" style={{ width: '90%' }} />
 
-          </Typography>
+            </Typography>
 
-          <div style={{ display: 'flex' }}>
-            {transcript.length >= 1 ? (<>
-              <input className='search' type="search" placeholder="Tìm kiếm…" ref={inputRef} value={searchValue}
-                autoFocus
-                onChange={handleSearchInputChange}
-                onKeyUp={event => {
-                  if (event.key === 'Enter') {
-                    handleClick()
-                  }
-                }}
-              />
-            </>) : (<>
-              <input className='search' type="search" placeholder="Tìm kiếm…" ref={inputRef}
-                onChange={handleSearchInputChange}
-                onKeyUp={event => {
-                  if (event.key === 'Enter') {
-                    handleClick()
-                  }
-                }}
-              />
-            </>)}
+            <div style={{ display: 'flex' }}>
+              {transcript.length >= 1 ? (<>
+                <input className='search' type="search" placeholder="Tìm kiếm…" ref={inputRef} value={searchValue}
+                  autoFocus
+                  onChange={handleSearchInputChange}
+                  onKeyUp={event => {
+                    if (event.key === 'Enter') {
+                      handleClick()
+                    }
+                  }}
+                />
+              </>) : (<>
+                <input className='search' type="search" placeholder="Tìm kiếm…" ref={inputRef}
+                  onChange={handleSearchInputChange}
+                  onKeyUp={event => {
+                    if (event.key === 'Enter') {
+                      handleClick()
+                    }
+                  }}
+                />
+              </>)}
+              < IconButton color="secondary" onClick={handleVoice} > <MicNoneIcon /></IconButton>
+              < IconButton color="secondary" onClick={handleClick} > <SearchIcon /></IconButton>
 
-            {/* <input className='search' type="search" placeholder="Tìm kiếm…" ref={inputRef} onKeyUp={event => {
-              if (event.key === 'Enter') {
-                handleClick()
-              }
-            }
-            } /> */}
-            < IconButton color="secondary" onClick={handleVoice} > <MicNoneIcon /></IconButton>
-            < IconButton color="secondary" onClick={handleClick} > <SearchIcon /></IconButton>
+            </div>
+            <Box sx={{ display: { xs: 'flex', sm: 'none' }, }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handlecClickSneaker}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+            </Box>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
+              <Button
 
+                onClick={() => handlecClickSneaker()}
+                sx={{ color: 'white', display: 'block', fontSize: '15px', fontWeight: 'normal', fontFamily: 'Oswald' }}
+              >
+                <h3> DANH MỤC </h3>
+              </Button>
+
+            </Box>
+
+            <ManageAccountsIcon onClick={handleMenu} sx={{ padding: '10px', cursor: 'pointer', color: 'white' }} ></ManageAccountsIcon>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+              style={{ marginTop: '40px' }}
+            >
+              <MenuItem disabled><h4>Email: {email_khach_hang}</h4></MenuItem>
+
+
+              <MenuItem
+                onClick={handlemyBill}> <h4>Đơn hàng của tôi</h4></MenuItem>
+              {isAdmin ? <MenuItem onClick={handleAdmin}><h4>Quản lý Store</h4></MenuItem> : ''}
+              <MenuItem onClick={handleLogout}><h4>Đăng xuất</h4></MenuItem>
+            </Menu>
+
+            <Box sx={{ flexGrow: 0, color: 'white', textAlign: 'center', alignItems: 'center', display: 'flex', cursor: 'pointer', fontFamily: 'Oswald' }} onClick={handlecClickcart}>
+              <ShoppingCartIcon />
+            </Box>
           </div>
-          <Box sx={{ display: { xs: 'flex', md: 'none' }, }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handlecClickSneaker}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Button
-
-              onClick={() => handlecClickSneaker()}
-              sx={{ color: 'white', display: 'block', fontSize: '15px', fontWeight: 'normal', fontFamily: 'Oswald' }}
-            >
-              <h3> DANH MỤC </h3>
-            </Button>
-
-          </Box>
-
-          <ManageAccountsIcon onClick={handleMenu} sx={{ padding: '10px', cursor: 'pointer', color: 'white' }} ></ManageAccountsIcon>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-            style={{ marginTop: '40px' }}
-          >
-            <MenuItem disabled><h4>Email: {email_khach_hang}</h4></MenuItem>
-
-
-            <MenuItem
-              onClick={handlemyBill}> <h4>Đơn hàng của tôi</h4></MenuItem>
-            {isAdmin ? <MenuItem onClick={handleAdmin}><h4>Quản lý Store</h4></MenuItem> : ''}
-            <MenuItem onClick={handleLogout}><h4>Đăng xuất</h4></MenuItem>
-          </Menu>
-
-          <Box sx={{ flexGrow: 0, color: 'white', textAlign: 'center', alignItems: 'center', display: 'flex', cursor: 'pointer', fontFamily: 'Oswald' }} onClick={handlecClickcart}>
-            <ShoppingCartIcon />
-          </Box>
         </Toolbar>
       </Container>
     </AppBar >

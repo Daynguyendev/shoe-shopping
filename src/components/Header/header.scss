@@ -1,5 +1,76 @@
 //iphone5
 @media only screen and (max-width: 320px) {
+
+    .header-full {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        align-items: center;
+        width: 100%;
+    }
+
+
+    .hd {
+        position: fixed;
+        z-index: 50;
+    }
+
+    .box-img {
+        width: 100px;
+        height: 80px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .search {
+        border-radius: 2%;
+        max-width: 60px;
+    }
+
+}
+
+//mobile
+@media only screen and (min-width: 321px) and (max-width: 376px) {
+    .hd {
+        position: fixed;
+        z-index: 50;
+    }
+
+    .header-full {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        align-items: center;
+        width: 100%;
+    }
+
+
+    .box-img {
+        width: 100px;
+        height: 80px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .search {
+        border-radius: 2%;
+        max-width: 90px;
+    }
+
+}
+
+//pho thong
+@media only screen and (min-width: 376px) and (max-width: 739px) {
+
+    .header-full {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        align-items: center;
+        width: 100%;
+    }
+
+
     .hd {
         position: fixed;
         z-index: 50;
@@ -15,33 +86,22 @@
     .search {
         border-radius: 2%;
         max-width: 100px;
+
     }
 
 }
 
-//mobile
-@media only screen and (min-width: 321px) and (max-width: 376px) {
-    .hd {
-        position: fixed;
-        z-index: 50;
-    }
-
-    .box-img {
-        width: 100px;
-        height: 80px;
-        text-align: center;
-        align-items: center;
-    }
-
-    .search {
-        border-radius: 2%;
-        max-width: 140px;
-    }
-
-}
-
-//pho thong
 @media only screen and (min-width: 376px) and (max-width: 739px) {
+
+    .header-full {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        align-items: center;
+        width: 100%;
+    }
+
+
     .hd {
         position: fixed;
         z-index: 50;
@@ -56,12 +116,27 @@
 
     .search {
         border-radius: 2%;
+        max-width: 100px;
+
     }
 
 }
 
 //tablet
 @media only screen and (min-width: 740px) and (max-width: 1024px) {
+    .header-full {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        align-items: center;
+        width: 100%;
+    }
+
+
+    .full-hd {
+        justify-content: space-evenly;
+    }
+
     .hd {
         position: fixed;
         z-index: 50;
@@ -76,7 +151,7 @@
 
     .search {
         border-radius: 2%;
-        width: 200px;
+        width: 250px;
 
     }
 
@@ -84,6 +159,18 @@
 
 //desktop
 @media only screen and (min-width: 1025px) {
+    .header-full {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        align-items: center;
+        width: 100%;
+    }
+
+
+    .full-hd {
+        justify-content: space-evenly;
+    }
 
     .hd {
         position: fixed;
