@@ -27,7 +27,7 @@ export default function Fillter() {
     const [productList, setProductList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [loading1, setLoading1] = useState(1);
-    const [promotion, setPromotion] = useState(false);
+    const [promotion, setPromotion] = useState(true);
     const [priceStart, setPriceStart] = useState(0);
     const [priceEnd, setPriceEnd] = useState(0);
     const QueryStringParse = (array) => {
