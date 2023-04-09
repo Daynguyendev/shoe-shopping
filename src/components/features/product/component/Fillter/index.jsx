@@ -351,6 +351,7 @@ export default function Fillter() {
                         className='Textfile-Fillter'
                         select
                         value={queryParams?.product_color || ''}
+                        sx={{ marginTop: '-10px' }}
 
                         onChange={(e) => handleSortColor(e.target.value)}
                         size="small"
@@ -366,6 +367,8 @@ export default function Fillter() {
                     </TextField>
                     <p>Kích thước</p>
                     <TextField
+                        sx={{ marginTop: '-10px' }}
+
                         select
                         value={queryParams?.product_size || ''}
                         onChange={(e) => handleSortSize(e.target.value)}
@@ -385,6 +388,8 @@ export default function Fillter() {
                     </TextField>
                     <p>Loại</p>
                     <TextField
+                        sx={{ marginTop: '-10px' }}
+
                         size="small"
                         onChange={(e) => handleSortCategory(e.target.value)}
                         value={queryParams?.product_loai || ''}
@@ -406,6 +411,8 @@ export default function Fillter() {
                     </TextField>
                     <p>Thương hiệu</p>
                     <TextField
+                        sx={{ marginTop: '-10px' }}
+
                         size="small"
                         select
                         onChange={(e) => handleSortTrademark(e.target.value)}
@@ -427,6 +434,7 @@ export default function Fillter() {
                     <p>Theo giá</p>
 
                     <TextField className='Textfile-Fillter'
+                        sx={{ marginTop: '-10px' }}
 
                         onChange={(e) => setPriceStart(e.target.value)}
 
@@ -434,6 +442,7 @@ export default function Fillter() {
                     <br />
                     <br />
                     <TextField className='Textfile-Fillter'
+                        sx={{ marginTop: '-10px' }}
 
                         onChange={(e) => setPriceEnd(e.target.value)}
                         size="small" multiline label="Đến" />
@@ -446,7 +455,8 @@ export default function Fillter() {
 
                     <p>Khuyến mãi</p>
                     <Button className='Textfile-Fillter'
-                        size="small" variant="contained" onClick={(e) => handleSortPromotion()}>
+
+                        size="small" variant="contained" onClick={(e) => handleSortPromotion()} sx={{ marginBottom: '10px', marginTop: '-10px' }}>
                         Sale
                     </Button>
                 </Grid>
