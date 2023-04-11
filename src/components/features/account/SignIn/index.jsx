@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -8,7 +7,6 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -19,7 +17,6 @@ import userAPI from '../../../API/userAPI';
 import { useDispatch } from 'react-redux';
 import { login } from '../userSlice';
 import { useSelector } from 'react-redux';
-import cartAPI from './../../../API/cartAPI';
 
 function Copyright(props) {
     return (
@@ -41,13 +38,11 @@ export default function SignIn() {
     const navigate = useNavigate();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [idKh, setIdKh] = useState(null);
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     const [idUser, setIdUser] = useState(null);
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
     const isLogin = useSelector((state) => state?.user.isLogin);
-    const [items, setItems] = useState(null);
 
     useEffect(() => {
         try {
@@ -102,7 +97,7 @@ export default function SignIn() {
                 const resultSaveToken = await localStorage.setItem('token', response.data.token);
                 const resultsSaveUser = await localStorage.setItem('user', JSON.stringify(data));
                 navigate(`/`)
-                window.location.reload();
+                // window.location.reload();
                 enqueueSnackbar('Đăng nhập thành công', {
                     variant: 'success',
                     autoHideDuration: 800,
@@ -122,29 +117,30 @@ export default function SignIn() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="lg" sx={{
+            <Container component="main" maxWidth="xl" sx={{
 
                 backgroundColor: 'white', paddingTop: '20px'
 
             }}>
                 <CssBaseline />
                 <Box
+
                     sx={{
                         marginTop: 8,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         backgroundColor: 'white',
+                        minHeight: '585px',
+
 
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
+
+                    <Typography component="h1" variant="h3" sx={{ fontWeight: '1000', fontFamily: 'Oswald', paddingBottom: '20px' }}>
                         Đăng Nhập
                     </Typography>
-                    <Box component="form" noValidate sx={{ mt: 1 }}>
+                    <Box component="form" noValidate >
                         <TextField
                             margin="normal"
                             fullWidth
@@ -176,19 +172,18 @@ export default function SignIn() {
                             </Grid>
                         </Grid>
 
+                        <Button
+                            fullWidth
+                            onClick={handleSubmit}
+                            variant="contained"
+                            sx={{ fontFamily: 'Oswald', marginTop: '5px', fontSize: '20px', width: '100%', height: '40px', color: 'white', backgroundColor: ' #d2143a', marginBottom: '20px' }}  >
+                            Đăng Nhập
+                        </Button>
                     </Box>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                        onClick={handleSubmit}
 
-                    >
-                        Đăng Nhập
-                    </Button>
+
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
+                <Copyright sx={{ mb: 8, mt: 4 }} />
             </Container>
         </ThemeProvider >
     );

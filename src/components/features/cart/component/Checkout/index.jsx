@@ -421,7 +421,7 @@ export default function UploadProduct() {
         } catch (error) {
             console.log('Failed to fetch checkout: ', error);
         }
-    }, [idUser]);
+    }, [idUser, address]);
 
     const handleSubmitCheckBuyNow = async () => {
         if (isLogin) {

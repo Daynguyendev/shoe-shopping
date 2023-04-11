@@ -151,37 +151,42 @@ export default function SignUp() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs" sx={{
+            <Container component="main" maxWidth="xl" sx={{
+
                 backgroundColor: 'white', paddingTop: '20px'
 
             }}>
                 <CssBaseline />
-                {console.log(role)}
                 <Box
                     sx={{
                         marginTop: 8,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        backgroundColor: 'white',
+                        minHeight: '550px',
+                        minWidth: 'sm'
+
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Đăng Ký
+
+                    <Typography component="h1" variant="h3" sx={{ fontWeight: '1000', fontFamily: 'Oswald', paddingBottom: '20px', textAlign: 'center' }}>
+                        Đăng ký
                     </Typography>
-                    <Box sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
+                    <Box >
+                        <Grid container spacing={0.1} sx={{ textAlign: 'center', maxWidth: 'sm' }}>
+                            <Grid item xs={6}>
                                 <TextField
+                                    margin="normal"
+
                                     fullWidth
                                     label="Tên khách hàng"
                                     onChange={(e) => setName(e.target.value)}
                                 />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={6}>
                                 <TextField
+                                    margin="normal"
                                     fullWidth
                                     label="Địa chỉ Email"
                                     onChange={(e) => setEmail(e.target.value)}
@@ -189,6 +194,8 @@ export default function SignUp() {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    margin="normal"
+
                                     fullWidth
                                     label="Địa chỉ khách hàng"
                                     onChange={(e) => setAddress(e.target.value)}
@@ -196,6 +203,8 @@ export default function SignUp() {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    margin="normal"
+
                                     fullWidth
                                     label="Số điện thoại"
                                     onChange={(e) => setPhone(e.target.value)}
@@ -203,6 +212,8 @@ export default function SignUp() {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    margin="normal"
+
                                     fullWidth
                                     label="Ngày sinh"
                                     type="date"
@@ -212,6 +223,8 @@ export default function SignUp() {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    margin="normal"
+
                                     fullWidth
                                     label="Mật khẩu"
                                     type="password"
@@ -221,6 +234,8 @@ export default function SignUp() {
                             <Grid item xs={12}>
                                 <Grid item xs={12}>
                                     <TextField
+                                        margin="normal"
+
                                         fullWidth
                                         label=" Nhập lại mật khẩu"
                                         type="password"
@@ -238,17 +253,19 @@ export default function SignUp() {
                                 </Link>
                             </Grid>
                         </Grid>
+                        <Button
+                            type="submit"
+                            fullWidth
+
+                            variant="contained"
+                            sx={{ fontFamily: 'Oswald', textAlign: 'center', marginTop: '5px', fontSize: '20px', width: '100%', height: '40px', color: 'white', backgroundColor: ' #d2143a', marginBottom: '20px' }}
+                            onClick={handleSubmit}
+                        >
+                            Đăng Ký
+                        </Button>
                     </Box>
                 </Box>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                    onClick={handleSubmit}
-                >
-                    Đăng Ký
-                </Button>
+
                 <Copyright sx={{ mt: 5 }} />
             </Container>
         </ThemeProvider>
