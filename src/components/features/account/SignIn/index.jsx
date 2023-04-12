@@ -97,7 +97,7 @@ export default function SignIn() {
                 const resultSaveToken = await localStorage.setItem('token', response.data.token);
                 const resultsSaveUser = await localStorage.setItem('user', JSON.stringify(data));
                 navigate(`/`)
-                // window.location.reload();
+                window.location.reload();
                 enqueueSnackbar('Đăng nhập thành công', {
                     variant: 'success',
                     autoHideDuration: 800,
@@ -182,7 +182,7 @@ export default function SignIn() {
                             fullWidth
                             onClick={handleSubmit}
                             variant="contained"
-                            sx={{ fontFamily: 'Oswald', marginTop: '5px', fontSize: '20px', width: '100%', color: 'white', backgroundColor: ' #d2143a', marginBottom: '20px' }}  >
+                            sx={{ display: 'inline-block', fontFamily: 'Oswald', marginTop: '5px', fontSize: '20px', width: '100%', color: 'white', backgroundColor: ' #d2143a', marginBottom: '20px' }}  >
                             Đăng Nhập
                         </Button>
                     </Box>
