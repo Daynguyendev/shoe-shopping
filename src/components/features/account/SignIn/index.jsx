@@ -36,8 +36,8 @@ const theme = createTheme();
 export default function SignIn() {
 
     const navigate = useNavigate();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const { enqueueSnackbar } = useSnackbar();
     const dispatch = useDispatch();
     const [idUser, setIdUser] = useState(null);
@@ -107,8 +107,14 @@ export default function SignIn() {
                     },
                 });
             })
-            .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
-            );
+            .catch(error => enqueueSnackbar('Tài khoản hoặc mật khẩu không chính xác', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            }))
     };
 
     const handleNextPage = () => {
@@ -176,7 +182,7 @@ export default function SignIn() {
                             fullWidth
                             onClick={handleSubmit}
                             variant="contained"
-                            sx={{ fontFamily: 'Oswald', marginTop: '5px', fontSize: '20px', width: '100%', height: '40px', color: 'white', backgroundColor: ' #d2143a', marginBottom: '20px' }}  >
+                            sx={{ fontFamily: 'Oswald', marginTop: '5px', fontSize: '20px', width: '100%', color: 'white', backgroundColor: ' #d2143a', marginBottom: '20px' }}  >
                             Đăng Nhập
                         </Button>
                     </Box>

@@ -33,16 +33,16 @@ const theme = createTheme();
 
 export default function SignUp() {
     const navigate = useNavigate();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState();
 
-    const [birthday, setBirthday] = useState();
+    const [birthday, setBirthday] = useState('');
     const [role, setRole] = useState(1);
     const { enqueueSnackbar } = useSnackbar();
-    const [name, setName] = useState();
-    const [address, setAddress] = useState();
-    const [phone, setPhone] = useState();
+    const [name, setName] = useState('');
+    const [address, setAddress] = useState('');
+    const [phone, setPhone] = useState('');
 
 
 
@@ -258,7 +258,7 @@ export default function SignUp() {
                             fullWidth
 
                             variant="contained"
-                            sx={{ fontFamily: 'Oswald', textAlign: 'center', marginTop: '5px', fontSize: '20px', width: '100%', height: '40px', color: 'white', backgroundColor: ' #d2143a', marginBottom: '20px' }}
+                            sx={{ fontFamily: 'Oswald', textAlign: 'center', marginTop: '5px', fontSize: '20px', width: '100%', color: 'white', backgroundColor: ' #d2143a', marginBottom: '20px' }}
                             onClick={handleSubmit}
                         >
                             Đăng Ký
