@@ -58,12 +58,12 @@ function AddInvoiceInput() {
 
     const columns = [
         { field: 'id_chi_tiet_hd', title: 'ID', width: 70 },
-        { field: 'id_sp', title: 'id_sp', width: 70 },
-        { field: 'id_hd_nhap_hang', title: 'id_hd_nhap_hang', width: 70 },
-        { field: 'id_mau_sac', title: 'id_mau_sac', width: 70 },
-        { field: 'id_kich_thuoc', title: 'id_kich_thuoc', width: 70 },
-        { field: 'so_luong', title: 'so_luong', width: 70 },
-        { field: 'gia_nhap', title: 'gia_nhap', width: 200 },
+        { field: 'id_sp', title: 'ID sản phẩm', width: 70 },
+        { field: 'id_hd_nhap_hang', title: 'ID HĐ nhập', width: 70 },
+        { field: 'id_mau_sac', title: 'ID màu sắc', width: 70 },
+        { field: 'id_kich_thuoc', title: 'ID kích thước', width: 70 },
+        { field: 'so_luong', title: 'Số lượng', width: 70 },
+        { field: 'gia_nhap', title: 'Giá nhập', width: 200 },
 
 
     ];

@@ -9,8 +9,8 @@ function AddProvider() {
     const [providerDetail, setProviderDetail] = useState([]);
     const columns = [
         { field: 'id_nha_cc', title: 'ID', width: 70 },
-        { field: 'ten_nha_cc', title: 'ten_nha_cc', width: 130 },
-        { field: 'dia_chi_cc', title: 'dia_chi_cc', width: 130 },
+        { field: 'ten_nha_cc', title: 'Tên nhà cung cấp', width: 130 },
+        { field: 'dia_chi_cc', title: 'Đại chỉ nhà cung cấp', width: 130 },
 
     ];
     useEffect(() => {

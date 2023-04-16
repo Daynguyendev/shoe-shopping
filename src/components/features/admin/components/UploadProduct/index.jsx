@@ -23,7 +23,7 @@ export default function UploadProduct() {
 
     const columns = [
         { field: 'id_sp', title: 'ID', width: 70 },
-        { field: 'ten_sp', title: 'ten_sp', width: 130 },
+        { field: 'ten_sp', title: 'Tên sản phẩm', width: 130 },
         {
             title: 'Giá',
             render: (rowData) => {
@@ -33,13 +33,13 @@ export default function UploadProduct() {
             },
         },
         {
-            field: 'hinh_anh_chinh', title: 'hinh_anh_chinh', width: 130,
+            field: 'hinh_anh_chinh', title: 'Hình ảnh chính', width: 130,
             render: rowData => <img src={rowData.hinh_anh_chinh} style={{ width: 80, borderRadius: '50%' }} />
         },
-        { field: 'thong_tin_sp', title: 'thong_tin_sp', width: 70 },
-        { field: 'id_thuong_hieu', title: 'id_thuong_hieu', width: 50 },
-        { field: 'id_loai_sp', title: 'id_loai_sp', width: 50 },
-        { field: 'id_khuyen_mai', title: 'id_khuyen_mai', width: 50 },
+        { field: 'thong_tin_sp', title: 'Thông tin sản phẩm', width: 70 },
+        { field: 'id_thuong_hieu', title: 'ID thương hiệu', width: 50 },
+        { field: 'id_loai_sp', title: 'ID loại sản phẩm', width: 50 },
+        { field: 'id_khuyen_mai', title: 'ID khuyến mãi', width: 50 },
 
     ];
 

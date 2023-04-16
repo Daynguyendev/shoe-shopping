@@ -21,7 +21,7 @@ function AddInvoice() {
 
     const columns = [
         { field: 'id_hd_nhap_hang', title: 'ID', width: 70 },
-        { field: 'ten_hoa_don_nhap', title: 'ten_hoa_don_nhap', width: 130 },
+        { field: 'ten_hoa_don_nhap', title: 'Tên hóa đơn nhập', width: 130 },
         {
             title: 'Ngày lập',
             render: (rowData) => {

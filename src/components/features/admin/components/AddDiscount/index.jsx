@@ -12,10 +12,10 @@ function AddDiscount() {
     const [data, setData] = useState([]);
     const columns = [
         { field: 'id_khuyen_mai', title: 'ID', width: 70 },
-        { field: 'ten_khuyen_mai', title: 'ten_khuyen_mai', width: 130 },
-        { field: 'ngay_bat_dau', title: 'ngay_bat_dau', width: 130 },
-        { field: 'ngay_ket_thuc', title: 'ngay_ket_thuc', width: 130 },
-        { field: 'phan_tram_giam', title: 'phan_tram_giam', width: 130 },
+        { field: 'ten_khuyen_mai', title: 'Tên khuyến mãi', width: 130 },
+        { field: 'ngay_bat_dau', title: 'Ngày bắt đầu', width: 130 },
+        { field: 'ngay_ket_thuc', title: 'Ngày kết thúc', width: 130 },
+        { field: 'phan_tram_giam', title: 'Phần trăm giảm', width: 130 },
 
     ];
     useEffect(() => {

@@ -39,7 +39,7 @@ export default function OrderConfirmation() {
     const columns = [
         { field: 'id_hd_dat', title: 'ID', width: 10 },
         { field: 'ten_khach_hang', title: 'Tên khách', width: 10 },
-        { field: 'id_khach_hang', title: 'ID_KH', width: 10 },
+        { field: 'id_khach_hang', title: 'ID khách hàng', width: 10 },
         { field: 'ten_dia_chi', title: 'Địa chỉ', width: 10 },
         { field: 'ten_trang_thai_thanh_toan', title: 'Thanh toán', width: 10 },
         { field: 'ten_thanh_toan', title: 'Hình thức', width: 10 },
@@ -65,8 +65,8 @@ export default function OrderConfirmation() {
                 return (
                     <div >
                         {console.log('TEST ROWDATA', rowData.tableData.id)}
-                        {rowData.id_trang_thai === 4 ? (<Button variant="contained" color="error" >{rowData.id_trang_thai}</Button>
-                        ) : (<div style={{ display: 'flex' }}>                    <Button variant="contained" color="success" sx={{ fontSize: '10px' }} >{rowData.id_trang_thai}</Button>
+                        {rowData.ten_trang_thai === "Hủy" ? (<Button variant="contained" color="error" sx={{ backgroundColor: 'red', fontSize: '10px', width: '120px', height: '30px', color: 'white', padding: '2px' }}  >{rowData.ten_trang_thai}</Button>
+                        ) : (<div style={{ display: 'flex' }}>                    <Button variant="contained" color="success" sx={{ backgroundColor: 'green', fontSize: '10px', width: '120px', height: '30px', color: 'white', padding: '2px' }} >{rowData.ten_trang_thai}</Button>
                         </div>)}
 
                     </div>
@@ -197,9 +197,12 @@ export default function OrderConfirmation() {
         const result = await statusAPI.UpdateStatus({ id_trang_thai: 1, id_khach_hang: id_khach_hang, id_hd_dat: id_hd_dat });
         const updateCart = [...invoiceAll];
         updateCart[index].id_trang_thai = 1;
+        updateCart[index].ten_trang_thai = "Đã xác nhận";
+
         setInvoice(updateCart);
     }
-    const handleHuy = async (index, id_khach_hang, id_hd_dat) => {
+
+    const handleRemove = async (index, id_khach_hang, id_hd_dat) => {
         const result = await statusAPI.UpdateStatus({ id_trang_thai: 4, id_khach_hang: id_khach_hang, id_hd_dat: id_hd_dat });
         setIdBill(id_hd_dat);
         const resultDetailInvoice = await detailinvoiceoutputAPI.getDetail({ id_hd_dat: id_hd_dat })
@@ -212,8 +215,32 @@ export default function OrderConfirmation() {
             })
 
         }
+        const updateCart = [...statusList];
+        updateCart[index].id_trang_thai = 4;
+        updateCart[index].ten_trang_thai = "Hủy";
+
+        setStatus(updateCart);
+    }
+
+
+
+
+    const handleHuy = async (index, id_khach_hang, id_hd_dat) => {
+        const result = await statusAPI.UpdateStatus({ id_trang_thai: 4, id_khach_hang: id_khach_hang, id_hd_dat: id_hd_dat });
+        setIdBill(id_hd_dat);
+        const resultDetailInvoice = await detailinvoiceoutputAPI.getDetail({ id_hd_dat: id_hd_dat })
+        for (let i = 0; i < (resultDetailInvoice.data.data).length; i++) {
+            const results = await DetailProductAPI.UpdateQuantityRemove({
+                so_luong: resultDetailInvoice.data.data[i].so_luong,
+                id_sp: resultDetailInvoice.data.data[i].id_sp,
+                id_mau_sac: resultDetailInvoice.data.data[i].id_mau_sac,
+                id_kich_thuoc: resultDetailInvoice.data.data[i].id_kich_thuoc,
+            })
+        }
         const updateCart = [...invoiceAll];
         updateCart[index].id_trang_thai = 4;
+        updateCart[index].ten_trang_thai = "Hủy";
+
         setStatus(updateCart);
     }
 
@@ -221,6 +248,8 @@ export default function OrderConfirmation() {
         const result = await statusAPI.UpdateStatus({ id_trang_thai: 2, id_khach_hang: id_khach_hang, id_hd_dat: id_hd_dat });
         const updateCart = [...invoiceAll];
         updateCart[index].id_trang_thai = 2;
+        updateCart[index].ten_trang_thai = "Đang vận chuyển";
+
         setInvoice(updateCart);
     }
 
@@ -228,6 +257,8 @@ export default function OrderConfirmation() {
         const result = await statusAPI.UpdateStatus({ id_trang_thai: 3, id_khach_hang: id_khach_hang, id_hd_dat: id_hd_dat });
         const updateCart = [...invoiceAll];
         updateCart[index].id_trang_thai = 3;
+        updateCart[index].ten_trang_thai = "Hoàn thành";
+
         setInvoice(updateCart);
     }
 
@@ -236,9 +267,6 @@ export default function OrderConfirmation() {
 
             <div style={{ textAlign: 'center' }}>
                 <h1 style={{ marginLeft: '10px', color: '#800000' }}>Lọc theo</h1>
-                <IconButton sx={{ fontFamily: 'Oswald', fontSize: '20px' }} onClick={() => reverseInvoice()} >
-                    <ArrowUpwardIcon /> Sắp xếp đơn hàng
-                </IconButton>
                 <IconButton sx={{ fontFamily: 'Oswald', fontSize: '20px' }} onClick={() => HandleFillter(0)} >
                     <CheckBoxOutlineBlankIcon /> Đơn hàng chưa xác nhận
                 </IconButton>

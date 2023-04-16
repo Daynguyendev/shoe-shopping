@@ -10,7 +10,7 @@ function AddTrademark() {
 
     const columns = [
         { field: 'id_thuong_hieu', title: 'ID', width: 70 },
-        { field: 'ten_thuong_hieu', title: 'ten_thuong_hieu', width: 130 },
+        { field: 'ten_thuong_hieu', title: 'Tên thương hiệu', width: 130 },
     ];
 
     useEffect(() => {

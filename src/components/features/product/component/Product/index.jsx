@@ -14,7 +14,6 @@ function Product({ xs, sm, md, lg, xl, so_luong, pagesale, productDefault, produ
   const [currentPage, setCurrentPage] = useState(1);
   const now = new Date();
   const mysqlDateString = now.toISOString().slice(0, 19).replace('T', ' ');
-  console.log('test page', page1)
 
   const handleClickDetail = (item) => {
     navigate(`/colection/${item.target.alt}`)
@@ -28,7 +27,6 @@ function Product({ xs, sm, md, lg, xl, so_luong, pagesale, productDefault, produ
 
   const startIndex = (currentPage - 1) * so_luong;
   const endIndex = startIndex + so_luong;
-  console.log('bestsale', BestSaler)
 
   const renderProductList = () => {
 
@@ -157,9 +155,9 @@ function Product({ xs, sm, md, lg, xl, so_luong, pagesale, productDefault, produ
     <>
       {renderProductList()}
       <Pagination
-        count={display == 2 || display == 1 || display == 3 ? Math.ceil(productCategory?.length / 2) : productDefault && display == null ? Math.ceil(page1.total / page1.limit) : value1 ? Math.ceil(product?.length / 8) : value5 ? Math.ceil(productView?.length / 2) : Sale && value2 ? Math.ceil(pagesale.total / 4) : BestSaler && value9 ? Math.ceil(BestSaler?.length / 4) : 5}
-        page={productDefault && display == null ? page1.page : Sale && value2 ? pagesale.page : currentPage}
-        onChange={handlePaginationChange}
+        count={display == 2 || display == 1 || display == 3 ? Math.ceil(productCategory?.length / 3) : productDefault && display == null ? Math.ceil(page1.total / page1.limit) : value1 ? Math.ceil(product?.length / 8) : value5 ? Math.ceil(productView?.length / 3) : Sale && value2 ? Math.ceil(pagesale.total / 4) : BestSaler && value9 ? Math.ceil(BestSaler?.length / 4) : 5}
+        page={productDefault && display == null ? page1.page : Sale && value2 ? pagesale.page : value1 && product ? currentPage : currentPage}
+        onChange={value1 && product ? handlePageChange : handlePaginationChange}
         color="primary"
         sx={{ width: '100%', display: 'flex', justifyContent: 'center', marginBottom: '20px' }}
       />

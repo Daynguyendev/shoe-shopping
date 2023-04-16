@@ -9,7 +9,7 @@ function AddStatus() {
     const [statusDetail, setStatusDetail] = useState([]);
     const columns = [
         { field: 'id_trang_thai', title: 'ID', width: 70 },
-        { field: 'ten_trang_thai', title: 'ten_trang_thai', width: 130 },
+        { field: 'ten_trang_thai', title: 'Tên trạng thái', width: 130 },
     ];
     useEffect(() => {
         try {

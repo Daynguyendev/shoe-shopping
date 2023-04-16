@@ -115,7 +115,7 @@ export default function CustomizedList() {
                                         lineHeight: '20px',
                                         mb: '2px',
                                     }}
-                                    secondary="Quản lý loại, Firestore Quản lý màu sắc, Quản lý kích thước, Quản lý thương hiệu, Quản lý hình ảnh chi tiết, Quản lý nhà hóa đơn đặt, Quản lý trạng thái, Quản lý phương thức thanh toán"
+                                    secondary="Quản lý loại, Quản lý nhà cung cấp, Firestore Quản lý màu sắc, Quản lý kích thước, Quản lý thương hiệu, Quản lý hình ảnh chi tiết, Quản lý nhà hóa đơn đặt, Quản lý trạng thái, Quản lý phương thức thanh toán"
                                     secondaryTypographyProps={{
                                         noWrap: true,
                                         fontSize: 12,

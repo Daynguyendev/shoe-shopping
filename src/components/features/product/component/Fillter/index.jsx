@@ -83,10 +83,9 @@ export default function Fillter() {
         const fectProduct = async () => {
             try {
                 const { data, pagination } = await productAPI.Fillter(queryParams);
+
                 setProductList(data);
                 setPagination(pagination);
-                console.log('test pagination', pagination);
-                console.log('product List', productList);
             } catch (error) {
                 console.log('Failed to fetch product list: ', error);
             }
@@ -97,7 +96,6 @@ export default function Fillter() {
 
 
     const handleSortColor = (newValue) => {
-        console.log('test new value', newValue);
         const filters = {
             ...queryParams,
             product_color: newValue,
@@ -243,7 +241,6 @@ export default function Fillter() {
         }
     }, []);
 
-    console.log('Failed to fetch testFillter: ', testFillter);
 
     useEffect(() => {
         try {
@@ -327,7 +324,6 @@ export default function Fillter() {
             ...queryParams,
             _page: page,
         };
-        console.log('Filters: ', filters);
         setSearchParams(filters);
     };
 

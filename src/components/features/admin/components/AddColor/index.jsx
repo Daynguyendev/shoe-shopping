@@ -10,7 +10,7 @@ function AddColor() {
     const [colorDetail, setColorDetail] = useState([]);
     const columns = [
         { field: 'id_mau_sac', title: 'ID', width: 70 },
-        { field: 'ten_mau_sac', title: 'ten_mau_sac', width: 130 },
+        { field: 'ten_mau_sac', title: 'Tên màu sắc', width: 130 },
     ];
 
 

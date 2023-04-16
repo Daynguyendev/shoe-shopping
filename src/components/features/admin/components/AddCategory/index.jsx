@@ -11,7 +11,7 @@ function AddCategory() {
     const [category, setCategory] = useState([]);
     const columns = [
         { field: 'id_loai_sp', title: 'ID', width: 70 },
-        { field: 'ten_loai_sp', title: 'ten_loai_sp', width: 130 },
+        { field: 'ten_loai_sp', title: 'Tên loại sản phẩm', width: 130 },
     ];
 
     useEffect(() => {

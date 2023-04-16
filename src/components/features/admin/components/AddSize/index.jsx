@@ -9,7 +9,7 @@ function AddSize() {
     const [sizeDetail, setSizeDetail] = useState([]);
     const columns = [
         { field: 'id_kich_thuoc', title: 'ID', width: 70 },
-        { field: 'ten_kich_thuoc', title: 'ten_kich_thuoc', width: 130 },
+        { field: 'ten_kich_thuoc', title: 'Tên kích thước', width: 130 },
     ];
 
     useEffect(() => {

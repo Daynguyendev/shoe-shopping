@@ -9,7 +9,7 @@ function AddPay() {
     const [checkoutDetail, setCheckoutDetail] = useState([]);
     const columns = [
         { field: 'id_phuong_thuc_tt', title: 'ID', width: 70 },
-        { field: 'ten_phuong_thuc_tt', title: 'ten_phuong_thuc_tt', width: 130 },
+        { field: 'ten_phuong_thuc_tt', title: 'Tên phương thức thanh toán', width: 130 },
     ];
     useEffect(() => {
         try {
