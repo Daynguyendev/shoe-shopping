@@ -198,9 +198,9 @@ export default function UploadProduct() {
             ten_khach_hang: name,
             sdt_khach_hang: phone
         })
-            .then(function (response) {
+            .then(async function (response) {
                 const dataAdd = [...address]
-                const data = ({
+                const data = await ({
                     id_dia_chi: response.data.data,
                     id_khach_hang: idUser,
                     ten_khach_hang: name,
@@ -209,7 +209,7 @@ export default function UploadProduct() {
                 })
 
                 dataAdd.push(data)
-                setAddress(dataAdd)
+                const result = await setAddress(dataAdd)
                 enqueueSnackbar('Thêm địa chỉ thành công', {
                     variant: 'success',
                     autoHideDuration: 800,
@@ -421,7 +421,7 @@ export default function UploadProduct() {
         } catch (error) {
             console.log('Failed to fetch checkout: ', error);
         }
-    }, [idUser, address]);
+    }, [idUser]);
 
     const handleSubmitCheckBuyNow = async () => {
         if (isLogin) {

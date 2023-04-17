@@ -168,6 +168,13 @@ function Header() {
 
   }
 
+  const handleManager = () => {
+    if (idUser)
+      navigate(`/account`);
+    handleClose()
+
+  }
+
 
   const handleAdmin = () => {
     if (isAdmin)
@@ -284,6 +291,7 @@ function Header() {
 
               <MenuItem
                 onClick={handlemyBill}> <h4>Đơn hàng của tôi</h4></MenuItem>
+              <MenuItem onClick={handleManager}><h4>Quản lý tài khoản</h4></MenuItem>
               {isAdmin ? <MenuItem onClick={handleAdmin}><h4>Quản lý Store</h4></MenuItem> : ''}
               <MenuItem onClick={handleLogout}><h4>Đăng xuất</h4></MenuItem>
             </Menu>

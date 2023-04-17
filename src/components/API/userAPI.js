@@ -9,6 +9,18 @@ const userAPI = {
         const url = `/register`;
         return axiosClient.post(url, data);
     },
+    changePass(data) {
+        const url = `/password`;
+        return axiosClient.post(url, data);
+    },
+    Forgot(data) {
+        const url = `/forgot`;
+        return axiosClient.post(url, data);
+    },
+    changePassEMail(data) {
+        const url = `/forgotemailtoken`;
+        return axiosClient.post(url, data);
+    },
     getID(data) {
         const url = `/account/id`;
         return axiosClient.post(url, data);

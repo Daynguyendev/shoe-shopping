@@ -4,22 +4,17 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import SendIcon from '@mui/icons-material/Send';
 import './account.scss'
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import addresskAPI from '../../../API/addressAPI';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import { useSelector } from 'react-redux';
 import SignIn from '../SignIn';
 import userAPI from '../../../API/userAPI';
 import tableIcons from '../../admin/components/MaterialTableControl';
 import MaterialTable from 'material-table';
+import * as yup from 'yup';
 
 
 export default function InforAccount() {
@@ -36,13 +31,48 @@ export default function InforAccount() {
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
     const isLogin = useSelector((state) => state.user.isLogin);
     const email = useSelector((state) => state.user);
+    const [password, setPassword] = useState('');
+    const [passwordold, setPasswordOld] = useState('');
+    const [passwordRepeat, setPasswordRepeat] = useState();
+    const [passwordError, setPasswordError] = useState('');
+    const [display, setDisplay] = useState(false);
+
     const columns = [
-        { field: 'id_dia_chi', title: 'ID', width: 70 },
-        { field: 'ten_dia_chi', title: 'ten_dia_chi', width: 130 },
-        { field: 'ten_khach_hang', title: 'ten_khach_hang', width: 130 },
-        { field: 'sdt_khach_hang', title: 'sdt_khach_hang', width: 130 },
+        { field: 'ten_dia_chi', title: 'Tên địa chỉ', width: 130 },
+        { field: 'ten_khach_hang', title: 'Tên khách hàng', width: 130 },
+        { field: 'sdt_khach_hang', title: 'SĐT khách hàng', width: 130 },
 
     ];
+
+    const schema = yup
+        .object()
+        .shape({
+            password: yup
+                .string()
+                .min(6, "Tối thiểu 6 ký tự"),
+
+        })
+
+    const handleChangePass = (event) => {
+        setDisplay(!display)
+
+    };
+
+
+    const handlePasswordChange = (event) => {
+        const value = event.target.value;
+        setPassword(value);
+
+        schema
+            .validate({ password: value })
+            .then(() => {
+                setPasswordError('');
+            })
+            .catch((error) => {
+                setPasswordError(error.message);
+            });
+    };
+
 
     useEffect(() => {
         try {
@@ -59,15 +89,14 @@ export default function InforAccount() {
     }, []);
 
     const handleSubmit = (event) => {
-        addresskAPI.add({
-            id_khach_hang: idUser,
-            ten_dia_chi: address,
-            ten_khach_hang: name,
-            sdt_khach_hang: phone
+        userAPI.changePass({
+            email_khach_hang: email_khach_hang,
+            mat_khau_khach_hang: passwordold,
+            mat_khau_moi: password,
         })
 
             .then(function (response) {
-                enqueueSnackbar('Thêm địa chỉ thành công', {
+                enqueueSnackbar('Đổi mật khẩu thành công', {
                     variant: 'success',
                     autoHideDuration: 800,
                     anchorOrigin: {
@@ -76,32 +105,11 @@ export default function InforAccount() {
                     },
                 });
             })
-            .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 })
+            .catch(error => enqueueSnackbar('Mật khẩu cũ không đúng', { variant: 'error', autoHideDuration: 1000 })
             );
 
     };
-    const handleLogout = () => {
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
-        navigate('/');
-        window.location.reload();
 
-    }
-
-    const handlemyBill = () => {
-        if (idUser)
-            navigate(`/status/${idUser}`);
-
-    }
-
-    const removeAddress = () => {
-        {
-            remove.map((item, index) => {
-                const result = addresskAPI.remove({ id_dia_chi: item });
-            })
-        }
-
-    }
 
     useEffect(() => {
         if (idUser)
@@ -119,11 +127,6 @@ export default function InforAccount() {
             }
     }, [idUser]);
 
-    const handleRowSelection = (e) => {
-        setRemove(e);
-        navigate(`/account/${e}`);
-
-    };
 
     const getAddress = async () => {
 
@@ -183,68 +186,57 @@ export default function InforAccount() {
                     flexDirection: 'column',
                     alignItems: 'center',
                     backgroundColor: 'white',
-                    minHeight: '650px'
-                    , paddingTop: '80px'
+                    paddingTop: '80px'
                 }}>
                     <h3>Xin chào , {email.user.email_khach_hang}!</h3>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <List
-                                sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', fontSize: '30px' }}
-                                aria-label="contacts"
-                            >
+                    <Button variant="contained" disableElevation sx={{ width: '200px' }} onClick={handleChangePass}>
+                        ĐỔI MẬT KHẨU
+                    </Button>
 
-                                <ListItem disablePadding >
-                                    <ListItemButton onClick={handlemyBill}>
-                                        <ListItemText primary="Kiểm tra đơn hàng của tôi" />
-                                    </ListItemButton>
-                                </ListItem>
-                                <hr />
-                                <ListItem disablePadding sx={{ fontSize: '30px' }}>
-                                    <ListItemButton onClick={handleLogout}>
-                                        <ListItemText primary="Đăng xuất" />
-                                    </ListItemButton>
-                                </ListItem>
+                    <h1>QUẢN LÝ ĐỊA CHỈ</h1>
+                    {display === true ? (<>  <Grid item xs={12}>
+                        <TextField
+                            margin="normal"
 
-                            </List>
-
-                        </Grid>
-                        {/* <Grid item xs={8} sx={{ marginTop: '17px' }}>
-                            <Box
-                                component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}
-                            >
-                                <TextField
-                                    fullWidth
-                                    label="Tên"
-                                    onChange={(event) => (setName(event.target.value))}
-                                    autoFocus
-                                />
-                                <TextField
-                                    fullWidth
-                                    label="Địa chỉ"
-                                    onChange={(event) => (setAddress(event.target.value))}
-                                    sx={{ marginTop: '17px' }}
-
-                                />
-
-                                <TextField
-                                    fullWidth
-                                    label="Số điện thoại"
-                                    onChange={(event) => (setPhone(event.target.value))}
-                                    sx={{ marginTop: '20px' }}
-                                />
-                                <Stack sx={{ paddingTop: '17px' }}>
-                                    <Button variant="contained" endIcon={<SendIcon />} onClick={handleSubmit}>
-                                        Thêm địa chỉ
-                                    </Button> */}
-                        {/* </Stack>
-                </Box>
-            </Grid> */}
+                            fullWidth
+                            label="Mật khẩu cũ"
+                            type="password"
+                            value={passwordold}
+                            onChange={(e) => setPasswordOld(e.target.value)}
+                        />
                     </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                margin="normal"
+
+                                fullWidth
+                                label="Mật khẩu mới"
+                                type="password"
+                                value={password}
+                                onChange={handlePasswordChange}
+                                error={Boolean(passwordError)}
+                                helperText={passwordError}
+
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    margin="normal"
+
+                                    fullWidth
+                                    label=" Nhập lại mật khẩu mới"
+                                    type="password"
+                                    onChange={(e) => setPasswordRepeat(e.target.value)}
+                                />
+                            </Grid>
 
 
-
+                        </Grid>    <Button variant="contained" sx={{ marginBottom: '20px' }} onClick={() => handleSubmit()}>
+                            THAY ĐỔI MẬT KHẨU
+                        </Button></>) : ('')}
                 </Box >
+
                 <MaterialTable
                     title="Danh sách địa chỉ"
                     columns={columns}

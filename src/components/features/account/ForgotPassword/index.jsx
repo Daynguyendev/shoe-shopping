@@ -19,22 +19,9 @@ import { login } from '../userSlice';
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
 
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
 const theme = createTheme();
 
-export default function SignIn() {
+export default function ForgotPassword() {
 
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
@@ -53,9 +40,7 @@ export default function SignIn() {
             email: yup
                 .string()
                 .email('Vui lòng nhập đúng địa chỉ email'),
-            password: yup
-                .string()
-                .min(6, "Tối thiểu 6 ký tự"),
+
         })
     const handleQuantityChange = (event) => {
         const value = event.target.value;
@@ -69,20 +54,6 @@ export default function SignIn() {
             })
             .catch((error) => {
                 setEmailError(error.message);
-            });
-    };
-
-    const handlePasswordChange = (event) => {
-        const value = event.target.value;
-        setPassword(value);
-
-        schema
-            .validate({ password: value })
-            .then(() => {
-                setPasswordError('');
-            })
-            .catch((error) => {
-                setPasswordError(error.message);
             });
     };
 
@@ -121,30 +92,14 @@ export default function SignIn() {
             });
             return;
         }
-        if (password == '' || password == null || passwordError !== '') {
-            enqueueSnackbar('Vui lòng nhập mật khẩu', {
-                variant: 'error',
-                autoHideDuration: 800,
-                anchorOrigin: {
-                    vertical: 'top',
-                    horizontal: 'right',
-                },
-            });
-            return;
-        }
-        const result = await userAPI.login({
+
+        const result = await userAPI.Forgot({
             email_khach_hang: email,
-            mat_khau_khach_hang: password
         })
 
             .then(async function (response) {
-                const results = await dispatch(login({ email_khach_hang: email, token: response.data.token }));
-                let data = { email_khach_hang: email, isLogin: true }
-                const resultSaveToken = await localStorage.setItem('token', response.data.token);
-                const resultsSaveUser = await localStorage.setItem('user', JSON.stringify(data));
-                navigate(`/`)
-                window.location.reload();
-                enqueueSnackbar('Đăng nhập thành công', {
+
+                enqueueSnackbar('Gửi đường dẫn đổi mật khẩu thành công', {
                     variant: 'success',
                     autoHideDuration: 800,
                     anchorOrigin: {
@@ -153,7 +108,7 @@ export default function SignIn() {
                     },
                 });
             })
-            .catch(error => enqueueSnackbar('Tài khoản hoặc mật khẩu không chính xác', {
+            .catch(error => enqueueSnackbar('Email không tồn tại', {
                 variant: 'error',
                 autoHideDuration: 800,
                 anchorOrigin: {
@@ -162,15 +117,6 @@ export default function SignIn() {
                 },
             }))
     };
-
-    const handleNextPage = () => {
-        navigate(`/register`)
-    }
-
-    const handleNextPageForgot = () => {
-        navigate(`/forgot`)
-    }
-
 
     return (
         <ThemeProvider theme={theme}>
@@ -195,7 +141,7 @@ export default function SignIn() {
                 >
 
                     <Typography component="h1" variant="h3" sx={{ fontWeight: '1000', fontFamily: 'Oswald', paddingBottom: '20px' }}>
-                        Đăng Nhập
+                        Quên mật khẩu
                     </Typography>
                     <Box component="form" noValidate >
                         <TextField
@@ -208,51 +154,16 @@ export default function SignIn() {
                             error={Boolean(EmailError)}
                             helperText={EmailError}
                         />
-                        <TextField
-                            margin="normal"
-                            fullWidth
-                            label="Mật khẩu"
-                            type="password"
-                            onChange={handlePasswordChange}
-                            error={Boolean(passwordError)}
-                            helperText={passwordError}
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Lưu thông tin"
-                        />
-
-
-                        <Grid container>
-                            <Grid item xs>
-
-                            </Grid>
-                            <Grid item>
-                                <Link href="" variant="body1" onClick={handleNextPage}>
-                                    {"Đăng Ký"}
-
-                                </Link>
-                                <br />
-                                <Link href="" variant="body1" onClick={handleNextPageForgot}>
-                                    {"Quên mật khẩu?"}
-
-                                </Link>
-
-                            </Grid>
-                        </Grid>
 
                         <Button
                             fullWidth
                             onClick={handleSubmit}
                             variant="contained"
-                            sx={{ display: 'inline-block', fontFamily: 'Oswald', marginTop: '5px', fontSize: '20px', width: '100%', color: 'white', backgroundColor: ' #d2143a', marginBottom: '20px' }}  >
-                            Đăng Nhập
+                            sx={{ display: 'inline-block', fontFamily: 'Oswald', marginTop: '5px', fontSize: '15px', width: '100%', color: 'white', backgroundColor: ' #d2143a', marginBottom: '20px' }}  >
+                            Quên mật khẩu
                         </Button>
                     </Box>
-
-
                 </Box>
-                <Copyright sx={{ mb: 8, mt: 4 }} />
             </Container>
         </ThemeProvider >
     );

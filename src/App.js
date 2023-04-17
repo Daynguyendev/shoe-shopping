@@ -37,6 +37,8 @@ import AddPay from './components/features/admin/components/AddPay';
 import UpdateCustomer from './components/features/admin/components/UpdateCustomer';
 import Statistical from './components/features/admin/components/Statistical';
 import Chart from './components/features/admin/components/Chart';
+import ForgotPassword from './components/features/account/ForgotPassword';
+import ChangePassWordForgot from './components/features/account/ChangePasswordForgot';
 function App() {
 
   return (
@@ -53,6 +55,9 @@ function App() {
         <Route path="/" element={<UserLayout />}>
           <Route path="login" element={<SignIn />}></Route>
           <Route path="register" element={<SignUp />}></Route>
+          <Route path="forgot" element={<ForgotPassword />}></Route>
+          <Route path="reset/:email_khach_hang/:token" element={<ChangePassWordForgot />}></Route>
+
           <Route path="account" element={<InforAccount />}></Route>
           <Route path="account/:id" element={<InforAccount />}></Route>
         </Route>
