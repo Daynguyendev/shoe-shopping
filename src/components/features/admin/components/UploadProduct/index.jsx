@@ -10,7 +10,7 @@ import providerAPI from '../../../../API/providerAPI';
 import trademarkAPI from '../../../../API/trademarkAPI';
 import productAPI from './../../../../API/productAPI';
 import tableIcons from '../MaterialTableControl';
-import MaterialTable, { MTableToolbar } from 'material-table';
+import MaterialTable from 'material-table';
 
 export default function UploadProduct() {
     const [sizeDetail, setSizeDetail] = useState([]);
@@ -40,6 +40,8 @@ export default function UploadProduct() {
         { field: 'id_thuong_hieu', title: 'ID thương hiệu', width: 50 },
         { field: 'id_loai_sp', title: 'ID loại sản phẩm', width: 50 },
         { field: 'id_khuyen_mai', title: 'ID khuyến mãi', width: 50 },
+        { field: 'id_nha_cc', title: 'ID nhà cung cấp', width: 50 },
+
 
     ];
 
@@ -175,6 +177,7 @@ export default function UploadProduct() {
                     id_loai_sp: newData.id_loai_sp,
                     hinh_anh_chinh: newData.hinh_anh_chinh,
                     id_khuyen_mai: newData.id_khuyen_mai,
+
                 });
                 getProduct();
             } catch (error) {
@@ -196,6 +199,7 @@ export default function UploadProduct() {
                     id_loai_sp: newData.id_loai_sp,
                     hinh_anh_chinh: newData.hinh_anh_chinh,
                     id_khuyen_mai: newData.id_khuyen_mai,
+
                 });
                 getProduct();
             } catch (error) {

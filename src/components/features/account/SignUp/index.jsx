@@ -15,6 +15,7 @@ import { useSnackbar } from 'notistack';
 import { useState, useEffect } from 'react';
 import userAPI from '../../../API/userAPI';
 import addresskAPI from '../../../API/addressAPI';
+import * as yup from 'yup';
 
 function Copyright(props) {
     return (
@@ -43,11 +44,126 @@ export default function SignUp() {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
+    const [EmailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [birthError, setBirthError] = useState('');
+    const [phoneError, setPhoneError] = useState('');
+    const [nameError, setNameError] = useState('');
+    const [addressError, setAddressError] = useState('');
+
+
+
+
+    const schema = yup
+        .object()
+        .shape({
+
+            email: yup
+                .string()
+                .email('Vui lòng nhập đúng địa chỉ email'),
+            password: yup
+                .string()
+                .min(6, "Tối thiểu 6 ký tự"),
+            birthday: yup
+                .date(),
+            phone: yup
+                .number().typeError('Số điện thoại phải bắt đầu là 0xxx')
+                .max(1000000000, 'Vui lòng nhập SĐT hợp lệ'),
+            name: yup
+                .string()
+                .min(6, "Tối thiểu 6 ký tự")
+            ,
+            address: yup
+                .string()
+                .min(10, "Tối thiểu 10 ký tự")
+            ,
+
+        })
+    const handleEmailChange = (event) => {
+        const value = event.target.value;
+        setEmail(value);
+        schema
+            .validate({ email: value })
+            .then(() => {
+                setEmailError('');
+            })
+            .catch((error) => {
+                setEmailError(error.message);
+            });
+    };
+
+    const handleAddressChange = (event) => {
+        const value = event.target.value;
+        setAddress(value);
+        schema
+            .validate({ address: value })
+            .then(() => {
+                setAddressError('');
+            })
+            .catch((error) => {
+                setAddressError(error.message);
+            });
+    };
+
+    const handleNameChange = (event) => {
+        const value = event.target.value;
+        setName(value);
+        schema
+            .validate({ name: value })
+            .then(() => {
+                setNameError('');
+            })
+            .catch((error) => {
+                setNameError(error.message);
+            });
+    };
+
+    const handlePasswordChange = (event) => {
+        const value = event.target.value;
+        setPassword(value);
+
+        schema
+            .validate({ password: value })
+            .then(() => {
+                setPasswordError('');
+            })
+            .catch((error) => {
+                setPasswordError(error.message);
+            });
+    };
+
+    const handleBirthChange = (event) => {
+        const value = event.target.value;
+        setBirthday(value);
+
+        schema
+            .validate({ birthday: value })
+            .then(() => {
+                setBirthError('');
+            })
+            .catch((error) => {
+                setBirthError(error.message);
+            });
+    };
+    const handlePhoneChange = (event) => {
+        const value = event.target.value;
+        setPhone(value);
+
+        schema
+            .validate({ phone: value })
+            .then(() => {
+                setPhoneError('');
+            })
+            .catch((error) => {
+                setPhoneError(error.message);
+            });
+    };
+
 
 
 
     const handleSubmit = async (event) => {
-        if (name == '') {
+        if (name == '' || nameError !== '') {
             enqueueSnackbar('Vui lòng nhập tên', {
                 variant: 'error',
                 autoHideDuration: 800,
@@ -59,7 +175,7 @@ export default function SignUp() {
             return;
         }
 
-        if (email == '') {
+        if (email == '' || EmailError !== '') {
             enqueueSnackbar('Vui lòng nhập email', {
                 variant: 'error',
                 autoHideDuration: 800,
@@ -70,8 +186,20 @@ export default function SignUp() {
             });
             return;
         }
+        if (phone == '' || phoneError !== '') {
+            enqueueSnackbar('Vui lòng nhập đúng SĐT', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            });
+            return;
+        }
 
-        if (birthday == '' || birthday == null) {
+
+        if (birthday == '' || birthday == null || birthError !== '') {
             enqueueSnackbar('Vui lòng nhập ngày sinh', {
                 variant: 'error',
                 autoHideDuration: 800,
@@ -83,7 +211,7 @@ export default function SignUp() {
             return;
         }
 
-        if (password == '') {
+        if (password == '' || passwordError !== '') {
             enqueueSnackbar('Vui lòng nhập mật khẩu', {
                 variant: 'error',
                 autoHideDuration: 800,
@@ -178,10 +306,12 @@ export default function SignUp() {
                             <Grid item xs={6}>
                                 <TextField
                                     margin="normal"
-
+                                    value={name}
                                     fullWidth
                                     label="Tên khách hàng"
-                                    onChange={(e) => setName(e.target.value)}
+                                    onChange={handleNameChange}
+                                    error={Boolean(nameError)}
+                                    helperText={nameError}
                                 />
                             </Grid>
                             <Grid item xs={6}>
@@ -189,25 +319,32 @@ export default function SignUp() {
                                     margin="normal"
                                     fullWidth
                                     label="Địa chỉ Email"
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    value={email}
+                                    onChange={handleEmailChange}
+                                    error={Boolean(EmailError)}
+                                    helperText={EmailError}
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     margin="normal"
-
+                                    value={address}
                                     fullWidth
                                     label="Địa chỉ khách hàng"
-                                    onChange={(e) => setAddress(e.target.value)}
+                                    onChange={handleAddressChange}
+                                    error={Boolean(addressError)}
+                                    helperText={addressError}
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     margin="normal"
-
+                                    value={phone}
                                     fullWidth
                                     label="Số điện thoại"
-                                    onChange={(e) => setPhone(e.target.value)}
+                                    onChange={handlePhoneChange}
+                                    error={Boolean(phoneError)}
+                                    helperText={phoneError}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -228,7 +365,11 @@ export default function SignUp() {
                                     fullWidth
                                     label="Mật khẩu"
                                     type="password"
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    value={password}
+                                    onChange={handlePasswordChange}
+                                    error={Boolean(passwordError)}
+                                    helperText={passwordError}
+
                                 />
                             </Grid>
                             <Grid item xs={12}>

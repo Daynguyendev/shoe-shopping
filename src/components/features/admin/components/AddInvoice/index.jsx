@@ -9,6 +9,7 @@ import detailInvoiceAPI from '../../../../API/detailinvoiceAPI';
 import tableIcons from '../MaterialTableControl';
 import MaterialTable from 'material-table';
 import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
 
 function AddInvoice() {
     const navigate = useNavigate();
@@ -17,6 +18,29 @@ function AddInvoice() {
     const [namebill, setNamebill] = useState('');
     const [totalHD, setTotalHD] = useState('0');
     const [billDetail, setBillDetail] = useState([]);
+    const [nameError, setNameError] = useState('');
+    const schema = yup
+        .object()
+        .shape({
+            namebill: yup
+                .string().matches(/^[a-zA-Z0-9]+$/, "Không được chứa ký tự đặc biệt")
+                .max(20, 'Tối đa 20 kí tự')
+                .min(3, 'Tối thiểu 3 kí tự')
+
+        })
+    const handleNameBillChange = (event) => {
+        const value = event.target.value;
+        setNamebill(value);
+
+        schema
+            .validate({ namebill: value })
+            .then(() => {
+                setNameError('');
+            })
+            .catch((error) => {
+                setNameError(error.message);
+            });
+    };
 
 
     const columns = [
@@ -55,12 +79,6 @@ function AddInvoice() {
 
     ];
 
-    const handleClickDetail = (item) => {
-        handleSubmitHD()
-        navigate(`/admin/invoice/${namebill}`)
-
-    }
-
     const [namebillDetail, setNameBillDetail] = useState();
 
     useEffect(() => {
@@ -94,9 +112,9 @@ function AddInvoice() {
     }
 
     const handleSubmitHD = () => {
-        if (namebill == '') {
+        if (namebill == '' || nameError !== '') {
 
-            enqueueSnackbar('Nhập tên hóa đơn', {
+            enqueueSnackbar('Nhập đúng định dạng hóa đơn', {
                 variant: 'error',
                 autoHideDuration: 800,
                 anchorOrigin: {
@@ -121,6 +139,7 @@ function AddInvoice() {
                         horizontal: 'right',
                     },
                 });
+                navigate(`/admin/invoice/${namebill}`)
             })
             .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 }));
     }
@@ -183,8 +202,9 @@ function AddInvoice() {
             <h1>NHẬP HÀNG (TÊN HÓA ĐƠN) </h1>
             <div>
                 <div>
-                    <TextField onChange={(e) => setNamebill(e.target.value)} label="Tên Hóa Đơn" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
-                    <Button onClick={handleClickDetail} disableElevation sx={{ width: '215px', height: '55px', fontSize: '10px', marginTop: '9px', marginLeft: '8px' }} variant="contained">
+                    <TextField onChange={handleNameBillChange} value={namebill} label="Tên Hóa Đơn" sx={{ width: '250px', paddingBottom: '15px', height: '60px', fontSize: '10px' }} error={Boolean(nameError)}
+                        helperText={nameError} />
+                    <Button onClick={handleSubmitHD} disableElevation sx={{ width: '215px', height: '55px', fontSize: '10px', marginTop: '9px', marginLeft: '8px' }} variant="contained">
                         Tạo hóa đơn
                     </Button>
                 </div>

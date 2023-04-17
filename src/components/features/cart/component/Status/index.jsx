@@ -124,7 +124,7 @@ export default function Status() {
                             Tổng tiền: {item.tong_tien.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                         </Grid>
                         <Grid sx={{ textAlign: 'end', paddingBottom: '30px', fontFamily: 'Oswald', fontSize: '20px' }}>
-                            {item.ten_trang_thai_thanh_toan === 'Đã thanh toán' ? ('Đã thanh toán bằng ' + item.ten_thanh_toan) : item.id_phuong_thuc_tt == 2 ? ((<Button variant='contained' sx={{ marginTop: '5px', fontSize: '14px', marginLeft: '20px', width: '180px', height: '40px', color: 'white', backgroundColor: ' #d2143a', marginBottom: '20px' }} onClick={(e) => HandlecheckoutVnpay(item.id_hd_dat, item.tong_tien)}>
+                            {item.ten_trang_thai_thanh_toan === 'Đã thanh toán' ? ('Đã thanh toán bằng ' + item.ten_thanh_toan) : item.id_phuong_thuc_tt == 2 && item.id_trang_thai <= 3 ? ((<Button variant='contained' sx={{ marginTop: '5px', fontSize: '14px', marginLeft: '20px', width: '180px', height: '40px', color: 'white', backgroundColor: ' #d2143a', marginBottom: '20px' }} onClick={(e) => HandlecheckoutVnpay(item.id_hd_dat, item.tong_tien)}>
                                 Thanh toán ngay
                             </Button>)) : ('')}
                         </Grid>

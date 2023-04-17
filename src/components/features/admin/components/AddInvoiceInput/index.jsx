@@ -22,6 +22,8 @@ import tableIcons from '../MaterialTableControl';
 import MaterialTable from 'material-table';
 import UploadImage from '../UploadImage';
 import ToggleButton from '@mui/material/ToggleButton';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
 function AddInvoiceInput() {
     let { name } = useParams();
     const { enqueueSnackbar } = useSnackbar();
@@ -54,6 +56,7 @@ function AddInvoiceInput() {
     const [loading, setLoading] = useState(true);
     const [selectedButtons, setSelectedButtons] = useState([]);
     const [selectedButtonsize, setSelectedButtonsize] = useState([]);
+    const [nameError, setNameError] = useState('');
 
 
     const columns = [
@@ -67,6 +70,48 @@ function AddInvoiceInput() {
 
 
     ];
+
+    const [urlError, setUrlError] = useState('');
+    const schema = yup
+        .object()
+        .shape({
+            mainImg: yup
+                .string().url("Không đúng định dạng URL"),
+            nameProduct: yup
+                .string().matches(/^[a-zA-Z0-9 ]+$/, "Không được chứa ký tự đặc biệt")
+                .max(30, 'Tối đa 30 kí tự')
+                .min(3, 'Tối thiểu 3 kí tự')
+
+        })
+    const handleUrlChange = (event) => {
+        const value = event.target.value;
+        setMainImg(value);
+
+        schema
+            .validate({ mainImg: value })
+            .then(() => {
+                setUrlError('');
+            })
+            .catch((error) => {
+                setUrlError(error.message);
+            });
+    };
+
+    const handleNameChange = (event) => {
+        const value = event.target.value;
+        setNameProduct(value);
+
+        schema
+            .validate({ nameProduct: value })
+            .then(() => {
+                setNameError('');
+            })
+            .catch((error) => {
+                setNameError(error.message);
+            });
+    };
+
+
 
     const handlePromotion = event => {
         setIdPromotion(event.target.value);
@@ -94,6 +139,33 @@ function AddInvoiceInput() {
             setSelectedButtons([...selectedButtons, buttonId]);
         }
     };
+    const handlePrice = (event) => {
+        if (isNaN(event)) {
+            console.log('Giá trị không phải là số!');
+        } else {
+            setPriceInput(event);
+        }
+    };
+
+    const handleQuantity = (event) => {
+        if (isNaN(event)) {
+            console.log('Giá trị không phải là số!');
+        } else {
+            setQuantity(event);
+        }
+    };
+
+
+
+    const handlePriceSell = (event) => {
+        if (isNaN(event)) {
+            console.log('Giá trị không phải là số!');
+        } else {
+            setPriceProduct(event);
+        }
+    };
+
+
 
     const handleClickSize = (buttonId) => {
         if (selectedButtonsize.includes(buttonId)) {
@@ -430,6 +502,18 @@ function AddInvoiceInput() {
     };
 
     const handleSubmit = async (event) => {
+        if (nameError !== '') {
+            enqueueSnackbar('Vui lòng nhập đúng định dạng tên sản phẩm', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            })
+
+            return;
+        }
         if (nameProduct == '' || priceProduct == '' || mainImg == '' || inforProduct == '' || trademark == '' || category == '' || idPromotion == '' || invoiceDetail == '' || selectedButtons.length == 0 || selectedButtonsize.length == 0 || quantity == '' || priceInput == '') {
             enqueueSnackbar('Vui lòng nhập đủ thông tin', {
                 variant: 'error',
@@ -479,6 +563,7 @@ function AddInvoiceInput() {
                             id_khuyen_mai: idPromotion,
                             id_mau_sac: selectedButtons[i],
                             id_kich_thuoc: selectedButtonsize[j],
+                            id_nha_cc: provider,
                             so_luong_kho: quantity,
                         })
                     }
@@ -516,9 +601,8 @@ function AddInvoiceInput() {
                 <>
                     <Box
                         sx={{
-                            backgroundColor: 'white', paddingTop: '80px'
+                            backgroundColor: 'white', paddingTop: '80px', paddingBottom: '80px', paddingLeft: '20px', paddingRight: '20px'
                         }}
-
                     >
 
                         <div>
@@ -570,23 +654,24 @@ function AddInvoiceInput() {
                                 ))}
                             </TextField>
                             <h3>Tên sản phẩm</h3>
-                            <TextField fullWidth id="outlined-basic" label="Tên sản phẩm" variant="outlined" onChange={(e) => setNameProduct(e.target.value)} />
+                            <TextField error={Boolean(nameError)}
+                                helperText={nameError} fullWidth id="outlined-basic" value={nameProduct} label="Tên sản phẩm" variant="outlined" onChange={handleNameChange} />
                             <h3>Giá sản phẩm</h3>
-                            <TextField fullWidth id="filled-basic" label="Giá sản phẩm" variant="outlined" onChange={(e) => setPriceProduct(e.target.value)} />
+                            <TextField fullWidth id="filled-basic" label="Giá sản phẩm" variant="outlined" value={priceProduct} onChange={(e) => handlePriceSell(e.target.value)} />
                             <h3>Thông tin sản phẩm</h3>
 
                             <TextField fullWidth id="standard-basic" label="Thông tin sản phẩm" variant="outlined" onChange={(e) => setInforProduct(e.target.value)} />
                             <h3>URL</h3>
-                            <TextField fullWidth id="outlined-basic" label="URL ảnh chính" variant="outlined" onChange={(e) => setMainImg(e.target.value)} />
+                            <TextField fullWidth id="outlined-basic" value={mainImg} label="URL ảnh chính" variant="outlined" onChange={handleUrlChange}
+                                error={Boolean(urlError)}
+                                helperText={urlError} />
                             <h3>Khuyến mãi</h3>
                             <TextField
                                 fullWidth
                                 select
                                 label="ID khuyến mãi"
                                 value={idPromotion}
-
                                 onChange={handlePromotion}
-
                             >
                                 {promotion.map((option) => (
                                     <MenuItem key={option.id_khuyen_mai} value={option.id_khuyen_mai}>
@@ -628,10 +713,11 @@ function AddInvoiceInput() {
                             <h3>Số lượng</h3>
 
                             <TextField
-                                fullWidth onChange={(e) => setQuantity(e.target.value)} value={quantity} label="Số lượng" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+                                fullWidth onChange={(e) => handleQuantity(e.target.value)} value={quantity} label="Số lượng" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
                             <h3>Giá nhập</h3>
                             <TextField
-                                fullWidth onChange={(e) => setPriceInput(e.target.value)} value={priceInput} label="Giá nhập" sx={{ width: '250px', height: '60px', fontSize: '10px' }} />
+                                fullWidth onChange={(e) => handlePrice(e.target.value)} value={priceInput} label="Giá nhập" sx={{ width: '250px', height: '60px', fontSize: '10px' }}
+                            />
 
 
 

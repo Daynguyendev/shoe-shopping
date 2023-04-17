@@ -11,6 +11,7 @@ import colorAPI from '../../../../API/colorAPI';
 import MenuItem from '@mui/material/MenuItem';
 import tableIcons from '../MaterialTableControl';
 import MaterialTable from 'material-table';
+import * as yup from 'yup';
 
 function AddDetailImage() {
     const [imageDetail, setImageDetailDetail] = useState([]);
@@ -32,6 +33,28 @@ function AddDetailImage() {
         },
 
     ];
+    const [urlError, setUrlError] = useState('');
+    const schema = yup
+        .object()
+        .shape({
+            linkImage: yup
+                .string().url("Không đúng định dạng URL")
+        })
+    const handleUrlChange = (event) => {
+        const value = event.target.value;
+        setLinkImage(value);
+
+        schema
+            .validate({ linkImage: value })
+            .then(() => {
+                setUrlError('');
+            })
+            .catch((error) => {
+                setUrlError(error.message);
+            });
+    };
+
+
 
     useEffect(() => {
         try {
@@ -201,7 +224,9 @@ function AddDetailImage() {
             </TextField>
             <br />
             <br />
-            <TextField fullWidth onChange={(e) => setLinkImage(e.target.value)} value={linkImage} label="link hình ảnh" />
+            <TextField fullWidth onChange={handleUrlChange}
+                error={Boolean(urlError)}
+                helperText={urlError} value={linkImage} label="link hình ảnh" />
             <br />
             <br />
             <Button onClick={handleSubmit} variant="contained" sx={{ width: '250px', height: '55px', fontSize: '15px' }}>

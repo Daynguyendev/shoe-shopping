@@ -17,6 +17,7 @@ import userAPI from '../../../API/userAPI';
 import { useDispatch } from 'react-redux';
 import { login } from '../userSlice';
 import { useSelector } from 'react-redux';
+import * as yup from 'yup';
 
 function Copyright(props) {
     return (
@@ -43,6 +44,51 @@ export default function SignIn() {
     const [idUser, setIdUser] = useState(null);
     let email_khach_hang = useSelector((state) => state?.user?.user?.email_khach_hang);
     const isLogin = useSelector((state) => state?.user.isLogin);
+    const [quantityError, setQuantityError] = useState('');
+    const [EmailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const schema = yup
+        .object()
+        .shape({
+            email: yup
+                .string()
+                .email('Vui lòng nhập đúng địa chỉ email'),
+            password: yup
+                .string()
+                .min(6, "Tối thiểu 6 ký tự"),
+        })
+    const handleQuantityChange = (event) => {
+        const value = event.target.value;
+        setEmail(value);
+        console.log(value);
+
+        schema
+            .validate({ email: value })
+            .then(() => {
+                setEmailError('');
+            })
+            .catch((error) => {
+                setEmailError(error.message);
+            });
+    };
+
+    const handlePasswordChange = (event) => {
+        const value = event.target.value;
+        setPassword(value);
+
+        schema
+            .validate({ password: value })
+            .then(() => {
+                setPasswordError('');
+            })
+            .catch((error) => {
+                setPasswordError(error.message);
+            });
+    };
+
+
+
+
 
     useEffect(() => {
         try {
@@ -64,7 +110,7 @@ export default function SignIn() {
 
 
     const handleSubmit = async (event) => {
-        if (email == '' || email == null) {
+        if (email == '' || email == null || EmailError !== '') {
             enqueueSnackbar('Vui lòng nhập email', {
                 variant: 'error',
                 autoHideDuration: 800,
@@ -75,7 +121,7 @@ export default function SignIn() {
             });
             return;
         }
-        if (password == '' || password == null) {
+        if (password == '' || password == null || passwordError !== '') {
             enqueueSnackbar('Vui lòng nhập mật khẩu', {
                 variant: 'error',
                 autoHideDuration: 800,
@@ -152,14 +198,19 @@ export default function SignIn() {
                             fullWidth
                             label="Địa chỉ Email"
                             autoFocus
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            onChange={handleQuantityChange}
+                            error={Boolean(EmailError)}
+                            helperText={EmailError}
                         />
                         <TextField
                             margin="normal"
                             fullWidth
                             label="Mật khẩu"
                             type="password"
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={handlePasswordChange}
+                            error={Boolean(passwordError)}
+                            helperText={passwordError}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}

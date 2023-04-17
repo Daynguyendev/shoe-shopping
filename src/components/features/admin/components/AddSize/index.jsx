@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import sizeAPI from '../../../../API/sizeAPI';
 import tableIcons from '../MaterialTableControl';
 import MaterialTable from 'material-table';
+import * as yup from 'yup';
 
 function AddSize() {
     const [sizeDetail, setSizeDetail] = useState([]);
@@ -11,6 +12,17 @@ function AddSize() {
         { field: 'id_kich_thuoc', title: 'ID', width: 70 },
         { field: 'ten_kich_thuoc', title: 'Tên kích thước', width: 130 },
     ];
+
+    const schema = yup
+        .object()
+        .shape({
+            ten_kich_thuoc: yup
+                .number()
+                .max(100, 'Tối đa size 100')
+                .min(30, 'Tối thiểu size 30')
+
+        })
+
 
     useEffect(() => {
         try {
@@ -49,6 +61,7 @@ function AddSize() {
     const handleRowAdd = (newData, resolve) => {
         const addSize = async () => {
             try {
+
                 const { data } = await sizeAPI.add({ ten_kich_thuoc: newData.ten_kich_thuoc });
                 getSizeDetail();
             } catch (error) {
