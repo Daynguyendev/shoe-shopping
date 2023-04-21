@@ -216,7 +216,18 @@ export default function UploadProduct() {
                 const { data } = await productAPI.delete(oldData.id_sp);
                 getProduct();
             } catch (error) {
-                console.log('Failed to update providerDetail list: ', error);
+                const { data } = await productAPI.update({
+                    id_sp: oldData.id_sp,
+                    ten_sp: oldData.ten_sp,
+                    gia_sp: oldData.gia_sp,
+                    thong_tin_sp: 'Đã ngừng bán',
+                    id_thuong_hieu: oldData.id_thuong_hieu,
+                    id_loai_sp: oldData.id_loai_sp,
+                    hinh_anh_chinh: oldData.hinh_anh_chinh,
+                    id_khuyen_mai: oldData.id_khuyen_mai,
+
+                });
+                getProduct();
             }
         };
         deleteProduct();
