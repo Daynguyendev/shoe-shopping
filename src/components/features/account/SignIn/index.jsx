@@ -189,8 +189,6 @@ export default function SignIn() {
                         alignItems: 'center',
                         backgroundColor: 'white',
                         minHeight: '585px',
-
-
                     }}
                 >
 

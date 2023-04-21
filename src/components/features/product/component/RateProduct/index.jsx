@@ -20,7 +20,7 @@ export default function RateProduct({ rate }) {
     const renderRateList = () => {
         return rateList.slice(startIndex, endIndex).map((item, index) => (
             <Grid key={index}>
-                <h3>Khách hàng: {item.ten_nguoi_danh_gia}</h3>
+                <h3>Khách hàng: {item.ten_khach_hang}</h3>
                 <Rating
                     name="text-feedback"
                     value={item.so_sao_danh_gia}

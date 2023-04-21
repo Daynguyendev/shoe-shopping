@@ -67,7 +67,6 @@ export default function ListItemDetail({ id_hd, id_trang_thai, id_khach_hang }) 
         const result = await rateAPI.add({
             id_khach_hang: id_khach_hang,
             id_hd_dat: id_hd,
-            ten_nguoi_danh_gia: nameRate,
             noi_dung: content,
             id_sp: idSP,
             hinh_anh_danh_gia: imgRate,
@@ -118,14 +117,6 @@ export default function ListItemDetail({ id_hd, id_trang_thai, id_khach_hang }) 
                     <DialogContentText>
                         Vui lòng đánh giá thật để giúp chúng tôi cải thiện chất lượng
                     </DialogContentText>
-
-                    <TextField
-                        fullWidth
-                        label="Tên"
-                        onChange={(event) => (setNameRate(event.target.value))}
-                        autoFocus
-                    />
-
                     <TextField
                         fullWidth
                         label="Nội dung đánh giá"
