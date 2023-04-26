@@ -63,6 +63,55 @@ export default function ListItemDetail({ id_hd, id_trang_thai, id_khach_hang }) 
 
 
     const handleSubmit = async (event) => {
+        if (!content && start === 2 && !imgRate) {
+            enqueueSnackbar('Vui lòng nhập đầy đủ thông tin đánh giá', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            })
+            return;
+        }
+
+        else if (content === '' || content == '' || content === undefined) {
+            enqueueSnackbar('Vui lòng nhập nội dung đánh giá', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            })
+            return;
+
+        }
+        else if (start === '' || start < 1 || start === undefined || start.length === 0) {
+            enqueueSnackbar('Vui lòng chọn số sao đánh giá', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            })
+            return;
+
+        }
+        else if (imgRate === '' || imgRate == '' || imgRate === undefined || imgRate.length == 0) {
+            enqueueSnackbar('Vui lòng hình ảnh đánh giá', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            })
+            return;
+
+        }
+
 
         const result = await rateAPI.add({
             id_khach_hang: id_khach_hang,

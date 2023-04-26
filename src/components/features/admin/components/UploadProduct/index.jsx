@@ -22,7 +22,6 @@ export default function UploadProduct() {
     const [product, setProduct] = useState([]);
 
     const columns = [
-        { field: 'id_sp', title: 'ID', width: 70 },
         { field: 'ten_sp', title: 'Tên sản phẩm', width: 130 },
         {
             title: 'Giá',
@@ -40,9 +39,6 @@ export default function UploadProduct() {
         { field: 'id_thuong_hieu', title: 'ID thương hiệu', width: 50 },
         { field: 'id_loai_sp', title: 'ID loại sản phẩm', width: 50 },
         { field: 'id_khuyen_mai', title: 'ID khuyến mãi', width: 50 },
-        { field: 'id_nha_cc', title: 'ID nhà cung cấp', width: 50 },
-
-
     ];
 
     useEffect(() => {
