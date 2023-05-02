@@ -35,6 +35,14 @@ function AddColor() {
         setColorDetail(result.data.data);
     };
 
+
+    const getColor = async () => {
+
+        const result = await colorAPI.get();
+        return result.data.data;
+    };
+    console.log('test 123', getColor().value);
+
     const handleRowUpdate = (newData, oldData, resolve) => {
         const updateSize = async () => {
             try {

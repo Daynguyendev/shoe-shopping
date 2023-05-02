@@ -141,7 +141,14 @@ function AddInvoice() {
                 });
                 navigate(`/admin/invoice/${namebill}`)
             })
-            .catch(error => enqueueSnackbar(error.message, { variant: 'error', autoHideDuration: 1000 }));
+            .catch(error => enqueueSnackbar('Tên hóa đơn đã tồn tại', {
+                variant: 'error',
+                autoHideDuration: 800,
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                },
+            }));
     }
 
     const getBill = async () => {

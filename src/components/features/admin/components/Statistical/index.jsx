@@ -154,6 +154,20 @@ function Statistical() {
         setInventory(false);
 
     }
+    function chunk(arr, size) {
+        const result = [];
+        for (let i = 0; i < arr.length; i += size) {
+            result.push(arr.slice(i, i + size));
+        }
+        return result;
+    }
+
+    const dataChunksUserDetail = chunk(userDetailStatistical, 8);
+    const dataChunks = chunk(userDetail, 8);
+    console.log('test data chunks', dataChunks)
+    console.log('test data dataChunksUserDetail', dataChunksUserDetail)
+
+
     return (
         <Box
             sx={{
@@ -216,44 +230,54 @@ function Statistical() {
 
             </div>
 
-            {day === null && month === null && year === null && everyYear === false && quantitySell === false && inventory === true ? (<>  <BarChart
-                width={1500}
-                height={500}
-                data={userDetail}
-                margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5
-                }}
-            >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="id_sp" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="tong_so_luong_kho" stackId="a" barSize={20} fill="#8884d8" />
-            </BarChart></>) : ('')}
+            {day === null && month === null && year === null && everyYear === false && quantitySell === false && inventory === true ? (
+                <>
+                    {dataChunks.map((chartData, index) => (
+                        <BarChart
+                            key={index}
+                            width={1500}
+                            height={500}
+                            data={chartData}
+                            margin={{
+                                top: 5,
+                                right: 30,
+                                left: 20,
+                                bottom: 5
+                            }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="ten_sp" />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <Bar dataKey="tong_so_luong_kho" stackId="a" barSize={40} fill="#8884d8" />
+                        </BarChart>
+                    ))}
+                </>
+            ) : ('')}
 
 
-            {day === null && month === null && year === null && everyYear === false && quantitySell === true ? (<>  <BarChart
-                width={1500}
-                height={500}
-                data={userDetailStatistical}
-                margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5
-                }}
-            >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="ten_sp" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="tong_so_luong_ban" stackId="a" barSize={20} fill="#8884d8" />
-            </BarChart></>) : ('')}
+            {day === null && month === null && year === null && everyYear === false && quantitySell === true ? (<>
+                {dataChunksUserDetail.map((chartData, index) => (
+                    <BarChart
+                        width={1500}
+                        height={500}
+                        data={chartData}
+                        margin={{
+                            top: 5,
+                            right: 30,
+                            left: 20,
+                            bottom: 5
+                        }}
+                        key={index}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="ten_sp" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="tong_so_luong_ban" stackId="a" barSize={40} fill="#8884d8" />
+                    </BarChart>))}</>) : ('')}
 
 
 
@@ -270,11 +294,11 @@ function Statistical() {
             >
 
                 <CartesianGrid strokeDasharray="3 3" />
+
                 <XAxis dataKey="ngay_lap_hd_dat" />
-                <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="tong_tien_lai" stackId="a" barSize={20} fill="#8884d8" />
+                <Bar dataKey="tong_tien_lai" stackId="a" barSize={40} fill="#8884d8" />
             </BarChart></>) : ('')}
 
 
@@ -297,7 +321,7 @@ function Statistical() {
                     <Legend />
                     <Tooltip />
 
-                    <Bar dataKey="tong_tien_lai" stackId="a" barSize={20} fill="#8884d8" />
+                    <Bar dataKey="tong_tien_lai" stackId="a" barSize={40} fill="#8884d8" />
                 </BarChart></>) : ('')}
 
 
@@ -320,7 +344,7 @@ function Statistical() {
                 <Legend />
                 <Tooltip />
 
-                <Bar dataKey="tong_tien_lai" stackId="a" barSize={20} fill="#8884d8" />
+                <Bar dataKey="tong_tien_lai" stackId="a" barSize={40} fill="#8884d8" />
             </BarChart>
             </>) : ('')}
 
